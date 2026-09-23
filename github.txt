@@ -1,0 +1,30 @@
+
+pull main về:
+
+git add .-> git commit -m ""->git checkout main->pull origin main ->checkout khanh->merge main
+
+
+push lên test: ví dụ:
+git branch
+
+git add .
+git commit -m "manage tour"
+
+git checkout main
+
+git pull origin main
+
+git checkout Hieeus
+
+git merge main
+git push origin HIeeus
+
+checkout test
+
+pull origin test
+git merge Hieeus
+
+git push origin test
+
+git checkout Hieeus
+
