@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật trạng thái học tập - Hệ Thống Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #0757A6; --primary-dark: #063B75; --primary-light: #CFE6FF;
+            --text-dark: #102A43; --text-gray: #5E7184; --text-light: #E7F2FE;
+            --bg-light: #F5F8FC; --bg-white: #FFFFFF; --border: #DCE8F3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+
+        /* Header & Sidebar */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 0 64px; height: 64px; background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); z-index: 100; }
+        .sys-identity { display: flex; align-items: center; gap: 16px; }
+        .emblem { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; }
+        .brand-copy { display: flex; flex-direction: column; gap: 2px; }
+        .brand-copy .uni { font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--text-gray); }
+        .brand-copy .sys-name { font-weight: 700; font-size: 18px; color: var(--primary); }
+        
+        .dashboard-layout { display: flex; height: calc(100vh - 64px); }
+        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 8px; }
+        .menu-group-title { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; padding: 12px 24px 4px; }
+        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: var(--text-gray); font-weight: 500; font-size: 14px; cursor: pointer; text-decoration: none; border-left: 3px solid transparent; }
+        .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
+        .sidebar-item.active { background: #EAF4FF; color: var(--primary); border-left: 3px solid var(--primary); font-weight: 600; }
+
+        .dashboard-content { flex: 1; padding: 32px; overflow-y: auto; display: flex; justify-content: center; }
+        
+        .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 32px; width: 100%; max-width: 600px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); }
+        
+        .page-title { font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
+        
+        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-primary:disabled { background: #CBD5E1; cursor: not-allowed; }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-gray); margin-bottom: 8px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
+        .form-group input:disabled, .form-group select:disabled { background: #F1F5F9; color: #94A3B8; cursor: not-allowed; }
+
+        /* Student Profile Card */
+        .profile-summary { background: #F8FAFC; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 24px; display: none; }
+        .profile-summary.active { display: block; }
+        .profile-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .profile-name { font-size: 16px; font-weight: 600; }
+        .profile-id { font-size: 13px; color: var(--text-gray); }
+        .status-badge { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; display: inline-flex; }
+        
+        /* Alert Message */
+        .alert { background: #FEF2F2; border: 1px solid #FCA5A5; color: #DC2626; padding: 12px 16px; border-radius: 8px; display: flex; align-items: flex-start; gap: 12px; font-size: 14px; margin-bottom: 20px; display: none; }
+        .alert.active { display: flex; }
+            .user-profile { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; border: 1px solid transparent; }
+        .user-profile:hover { background: #F8FAFC; border-color: var(--border); }
+        .avatar { width: 36px; height: 36px; border-radius: 50%; background: #EAF4FF; color: var(--primary); display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px; position: relative; overflow: hidden; }
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+            .user-profile { display: flex !important; align-items: center !important; gap: 12px !important; cursor: pointer !important; padding: 6px 12px !important; border-radius: 8px !important; transition: background 0.2s !important; border: 1px solid transparent !important; }
+        .user-profile:hover { background: #F8FAFC !important; border-color: var(--border) !important; }
+        .avatar { width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #EAF4FF !important; color: var(--primary) !important; display: flex !important; justify-content: center !important; align-items: center !important; font-weight: 600 !important; font-size: 14px !important; position: relative !important; overflow: hidden !important; }
+        .user-info { display: flex !important; flex-direction: column !important; text-align: right !important; }
+        .user-info .name { font-size: 14px !important; font-weight: 600 !important; color: var(--text-dark) !important; }
+        .user-info .role { font-size: 12px !important; color: var(--text-gray) !important; }
+            .sidebar { flex-shrink: 0 !important; overflow-y: auto !important; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    </style>
+</head>
+
+<body>
+        <header class="header">
+        <a href="UC00_TongQuan.html" class="sys-identity" style="text-decoration: none; color: inherit;">
+            <div class="emblem"><i data-lucide="book-open"></i></div>
+            <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='../Chung/UC13_QuanLyProfile.html'" style="cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; border: 1px solid transparent;" onmouseover="this.style.background='#F8FAFC'; this.style.borderColor='var(--border)';" onmouseout="this.style.background='transparent'; this.style.borderColor='transparent';">
+            <div class="user-info">
+                <span class="name">Nguyễn Văn A</span>
+                <span class="role">Cán bộ quản nhiệm</span>
+            </div>
+            <div class="avatar">A</div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="menu-group-title">Menu Chính</div>
+            <a href="UC00_TongQuan.html" class="sidebar-item">
+                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+            </a>
+            <div class="menu-group-title">Tuyển Sinh</div>
+            <a href="UC01_DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="20"></i> Danh sách trúng tuyển
+            </a>
+            <a href="UC02_TiepNhanHoSo.html" class="sidebar-item">
+                <i data-lucide="folder-plus" size="20"></i> Tiếp nhận hồ sơ
+            </a>
+            <div class="menu-group-title">Sinh Viên</div>
+            <a href="UC04_PhanBoLop.html" class="sidebar-item">
+                <i data-lucide="network" size="20"></i> Phân bổ lớp
+            </a>
+            <a href="UC03_CapNhatTrangThai.html" class="sidebar-item active">
+                <i data-lucide="user-cog" size="20"></i> Cập nhật trạng thái
+            </a>
+            <div class="menu-group-title">Đào Tạo</div>
+            <a href="UC05_QuanLyDanhMuc.html" class="sidebar-item">
+                <i data-lucide="server" size="20"></i> Quản lý danh mục
+            </a>
+            <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="20"></i> Chương trình học
+            </a>
+                        <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item">
+                <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
+            </a>
+            <div class="menu-group-title">Tài Chính</div>
+            <a href="UC09_LichSuGiaoDich.html" class="sidebar-item">
+                <i data-lucide="receipt" size="20"></i> Lịch sử giao dịch
+            </a>
+        </aside>
+
+        <main class="dashboard-content">
+            <div class="card">
+                <h1 class="page-title"><i data-lucide="user-cog" color="var(--primary)"></i> Cập nhật trạng thái học tập</h1>
+                
+                <div class="form-group" style="display: flex; gap: 12px; align-items: flex-end;">
+                    <div style="flex: 1;">
+                        <label>Tìm kiếm sinh viên (Nhập Mã SV)</label>
+                        <input type="text" id="searchId" placeholder="VD: HE19201...">
+                    </div>
+                    <button class="btn btn-outline" onclick="searchStudent()" style="height: 43px;">
+                        <i data-lucide="search" size="18"></i> Tìm
+                    </button>
+                </div>
+
+                <!-- Profile Found -->
+                <div id="profileSummary" class="profile-summary">
+                    <div class="profile-header">
+                        <div>
+                            <div class="profile-name">Trần Thị Bích</div>
+                            <div class="profile-id">HE19201 • Lớp SE1901</div>
+                        </div>
+                        <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại: Đang học</span>
+                    </div>
+                    
+                    <div style="font-size: 13px; color: var(--text-gray); display: flex; align-items: center; gap: 24px; margin-top: 8px;">
+                        <span><i data-lucide="credit-card" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Đã đóng đủ</span>
+                        <span><i data-lucide="library" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Sách: Đã mượn (0)</span>
+                    </div>
+                </div>
+
+                <!-- Alert for Debt (Luồng ngoại lệ) -->
+                <div id="debtAlert" class="alert">
+                    <i data-lucide="alert-triangle" size="20" style="margin-top: 2px;"></i>
+                    <div>
+                        <strong>Cảnh báo: Sinh viên đang nợ phí!</strong><br>
+                        Hệ thống chặn cập nhật trạng thái "Bảo lưu" hoặc "Thôi học" cho đến khi hoàn tất nghĩa vụ tài chính.
+                    </div>
+                </div>
+
+                <!-- Update Form -->
+                <div id="updateForm" style="opacity: 0.5; pointer-events: none;">
+                    <div class="form-group">
+                        <label>Trạng thái mới</label>
+                        <select id="newStatus" onchange="checkRules()">
+                            <option value="">-- Chọn trạng thái --</option>
+                            <option value="baoluu">Bảo lưu</option>
+                            <option value="thoihoc">Thôi học</option>
+                            <option value="totnghiep">Tốt nghiệp</option>
+                            <option value="dinhchi">Đình chỉ</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Lý do / Số Quyết định</label>
+                        <textarea id="reason" rows="3" placeholder="Nhập lý do thay đổi hoặc mã số quyết định đi kèm..."></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; margin-top: 32px;">
+                        <button class="btn btn-outline" style="flex: 1; justify-content: center;" onclick="resetForm()">Làm mới</button>
+                        <button class="btn btn-primary" id="submitBtn" style="flex: 2; justify-content: center;" onclick="submitUpdate()">Xác nhận cập nhật hệ thống</button>
+                    </div>
+                </div>
+
+                <!-- Simulate Exception Trigger -->
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--border); text-align: center;">
+                    <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 8px;">Dành cho Test: Click nút dưới đây để giả lập Luồng ngoại lệ 3a (SV nợ phí)</p>
+                    <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px; margin: 0 auto;" onclick="simulateDebt()">
+                        Giả lập tìm thấy SV nợ phí
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        let isDebt = false;
+
+        function searchStudent() {
+            const id = document.getElementById('searchId').value;
+            if (!id) { alert("Vui lòng nhập mã SV!"); return; }
+            
+            isDebt = false;
+            document.getElementById('debtAlert').classList.remove('active');
+            
+            // Show Normal Profile
+            document.getElementById('profileSummary').classList.add('active');
+            
+            // Enable Form
+            document.getElementById('updateForm').style.opacity = '1';
+            document.getElementById('updateForm').style.pointerEvents = 'auto';
+            document.getElementById('submitBtn').disabled = false;
+        }
+
+        function simulateDebt() {
+            document.getElementById('searchId').value = 'HE19999';
+            isDebt = true;
+            
+            // Show Debt Profile
+            const profile = document.getElementById('profileSummary');
+            profile.innerHTML = `
+                <div class="profile-header">
+                    <div>
+                        <div class="profile-name">Vương Đình Nợ</div>
+                        <div class="profile-id">HE19999 • Lớp SE1903</div>
+                    </div>
+                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại: Đang học</span>
+                </div>
+                <div style="font-size: 13px; color: #DC2626; display: flex; align-items: center; gap: 24px; margin-top: 8px; font-weight: 600;">
+                    <span><i data-lucide="credit-card" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Nợ 5.000.000 VNĐ</span>
+                </div>
+            `;
+            profile.classList.add('active');
+            
+            // Enable Form
+            document.getElementById('updateForm').style.opacity = '1';
+            document.getElementById('updateForm').style.pointerEvents = 'auto';
+            checkRules();
+        }
+
+        function checkRules() {
+            const status = document.getElementById('newStatus').value;
+            const alertBox = document.getElementById('debtAlert');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (isDebt && (status === 'baoluu' || status === 'thoihoc')) {
+                alertBox.classList.add('active');
+                submitBtn.disabled = true;
+            } else {
+                alertBox.classList.remove('active');
+                submitBtn.disabled = false;
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('searchId').value = '';
+            document.getElementById('newStatus').value = '';
+            document.getElementById('reason').value = '';
+            document.getElementById('profileSummary').classList.remove('active');
+            document.getElementById('debtAlert').classList.remove('active');
+            document.getElementById('updateForm').style.opacity = '0.5';
+            document.getElementById('updateForm').style.pointerEvents = 'none';
+        }
+
+        function submitUpdate() {
+            const status = document.getElementById('newStatus').value;
+            if(!status) { alert('Vui lòng chọn trạng thái mới!'); return; }
+            alert('Cập nhật thành công! Trạng thái sinh viên đã được thay đổi, quyền truy cập hệ thống đã được đồng bộ, và sinh viên đã được gỡ khỏi lớp hiện tại.');
+            resetForm();
+        }
+    </script>
+</body>
+</html>

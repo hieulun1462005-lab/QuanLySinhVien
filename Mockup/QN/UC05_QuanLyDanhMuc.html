@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Danh mục - Hệ Thống Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #0757A6;
+            --primary-dark: #063B75;
+            --primary-light: #CFE6FF;
+            --text-dark: #102A43;
+            --text-gray: #5E7184;
+            --bg-light: #F5F8FC;
+            --bg-white: #FFFFFF;
+            --border: #DCE8F3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+
+        /* Dashboard Header */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 0 64px; height: 64px; background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); z-index: 100; }
+        .sys-identity { display: flex; align-items: center; gap: 16px; }
+        .emblem { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; }
+        .brand-copy { display: flex; flex-direction: column; gap: 2px; }
+        .brand-copy .uni { font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--text-gray); }
+        .brand-copy .sys-name { font-weight: 700; font-size: 18px; color: var(--primary); }
+        
+        .user-profile { display: flex; align-items: center; gap: 12px; }
+        .avatar { width: 36px; height: 36px; border-radius: 50%; background: #EAF4FF; color: var(--primary); display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px; }
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+
+        /* Layout */
+        .dashboard-layout { display: flex; height: calc(100vh - 64px); }
+        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+        .menu-group-title { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; padding: 12px 24px 4px; letter-spacing: 0.5px; }
+        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: var(--text-gray); font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; text-decoration: none; }
+        .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
+        .sidebar-item.active { background: #EAF4FF; color: var(--primary); border-left: 3px solid var(--primary); font-weight: 600; }
+        
+        .dashboard-content { flex: 1; padding: 32px; overflow-y: auto; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .page-title { font-size: 24px; font-weight: 700; color: var(--text-dark); }
+
+        /* Card & Tabs */
+        .card { background: white; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-bottom: 24px; overflow: hidden; }
+        .tabs { display: flex; border-bottom: 1px solid var(--border); background: #F8FAFC; }
+        .tab { padding: 16px 24px; font-weight: 600; font-size: 14px; color: var(--text-gray); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); background: white; }
+        .tab:hover:not(.active) { color: var(--text-dark); background: #f1f5f9; }
+        
+        /* Table */
+        .table-toolbar { display: flex; justify-content: space-between; padding: 16px 24px; align-items: center; border-bottom: 1px solid var(--border); }
+        .search-input { height: 38px; padding: 0 12px; border: 1px solid var(--border); border-radius: 6px; outline: none; width: 300px; font-size: 14px; }
+        .search-input:focus { border-color: var(--primary); }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th { text-align: left; padding: 14px 24px; font-size: 13px; font-weight: 600; color: var(--text-gray); border-bottom: 1px solid var(--border); background: white; text-transform: uppercase; }
+        .table td { padding: 14px 24px; font-size: 14px; color: var(--text-dark); border-bottom: 1px solid var(--border); }
+        .table tbody tr:hover { background: #F8FAFC; }
+        
+        /* Buttons */
+        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s; border: none; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        
+        .action-btns { display: flex; gap: 8px; justify-content: flex-end; }
+        .btn-icon { width: 32px; height: 32px; border-radius: 6px; border: none; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; background: transparent; }
+        .btn-edit { color: #059669; } .btn-edit:hover { background: #D1FAE5; }
+        .btn-delete { color: #DC2626; } .btn-delete:hover { background: #FEE2E2; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 1000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
+        .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .modal { background: white; width: 650px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; transform: translateY(20px); opacity: 0; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .modal-overlay.active .modal { transform: translateY(0); opacity: 1; }
+        
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 18px; font-weight: 700; color: var(--text-dark); }
+        .modal-close { cursor: pointer; color: var(--text-gray); transition: color 0.2s; }
+        .modal-close:hover { color: var(--text-dark); }
+        .modal-body { padding: 24px; max-height: calc(100vh - 200px); overflow-y: auto; }
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); background: #F8FAFC; display: flex; justify-content: flex-end; gap: 12px; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        .form-group.full-width { grid-column: span 2; }
+        .form-label { font-size: 13px; font-weight: 600; color: var(--text-gray); }
+        .form-control { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; outline: none; }
+        .form-control:focus { border-color: var(--primary); }
+
+        /* Tags for Prerequisites */
+        .tags-input { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px; border: 1px solid var(--border); border-radius: 8px; min-height: 42px; }
+        .tag { background: #EAF4FF; color: var(--primary); padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+        .tag i { cursor: pointer; }
+
+        .alert { background: #FEF2F2; border-left: 4px solid #DC2626; padding: 16px; margin-bottom: 20px; border-radius: 4px; display: none; align-items: center; gap: 12px; }
+        .alert.active { display: flex; }
+        .alert-text { color: #991B1B; font-size: 14px; font-weight: 500; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+            .user-profile { display: flex !important; align-items: center !important; gap: 12px !important; cursor: pointer !important; padding: 6px 12px !important; border-radius: 8px !important; transition: background 0.2s !important; border: 1px solid transparent !important; }
+        .user-profile:hover { background: #F8FAFC !important; border-color: var(--border) !important; }
+        .avatar { width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #EAF4FF !important; color: var(--primary) !important; display: flex !important; justify-content: center !important; align-items: center !important; font-weight: 600 !important; font-size: 14px !important; position: relative !important; overflow: hidden !important; }
+        .user-info { display: flex !important; flex-direction: column !important; text-align: right !important; }
+        .user-info .name { font-size: 14px !important; font-weight: 600 !important; color: var(--text-dark) !important; }
+        .user-info .role { font-size: 12px !important; color: var(--text-gray) !important; }
+            .sidebar { flex-shrink: 0 !important; overflow-y: auto !important; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    </style>
+</head>
+<body>
+        <header class="header">
+        <a href="UC00_TongQuan.html" class="sys-identity" style="text-decoration: none; color: inherit;">
+            <div class="emblem"><i data-lucide="book-open"></i></div>
+            <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='../Chung/UC13_QuanLyProfile.html'" style="cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; border: 1px solid transparent;" onmouseover="this.style.background='#F8FAFC'; this.style.borderColor='var(--border)';" onmouseout="this.style.background='transparent'; this.style.borderColor='transparent';">
+            <div class="user-info">
+                <span class="name">Nguyễn Văn A</span>
+                <span class="role">Cán bộ quản nhiệm</span>
+            </div>
+            <div class="avatar">A</div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="menu-group-title">Menu Chính</div>
+            <a href="UC00_TongQuan.html" class="sidebar-item">
+                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+            </a>
+            <div class="menu-group-title">Tuyển Sinh</div>
+            <a href="UC01_DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="20"></i> Danh sách trúng tuyển
+            </a>
+            <a href="UC02_TiepNhanHoSo.html" class="sidebar-item">
+                <i data-lucide="folder-plus" size="20"></i> Tiếp nhận hồ sơ
+            </a>
+            <div class="menu-group-title">Sinh Viên</div>
+            <a href="UC04_PhanBoLop.html" class="sidebar-item">
+                <i data-lucide="network" size="20"></i> Phân bổ lớp
+            </a>
+            <a href="UC03_CapNhatTrangThai.html" class="sidebar-item">
+                <i data-lucide="user-cog" size="20"></i> Cập nhật trạng thái
+            </a>
+            <div class="menu-group-title">Đào Tạo</div>
+            <a href="UC05_QuanLyDanhMuc.html" class="sidebar-item active">
+                <i data-lucide="server" size="20"></i> Quản lý danh mục
+            </a>
+            <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="20"></i> Chương trình học
+            </a>
+                        <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item">
+                <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
+            </a>
+            <div class="menu-group-title">Tài Chính</div>
+            <a href="UC09_LichSuGiaoDich.html" class="sidebar-item">
+                <i data-lucide="receipt" size="20"></i> Lịch sử giao dịch
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <div class="page-header">
+                <h1 class="page-title">Quản lý Danh mục</h1>
+            </div>
+
+            <div class="card">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('lecturer', this)">Giảng viên</div>
+                    <div class="tab" onclick="switchTab('major', this)">Chuyên ngành</div>
+                    <div class="tab" onclick="switchTab('subject', this)">Môn học</div>
+                </div>
+
+                <!-- LECTURER TAB -->
+                <div id="tab-lecturer" class="tab-content active">
+                    <div class="alert" id="fkAlert" style="margin: 16px 24px;">
+                        <i data-lucide="alert-triangle" color="#DC2626"></i>
+                        <span class="alert-text">Không thể xóa! Dữ liệu giảng viên đang được sử dụng trong Thời khóa biểu.</span>
+                    </div>
+
+                    <div class="table-toolbar">
+                        <input type="text" placeholder="Tìm kiếm giảng viên..." class="search-input">
+                        <button class="btn btn-primary" onclick="openModal('lecturerModal')"><i data-lucide="plus" size="16"></i> Thêm giảng viên</button>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Mã GV</th>
+                                <th>Họ và Tên</th>
+                                <th>Khoa/Bộ môn</th>
+                                <th>Email</th>
+                                <th>SĐT</th>
+                                <th style="text-align: right;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lecturerTableBody">
+                            <tr>
+                                <td>GV001</td>
+                                <td style="font-weight: 500;">TS. Nguyễn Văn Hùng</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>hungnv@onenet.edu.vn</td>
+                                <td>0988123456</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
+                                        <button class="btn-icon btn-delete" onclick="showError('fkAlert')"><i data-lucide="trash-2" size="18"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>GV002</td>
+                                <td style="font-weight: 500;">ThS. Trần Thị Mai</td>
+                                <td>Kinh tế</td>
+                                <td>maitt@onenet.edu.vn</td>
+                                <td>0909123456</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
+                                        <button class="btn-icon btn-delete" onclick="showError('fkAlert')"><i data-lucide="trash-2" size="18"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- MAJOR TAB -->
+                <div id="tab-major" class="tab-content">
+                    <div class="table-toolbar">
+                        <input type="text" placeholder="Tìm kiếm chuyên ngành..." class="search-input">
+                        <button class="btn btn-primary" onclick="openModal('majorModal')"><i data-lucide="plus" size="16"></i> Thêm chuyên ngành</button>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Mã CN</th>
+                                <th>Tên chuyên ngành</th>
+                                <th>Mô tả</th>
+                                <th style="text-align: right;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="majorTableBody">
+                            <tr>
+                                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">SE</span></td>
+                                <td style="font-weight: 500;">Kỹ thuật phần mềm (Software Engineering)</td>
+                                <td>Đào tạo kỹ sư phát triển phần mềm chuyên nghiệp</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
+                                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">AI</span></td>
+                                <td style="font-weight: 500;">Trí tuệ nhân tạo (Artificial Intelligence)</td>
+                                <td>Nghiên cứu ứng dụng AI, Machine Learning</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
+                                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- SUBJECT TAB -->
+                <div id="tab-subject" class="tab-content">
+                    <div class="table-toolbar">
+                        <input type="text" placeholder="Tìm kiếm môn học..." class="search-input">
+                        <button class="btn btn-primary" onclick="openModal('subjectModal')"><i data-lucide="plus" size="16"></i> Tạo môn học</button>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Mã môn</th>
+                                <th>Tên môn học</th>
+                                <th>Tín chỉ</th>
+                                <th>Thuộc ngành</th>
+                                <th style="text-align: right;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjectTableBody">
+                            <tr>
+                                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">PRF192</span></td>
+                                <td style="font-weight: 500;">Programming Fundamentals</td>
+                                <td>3</td>
+                                <td>SE, AI</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
+                                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">PRO192</span></td>
+                                <td style="font-weight: 500;">Object-Oriented Programming</td>
+                                <td>3</td>
+                                <td>SE, AI</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
+                                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal LECTURER -->
+    <div class="modal-overlay" id="lecturerModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Thêm mới Giảng viên</h3>
+                <i data-lucide="x" size="20" class="modal-close" onclick="closeModal('lecturerModal')"></i>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Mã Giảng viên</label>
+                    <input type="text" id="gvCode" class="form-control" placeholder="VD: GV003">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Họ và Tên</label>
+                    <input type="text" id="gvName" class="form-control" placeholder="Nguyễn Văn A">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Khoa / Bộ môn</label>
+                    <select id="gvDept" class="form-control">
+                        <option>Công nghệ thông tin</option>
+                        <option>Kinh tế</option>
+                        <option>Ngôn ngữ Anh</option>
+                    </select>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="gvEmail" class="form-control" placeholder="email@onenet.edu.vn">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Số điện thoại</label>
+                        <input type="text" id="gvPhone" class="form-control" placeholder="09xxxxxxxxx">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" style="background: white; border: 1px solid var(--border); color: var(--text-dark);" onclick="closeModal('lecturerModal')">Hủy</button>
+                <button class="btn btn-primary" onclick="saveLecturer()">Lưu giảng viên</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal MAJOR -->
+    <div class="modal-overlay" id="majorModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Thêm chuyên ngành mới</h3>
+                <i data-lucide="x" size="20" class="modal-close" onclick="closeModal('majorModal')"></i>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Mã chuyên ngành <span style="color:red">*</span></label>
+                    <input type="text" id="majorCode" class="form-control" placeholder="Ví dụ: SE, AI, IB...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tên chuyên ngành <span style="color:red">*</span></label>
+                    <input type="text" id="majorName" class="form-control" placeholder="Ví dụ: Kỹ thuật phần mềm">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mô tả thêm</label>
+                    <input type="text" id="majorDesc" class="form-control" placeholder="...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" style="background: white; border: 1px solid var(--border); color: var(--text-dark);" onclick="closeModal('majorModal')">Hủy bỏ</button>
+                <button class="btn btn-primary" onclick="saveMajor()"><i data-lucide="save" size="16"></i> Lưu chuyên ngành</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal SUBJECT -->
+    <div class="modal-overlay" id="subjectModal">
+        <div class="modal" style="width: 700px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="subjectModalTitle">Thêm môn học mới</h3>
+                <i data-lucide="x" size="20" class="modal-close" onclick="closeModal('subjectModal')"></i>
+            </div>
+            <div class="modal-body">
+                <div class="alert" id="deadlockAlert">
+                    <i data-lucide="alert-triangle" color="#DC2626"></i>
+                    <div class="alert-text">
+                        <strong>Phát hiện Deadlock tiên quyết!</strong><br>
+                        Môn <span id="alertSubjCode"></span> không thể lấy <span id="alertPreCode"></span> làm môn tiên quyết vì <span id="alertPreCode"></span> đang yêu cầu <span id="alertSubjCode"></span>.
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Thuộc chuyên ngành <span style="color:red">*</span></label>
+                        <select class="form-control" id="formMajor">
+                            <option value="SE">Kỹ thuật phần mềm (Software Engineering)</option>
+                            <option value="AI">Trí tuệ nhân tạo (Artificial Intelligence)</option>
+                            <option value="IB">Kinh doanh quốc tế (International Business)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Học kỳ <span style="color:red">*</span></label>
+                        <select class="form-control" id="formSemester">
+                            <option value="1">Học kỳ 1</option>
+                            <option value="2">Học kỳ 2</option>
+                            <option value="3">Học kỳ 3</option>
+                            <option value="4">Học kỳ 4</option>
+                            <option value="5">Học kỳ 5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Mã môn học <span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="formSubjCode" placeholder="VD: PRO192">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tên môn học <span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="formSubjName" placeholder="Tên môn học...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Số tín chỉ <span style="color:red">*</span></label>
+                        <input type="number" class="form-control" id="formCredits" value="3">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tổng số Slot <span style="color:red">*</span></label>
+                        <input type="number" class="form-control" id="formSlots" value="30">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label">Môn tiên quyết (Prerequisites)</label>
+                        <div class="tags-input" id="formPreTags">
+                            <div class="tag" id="demoTag" style="display: none;"><span>PRF192</span> <i data-lucide="x" size="14"></i></div>
+                            <input type="text" id="preInput" placeholder="Gõ mã môn và nhấn Enter..." style="border: none; outline: none; flex: 1; min-width: 150px; background: transparent;">
+                        </div>
+                        <p style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Hệ thống tự động kiểm tra vòng lặp tiên quyết (Deadlock).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" style="background: white; border: 1px solid var(--border); color: var(--text-dark);" onclick="closeModal('subjectModal')">Hủy bỏ</button>
+                <button class="btn btn-primary" onclick="saveSubject()"><i data-lucide="save" size="16"></i> Lưu môn học</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function switchTab(tabId, element) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+
+        function openModal(id) { 
+            document.getElementById(id).classList.add('active'); 
+        }
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+        }
+        
+        function showError(id) {
+            const alertBox = document.getElementById(id);
+            alertBox.classList.add('active');
+            setTimeout(() => { alertBox.classList.remove('active'); }, 4000);
+        }
+
+        // Handle enter on tags input for demo
+        document.getElementById('preInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && this.value.trim() !== '') {
+                e.preventDefault();
+                const demoTag = document.getElementById('demoTag');
+                demoTag.style.display = 'flex';
+                demoTag.querySelector('span').innerText = this.value.trim().toUpperCase();
+                this.value = '';
+                lucide.createIcons();
+            }
+        });
+
+        // Dummy saves to reflect in UI
+        function saveLecturer() {
+            const code = document.getElementById('gvCode').value || 'GV999';
+            const name = document.getElementById('gvName').value || 'Giảng viên mới';
+            const dept = document.getElementById('gvDept').value || 'Khoa Mới';
+            const email = document.getElementById('gvEmail').value || 'new@onenet.edu.vn';
+            const phone = document.getElementById('gvPhone').value || '09xxxxxxxx';
+
+            const tbody = document.getElementById('lecturerTableBody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${code}</td>
+                <td style="font-weight: 500;">${name}</td>
+                <td>${dept}</td>
+                <td>${email}</td>
+                <td>${phone}</td>
+                <td>
+                    <div class="action-btns">
+                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
+                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+            lucide.createIcons();
+            closeModal('lecturerModal');
+        }
+
+        function saveMajor() {
+            const code = document.getElementById('majorCode').value || 'NEW';
+            const name = document.getElementById('majorName').value || 'Chuyên ngành mới';
+            const desc = document.getElementById('majorDesc').value || '...';
+            
+            const tbody = document.getElementById('majorTableBody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">${code}</span></td>
+                <td style="font-weight: 500;">${name}</td>
+                <td>${desc}</td>
+                <td>
+                    <div class="action-btns">
+                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
+                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+            lucide.createIcons();
+            closeModal('majorModal');
+        }
+
+        function saveSubject() {
+            const code = document.getElementById('formSubjCode').value || 'NEW101';
+            const name = document.getElementById('formSubjName').value || 'Môn học mới';
+            const credits = document.getElementById('formCredits').value || '3';
+            const major = document.getElementById('formMajor').value || 'SE';
+            
+            // Check deadlock logic demo
+            const demoTag = document.getElementById('demoTag');
+            if (demoTag.style.display !== 'none') {
+                const preCode = demoTag.querySelector('span').innerText;
+                if (code === 'PRF192' && preCode === 'PRO192') {
+                    document.getElementById('alertSubjCode').innerText = code;
+                    document.getElementById('alertPreCode').innerText = preCode;
+                    document.getElementById('alertSubjCode').nextElementSibling.innerText = preCode;
+                    document.getElementById('alertPreCode').nextElementSibling.innerText = code;
+
+                    const alertBox = document.getElementById('deadlockAlert');
+                    alertBox.classList.add('active');
+                    return; // Stop saving
+                }
+            }
+
+            const tbody = document.getElementById('subjectTableBody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">${code}</span></td>
+                <td style="font-weight: 500;">${name}</td>
+                <td>${credits}</td>
+                <td>${major}</td>
+                <td>
+                    <div class="action-btns">
+                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
+                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+            lucide.createIcons();
+            closeModal('subjectModal');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách trúng tuyển - Hệ Thống Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Base styles from Login.html */
+        :root {
+            --primary: #0757A6;
+            --primary-dark: #063B75;
+            --primary-light: #CFE6FF;
+            --text-dark: #102A43;
+            --text-gray: #5E7184;
+            --text-light: #E7F2FE;
+            --bg-light: #F5F8FC;
+            --bg-white: #FFFFFF;
+            --border: #DCE8F3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Dashboard Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 64px;
+            height: 64px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .emblem {
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-copy .uni {
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        .brand-copy .sys-name {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #EAF4FF;
+            color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-info .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .user-info .role {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            padding: 12px 24px 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover {
+            background: #F8FAFC;
+            color: var(--primary);
+        }
+
+        .sidebar-item.active {
+            background: #EAF4FF;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            font-weight: 600;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Table Styles */
+        .table-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .table th {
+            text-align: left;
+            padding: 14px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            border-bottom: 1px solid var(--border);
+            background: #F8FAFC;
+        }
+
+        .table td {
+            padding: 14px 20px;
+            font-size: 14px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table tbody tr:hover {
+            background: #F8FAFC;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+        }
+
+        .status-empty {
+            background: #F1F5F9;
+            color: #64748B;
+        }
+            .user-profile { display: flex !important; align-items: center !important; gap: 12px !important; cursor: pointer !important; padding: 6px 12px !important; border-radius: 8px !important; transition: background 0.2s !important; border: 1px solid transparent !important; }
+        .user-profile:hover { background: #F8FAFC !important; border-color: var(--border) !important; }
+        .avatar { width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #EAF4FF !important; color: var(--primary) !important; display: flex !important; justify-content: center !important; align-items: center !important; font-weight: 600 !important; font-size: 14px !important; position: relative !important; overflow: hidden !important; }
+        .user-info { display: flex !important; flex-direction: column !important; text-align: right !important; }
+        .user-info .name { font-size: 14px !important; font-weight: 600 !important; color: var(--text-dark) !important; }
+        .user-info .role { font-size: 12px !important; color: var(--text-gray) !important; }
+            .sidebar { flex-shrink: 0 !important; overflow-y: auto !important; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    </style>
+</head>
+
+<body>
+    <!-- Dashboard Header -->
+        <header class="header">
+        <a href="UC00_TongQuan.html" class="sys-identity" style="text-decoration: none; color: inherit;">
+            <div class="emblem"><i data-lucide="book-open"></i></div>
+            <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='../Chung/UC13_QuanLyProfile.html'" style="cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; border: 1px solid transparent;" onmouseover="this.style.background='#F8FAFC'; this.style.borderColor='var(--border)';" onmouseout="this.style.background='transparent'; this.style.borderColor='transparent';">
+            <div class="user-info">
+                <span class="name">Nguyễn Văn A</span>
+                <span class="role">Cán bộ quản nhiệm</span>
+            </div>
+            <div class="avatar">A</div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="menu-group-title">Menu Chính</div>
+            <a href="UC00_TongQuan.html" class="sidebar-item">
+                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+            </a>
+            <div class="menu-group-title">Tuyển Sinh</div>
+            <a href="UC01_DanhSachTrungTuyen.html" class="sidebar-item active">
+                <i data-lucide="users" size="20"></i> Danh sách trúng tuyển
+            </a>
+            <a href="UC02_TiepNhanHoSo.html" class="sidebar-item">
+                <i data-lucide="folder-plus" size="20"></i> Tiếp nhận hồ sơ
+            </a>
+            <div class="menu-group-title">Sinh Viên</div>
+            <a href="UC04_PhanBoLop.html" class="sidebar-item">
+                <i data-lucide="network" size="20"></i> Phân bổ lớp
+            </a>
+            <a href="UC03_CapNhatTrangThai.html" class="sidebar-item">
+                <i data-lucide="user-cog" size="20"></i> Cập nhật trạng thái
+            </a>
+            <div class="menu-group-title">Đào Tạo</div>
+            <a href="UC05_QuanLyDanhMuc.html" class="sidebar-item">
+                <i data-lucide="server" size="20"></i> Quản lý danh mục
+            </a>
+            <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="20"></i> Chương trình học
+            </a>
+                        <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item">
+                <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
+            </a>
+            <div class="menu-group-title">Tài Chính</div>
+            <a href="UC09_LichSuGiaoDich.html" class="sidebar-item">
+                <i data-lucide="receipt" size="20"></i> Lịch sử giao dịch
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <div class="page-header">
+                <h1 class="page-title">Danh sách trúng tuyển</h1>
+                <div class="header-actions">
+                    <input type="file" id="excelFileInput" accept=".xlsx, .xls, .csv" style="display: none;"
+                        onchange="handleExcelImport(event)">
+                    <button class="btn btn-primary" onclick="document.getElementById('excelFileInput').click()">
+                        <i data-lucide="file-spreadsheet" size="18"></i>
+                        Import danh sách từ Excel
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="table-toolbar">
+                    <div style="display: flex; gap: 12px; align-items: center; width: 300px;">
+                        <input type="text" placeholder="Tìm kiếm theo tên..."
+                            style="flex: 1; height: 38px; padding: 0 12px; border: 1px solid var(--border); border-radius: 6px; outline: none;">
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;"><input type="checkbox"></th>
+                            <th>Mã trúng tuyển</th>
+                            <th>Họ và Tên</th>
+                            <th>Ngày sinh</th>
+                            <th>Chuyên ngành</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentList">
+                        <!-- Default empty state -->
+                        <tr id="emptyState">
+                            <td colspan="6" style="text-align: center; padding: 60px 0; color: var(--text-gray);">
+                                <i data-lucide="inbox" size="48" style="opacity: 0.3; margin-bottom: 12px;"></i><br>
+                                Chưa có dữ liệu.<br>Vui lòng chọn <b>Import danh sách từ Excel</b> để thêm sinh viên
+                                trúng tuyển.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function handleExcelImport(event) {
+            const file = event.target.files[0];
+            if (file) {
+                setTimeout(() => {
+                    document.getElementById('emptyState').style.display = 'none';
+
+                    const tbody = document.getElementById('studentList');
+                    tbody.innerHTML = `
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>TT-24001</td>
+                            <td>Nguyễn Văn Minh</td>
+                            <td>15/10/2005</td>
+                            <td>Kỹ thuật phần mềm (HE)</td>
+                            <td><span class="status-badge status-empty">Chưa làm thủ tục</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>TT-24002</td>
+                            <td>Lê Thị Hoa</td>
+                            <td>20/03/2005</td>
+                            <td>Quản trị kinh doanh (HS)</td>
+                            <td><span class="status-badge status-empty">Chưa làm thủ tục</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>TT-24003</td>
+                            <td>Trần Đức Toàn</td>
+                            <td>05/08/2005</td>
+                            <td>Thiết kế đồ họa (HA)</td>
+                            <td><span class="status-badge status-empty">Chưa làm thủ tục</span></td>
+                        </tr>
+                    `;
+
+                    alert('Đã import thành công danh sách trúng tuyển từ: ' + file.name);
+                    event.target.value = '';
+                    lucide.createIcons();
+                }, 500);
+            }
+        }
+    </script>
+</body>
+
+</html>

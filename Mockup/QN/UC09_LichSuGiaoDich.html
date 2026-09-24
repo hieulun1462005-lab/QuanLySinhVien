@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử giao dịch - Hệ Thống Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #0757A6;
+            --primary-dark: #063B75;
+            --primary-light: #CFE6FF;
+            --text-dark: #102A43;
+            --text-gray: #5E7184;
+            --text-light: #E7F2FE;
+            --bg-light: #F5F8FC;
+            --bg-white: #FFFFFF;
+            --border: #DCE8F3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Dashboard Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 64px;
+            height: 64px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .emblem {
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-copy .uni {
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        .brand-copy .sys-name {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            padding: 12px 24px 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover {
+            background: #F8FAFC;
+            color: var(--primary);
+        }
+
+        .sidebar-item.active {
+            background: #EAF4FF;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            font-weight: 600;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Card & Buttons */
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid var(--border);
+            color: var(--text-dark);
+        }
+
+        .btn-outline:hover {
+            background: #F8FAFC;
+        }
+
+        .btn-sm {
+            padding: 6px 10px;
+            font-size: 13px;
+            border-radius: 6px;
+        }
+
+        /* Filter Toolbar */
+        .filter-toolbar {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+
+        .form-control {
+            height: 38px;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            color: var(--text-dark);
+            min-width: 180px;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+        }
+
+        /* Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .table th {
+            text-align: left;
+            padding: 16px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            border-bottom: 1px solid var(--border);
+            background: #F8FAFC;
+            white-space: nowrap;
+        }
+
+        .table td {
+            padding: 16px 20px;
+            font-size: 14px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background: #F8FAFC;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-success {
+            background: #ECFDF5;
+            color: #059669;
+        }
+
+        .status-failed {
+            background: #FEF2F2;
+            color: #DC2626;
+        }
+
+        .status-pending {
+            background: #FFFBEB;
+            color: #D97706;
+        }
+
+        .amount {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .transaction-id {
+            font-family: monospace;
+            color: var(--text-gray);
+            font-size: 13px;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: white;
+        }
+        
+        .page-info {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+        
+        .page-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .page-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: white;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: #F8FAFC;
+        }
+        
+        .page-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .user-profile { display: flex !important; align-items: center !important; gap: 12px !important; cursor: pointer !important; padding: 6px 12px !important; border-radius: 8px !important; transition: background 0.2s !important; border: 1px solid transparent !important; }
+        .user-profile:hover { background: #F8FAFC !important; border-color: var(--border) !important; }
+        .avatar { width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #EAF4FF !important; color: var(--primary) !important; display: flex !important; justify-content: center !important; align-items: center !important; font-weight: 600 !important; font-size: 14px !important; position: relative !important; overflow: hidden !important; }
+        .user-info { display: flex !important; flex-direction: column !important; text-align: right !important; }
+        .user-info .name { font-size: 14px !important; font-weight: 600 !important; color: var(--text-dark) !important; }
+        .user-info .role { font-size: 12px !important; color: var(--text-gray) !important; }
+            .sidebar { flex-shrink: 0 !important; overflow-y: auto !important; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    </style>
+</head>
+
+<body>
+    <!-- Dashboard Header -->
+    <header class="header">
+        <a href="UC00_TongQuan.html" class="sys-identity" style="text-decoration: none; color: inherit;">
+            <div class="emblem"><i data-lucide="book-open"></i></div>
+            <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='../Chung/UC13_QuanLyProfile.html'">
+            <div class="user-info">
+                <span class="name">Nguyễn Văn A</span>
+                <span class="role">Cán bộ quản nhiệm</span>
+            </div>
+            <div class="avatar">A</div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="menu-group-title">Menu Chính</div>
+            <a href="UC00_TongQuan.html" class="sidebar-item">
+                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+            </a>
+            <div class="menu-group-title">Tuyển Sinh</div>
+            <a href="UC01_DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="20"></i> Danh sách trúng tuyển
+            </a>
+            <a href="UC02_TiepNhanHoSo.html" class="sidebar-item">
+                <i data-lucide="folder-plus" size="20"></i> Tiếp nhận hồ sơ
+            </a>
+            <div class="menu-group-title">Sinh Viên</div>
+            <a href="UC04_PhanBoLop.html" class="sidebar-item">
+                <i data-lucide="network" size="20"></i> Phân bổ lớp
+            </a>
+            <a href="UC03_CapNhatTrangThai.html" class="sidebar-item">
+                <i data-lucide="user-cog" size="20"></i> Cập nhật trạng thái
+            </a>
+            <div class="menu-group-title">Đào Tạo</div>
+            <a href="UC05_QuanLyDanhMuc.html" class="sidebar-item">
+                <i data-lucide="server" size="20"></i> Quản lý danh mục
+            </a>
+            <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="20"></i> Chương trình học
+            </a>
+            <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item">
+                <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
+            </a>
+            <div class="menu-group-title">Tài Chính</div>
+            <a href="UC09_LichSuGiaoDich.html" class="sidebar-item active">
+                <i data-lucide="receipt" size="20"></i> Lịch sử giao dịch
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <div class="page-header">
+                <h1 class="page-title"><i data-lucide="receipt" color="var(--primary)"></i> Lịch sử giao dịch</h1>
+            </div>
+
+            <!-- Filters -->
+            <div class="card">
+                <div class="filter-toolbar">
+                    <div class="form-group" style="flex: 1.5;">
+                        <label>Tìm kiếm (Mã GD / Mã SV / Tên)</label>
+                        <div style="position: relative;">
+                            <i data-lucide="search" size="16" style="position: absolute; left: 12px; top: 11px; color: var(--text-gray);"></i>
+                            <input type="text" class="form-control" placeholder="Nhập từ khóa..." style="padding-left: 36px; width: 100%;">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="flex: 1;">
+                        <label>Hạng mục</label>
+                        <select class="form-control" style="width: 100%;">
+                            <option value="all">Tất cả hạng mục</option>
+                            <option value="hocphi">Học phí kỳ</option>
+                            <option value="phihanhchinh">Phí đơn từ/hành chính</option>
+                            <option value="phibaohiem">Phí bảo hiểm Y tế</option>
+                            <option value="phinhaphoc">Phí nhập học</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="flex: 1;">
+                        <label>Trạng thái</label>
+                        <select class="form-control" style="width: 100%;">
+                            <option value="all">Tất cả trạng thái</option>
+                            <option value="success">Thành công</option>
+                            <option value="pending">Chờ xử lý</option>
+                            <option value="failed">Thất bại</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="flex: 1;">
+                        <label>Từ ngày</label>
+                        <input type="date" class="form-control" style="width: 100%;">
+                    </div>
+
+                    <div class="form-group" style="flex: 1;">
+                        <label>Đến ngày</label>
+                        <input type="date" class="form-control" style="width: 100%;">
+                    </div>
+                </div>
+
+                <!-- Transaction Table -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Mã GD</th>
+                            <th>Thông tin sinh viên</th>
+                            <th>Hạng mục phí</th>
+                            <th>Số tiền</th>
+                            <th>Thời gian GD</th>
+                            <th>Phương thức</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Record 1 -->
+                        <tr>
+                            <td><span class="transaction-id">TXN-88192345</span></td>
+                            <td>
+                                <div style="font-weight: 600;">Lê Minh Hoàng</div>
+                                <div style="font-size: 13px; color: var(--text-gray);">HE192005 • Kỹ thuật phần mềm</div>
+                            </td>
+                            <td>Học phí kỳ Fall 2026</td>
+                            <td class="amount">12,500,000 ₫</td>
+                            <td>
+                                <div>24/09/2026</div>
+                                <div style="font-size: 12px; color: var(--text-gray);">14:35:12</div>
+                            </td>
+                            <td>Chuyển khoản VNPAY</td>
+                            <td><span class="status-badge status-success"><i data-lucide="check-circle-2" size="14"></i> Thành công</span></td>
+                            <td>
+                                <button class="btn btn-outline btn-sm" title="Xem chi tiết & In biên lai" onclick="alert('Đang tạo Biên lai điện tử PDF...')">
+                                    <i data-lucide="file-text" size="14"></i> Biên lai
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Record 2 -->
+                        <tr>
+                            <td><span class="transaction-id">TXN-88192342</span></td>
+                            <td>
+                                <div style="font-weight: 600;">Trần Thị Hoa</div>
+                                <div style="font-size: 13px; color: var(--text-gray);">HS193012 • Quản trị kinh doanh</div>
+                            </td>
+                            <td>Phí đơn từ (Xin cấp bảng điểm)</td>
+                            <td class="amount">50,000 ₫</td>
+                            <td>
+                                <div>24/09/2026</div>
+                                <div style="font-size: 12px; color: var(--text-gray);">10:15:00</div>
+                            </td>
+                            <td>Tiền mặt (Tại quầy)</td>
+                            <td><span class="status-badge status-success"><i data-lucide="check-circle-2" size="14"></i> Thành công</span></td>
+                            <td>
+                                <button class="btn btn-outline btn-sm" onclick="alert('Đang tạo Biên lai điện tử PDF...')">
+                                    <i data-lucide="file-text" size="14"></i> Biên lai
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Record 3 -->
+                        <tr>
+                            <td><span class="transaction-id">TXN-88192311</span></td>
+                            <td>
+                                <div style="font-weight: 600;">Nguyễn Khắc Hiếu</div>
+                                <div style="font-size: 13px; color: var(--text-gray);">HE191612 • Kỹ thuật phần mềm</div>
+                            </td>
+                            <td>Bảo hiểm Y tế (1 năm)</td>
+                            <td class="amount">850,500 ₫</td>
+                            <td>
+                                <div>23/09/2026</div>
+                                <div style="font-size: 12px; color: var(--text-gray);">16:45:22</div>
+                            </td>
+                            <td>Thanh toán thẻ VISA</td>
+                            <td><span class="status-badge status-failed"><i data-lucide="x-circle" size="14"></i> Thất bại</span>
+                                <div style="font-size: 11px; color: var(--text-gray); margin-top: 2px;">Lỗi ngân hàng</div>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline btn-sm" disabled style="opacity: 0.5;">
+                                    <i data-lucide="file-text" size="14"></i> Biên lai
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Record 4 -->
+                        <tr>
+                            <td><span class="transaction-id">TXN-88192305</span></td>
+                            <td>
+                                <div style="font-weight: 600;">Phạm Văn Đức</div>
+                                <div style="font-size: 13px; color: var(--text-gray);">HA194021 • Ngôn ngữ Anh</div>
+                            </td>
+                            <td>Phí đơn từ (Giấy xác nhận SV)</td>
+                            <td class="amount">20,000 ₫</td>
+                            <td>
+                                <div>23/09/2026</div>
+                                <div style="font-size: 12px; color: var(--text-gray);">09:12:45</div>
+                            </td>
+                            <td>Chuyển khoản (QR Code)</td>
+                            <td><span class="status-badge status-pending"><i data-lucide="clock" size="14"></i> Chờ xử lý</span></td>
+                            <td>
+                                <button class="btn btn-outline btn-sm" style="color: var(--primary); border-color: var(--primary);" onclick="alert('Xác nhận thành công giao dịch.')">
+                                    <i data-lucide="check" size="14"></i> Duyệt
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <div class="page-info">
+                        Hiển thị 1 - 4 của 1,204 giao dịch
+                    </div>
+                    <div class="page-controls">
+                        <button class="page-btn" disabled><i data-lucide="chevron-left" size="16"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">...</button>
+                        <button class="page-btn">301</button>
+                        <button class="page-btn"><i data-lucide="chevron-right" size="16"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

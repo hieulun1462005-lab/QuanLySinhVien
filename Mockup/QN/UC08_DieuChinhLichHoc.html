@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điều chỉnh lịch học - Hệ Thống Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #0757A6;
+            --primary-dark: #063B75;
+            --primary-light: #CFE6FF;
+            --text-dark: #102A43;
+            --text-gray: #5E7184;
+            --text-light: #E7F2FE;
+            --bg-light: #F5F8FC;
+            --bg-white: #FFFFFF;
+            --border: #DCE8F3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+
+        /* Dashboard Header */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 0 64px; height: 64px; background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); z-index: 100; }
+        .sys-identity { display: flex; align-items: center; gap: 16px; }
+        .emblem { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; }
+        .brand-copy { display: flex; flex-direction: column; gap: 2px; }
+        .brand-copy .uni { font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--text-gray); }
+        .brand-copy .sys-name { font-weight: 700; font-size: 18px; color: var(--primary); }
+        
+        .user-profile { display: flex; align-items: center; gap: 12px; }
+        .avatar { width: 36px; height: 36px; border-radius: 50%; background: #EAF4FF; color: var(--primary); display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px; }
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+
+        /* Layout */
+        .dashboard-layout { display: flex; height: calc(100vh - 64px); }
+        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 8px; }
+        .menu-group-title { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; padding: 12px 24px 4px; letter-spacing: 0.5px; }
+        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: var(--text-gray); font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; text-decoration: none; }
+        .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
+        .sidebar-item.active { background: #EAF4FF; color: var(--primary); border-left: 3px solid var(--primary); font-weight: 600; }
+        
+        .dashboard-content { flex: 1; padding: 32px; overflow-y: auto; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .page-title { font-size: 24px; font-weight: 700; color: var(--text-dark); }
+
+        /* Card & Table */
+        .card { background: white; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-bottom: 24px; overflow: hidden; }
+        .table-toolbar { display: flex; justify-content: space-between; padding: 16px 24px; align-items: center; border-bottom: 1px solid var(--border); background: #F8FAFC; }
+        
+        .table { width: 100%; border-collapse: collapse; }
+        .table th { text-align: left; padding: 14px 24px; font-size: 13px; font-weight: 600; color: var(--text-gray); border-bottom: 1px solid var(--border); background: white; }
+        .table td { padding: 14px 24px; font-size: 14px; color: var(--text-dark); border-bottom: 1px solid var(--border); vertical-align: top; }
+        
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+        .badge-pending { background: #FFF3E0; color: #F57C00; }
+        .badge-approved { background: #E6F4EA; color: #1E8E3E; }
+        .badge-rejected { background: #FEE2E2; color: #DC2626; }
+
+        .btn { padding: 8px 14px; border-radius: 6px; font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: all 0.2s; border: none; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-success { background: #1E8E3E; color: white; }
+        .btn-success:hover { background: #146c2e; }
+        .btn-danger { background: white; border: 1px solid #DC2626; color: #DC2626; }
+        .btn-danger:hover { background: #FEF2F2; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); justify-content: center; align-items: center; z-index: 1000; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; padding: 32px; border-radius: 12px; width: 450px; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text-gray); margin-bottom: 8px; }
+        .form-control { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; outline: none; }
+        .alert-modal { background: #FEF2F2; color: #991B1B; padding: 12px; border-radius: 6px; font-size: 13px; margin-bottom: 16px; border-left: 3px solid #DC2626; display: none; }
+            .user-profile { display: flex !important; align-items: center !important; gap: 12px !important; cursor: pointer !important; padding: 6px 12px !important; border-radius: 8px !important; transition: background 0.2s !important; border: 1px solid transparent !important; }
+        .user-profile:hover { background: #F8FAFC !important; border-color: var(--border) !important; }
+        .avatar { width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #EAF4FF !important; color: var(--primary) !important; display: flex !important; justify-content: center !important; align-items: center !important; font-weight: 600 !important; font-size: 14px !important; position: relative !important; overflow: hidden !important; }
+        .user-info { display: flex !important; flex-direction: column !important; text-align: right !important; }
+        .user-info .name { font-size: 14px !important; font-weight: 600 !important; color: var(--text-dark) !important; }
+        .user-info .role { font-size: 12px !important; color: var(--text-gray) !important; }
+            .sidebar { flex-shrink: 0 !important; overflow-y: auto !important; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    </style>
+</head>
+<body>
+        <header class="header">
+        <a href="UC00_TongQuan.html" class="sys-identity" style="text-decoration: none; color: inherit;">
+            <div class="emblem"><i data-lucide="book-open"></i></div>
+            <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='../Chung/UC13_QuanLyProfile.html'" style="cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; border: 1px solid transparent;" onmouseover="this.style.background='#F8FAFC'; this.style.borderColor='var(--border)';" onmouseout="this.style.background='transparent'; this.style.borderColor='transparent';">
+            <div class="user-info">
+                <span class="name">Nguyễn Văn A</span>
+                <span class="role">Cán bộ quản nhiệm</span>
+            </div>
+            <div class="avatar">A</div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="menu-group-title">Menu Chính</div>
+            <a href="UC00_TongQuan.html" class="sidebar-item">
+                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+            </a>
+            <div class="menu-group-title">Tuyển Sinh</div>
+            <a href="UC01_DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="20"></i> Danh sách trúng tuyển
+            </a>
+            <a href="UC02_TiepNhanHoSo.html" class="sidebar-item">
+                <i data-lucide="folder-plus" size="20"></i> Tiếp nhận hồ sơ
+            </a>
+            <div class="menu-group-title">Sinh Viên</div>
+            <a href="UC04_PhanBoLop.html" class="sidebar-item">
+                <i data-lucide="network" size="20"></i> Phân bổ lớp
+            </a>
+            <a href="UC03_CapNhatTrangThai.html" class="sidebar-item">
+                <i data-lucide="user-cog" size="20"></i> Cập nhật trạng thái
+            </a>
+            <div class="menu-group-title">Đào Tạo</div>
+            <a href="UC05_QuanLyDanhMuc.html" class="sidebar-item">
+                <i data-lucide="server" size="20"></i> Quản lý danh mục
+            </a>
+            <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="20"></i> Chương trình học
+            </a>
+            <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item active">
+                <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
+            </a>
+            <div class="menu-group-title">Tài Chính</div>
+            <a href="UC09_LichSuGiaoDich.html" class="sidebar-item">
+                <i data-lucide="receipt" size="20"></i> Lịch sử giao dịch
+            </a>
+        </aside>
+
+        <main class="dashboard-content">
+            <div class="page-header">
+                <h1 class="page-title">Quản lý Yêu cầu Báo nghỉ & Lịch bù</h1>
+                <button class="btn btn-primary" onclick="openModal()"><i data-lucide="plus" size="16"></i> Tạo yêu cầu báo nghỉ</button>
+            </div>
+
+            <div class="card">
+                <div class="table-toolbar">
+                    <h3 style="font-size: 16px;">Danh sách yêu cầu (Kỳ Fall 2024)</h3>
+                    <select style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
+                        <option>Chờ duyệt</option>
+                        <option>Tất cả</option>
+                    </select>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Giảng viên</th>
+                            <th>Thông tin Lịch nghỉ</th>
+                            <th>Đề xuất Lịch bù</th>
+                            <th>Trạng thái</th>
+                            <th style="text-align: right;">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>TS. Nguyễn Văn Hùng</strong><br><span style="color:var(--text-gray); font-size: 13px;">GV001</span></td>
+                            <td>Lớp: SE1901 - PRO192<br>Ngày: 10/09/2024 (Slot 2)<br>Lý do: Bận đi công tác</td>
+                            <td>Ngày: 14/09/2024 (Slot 5)<br>Phòng: Cần xếp phòng</td>
+                            <td><span class="badge badge-pending">Chờ duyệt</span></td>
+                            <td style="text-align: right; gap: 8px;">
+                                <button class="btn btn-success" onclick="approveReq(this)"><i data-lucide="check" size="14"></i> Duyệt</button>
+                                <button class="btn btn-danger"><i data-lucide="x" size="14"></i> Từ chối</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>ThS. Trần Thị Mai</strong><br><span style="color:var(--text-gray); font-size: 13px;">GV002</span></td>
+                            <td>Lớp: HS1901 - ECO111<br>Ngày: 05/09/2024 (Slot 4)<br>Lý do: Ốm đột xuất</td>
+                            <td>Ngày: 08/09/2024 (Slot 1)<br>Phòng: AL-102</td>
+                            <td><span class="badge badge-approved">Đã duyệt</span></td>
+                            <td style="text-align: right;">
+                                <span style="font-size: 13px; color: var(--text-gray);">Đã cập nhật TKB</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Tạo Yêu Cầu -->
+    <div class="modal" id="createModal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 20px;">Tạo yêu cầu báo nghỉ</h3>
+            
+            <div class="alert-modal" id="timeAlert">
+                <strong>Lỗi quy tắc (BR-011):</strong> Không thể báo nghỉ! Thời gian hiện tại cách thời điểm bắt đầu Slot ít hơn 12 giờ. Vui lòng liên hệ trực tiếp Quản nhiệm.
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Chọn Slot muốn báo nghỉ</label>
+                <select class="form-control">
+                    <option>SE1901 - PRO192 (Slot 2 - 12/09/2024)</option>
+                    <option>SE1903 - PRO192 (Slot 4 - 12/09/2024)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Ngày/Slot bù đề xuất</label>
+                <input type="datetime-local" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Lý do nghỉ</label>
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+                <button class="btn" style="background: white; border: 1px solid var(--border);" onclick="closeModal()">Hủy</button>
+                <button class="btn btn-primary" onclick="simulateError()">Gửi yêu cầu</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function openModal() { document.getElementById('createModal').classList.add('active'); }
+        function closeModal() { document.getElementById('createModal').classList.remove('active'); document.getElementById('timeAlert').style.display = 'none'; }
+        
+        function simulateError() {
+            document.getElementById('timeAlert').style.display = 'block';
+        }
+
+        function approveReq(btn) {
+            btn.parentElement.innerHTML = '<span style="font-size: 13px; color: var(--text-gray);"><i data-lucide="check-circle-2" size="14" style="color:#1E8E3E"></i> Đã đồng bộ Email & TKB</span>';
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

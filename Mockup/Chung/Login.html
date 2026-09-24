@@ -630,6 +630,10 @@
             font-size: 12px;
             color: var(--text-gray);
         }
+            .sidebar { flex-shrink: 0 !important; overflow-y: auto !important; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
     </style>
 </head>
 
@@ -661,7 +665,7 @@
                         quản lý.</p>
                 </div>
 
-                <form class="login-form" onsubmit="event.preventDefault(); alert('Đăng nhập thành công! (Minh họa)'); location.reload();">
+                <form class="login-form" onsubmit="event.preventDefault(); alert('Đăng nhập thành công! (Minh họa)'); window.location.href = '../QN/UC00_TongQuan.html';">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                         <div class="form-field">
                             <div class="form-input">
@@ -728,7 +732,7 @@
                         <hr style="flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.15);">
                     </div>
 
-                    <button type="button" onclick="alert('Đăng nhập Google thành công! (Minh họa)'); location.reload();"
+                    <button type="button" onclick="alert('Đăng nhập Google thành công! (Minh họa)'); window.location.href = '../QN/UC00_TongQuan.html';"
                         style="display: flex; justify-content: center; align-items: center; gap: 12px; height: 42px; background: white; color: var(--text-dark); border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
                         onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'"
                         onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
