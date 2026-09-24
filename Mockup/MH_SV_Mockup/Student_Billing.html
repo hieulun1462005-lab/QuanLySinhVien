@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Thông Tin Sinh Viên - Đại Học ONENET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-light: #EFF6FF;
+            --primary-hover: #1D4ED8;
+            --text-dark: #1E293B;
+            --text-gray: #64748B;
+            --bg-light: #F8FAFC;
+            --border: #E2E8F0;
+            --danger: #EF4444;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .emblem {
+            width: 40px; height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .brand-copy {
+            display: flex; flex-direction: column;
+        }
+
+        .uni { font-size: 11px; font-weight: 700; color: var(--text-gray); letter-spacing: 0.5px; }
+        .sys-name { font-size: 16px; font-weight: 700; color: var(--primary); }
+
+        .user-profile {
+            display: flex; align-items: center; gap: 16px;
+        }
+
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+
+        .avatar {
+            width: 40px; height: 40px;
+            background: #F3E8FD; color: #8E24AA;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 16px;
+        }
+
+        /* DASHBOARD LAYOUT */
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex; flex-direction: column; gap: 24px;
+            overflow-y: auto;
+        }
+
+        .menu-group { display: flex; flex-direction: column; gap: 8px; }
+        .menu-title {
+            font-size: 11px; font-weight: 700; color: var(--text-gray);
+            letter-spacing: 0.5px; margin-left: 12px; margin-bottom: 4px;
+        }
+
+        .menu-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 12px; border-radius: 8px;
+            color: var(--text-gray); font-size: 14px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s;
+        }
+
+        .menu-item:hover { background: var(--bg-light); color: var(--primary); }
+        .menu-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+
+        .main-content {
+            flex: 1; padding: 32px 40px; overflow-y: auto;
+        }
+
+        .page-title {
+            font-size: 24px; font-weight: 700; margin-bottom: 24px;
+        }
+
+        .content-section {
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* CARDS */
+        .card {
+            background: white; border: 1px solid var(--border);
+            border-radius: 12px; padding: 24px; margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .card-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+        }
+        .card-title { font-size: 16px; font-weight: 600; }
+
+        /* BUTTONS */
+        .btn {
+            padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; border: none;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); }
+        .btn-outline:hover { background: #F8FAFC; }
+        
+        .badge {
+            padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+        }
+        .badge-success { background: #E6F4EA; color: #1E8E3E; }
+        .badge-danger { background: #FCE8E6; color: #D32F2F; }
+        .badge-warning { background: #FFF3E0; color: #F57C00; }
+        .badge-primary { background: #EAF4FF; color: var(--primary); }
+
+        /* TABLES */
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 12px; font-size: 13px; font-weight: 600; color: var(--text-gray); border-bottom: 1px solid var(--border); background: #F8FAFC; }
+        td { padding: 12px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        tr:hover td { background: #F8FAFC; }
+
+        /* TOAST */
+        .toast-container { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 2000; }
+        .toast { background: white; border-left: 4px solid var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 16px 20px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transform: translateX(120%); animation: slideIn 0.3s forwards; }
+        .toast.success { border-left-color: var(--success); }
+        @keyframes slideIn { to { transform: translateX(0); } }
+        .toast.hide { animation: slideOut 0.3s forwards; }
+        @keyframes slideOut { to { transform: translateX(120%); opacity: 0; } }
+
+    </style>
+</head>
+<body>
+
+        <header class="header">
+        <div class="sys-identity" onclick="window.location.href='Login.html'">
+            <div class="emblem">
+                <i data-lucide="book-open" size="20"></i>
+            </div>
+            <div class="brand-copy">
+                <span class="uni">TRƯỜNG</span>
+                <span class="sys-name">Đại Học ONENET</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="user-info">
+                <span class="name">Trần Văn Học</span>
+                <span class="role">Sinh viên (K19)</span>
+            </div>
+            <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
+                H
+            </div>
+        </div>
+    </header>
+
+
+    <div class="dashboard-container">
+                                        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="menu-group">
+                <div class="menu-title">HỌC TẬP</div>
+                <div class="menu-item " onclick="window.location.href='Student_Dashboard.html'">
+                    <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_Timetable.html'">
+                    <i data-lucide="calendar" size="18"></i> Thời khóa biểu
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_Attendance.html'">
+                    <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_ExamSchedule.html'">
+                    <i data-lucide="clock" size="18"></i> Lịch thi
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_Grades.html'">
+                    <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
+                <div class="menu-item " onclick="window.location.href='Student_Requests.html'">
+                    <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
+                </div>
+                <div class="menu-item active" onclick="window.location.href='Student_Billing.html'">
+                    <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
+                </div>
+            </div>
+        </div>
+
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <h1 class="page-title">Hóa đơn & Thanh toán</h1>
+            <div class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Hóa đơn & Thanh toán</div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Kỳ học</th>
+                                <th>Nội dung thu</th>
+                                <th>Số tiền</th>
+                                <th>Hạn nộp</th>
+                                <th>Trạng thái</th>
+                                <th style="text-align: right;">Thanh toán qua Gateway</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>FA26</td>
+                                <td>Học phí chính khóa (15 TC)</td>
+                                <td>28,700,000 VNĐ</td>
+                                <td>27/09/2026</td>
+                                <td><span class="badge badge-danger">Chưa nộp</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                                        <button class="btn btn-outline" onclick="showToast('Chuyển hướng cổng VNPay...')">VNPay</button>
+                                        <button class="btn btn-primary" onclick="showToast('Chuyển hướng cổng Momo...')">Momo</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SU26</td>
+                                <td>Lệ phí thi lại (MAD101)</td>
+                                <td>100,000 VNĐ</td>
+                                <td>--</td>
+                                <td><span class="badge badge-success">Đã nộp</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline" disabled>Xem biên lai</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        lucide.createIcons();
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = 'check-circle';
+            if (type === 'warning') icon = 'alert-triangle';
+            if (type === 'danger') icon = 'x-circle';
+
+            toast.innerHTML = `<i data-lucide="${icon}" size="20"></i> <span style="font-size: 14px; font-weight: 500;">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

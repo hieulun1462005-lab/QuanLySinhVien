@@ -166,10 +166,11 @@
         }
 
         .login-title {
-            font-size: 20px;
+            font-size: 30px;
             font-weight: 700;
             color: white;
             line-height: 1.2;
+            text-align: center;
         }
 
         .login-desc {
@@ -652,45 +653,13 @@
         <div class="login-main">
             <div class="login-card">
                 <div class="login-intro">
-                    <div class="sec-badge">
-                        <i data-lucide="shield-check" size="14"></i>
-                        BẢO MẬT HỆ THỐNG
-                    </div>
-                    <h2 class="login-title">Đăng nhập<br>quản lý sinh viên</h2>
-                    <p class="login-desc">Vui lòng nhập thông tin tài khoản đã được cấp để truy cập vào hệ thống
-                        quản lý.</p>
+
+                    <h2 class="login-title">Đăng nhập<br></h2>
+                    <p class="login-desc"></p>
                 </div>
 
-                <form class="login-form" onsubmit="event.preventDefault(); alert('Đăng nhập thành công! (Minh họa)'); location.reload();">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-                        <div class="form-field">
-                            <div class="form-input">
-                                <i data-lucide="users" color="#8794A8"></i>
-                                <select required style="padding-right: 20px;">
-                                    <option value="" disabled selected>Vai trò</option>
-                                    <option value="student">Sinh viên</option>
-                                    <option value="teacher">Giảng viên</option>
-                                    <option value="admin">Quản trị</option>
-                                </select>
-                                <i data-lucide="chevron-down" color="#8794A8" size="16"
-                                    style="pointer-events: none; margin-left: -28px;"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-field">
-                            <div class="form-input">
-                                <i data-lucide="map-pin" color="#8794A8"></i>
-                                <select required style="padding-right: 20px;">
-                                    <option value="" disabled selected>Cơ sở</option>
-                                    <option value="hn">Hà Nội</option>
-                                    <option value="hcm">TP. Hồ Chí Minh</option>
-                                    <option value="dn">Đà Nẵng</option>
-                                    <option value="ct">Cần Thơ</option>
-                                </select>
-                                <i data-lucide="chevron-down" color="#8794A8" size="16"
-                                    style="pointer-events: none; margin-left: -28px;"></i>
-                            </div>
-                        </div>
+                <form class="login-form" onsubmit="event.preventDefault(); window.location.href='Admin.html';">
+                    <div class="form-field" style="margin-bottom: 8px;">
                     </div>
 
                     <div class="form-field">
@@ -722,20 +691,11 @@
                         Đăng nhập
                         <i data-lucide="arrow-right" size="18"></i>
                     </button>
-                    <div style="display: flex; align-items: center; gap: 16px; margin: 8px 0;">
-                        <hr style="flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.15);">
-                        <span style="color: var(--text-light); font-size: 13px;">Hoặc</span>
-                        <hr style="flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.15);">
-                    </div>
 
-                    <button type="button" onclick="alert('Đăng nhập Google thành công! (Minh họa)'); location.reload();"
-                        style="display: flex; justify-content: center; align-items: center; gap: 12px; height: 42px; background: white; color: var(--text-dark); border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
-                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'"
-                        onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google Logo"
-                            style="width: 20px; height: 20px;">
-                        Đăng nhập bằng Google
-                    </button>
+                    <a href="Login.html"
+                        style="display: block; text-align: center; margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 13px; text-decoration: none; transition: color 0.2s;"
+                        onmouseover="this.style.color='#fff'"
+                        onmouseout="this.style.color='rgba(255,255,255,0.7)'">&larr; Quay lại Đăng nhập chung</a>
                 </form>
             </div>
         </div>
