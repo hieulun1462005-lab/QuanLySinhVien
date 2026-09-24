@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Thông Tin Sinh Viên - Đại Học ONENET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-light: #EFF6FF;
+            --primary-hover: #1D4ED8;
+            --text-dark: #1E293B;
+            --text-gray: #64748B;
+            --bg-light: #F8FAFC;
+            --border: #E2E8F0;
+            --danger: #EF4444;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .emblem {
+            width: 40px; height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .brand-copy {
+            display: flex; flex-direction: column;
+        }
+
+        .uni { font-size: 11px; font-weight: 700; color: var(--text-gray); letter-spacing: 0.5px; }
+        .sys-name { font-size: 16px; font-weight: 700; color: var(--primary); }
+
+        .user-profile {
+            display: flex; align-items: center; gap: 16px;
+        }
+
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+
+        .avatar {
+            width: 40px; height: 40px;
+            background: #F3E8FD; color: #8E24AA;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 16px;
+        }
+
+        /* DASHBOARD LAYOUT */
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex; flex-direction: column; gap: 24px;
+            overflow-y: auto;
+        }
+
+        .menu-group { display: flex; flex-direction: column; gap: 8px; }
+        .menu-title {
+            font-size: 11px; font-weight: 700; color: var(--text-gray);
+            letter-spacing: 0.5px; margin-left: 12px; margin-bottom: 4px;
+        }
+
+        .menu-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 12px; border-radius: 8px;
+            color: var(--text-gray); font-size: 14px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s;
+        }
+
+        .menu-item:hover { background: var(--bg-light); color: var(--primary); }
+        .menu-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+
+        .main-content {
+            flex: 1; padding: 32px 40px; overflow-y: auto;
+        }
+
+        .page-title {
+            font-size: 24px; font-weight: 700; margin-bottom: 24px;
+        }
+
+        /* TIMETABLE SPECIFIC */
+        .controls-bar {
+            display: flex; gap: 16px; margin-bottom: 24px;
+            background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border);
+        }
+        .form-select {
+            padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; outline: none;
+        }
+
+        .tt-table {
+            width: 100%; border-collapse: collapse; background: white; font-size: 13px;
+        }
+        .tt-table th {
+            background: #5A83D2; color: white; padding: 10px; font-weight: 600; text-align: center; border: 1px solid white;
+        }
+        .tt-table td {
+            border: 1px solid var(--border); padding: 8px; vertical-align: top; width: 12.5%; height: 100px;
+        }
+        .tt-table td.slot-col {
+            background: #F8FAFC; width: 80px; text-align: center; font-weight: 600; color: var(--text-gray); vertical-align: middle;
+        }
+
+        .tt-block {
+            display: flex; flex-direction: column; gap: 4px;
+        }
+        .tt-course { color: #1E4E8C; font-weight: 600; font-size: 14px; }
+        .tt-btn {
+            background: #F59E0B; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; display: inline-block;
+        }
+        .tt-btn-blue { background: #2563EB; }
+        .tt-room { color: var(--text-dark); }
+        .tt-attended { color: #16A34A; font-weight: 600; }
+        .tt-absent { color: #DC2626; font-weight: 600; }
+        .tt-notyet { color: #DC2626; font-weight: 600; }
+        .tt-time { background: #16A34A; color: white; font-size: 11px; padding: 2px 4px; border-radius: 4px; display: inline-block; width: fit-content;}
+
+    </style>
+</head>
+<body>
+
+        <header class="header">
+        <div class="sys-identity" onclick="window.location.href='Login.html'">
+            <div class="emblem">
+                <i data-lucide="book-open" size="20"></i>
+            </div>
+            <div class="brand-copy">
+                <span class="uni">TRƯỜNG</span>
+                <span class="sys-name">Đại Học ONENET</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="user-info">
+                <span class="name">Trần Văn Học</span>
+                <span class="role">Sinh viên (K19)</span>
+            </div>
+            <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
+                H
+            </div>
+        </div>
+    </header>
+
+
+    <div class="dashboard-container">
+                                        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="menu-group">
+                <div class="menu-title">HỌC TẬP</div>
+                <div class="menu-item " onclick="window.location.href='Student_Dashboard.html'">
+                    <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                </div>
+                <div class="menu-item active" onclick="window.location.href='Student_Timetable.html'">
+                    <i data-lucide="calendar" size="18"></i> Thời khóa biểu
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_Attendance.html'">
+                    <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_ExamSchedule.html'">
+                    <i data-lucide="clock" size="18"></i> Lịch thi
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_Grades.html'">
+                    <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
+                <div class="menu-item " onclick="window.location.href='Student_Requests.html'">
+                    <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_Billing.html'">
+                    <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
+                </div>
+            </div>
+        </div>
+
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <h1 class="page-title">Thời khóa biểu (Timetable)</h1>
+            
+            <div class="controls-bar">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-weight: 600; font-size: 14px;">YEAR</span>
+                    <select class="form-select">
+                        <option selected>2026</option>
+                        <option>2025</option>
+                        <option>2024</option>
+                    </select>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-weight: 600; font-size: 14px;">WEEK</span>
+                    <select class="form-select">
+                        <option>08/06 To 14/06</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                <table class="tt-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px; background: transparent;"></th>
+                            <th>MON<br><span style="font-size: 11px; font-weight: 400;">08/06</span></th>
+                            <th>TUE<br><span style="font-size: 11px; font-weight: 400;">09/06</span></th>
+                            <th>WED<br><span style="font-size: 11px; font-weight: 400;">10/06</span></th>
+                            <th>THU<br><span style="font-size: 11px; font-weight: 400;">11/06</span></th>
+                            <th>FRI<br><span style="font-size: 11px; font-weight: 400;">12/06</span></th>
+                            <th>SAT<br><span style="font-size: 11px; font-weight: 400;">13/06</span></th>
+                            <th>SUN<br><span style="font-size: 11px; font-weight: 400;">14/06</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="slot-col">Slot 1</td>
+                            <td align="center">-</td>
+                            <td align="center">-</td>
+                            <td>
+                                <div class="tt-block">
+                                    <div><span class="tt-course">SWT301</span>- <span class="tt-btn">View Materials</span></div>
+                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
+                                    <div class="tt-attended">(attended)</div>
+                                    <div class="tt-time">(7:30-9:50)</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tt-block">
+                                    <div><span class="tt-course">PRN212</span>- <span class="tt-btn">View Materials</span></div>
+                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
+                                    <div class="tt-attended">(attended)</div>
+                                    <div class="tt-time">(7:30-9:50)</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tt-block">
+                                    <div><span class="tt-course">SWR302</span>- <span class="tt-btn">View Materials</span></div>
+                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
+                                    <div class="tt-absent">(absent)</div>
+                                    <div class="tt-time">(7:30-9:50)</div>
+                                </div>
+                            </td>
+                            <td align="center">-</td>
+                            <td align="center">-</td>
+                        </tr>
+                        <tr>
+                            <td class="slot-col">Slot 2</td>
+                            <td>
+                                <div class="tt-block">
+                                    <div><span class="tt-course">PRN212</span>- <span class="tt-btn">View Materials</span></div>
+                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
+                                    <div class="tt-attended">(attended)</div>
+                                    <div class="tt-time">(10:00-12:20)</div>
+                                </div>
+                            </td>
+                            <td align="center">-</td>
+                            <td>
+                                <div class="tt-block">
+                                    <div><span class="tt-course">SWR302</span>- <span class="tt-btn">View Materials</span></div>
+                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
+                                    <div class="tt-attended">(attended)</div>
+                                    <div class="tt-time">(10:00-12:20)</div>
+                                </div>
+                            </td>
+                            <td align="center">-</td>
+                            <td>
+                                <div class="tt-block">
+                                    <div><span class="tt-course">SWT301</span>- <span class="tt-btn">View Materials</span></div>
+                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
+                                    <div class="tt-attended">(attended)</div>
+                                    <div class="tt-time">(10:00-12:20)</div>
+                                </div>
+                            </td>
+                            <td align="center">-</td>
+                            <td align="center">-</td>
+                        </tr>
+                        <tr>
+                            <td class="slot-col">Slot 3</td>
+                            <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
+                        </tr>
+                        <tr>
+                            <td class="slot-col">Slot 4</td>
+                            <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
+                        </tr>
+                        <tr>
+                            <td class="slot-col">Slot 5</td>
+                            <td>
+                                <div class="tt-block">
+                                    <div><span class="tt-course">ORT101</span>- <span class="tt-btn">View Materials</span></div>
+                                    <div class="tt-room">at Phòng OR_OJT <span class="tt-btn tt-btn-blue">EduNext</span></div>
+                                    <div class="tt-notyet">(Not yet)</div>
+                                    <div class="tt-time">(18:00-20:20)</div>
+                                    <div style="display: flex; align-items: center; gap: 4px; font-size: 16px; margin-top: 4px;"><div style="width: 12px; height: 12px; border-radius: 50%; background: #16A34A;"></div> Online</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tt-block">
+                                    <div><span class="tt-course">ORT101</span>- <span class="tt-btn">View Materials</span></div>
+                                    <div class="tt-room">at Phòng OR_OJT <span class="tt-btn tt-btn-blue">EduNext</span></div>
+                                    <div class="tt-notyet">(Not yet)</div>
+                                    <div class="tt-time">(18:00-20:20)</div>
+                                    <div style="display: flex; align-items: center; gap: 4px; font-size: 16px; margin-top: 4px;"><div style="width: 12px; height: 12px; border-radius: 50%; background: #16A34A;"></div> Online</div>
+                                </div>
+                            </td>
+                            <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
+                        </tr>
+                        <tr>
+                            <td class="slot-col">Slot 6</td>
+                            <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

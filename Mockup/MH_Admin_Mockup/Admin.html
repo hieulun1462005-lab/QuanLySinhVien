@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Trị Hệ Thống - Đại Học ONENET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #0757A6;
+            --primary-dark: #063B75;
+            --primary-light: #CFE6FF;
+            --text-dark: #102A43;
+            --text-gray: #5E7184;
+            --bg-light: #F4F7FA;
+            --border: #E2E8F0;
+            --success: #1E8E3E;
+            --warning: #F57C00;
+            --danger: #D32F2F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* ----- DASHBOARD HEADER ----- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px 0 32px;
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .emblem {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-copy .uni {
+            font-weight: 600;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            letter-spacing: 0.5px;
+        }
+
+        .brand-copy .sys-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-dark);
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #EAF4FF;
+            color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .user-info .name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .user-info .role {
+            font-size: 11px;
+            color: var(--text-gray);
+        }
+
+        /* ----- DASHBOARD LAYOUT ----- */
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding-top: 16px;
+            overflow-y: auto;
+        }
+
+        .menu-group {
+            margin-bottom: 8px;
+        }
+
+        .menu-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            padding: 12px 24px 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: #F8FAFC;
+            color: var(--primary);
+        }
+
+        .menu-item.active {
+            background: #F0F6FF;
+            color: var(--primary);
+            font-weight: 600;
+            border-left: 3px solid var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 32px 40px;
+            overflow-y: auto;
+            background: var(--bg-light);
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-input {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid var(--border);
+            color: var(--text-dark);
+        }
+
+        .btn-outline:hover {
+            background: #F8FAFC;
+        }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 14px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            border-bottom: 1px solid var(--border);
+            background: #F8FAFC;
+        }
+
+        td {
+            padding: 14px 20px;
+            font-size: 14px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #F8FAFC;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-success { background: #E6F4EA; color: #1E8E3E; }
+        .badge-danger { background: #FCE8E6; color: #D32F2F; }
+        .badge-warning { background: #FFF3E0; color: #F57C00; }
+        .badge-primary { background: #EAF4FF; color: var(--primary); }
+        .badge-purple { background: #F3E8FD; color: #8E24AA; }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid var(--border);
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+            border-color: var(--primary-light);
+        }
+        
+        .btn-icon.danger:hover {
+            color: var(--danger);
+            border-color: #FEE2E2;
+            background: #FEF2F2;
+        }
+        
+        .btn-icon.success:hover {
+            color: var(--success);
+            border-color: #DCFCE7;
+            background: #F0FDF4;
+        }
+
+        /* Tool bar / Filters */
+        .filter-bar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            flex: 1;
+            background: white;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        /* Backup Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-info .label {
+            font-size: 13px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .stat-info .val {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: all 0.3s;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background: white;
+            width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-title {
+            font-size: 18px; font-weight: 600;
+        }
+        .modal-body {
+            padding: 24px;
+        }
+        .modal-footer {
+            padding: 16px 24px;
+            background: #F8FAFC;
+            border-top: 1px solid var(--border);
+            display: flex; justify-content: flex-end; gap: 12px;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 24px; right: 24px;
+            display: flex; flex-direction: column; gap: 10px;
+            z-index: 2000;
+        }
+        .toast {
+            background: white;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 16px 20px;
+            border-radius: 8px;
+            display: flex; align-items: center; gap: 12px;
+            transform: translateX(120%);
+            animation: slideIn 0.3s forwards;
+            min-width: 300px;
+        }
+        .toast.success { border-left-color: var(--success); }
+        .toast.warning { border-left-color: var(--warning); }
+        .toast.danger { border-left-color: var(--danger); }
+
+        @keyframes slideIn {
+            to { transform: translateX(0); }
+        }
+        .toast.hide {
+            animation: slideOut 0.3s forwards;
+        }
+        @keyframes slideOut {
+            to { transform: translateX(120%); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- DASHBOARD HEADER -->
+    <header class="header">
+        <div class="sys-identity" onclick="window.location.href='Login.html'">
+            <div class="emblem">
+                <i data-lucide="book-open" size="20"></i>
+            </div>
+            <div class="brand-copy">
+                <span class="uni">TRƯỜNG</span>
+                <span class="sys-name">Đại Học ONENET</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="user-info">
+                <span class="name">Nguyễn Quản Trị</span>
+                <span class="role">Admin Hệ Thống</span>
+            </div>
+            <div class="avatar">
+                N
+            </div>
+        </div>
+    </header>
+
+    <!-- DASHBOARD LAYOUT -->
+    <div class="dashboard-container">
+        
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="menu-group">
+                <div class="menu-title">HỆ THỐNG</div>
+                <div class="menu-item active" onclick="switchMenu('dashboard', this, 'Tổng quan hệ thống')">
+                    <i data-lucide="layout-dashboard" size="18"></i>
+                    Tổng quan
+                </div>
+                <div class="menu-item" onclick="switchMenu('account', this, 'Quản lý tài khoản')">
+                    <i data-lucide="users" size="18"></i>
+                    Quản lý tài khoản
+                </div>
+                <div class="menu-item" onclick="switchMenu('log', this, 'Nhật ký hệ thống')">
+                    <i data-lucide="clock" size="18"></i>
+                    Nhật ký hệ thống
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-title">CƠ SỞ DỮ LIỆU</div>
+                <div class="menu-item" onclick="switchMenu('backup', this, 'Backup & Restore Database')">
+                    <i data-lucide="database" size="18"></i>
+                    Backup & Restore
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <h1 class="page-title" id="pageTitle">Tổng quan hệ thống</h1>
+            
+            <!-- SECTION: TỔNG QUAN -->
+            <div id="section-dashboard" class="content-section active">
+                <div style="margin-bottom: 24px;">
+                    <h2 style="font-size: 20px; font-weight: 700; color: var(--text-dark);">Xin chào, Nguyễn Quản Trị 👋</h2>
+                    <p style="color: var(--text-gray); font-size: 14px;">Dưới đây là tóm tắt tình trạng hoạt động của hệ thống ONENET ngày hôm nay.</p>
+                </div>
+
+                <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+                    <div class="stat-card" style="padding: 20px;">
+                        <div class="stat-icon" style="background: #EAF4FF; color: var(--primary);">
+                            <i data-lucide="users" size="24"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="label">Tổng tài khoản</span>
+                            <span class="val">1,245</span>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="padding: 20px;">
+                        <div class="stat-icon" style="background: #E6F4EA; color: #1E8E3E;">
+                            <i data-lucide="activity" size="24"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="label">Trạng thái máy chủ</span>
+                            <span class="val" style="color: #1E8E3E; font-size: 18px;">Ổn định 99.9%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="padding: 20px;">
+                        <div class="stat-icon" style="background: #FFF3E0; color: #F57C00;">
+                            <i data-lucide="mouse-pointer-click" size="24"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="label">Lượt truy cập (24h)</span>
+                            <span class="val">3,850</span>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="padding: 20px;">
+                        <div class="stat-icon" style="background: #FCE8E6; color: var(--danger);">
+                            <i data-lucide="alert-triangle" size="24"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="label">Cảnh báo bảo mật</span>
+                            <span class="val" style="color: var(--danger);">2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+                    <!-- Biểu đồ -->
+                    <div class="card" style="margin-bottom: 0;">
+                        <div class="card-header">
+                            <div class="card-title">Phân bổ tài khoản</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 8px;">
+                                    <span>Sinh viên</span>
+                                    <span>8,450 (78%)</span>
+                                </div>
+                                <div style="height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;">
+                                    <div style="height: 100%; background: var(--primary); width: 78%; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 8px;">
+                                    <span>Giảng viên</span>
+                                    <span>1,250 (12%)</span>
+                                </div>
+                                <div style="height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;">
+                                    <div style="height: 100%; background: #1E8E3E; width: 12%; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 8px;">
+                                    <span>Nhân viên / Khác</span>
+                                    <span>1,080 (10%)</span>
+                                </div>
+                                <div style="height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;">
+                                    <div style="height: 100%; background: #F57C00; width: 10%; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Truy cập gần đây -->
+                    <div class="card" style="margin-bottom: 0;">
+                        <div class="card-header">
+                            <div class="card-title">Cảnh báo & Chú ý</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="display: flex; gap: 12px; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px dashed var(--border);">
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--danger); margin-top: 6px;"></div>
+                                <div>
+                                    <div style="font-size: 13px; font-weight: 600; color: var(--text-dark);">Đăng nhập sai 5 lần</div>
+                                    <div style="font-size: 12px; color: var(--text-gray);">Tài khoản: GV2015002</div>
+                                    <div style="font-size: 11px; color: var(--text-gray); margin-top: 4px;">10 phút trước</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 12px; align-items: flex-start;">
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--warning); margin-top: 6px;"></div>
+                                <div>
+                                    <div style="font-size: 13px; font-weight: 600; color: var(--text-dark);">Dung lượng DB > 80%</div>
+                                    <div style="font-size: 12px; color: var(--text-gray);">Cần dọn dẹp log file cũ</div>
+                                    <div style="font-size: 11px; color: var(--text-gray); margin-top: 4px;">2 giờ trước</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: TÀI KHOẢN -->
+            <div id="section-account" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Danh sách tài khoản hệ thống</div>
+                        <button class="btn btn-primary" onclick="openAccountModal()">
+                            <i data-lucide="plus" size="16"></i> Thêm tài khoản
+                        </button>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="search-box">
+                            <i data-lucide="search" size="18" color="#8794A8"></i>
+                            <input type="text" id="accSearch" placeholder="Tìm kiếm tên, mã số, email..." oninput="renderAccounts()">
+                        </div>
+                        <select class="form-input" id="accRoleFilter" style="width: 200px;" onchange="renderAccounts()">
+                            <option value="">Tất cả vai trò</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Sinh viên">Sinh viên</option>
+                            <option value="Giảng viên">Giảng viên</option>
+                            <option value="Cán bộ quản nhiệm">Cán bộ quản nhiệm</option>
+                            <option value="Kế toán">Kế toán</option>
+                        </select>
+                        <select class="form-input" id="accStatusFilter" style="width: 150px;" onchange="renderAccounts()">
+                            <option value="">Trạng thái</option>
+                            <option value="Hoạt động">Hoạt động</option>
+                            <option value="Bị khóa">Bị khóa</option>
+                        </select>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Người dùng</th>
+                                    <th>Tên đăng nhập</th>
+                                    <th>Vai trò</th>
+                                    <th>Trạng thái</th>
+                                    <th style="text-align: right;">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="accountTableBody">
+                                <!-- Rendered by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: NHẬT KÝ -->
+            <div id="section-log" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Kiểm soát hoạt động</div>
+                        <button class="btn btn-outline" onclick="showToast('Đã xuất báo cáo CSV thành công!', 'success')">
+                            <i data-lucide="download" size="16"></i> Xuất báo cáo
+                        </button>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="search-box">
+                            <i data-lucide="search" size="18" color="#8794A8"></i>
+                            <input type="text" id="logSearch" placeholder="Tìm kiếm người thao tác..." oninput="renderLogs()">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thời gian</th>
+                                    <th>Người thao tác</th>
+                                    <th>Hành động</th>
+                                    <th>Chi tiết dữ liệu</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logTableBody">
+                                <!-- Rendered by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: BACKUP & RESTORE -->
+            <div id="section-backup" class="content-section">
+                
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #EAF4FF; color: var(--primary);">
+                            <i data-lucide="server" size="24"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="label">Kích thước CSDL hiện tại</span>
+                            <span class="val" id="dbSize">1.2 GB</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #E6F4EA; color: #1E8E3E;">
+                            <i data-lucide="check-circle" size="24"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="label">Lần sao lưu cuối</span>
+                            <span class="val" id="lastBackupTime" style="font-size: 18px;">--/--/----</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #FFF3E0; color: #F57C00;">
+                            <i data-lucide="clock" size="24"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="label">Sao lưu tự động</span>
+                            <span class="val" style="font-size: 18px;">Hàng ngày, 23:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Tạo bản sao lưu mới</div>
+                    </div>
+                    
+                    <div class="form-grid" style="margin-bottom: 24px;">
+                        <div class="form-group">
+                            <label class="form-label">Tên bản sao lưu</label>
+                            <input type="text" id="backupNameInput" class="form-input" value="Backup_Manual_24092026">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tùy chọn sao lưu</label>
+                            <select id="backupTypeInput" class="form-input">
+                                <option value="Full Backup">Sao lưu toàn bộ CSDL (Full Backup)</option>
+                                <option value="Partial">Chỉ sao lưu Dữ liệu sinh viên</option>
+                                <option value="Partial">Chỉ sao lưu Điểm số & Học phần</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px;">
+                        <button class="btn btn-primary" onclick="createBackup()">
+                            <i data-lucide="download-cloud" size="18"></i> Tiến hành sao lưu
+                        </button>
+                        <button class="btn btn-outline" onclick="showToast('Tính năng đang được phát triển.', 'warning')">
+                            <i data-lucide="settings" size="18"></i> Cấu hình tự động
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Lịch sử sao lưu & phục hồi</div>
+                        <button class="btn btn-outline" onclick="document.getElementById('uploadFile').click()">
+                            <i data-lucide="upload-cloud" size="16"></i> Tải lên file backup
+                        </button>
+                        <input type="file" id="uploadFile" style="display: none;" accept=".sql,.bak,.zip" onchange="uploadBackup(this)">
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tên file sao lưu</th>
+                                    <th>Thời gian tạo</th>
+                                    <th>Loại backup</th>
+                                    <th>Kích thước</th>
+                                    <th>Người tạo</th>
+                                    <th style="text-align: right;">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="backupTableBody">
+                                <!-- Rendered by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Tài Khoản -->
+    <div class="modal-overlay" id="accountModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="accountModalTitle">Thêm tài khoản mới</div>
+                <i data-lucide="x" style="cursor: pointer; color: var(--text-gray);" onclick="closeAccountModal()"></i>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="accEditId">
+                <div class="form-group">
+                    <label class="form-label">Tên đăng nhập (Mã SV/GV)</label>
+                    <input type="text" class="form-input" id="accUsername" placeholder="VD: SV2023001" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Họ và tên</label>
+                    <input type="text" class="form-input" id="accName" placeholder="Nhập họ và tên đầy đủ" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="accEmail" placeholder="email@onenet.edu.vn" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Vai trò</label>
+                    <select class="form-input" id="accRole">
+                        <option value="Admin">Admin</option>
+                        <option value="Sinh viên">Sinh viên</option>
+                        <option value="Giảng viên">Giảng viên</option>
+                        <option value="Cán bộ quản nhiệm">Cán bộ quản nhiệm</option>
+                        <option value="Kế toán">Kế toán</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeAccountModal()">Hủy bỏ</button>
+                <button class="btn btn-primary" onclick="saveAccount()">Lưu tài khoản</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xem Chi Tiết Tài Khoản -->
+    <div class="modal-overlay" id="viewAccountModal">
+        <div class="modal-content" style="width: 400px;">
+            <div class="modal-header">
+                <div class="modal-title">Thông tin đăng nhập</div>
+                <i data-lucide="x" style="cursor: pointer; color: var(--text-gray);" onclick="closeViewModal()"></i>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">Người dùng</div>
+                        <div style="font-weight: 600; font-size: 16px;" id="viewName"></div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">Tên đăng nhập (Mã SV/GV)</div>
+                        <div style="font-family: monospace; font-size: 14px; background: #F8FAFC; padding: 8px; border-radius: 6px; border: 1px solid var(--border);" id="viewUsername"></div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">Mật khẩu hiện tại</div>
+                        <div style="font-family: monospace; font-size: 14px; background: #F8FAFC; padding: 8px; border-radius: 6px; border: 1px solid var(--border);" id="viewPassword"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeViewModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Init Lucide Icons
+        function refreshIcons() {
+            lucide.createIcons();
+        }
+        refreshIcons();
+        
+        function switchMenu(sectionId, element, title) {
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('pageTitle').innerText = title;
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.getElementById('section-' + sectionId).classList.add('active');
+        }
+
+        // ================= STATE & DATA =================
+        let accounts = [
+            { username: 'SV2023001', name: 'Trần Văn Học', email: 'tranvanhoc@onenet.edu.vn', role: 'Sinh viên', status: 'Hoạt động', password: 'password123' },
+            { username: 'GV2015002', name: 'Lê Thị Giảng', email: 'lethigiang@onenet.edu.vn', role: 'Giảng viên', status: 'Hoạt động', password: 'password123' },
+            { username: 'KT2018001', name: 'Phạm Tiền Tài', email: 'phamtt@onenet.edu.vn', role: 'Kế toán', status: 'Bị khóa', password: 'password123' },
+            { username: 'QN2020005', name: 'Nguyễn Quản Nhiệm', email: 'nguyenqn@onenet.edu.vn', role: 'Cán bộ quản nhiệm', status: 'Hoạt động', password: 'password123' }
+        ];
+
+        let logs = [
+            { time: '24/09/2026 10:15:30', user: 'Nguyễn Quản Trị', role: 'Admin', action: 'Khóa tài khoản', detail: 'User: KT2018001\nReason: Vi phạm nội quy', badge: 'warning' },
+            { time: '24/09/2026 09:42:11', user: 'Lê Thị Giảng', role: 'Giảng viên', action: 'Cập nhật điểm', detail: 'Student: SV2023001\nSubject: Lập trình Web\nScore: 8.5 -> 9.0', badge: 'success' }
+        ];
+
+        let backups = [
+            { id: 'b1', name: 'Backup_Auto_23092026.sql', time: '23/09/2026 23:00', type: 'Tự động', size: '1.18 GB', creator: 'System' },
+            { id: 'b2', name: 'Backup_Auto_22092026.sql', time: '22/09/2026 23:00', type: 'Tự động', size: '1.15 GB', creator: 'System' },
+            { id: 'b3', name: 'Backup_Manual_BeforeUpdate.sql', time: '20/09/2026 14:30', type: 'Thủ công', size: '1.10 GB', creator: 'Nguyễn Quản Trị' }
+        ];
+
+        // ================= UTILS =================
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = 'check-circle';
+            if (type === 'warning') icon = 'alert-triangle';
+            if (type === 'danger') icon = 'x-circle';
+
+            toast.innerHTML = `<i data-lucide="${icon}" size="20"></i> <span style="font-size: 14px; font-weight: 500;">${message}</span>`;
+            container.appendChild(toast);
+            refreshIcons();
+
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function getCurrentTime() {
+            const now = new Date();
+            const pad = (n) => n.toString().padStart(2, '0');
+            return `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+        }
+
+        function addLog(action, detail, badge = 'primary') {
+            logs.unshift({
+                time: getCurrentTime(),
+                user: 'Nguyễn Quản Trị',
+                role: 'Admin',
+                action: action,
+                detail: detail,
+                badge: badge
+            });
+            renderLogs();
+        }
+
+        function getRoleBadgeColor(role) {
+            switch(role) {
+                case 'Admin': return 'badge-primary';
+                case 'Sinh viên': return 'badge-purple';
+                case 'Giảng viên': return 'badge-primary';
+                case 'Kế toán': return 'badge-warning';
+                case 'Cán bộ quản nhiệm': return 'badge-primary';
+                default: return 'badge-primary';
+            }
+        }
+
+        // ================= ACCOUNT LOGIC =================
+        function renderAccounts() {
+            const tbody = document.getElementById('accountTableBody');
+            const searchText = document.getElementById('accSearch').value.toLowerCase();
+            const roleFilter = document.getElementById('accRoleFilter').value;
+            const statusFilter = document.getElementById('accStatusFilter').value;
+
+            tbody.innerHTML = '';
+            
+            let filtered = accounts.filter(acc => {
+                const matchSearch = acc.name.toLowerCase().includes(searchText) || acc.username.toLowerCase().includes(searchText) || acc.email.toLowerCase().includes(searchText);
+                const matchRole = roleFilter ? acc.role === roleFilter : true;
+                const matchStatus = statusFilter ? acc.status === statusFilter : true;
+                return matchSearch && matchRole && matchStatus;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-gray); padding: 32px;">Không tìm thấy kết quả nào</td></tr>`;
+                return;
+            }
+
+            filtered.forEach(acc => {
+                const statusHtml = acc.status === 'Hoạt động' 
+                    ? `<span class="badge badge-success"><i data-lucide="check-circle" size="12"></i> Hoạt động</span>`
+                    : `<span class="badge badge-danger"><i data-lucide="x-circle" size="12"></i> Bị khóa</span>`;
+
+                const lockBtn = acc.status === 'Hoạt động'
+                    ? `<button class="btn-icon danger" title="Khóa tài khoản" onclick="toggleAccountLock('${acc.username}')"><i data-lucide="lock" size="16"></i></button>`
+                    : `<button class="btn-icon success" title="Mở khóa tài khoản" onclick="toggleAccountLock('${acc.username}')"><i data-lucide="unlock" size="16"></i></button>`;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <div style="font-weight: 600;">${acc.name}</div>
+                        <div style="font-size: 12px; color: var(--text-gray);">${acc.email}</div>
+                    </td>
+                    <td>${acc.username}</td>
+                    <td><span class="badge ${getRoleBadgeColor(acc.role)}">${acc.role}</span></td>
+                    <td>${statusHtml}</td>
+                    <td>
+                        <div class="action-btns" style="justify-content: flex-end;">
+                            <button class="btn-icon" title="Sửa thông tin" onclick="openAccountModal('${acc.username}')"><i data-lucide="edit-2" size="16"></i></button>
+                            <button class="btn-icon" title="Xem mật khẩu" onclick="viewAccount('${acc.username}')"><i data-lucide="eye" size="16"></i></button>
+                            ${lockBtn}
+                            <button class="btn-icon danger" title="Xóa tài khoản" onclick="deleteAccount('${acc.username}')"><i data-lucide="trash-2" size="16"></i></button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            refreshIcons();
+        }
+
+        function openAccountModal(username = null) {
+            document.getElementById('accountModal').classList.add('active');
+            if (username) {
+                document.getElementById('accountModalTitle').innerText = 'Sửa thông tin tài khoản';
+                const acc = accounts.find(a => a.username === username);
+                document.getElementById('accEditId').value = acc.username;
+                document.getElementById('accUsername').value = acc.username;
+                document.getElementById('accUsername').disabled = true;
+                document.getElementById('accName').value = acc.name;
+                document.getElementById('accEmail').value = acc.email;
+                document.getElementById('accRole').value = acc.role;
+            } else {
+                document.getElementById('accountModalTitle').innerText = 'Thêm tài khoản mới';
+                document.getElementById('accEditId').value = '';
+                document.getElementById('accUsername').value = '';
+                document.getElementById('accUsername').disabled = false;
+                document.getElementById('accName').value = '';
+                document.getElementById('accEmail').value = '';
+                document.getElementById('accRole').value = 'Sinh viên';
+            }
+        }
+
+        function closeAccountModal() {
+            document.getElementById('accountModal').classList.remove('active');
+        }
+
+        function saveAccount() {
+            const editId = document.getElementById('accEditId').value;
+            const username = document.getElementById('accUsername').value.trim();
+            const name = document.getElementById('accName').value.trim();
+            const email = document.getElementById('accEmail').value.trim();
+            const role = document.getElementById('accRole').value;
+
+            if (!username || !name || !email) {
+                showToast('Vui lòng điền đầy đủ thông tin!', 'warning');
+                return;
+            }
+
+            if (editId) {
+                const acc = accounts.find(a => a.username === editId);
+                acc.name = name;
+                acc.email = email;
+                acc.role = role;
+                showToast('Cập nhật tài khoản thành công!');
+                addLog('Cập nhật tài khoản', `User: ${editId}\nUpdated Info: ${name} - ${role}`, 'primary');
+            } else {
+                if (accounts.find(a => a.username === username)) {
+                    showToast('Tên đăng nhập (Mã SV/GV) đã tồn tại!', 'danger');
+                    return;
+                }
+                accounts.push({ username, name, email, role, status: 'Hoạt động', password: '123456' });
+                showToast('Thêm tài khoản thành công!');
+                addLog('Thêm tài khoản', `User: ${username}\nName: ${name}\nRole: ${role}`, 'success');
+            }
+
+            closeAccountModal();
+            renderAccounts();
+        }
+
+        function toggleAccountLock(username) {
+            const acc = accounts.find(a => a.username === username);
+            if (acc.status === 'Hoạt động') {
+                if (confirm(`Bạn có chắc muốn KHÓA tài khoản ${username}?`)) {
+                    acc.status = 'Bị khóa';
+                    showToast(`Đã khóa tài khoản ${username}`, 'warning');
+                    addLog('Khóa tài khoản', `User: ${username}\nReason: Khóa bởi Admin`, 'warning');
+                }
+            } else {
+                if (confirm(`Bạn có chắc muốn MỞ KHÓA tài khoản ${username}?`)) {
+                    acc.status = 'Hoạt động';
+                    showToast(`Đã mở khóa tài khoản ${username}`, 'success');
+                    addLog('Mở khóa tài khoản', `User: ${username}`, 'success');
+                }
+            }
+            renderAccounts();
+        }
+
+        function viewAccount(username) {
+            const acc = accounts.find(a => a.username === username);
+            if (acc) {
+                document.getElementById('viewName').innerText = acc.name + ' - ' + acc.role;
+                document.getElementById('viewUsername').innerText = acc.username;
+                document.getElementById('viewPassword').innerText = acc.password || '123456';
+                document.getElementById('viewAccountModal').classList.add('active');
+            }
+        }
+
+        function closeViewModal() {
+            document.getElementById('viewAccountModal').classList.remove('active');
+        }
+
+        function deleteAccount(username) {
+            if (confirm(`Bạn có chắc chắn muốn XÓA VĨNH VIỄN tài khoản ${username}? Hành động này không thể hoàn tác!`)) {
+                const index = accounts.findIndex(a => a.username === username);
+                if (index !== -1) {
+                    accounts.splice(index, 1);
+                    showToast(`Đã xóa tài khoản ${username}`, 'success');
+                    addLog('Xóa tài khoản', `User: ${username}\nDeleted permanently`, 'danger');
+                    renderAccounts();
+                }
+            }
+        }
+
+
+        // ================= LOGS LOGIC =================
+        function renderLogs() {
+            const tbody = document.getElementById('logTableBody');
+            const searchText = document.getElementById('logSearch').value.toLowerCase();
+            
+            tbody.innerHTML = '';
+            
+            let filtered = logs.filter(l => l.user.toLowerCase().includes(searchText) || l.action.toLowerCase().includes(searchText));
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-gray); padding: 32px;">Không có dữ liệu nhật ký</td></tr>`;
+                return;
+            }
+
+            filtered.forEach(log => {
+                const [date, time] = log.time.split(' ');
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="white-space: nowrap;">${date}<br><span style="font-size: 12px; color: var(--text-gray);">${time}</span></td>
+                    <td>${log.user}<br><span style="font-size: 12px; color: var(--text-gray);">${log.role}</span></td>
+                    <td><span class="badge badge-${log.badge}">${log.action}</span></td>
+                    <td style="font-family: monospace; font-size: 12px; color: var(--text-gray); background: #F8FAFC; padding: 8px; border-radius: 4px; white-space: pre-line;">${log.detail}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+
+        // ================= BACKUP LOGIC =================
+        function renderBackups() {
+            const tbody = document.getElementById('backupTableBody');
+            tbody.innerHTML = '';
+            
+            if (backups.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-gray); padding: 32px;">Chưa có bản sao lưu nào</td></tr>`;
+            }
+
+            backups.forEach(b => {
+                const typeBadge = b.type === 'Tự động' ? 'badge-success' : 'badge-primary';
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><div style="font-weight: 600; color: var(--primary);">${b.name}</div></td>
+                    <td>${b.time}</td>
+                    <td><span class="badge ${typeBadge}">${b.type}</span></td>
+                    <td>${b.size}</td>
+                    <td>${b.creator}</td>
+                    <td>
+                        <div class="action-btns" style="justify-content: flex-end;">
+                            <button class="btn-icon" title="Tải xuống" onclick="showToast('Đang chuẩn bị tải xuống...', 'primary')"><i data-lucide="download" size="16"></i></button>
+                            <button class="btn-icon" title="Phục hồi dữ liệu" style="color: var(--warning); border-color: #FFEDD5;" onclick="restoreBackup('${b.id}')"><i data-lucide="refresh-cw" size="16"></i></button>
+                            <button class="btn-icon danger" title="Xóa bản sao lưu" onclick="deleteBackup('${b.id}')"><i data-lucide="trash-2" size="16"></i></button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            refreshIcons();
+            
+            if(backups.length > 0) {
+                document.getElementById('lastBackupTime').innerText = backups[0].time;
+            } else {
+                document.getElementById('lastBackupTime').innerText = '--/--/----';
+            }
+        }
+
+        function createBackup() {
+            const nameInput = document.getElementById('backupNameInput');
+            const typeInput = document.getElementById('backupTypeInput');
+            
+            const name = nameInput.value.trim() || `Backup_Manual_${new Date().getTime()}`;
+            const typeStr = typeInput.value === 'Full Backup' ? 'Full Backup' : 'Partial Backup';
+
+            const newBackup = {
+                id: 'b' + new Date().getTime(),
+                name: name + (name.endsWith('.sql') ? '' : '.sql'),
+                time: getCurrentTime(),
+                type: 'Thủ công',
+                size: (Math.random() * 0.5 + 1).toFixed(2) + ' GB',
+                creator: 'Nguyễn Quản Trị'
+            };
+
+            backups.unshift(newBackup); // Add to top
+            showToast('Đã tạo bản sao lưu dữ liệu mới thành công!', 'success');
+            addLog('Tạo bản sao lưu', `File: ${newBackup.name}\nType: ${typeStr}\nSize: ${newBackup.size}`, 'success');
+            
+            // Auto generate next name suggestion
+            nameInput.value = `Backup_Manual_${new Date().getDate().toString().padStart(2, '0')}${(new Date().getMonth()+1).toString().padStart(2, '0')}${new Date().getFullYear()}_${Math.floor(Math.random()*100)}`;
+            
+            renderBackups();
+        }
+
+        function deleteBackup(id) {
+            if (confirm('Bạn có chắc chắn muốn xóa bản sao lưu này vĩnh viễn?')) {
+                const bIndex = backups.findIndex(b => b.id === id);
+                if (bIndex !== -1) {
+                    const b = backups[bIndex];
+                    backups.splice(bIndex, 1);
+                    showToast('Đã xóa bản sao lưu thành công!', 'success');
+                    addLog('Xóa bản sao lưu', `File: ${b.name}\nDeleted permanently`, 'danger');
+                    renderBackups();
+                }
+            }
+        }
+
+        function restoreBackup(id) {
+            const b = backups.find(b => b.id === id);
+            if (confirm(`CẢNH BÁO: Dữ liệu hiện tại sẽ bị GHI ĐÈ bởi bản sao lưu "${b.name}". Bạn có chắc chắn muốn tiếp tục?`)) {
+                showToast('Hệ thống đang tiến hành phục hồi dữ liệu...', 'warning');
+                addLog('Phục hồi dữ liệu', `Restored from file: ${b.name}`, 'warning');
+                setTimeout(() => {
+                    showToast('Phục hồi dữ liệu thành công!', 'success');
+                }, 1500);
+            }
+        }
+
+        function uploadBackup(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const newBackup = {
+                    id: 'b' + new Date().getTime(),
+                    name: file.name,
+                    time: getCurrentTime(),
+                    type: 'Thủ công (Upload)',
+                    size: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
+                    creator: 'Nguyễn Quản Trị'
+                };
+                backups.unshift(newBackup);
+                showToast(`Đã tải lên file backup: ${file.name}`);
+                addLog('Tải lên backup', `File: ${file.name}\nUploaded manually`, 'primary');
+                renderBackups();
+                input.value = ''; // reset
+            }
+        }
+
+        // ================= INITIALIZE =================
+        renderAccounts();
+        renderLogs();
+        renderBackups();
+
+    </script>
+</body>
+</html>

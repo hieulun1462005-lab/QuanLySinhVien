@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Thông Tin Sinh Viên - Đại Học ONENET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-light: #EFF6FF;
+            --primary-hover: #1D4ED8;
+            --text-dark: #1E293B;
+            --text-gray: #64748B;
+            --bg-light: #F8FAFC;
+            --border: #E2E8F0;
+            --danger: #EF4444;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .emblem {
+            width: 40px; height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .brand-copy {
+            display: flex; flex-direction: column;
+        }
+
+        .uni { font-size: 11px; font-weight: 700; color: var(--text-gray); letter-spacing: 0.5px; }
+        .sys-name { font-size: 16px; font-weight: 700; color: var(--primary); }
+
+        .user-profile {
+            display: flex; align-items: center; gap: 16px;
+        }
+
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+
+        .avatar {
+            width: 40px; height: 40px;
+            background: #F3E8FD; color: #8E24AA;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 16px;
+        }
+
+        /* DASHBOARD LAYOUT */
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex; flex-direction: column; gap: 24px;
+            overflow-y: auto;
+        }
+
+        .menu-group { display: flex; flex-direction: column; gap: 8px; }
+        .menu-title {
+            font-size: 11px; font-weight: 700; color: var(--text-gray);
+            letter-spacing: 0.5px; margin-left: 12px; margin-bottom: 4px;
+        }
+
+        .menu-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 12px; border-radius: 8px;
+            color: var(--text-gray); font-size: 14px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s;
+        }
+
+        .menu-item:hover { background: var(--bg-light); color: var(--primary); }
+        .menu-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+
+        .main-content {
+            flex: 1; padding: 32px 40px; overflow-y: auto;
+        }
+
+        .page-title {
+            font-size: 24px; font-weight: 700; margin-bottom: 24px;
+        }
+
+        /* EXAM SCHEDULE SPECIFIC */
+        .card {
+            background: white; border: 1px solid var(--border);
+            border-radius: 12px; padding: 24px; margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .card-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+        }
+        .card-title { font-size: 16px; font-weight: 600; }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 12px; font-size: 13px; font-weight: 600; color: var(--text-gray); border-bottom: 1px solid var(--border); background: #F8FAFC; }
+        td { padding: 12px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        tr:hover td { background: #F8FAFC; }
+        
+        .badge {
+            padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+        }
+        .badge-primary { background: #EAF4FF; color: var(--primary); }
+        .badge-warning { background: #FFF3E0; color: #F57C00; }
+    </style>
+</head>
+<body>
+
+        <header class="header">
+        <div class="sys-identity" onclick="window.location.href='Login.html'">
+            <div class="emblem">
+                <i data-lucide="book-open" size="20"></i>
+            </div>
+            <div class="brand-copy">
+                <span class="uni">TRƯỜNG</span>
+                <span class="sys-name">Đại Học ONENET</span>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="user-info">
+                <span class="name">Trần Văn Học</span>
+                <span class="role">Sinh viên (K19)</span>
+            </div>
+            <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
+                H
+            </div>
+        </div>
+    </header>
+
+
+    <div class="dashboard-container">
+                                        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="menu-group">
+                <div class="menu-title">HỌC TẬP</div>
+                <div class="menu-item " onclick="window.location.href='Student_Dashboard.html'">
+                    <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_Timetable.html'">
+                    <i data-lucide="calendar" size="18"></i> Thời khóa biểu
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_Attendance.html'">
+                    <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
+                </div>
+                <div class="menu-item active" onclick="window.location.href='Student_ExamSchedule.html'">
+                    <i data-lucide="clock" size="18"></i> Lịch thi
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_Grades.html'">
+                    <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
+                <div class="menu-item " onclick="window.location.href='Student_Requests.html'">
+                    <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
+                </div>
+                <div class="menu-item " onclick="window.location.href='Student_Billing.html'">
+                    <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
+                </div>
+            </div>
+        </div>
+
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <h1 class="page-title">Lịch thi (Exam Schedule)</h1>
+            
+            <div style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; gap: 24px; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <label style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Kỳ học (Term):</label>
+                    <select class="form-select" style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; outline: none; width: 200px;">
+                        <option>Tất cả các kỳ</option>
+                        <option selected>Summer 2026 (Kỳ 6)</option>
+                        <option>Spring 2026 (Kỳ 5)</option>
+                        <option>Fall 2025 (Kỳ 4)</option>
+                        <option>Summer 2025 (Kỳ 3)</option>
+                        <option>Spring 2025 (Kỳ 2)</option>
+                        <option>Fall 2024 (Kỳ 1)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Kỳ Summer 2026 (Hiện tại)</div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>COURSE</th>
+                            <th>EXAM TYPE</th>
+                            <th>ROOM</th>
+                            <th>TIME</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 600; color: var(--primary);">25/08/2026</td>
+                            <td><span style="font-weight: 600; color: #1E4E8C;">PRJ301</span> (Java Web Development)</td>
+                            <td><span class="badge badge-primary">FE (Final Exam)</span></td>
+                            <td>BE-204</td>
+                            <td>07:30 - 09:00</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600; color: var(--primary);">28/08/2026</td>
+                            <td><span style="font-weight: 600; color: #1E4E8C;">DBI202</span> (Database Systems)</td>
+                            <td><span class="badge badge-primary">FE (Final Exam)</span></td>
+                            <td>AL-305</td>
+                            <td>10:00 - 11:30</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600; color: var(--danger);">05/09/2026</td>
+                            <td><span style="font-weight: 600; color: #1E4E8C;">MAD101</span> (Discrete Mathematics)</td>
+                            <td><span class="badge badge-warning">FE2nd (Retake)</span></td>
+                            <td>DE-102</td>
+                            <td>13:30 - 15:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title" style="color: var(--text-gray);">Kỳ Spring 2026</div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>COURSE</th>
+                            <th>EXAM TYPE</th>
+                            <th>ROOM</th>
+                            <th>TIME</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 600; color: var(--text-gray);">15/04/2026</td>
+                            <td><span style="font-weight: 600; color: #1E4E8C;">PRO192</span> (Object-Oriented Programming)</td>
+                            <td><span class="badge badge-primary" style="background: #F1F5F9; color: var(--text-gray);">FE (Final Exam)</span></td>
+                            <td>AL-105</td>
+                            <td>07:30 - 09:00</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600; color: var(--text-gray);">18/04/2026</td>
+                            <td><span style="font-weight: 600; color: #1E4E8C;">CEA201</span> (Computer Organization)</td>
+                            <td><span class="badge badge-primary" style="background: #F1F5F9; color: var(--text-gray);">FE (Final Exam)</span></td>
+                            <td>BE-202</td>
+                            <td>09:30 - 11:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title" style="color: var(--text-gray);">Kỳ Fall 2025</div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>COURSE</th>
+                            <th>EXAM TYPE</th>
+                            <th>ROOM</th>
+                            <th>TIME</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 600; color: var(--text-gray);">12/12/2025</td>
+                            <td><span style="font-weight: 600; color: #1E4E8C;">CSI104</span> (Introduction to Computing)</td>
+                            <td><span class="badge badge-primary" style="background: #F1F5F9; color: var(--text-gray);">FE (Final Exam)</span></td>
+                            <td>AL-303</td>
+                            <td>07:30 - 09:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
