@@ -1,0 +1,22 @@
+
+Luồng 1 login
+Login
+
+luồng 2 nhập hồ sơ sinh viên<của quản nhiệm>
+- màn nhập hồ sơ<các ô nhập thông tin, nút xác nhận>
+- và thông báo xác nhận
+- hiện thị ra list danh chuyên ngành
+-khi bấm vào 1 chuyên ngành hiển thị danh sách học sinh được sắp mã kì HE19,He20
+và có nút cập nhật trạng thái và phân lớp, 2 cái này sẽ sổ ra 
+
+luông 3 đào tạo
+
+Luồng màn hình 
+1.Login
+a) Với Admin
+- chỉ có đăng nhập tài khoản,mật khẩu
+b)User
+- chỉ có đăng nhập tài khoản,mật khẩu,google
+
+2) Luồng của QN
+- 
