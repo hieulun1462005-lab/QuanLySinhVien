@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý điểm số - Hệ Thống Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #0757A6; --primary-dark: #063B75; --primary-light: #CFE6FF;
+            --text-dark: #102A43; --text-gray: #5E7184; --bg-light: #F5F8FC; --border: #DCE8F3;
+            --success: #10B981; --warning: #F59E0B; --danger: #EF4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 0 64px; height: 64px; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 100; }
+        .sys-identity { display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit; }
+        .emblem { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; }
+        .brand-copy { display: flex; flex-direction: column; gap: 2px; }
+        .brand-copy .uni { font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--text-gray); }
+        .brand-copy .sys-name { font-weight: 700; font-size: 18px; color: var(--primary); }
+        .user-profile { display: flex; align-items: center; gap: 12px; padding: 6px 12px; border-radius: 8px;  cursor: pointer; transition: background 0.2s; } .user-profile:hover { background: #F8FAFC; }
+        .avatar { width: 36px; height: 36px; border-radius: 50%; background: #F0FDF4; color: #166534; display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px; }
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+        .dashboard-layout { display: flex; height: calc(100vh - 64px); }
+        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+        .menu-group-title { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; padding: 12px 24px 4px; letter-spacing: 0.5px; }
+        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: var(--text-gray); font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; text-decoration: none; }
+        .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
+        .sidebar-item.active { background: #EAF4FF; color: var(--primary); border-left: 3px solid var(--primary); font-weight: 600; }
+        .dashboard-content { flex: 1; padding: 32px; overflow-y: auto; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .page-title { font-size: 24px; font-weight: 700; color: var(--text-dark); }
+        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .card { background: white; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); overflow: hidden; margin-bottom: 24px; }
+        .toolbar { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; gap: 16px; background: #F8FAFC; align-items: center; }
+        .toolbar select { height: 38px; padding: 0 12px; border: 1px solid var(--border); border-radius: 6px; outline: none; font-size: 14px; }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th { text-align: left; padding: 14px 20px; font-size: 13px; font-weight: 600; color: var(--text-gray); border-bottom: 1px solid var(--border); background: white; }
+        .table td { padding: 8px 20px; font-size: 14px; color: var(--text-dark); border-bottom: 1px solid var(--border); vertical-align: middle; }
+        .grade-input { width: 60px; height: 32px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; text-align: center; outline: none; transition: 0.2s; }
+        .grade-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-light); }
+        .grade-input.error { border-color: var(--danger); background: #FEF2F2; color: var(--danger); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="UC00_TongQuanGV.html" class="sys-identity">
+            <div class="emblem"><i data-lucide="book-open"></i></div>
+            <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='UC13_QuanLyProfileGV.html'">
+            <div class="user-info"><span class="name">Lê Văn Bình</span><span class="role">Giảng viên (IT)</span></div>
+            <div class="avatar">B</div>
+        </div>
+    </header>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="menu-group-title">Giảng dạy</div>
+            <a href="UC00_TongQuanGV.html" class="sidebar-item">
+                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+            </a>
+            <a href="UC08_LichGiangDay.html" class="sidebar-item">
+                <i data-lucide="calendar-days" size="20"></i> Lịch giảng dạy
+            </a>
+            <a href="UC09_DiemDanhQR.html" class="sidebar-item">
+                <i data-lucide="scan-line" size="20"></i> Điểm danh QR
+            </a>
+            <div class="menu-group-title">Đánh giá</div>
+            <a href="UC10_QuanLyDiemSo.html" class="sidebar-item active">
+                <i data-lucide="file-spreadsheet" size="20"></i> Quản lý điểm số
+            </a>
+        </aside>
+        <main class="dashboard-content">
+            <div class="page-header">
+                <h1 class="page-title">Cập nhật điểm quá trình</h1>
+                <button class="btn btn-primary" onclick="alert('Lưu bảng điểm thành công!')">
+                    <i data-lucide="save" size="18"></i> Lưu bảng điểm
+                </button>
+            </div>
+            <div class="card">
+                <div class="toolbar">
+                    <select><option>Học kỳ: Fall 2026</option></select>
+                    <select><option>Môn: PRJ301 - Java Web</option></select>
+                    <select><option>Lớp: SE1501</option></select>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>MSSV</th>
+                            <th>Họ và Tên</th>
+                            <th>Quiz 1 (10%)</th>
+                            <th>Quiz 2 (10%)</th>
+                            <th>Assignment (20%)</th>
+                            <th>PE (20%)</th>
+                            <th>Tổng TP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>HE150001</td>
+                            <td style="font-weight: 500;">Nguyễn Văn A</td>
+                            <td><input type="text" class="grade-input" value="8.5"></td>
+                            <td><input type="text" class="grade-input" value="9.0"></td>
+                            <td><input type="text" class="grade-input" value="7.5"></td>
+                            <td><input type="text" class="grade-input" value=""></td>
+                            <td style="font-weight: 600; color: var(--primary);">--</td>
+                        </tr>
+                        <tr>
+                            <td>HE150002</td>
+                            <td style="font-weight: 500;">Trần Thị B</td>
+                            <td><input type="text" class="grade-input error" value="11"></td>
+                            <td><input type="text" class="grade-input" value="7.0"></td>
+                            <td><input type="text" class="grade-input" value="8.5"></td>
+                            <td><input type="text" class="grade-input" value=""></td>
+                            <td style="font-weight: 600; color: var(--primary);">--</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="font-size: 13px; color: var(--text-gray);">
+                <i data-lucide="info" size="14" style="vertical-align: middle;"></i> 
+                Nhập điểm từ 0.0 đến 10.0. Các ô báo đỏ (ví dụ: 11) là dữ liệu không hợp lệ, hệ thống sẽ chặn lưu.
+            </div>
+        </main>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
+
+

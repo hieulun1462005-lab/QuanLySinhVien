@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch giảng dạy - Hệ Thống Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #0757A6; --primary-dark: #063B75; --primary-light: #CFE6FF;
+            --text-dark: #102A43; --text-gray: #5E7184; --bg-light: #F5F8FC; --border: #DCE8F3;
+            --success: #10B981; --warning: #F59E0B; --danger: #EF4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 0 64px; height: 64px; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 100; }
+        .sys-identity { display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit; }
+        .emblem { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; }
+        .brand-copy { display: flex; flex-direction: column; gap: 2px; }
+        .brand-copy .uni { font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--text-gray); }
+        .brand-copy .sys-name { font-weight: 700; font-size: 18px; color: var(--primary); }
+        .user-profile { display: flex; align-items: center; gap: 12px; padding: 6px 12px; border-radius: 8px;  cursor: pointer; transition: background 0.2s; } .user-profile:hover { background: #F8FAFC; }
+        .avatar { width: 36px; height: 36px; border-radius: 50%; background: #F0FDF4; color: #166534; display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px; }
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+        .dashboard-layout { display: flex; height: calc(100vh - 64px); }
+        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+        .menu-group-title { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; padding: 12px 24px 4px; letter-spacing: 0.5px; }
+        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: var(--text-gray); font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; text-decoration: none; }
+        .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
+        .sidebar-item.active { background: #EAF4FF; color: var(--primary); border-left: 3px solid var(--primary); font-weight: 600; }
+        .dashboard-content { flex: 1; padding: 32px; overflow-y: auto; }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .page-title { font-size: 24px; font-weight: 700; color: var(--text-dark); }
+        
+        .calendar-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+        .calendar-nav button { width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; background: white; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; }
+        .calendar-nav button:hover { background: #F8FAFC; }
+        .calendar-nav h2 { font-size: 18px; font-weight: 600; }
+        
+        .schedule-grid { display: grid; grid-template-columns: 80px repeat(7, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .grid-header { background: #F8FAFC; padding: 12px; text-align: center; font-weight: 600; font-size: 14px; color: var(--text-gray); }
+        .grid-header.today { color: var(--primary); background: #EAF4FF; }
+        .grid-cell { background: white; min-height: 100px; padding: 8px; }
+        .grid-time { background: #F8FAFC; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; color: var(--text-gray); }
+        
+        .class-card { background: #EAF4FF; border-left: 3px solid var(--primary); padding: 8px; border-radius: 4px; font-size: 12px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
+        .class-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+        .class-card .subj { font-weight: 700; color: var(--primary-dark); }
+        .class-card .loc { color: var(--text-gray); margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+        
+        /* Modal Báo Nghỉ */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(16, 42, 67, 0.5); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-overlay.active { display: flex; }
+        .modal-container { background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); width: 450px; }
+        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 18px; font-weight: 600; }
+        .close-btn { cursor: pointer; color: var(--text-gray); }
+        .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-size: 13px; font-weight: 600; }
+        .form-control { padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-family: inherit; outline: none; }
+        .form-control:focus { border-color: var(--primary); }
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 12px; background: #F8FAFC; border-radius: 0 0 12px 12px; }
+        .btn { padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-outline { background: white; border: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="UC00_TongQuanGV.html" class="sys-identity">
+            <div class="emblem"><i data-lucide="book-open"></i></div>
+            <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='UC13_QuanLyProfileGV.html'">
+            <div class="user-info"><span class="name">Lê Văn Bình</span><span class="role">Giảng viên (IT)</span></div>
+            <div class="avatar">B</div>
+        </div>
+    </header>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="menu-group-title">Giảng dạy</div>
+            <a href="UC00_TongQuanGV.html" class="sidebar-item">
+                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+            </a>
+            <a href="UC08_LichGiangDay.html" class="sidebar-item active">
+                <i data-lucide="calendar-days" size="20"></i> Lịch giảng dạy
+            </a>
+            <a href="UC09_DiemDanhQR.html" class="sidebar-item">
+                <i data-lucide="scan-line" size="20"></i> Điểm danh QR
+            </a>
+            <div class="menu-group-title">Đánh giá</div>
+            <a href="UC10_QuanLyDiemSo.html" class="sidebar-item">
+                <i data-lucide="file-spreadsheet" size="20"></i> Quản lý điểm số
+            </a>
+        </aside>
+        <main class="dashboard-content">
+            <div class="page-header">
+                <h1 class="page-title">Lịch giảng dạy & Báo nghỉ</h1>
+            </div>
+            
+            <div class="calendar-nav">
+                <button><i data-lucide="chevron-left" size="20"></i></button>
+                <h2>Tuần 23/09/2026 - 29/09/2026</h2>
+                <button><i data-lucide="chevron-right" size="20"></i></button>
+            </div>
+            
+            <div class="schedule-grid">
+                <!-- Headers -->
+                <div class="grid-header">Ca học</div>
+                <div class="grid-header">Thứ 2 (23/09)</div>
+                <div class="grid-header">Thứ 3 (24/09)</div>
+                <div class="grid-header today">Thứ 4 (25/09)</div>
+                <div class="grid-header">Thứ 5 (26/09)</div>
+                <div class="grid-header">Thứ 6 (27/09)</div>
+                <div class="grid-header">Thứ 7 (28/09)</div>
+                <div class="grid-header">CN (29/09)</div>
+                
+                <!-- Slot 1 -->
+                <div class="grid-time">Slot 1<br>07:30</div>
+                <div class="grid-cell">
+                    <div class="class-card" onclick="openAbsenceModal('PRJ301', 'SE1501')">
+                        <div class="subj">PRJ301</div><div>SE1501</div>
+                        <div class="loc"><i data-lucide="map-pin" size="12"></i> 202</div>
+                    </div>
+                </div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell" style="background: #F0FDF4;">
+                    <div class="class-card" onclick="openAbsenceModal('PRJ301', 'SE1501')">
+                        <div class="subj">PRJ301</div><div>SE1501</div>
+                        <div class="loc"><i data-lucide="map-pin" size="12"></i> 202</div>
+                    </div>
+                </div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell">
+                    <div class="class-card" onclick="openAbsenceModal('PRJ301', 'SE1501')">
+                        <div class="subj">PRJ301</div><div>SE1501</div>
+                        <div class="loc"><i data-lucide="map-pin" size="12"></i> 202</div>
+                    </div>
+                </div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                
+                <!-- Slot 3 -->
+                <div class="grid-time">Slot 3<br>12:50</div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell">
+                    <div class="class-card" onclick="openAbsenceModal('SWE201', 'SE1502')">
+                        <div class="subj">SWE201</div><div>SE1502</div>
+                        <div class="loc"><i data-lucide="map-pin" size="12"></i> 304</div>
+                    </div>
+                </div>
+                <div class="grid-cell" style="background: #F0FDF4;">
+                    <div class="class-card" onclick="openAbsenceModal('SWE201', 'SE1502')">
+                        <div class="subj">SWE201</div><div>SE1502</div>
+                        <div class="loc"><i data-lucide="map-pin" size="12"></i> 304</div>
+                    </div>
+                </div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"></div>
+            </div>
+            <div style="font-size: 13px; color: var(--text-gray); margin-top: 16px;">
+                <i data-lucide="mouse-pointer-click" size="14" style="vertical-align: middle;"></i> Nhấn vào một lớp trong lịch để mở <b>Form Báo Nghỉ (UC-08)</b>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Báo Nghỉ -->
+    <div class="modal-overlay" id="absenceModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">Báo Nghỉ & Xếp Lịch Bù</div>
+                <i data-lucide="x" class="close-btn" size="24" onclick="closeAbsenceModal()"></i>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Lớp / Môn</label>
+                    <input type="text" class="form-control" id="absenceClassInfo" readonly style="background: #F8FAFC;">
+                </div>
+                <div class="form-group">
+                    <label>Lý do xin nghỉ</label>
+                    <textarea class="form-control" placeholder="Nhập lý do cụ thể..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Đề xuất ngày học bù</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Đề xuất Slot học bù</label>
+                    <select class="form-control">
+                        <option>Slot 1 (07:30 - 09:50)</option>
+                        <option>Slot 2 (10:00 - 12:20)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeAbsenceModal()">Hủy</button>
+                <button class="btn btn-primary" onclick="alert('Đã gửi yêu cầu Báo nghỉ!'); closeAbsenceModal();">Gửi Yêu Cầu</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function openAbsenceModal(subj, cls) {
+            document.getElementById('absenceClassInfo').value = `${subj} - ${cls}`;
+            document.getElementById('absenceModal').classList.add('active');
+        }
+        function closeAbsenceModal() {
+            document.getElementById('absenceModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
+
+

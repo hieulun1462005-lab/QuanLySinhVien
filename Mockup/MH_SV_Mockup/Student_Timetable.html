@@ -68,9 +68,8 @@
         .uni { font-size: 11px; font-weight: 700; color: var(--text-gray); letter-spacing: 0.5px; }
         .sys-name { font-size: 16px; font-weight: 700; color: var(--primary); }
 
-        .user-profile {
-            display: flex; align-items: center; gap: 16px;
-        }
+        .user-profile { display: flex; align-items: center; gap: 16px; cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; }
+        .user-profile:hover { background: var(--primary-light); }
 
         .user-info { display: flex; flex-direction: column; text-align: right; }
         .user-info .name { font-size: 14px; font-weight: 600; }
@@ -174,7 +173,7 @@
                 <span class="sys-name">Đại Học ONENET</span>
             </div>
         </div>
-        <div class="user-profile">
+        <div class="user-profile" onclick="window.location.href='Student_Profile.html'">
             <div class="user-info">
                 <span class="name">Trần Văn Học</span>
                 <span class="role">Sinh viên (K19)</span>

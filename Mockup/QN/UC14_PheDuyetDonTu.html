@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phê duyệt đơn từ - Hệ Thống Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #0757A6;
+            --primary-dark: #063B75;
+            --primary-light: #CFE6FF;
+            --text-dark: #102A43;
+            --text-gray: #5E7184;
+            --text-light: #E7F2FE;
+            --bg-light: #F5F8FC;
+            --bg-white: #FFFFFF;
+            --border: #DCE8F3;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 64px;
+            height: 64px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .emblem {
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-copy .uni {
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        .brand-copy .sys-name {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .user-profile:hover {
+            background: #F8FAFC;
+            border-color: var(--border);
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #EAF4FF;
+            color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .user-info .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .user-info .role {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        /* Layout */
+        .dashboard-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+        .menu-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            padding: 12px 24px 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover {
+            background: #F8FAFC;
+            color: var(--primary);
+        }
+
+        .sidebar-item.active {
+            background: #EAF4FF;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .dashboard-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Components */
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); }
+        .btn-outline:hover { background: #F8FAFC; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { background: #059669; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: #DC2626; }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #F8FAFC;
+        }
+
+        /* Filter Section */
+        .filter-toolbar {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            background: white;
+        }
+
+        .filter-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-control select, .filter-control input {
+            height: 38px;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        /* Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th {
+            text-align: left;
+            padding: 14px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            border-bottom: 1px solid var(--border);
+            background: white;
+        }
+
+        .table td {
+            padding: 14px 20px;
+            font-size: 14px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background: #F8FAFC;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge.warning { background: #FEF3C7; color: #92400E; }
+        .badge.success { background: #DCFCE7; color: #166534; }
+        .badge.danger { background: #FEE2E2; color: #991B1B; }
+
+        .file-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .file-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(16, 42, 67, 0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-container {
+            background: white;
+            width: 650px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title { font-size: 18px; font-weight: 600; }
+        .close-btn { cursor: pointer; color: var(--text-gray); }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            background: #F8FAFC;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-item .label { font-size: 12px; color: var(--text-gray); font-weight: 500; }
+        .info-item .val { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+
+        .content-box {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .content-box h4 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: var(--text-gray);
+        }
+        
+        .content-box p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .feedback-form textarea {
+            width: 100%;
+            height: 100px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            resize: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+        
+        .feedback-form textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            background: #F8FAFC;
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #10B981;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 2000;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="UC00_TongQuan.html" class="sys-identity" style="text-decoration: none; color: inherit;">
+            <div class="emblem"><i data-lucide="book-open"></i></div>
+            <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='UC13_QuanLyProfileQN.html'">
+            <div class="user-info">
+                <span class="name">Nguyễn Văn A</span>
+                <span class="role">Cán bộ quản nhiệm</span>
+            </div>
+            <div class="avatar">A</div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="menu-group-title">Menu Chính</div>
+            <a href="UC00_TongQuan.html" class="sidebar-item">
+                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+            </a>
+            <div class="menu-group-title">Tuyển Sinh</div>
+            <a href="UC01_DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="20"></i> Danh sách trúng tuyển
+            </a>
+            <a href="UC02_TiepNhanHoSo.html" class="sidebar-item">
+                <i data-lucide="folder-plus" size="20"></i> Tiếp nhận hồ sơ
+            </a>
+            <div class="menu-group-title">Sinh Viên</div>
+            <a href="UC04_PhanBoLop.html" class="sidebar-item">
+                <i data-lucide="network" size="20"></i> Phân bổ lớp
+            </a>
+            <a href="UC03_CapNhatTrangThai.html" class="sidebar-item">
+                <i data-lucide="user-cog" size="20"></i> Cập nhật trạng thái
+            </a>
+            <div class="menu-group-title">Đào Tạo</div>
+            <a href="UC05_QuanLyDanhMuc.html" class="sidebar-item">
+                <i data-lucide="server" size="20"></i> Quản lý danh mục
+            </a>
+            <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="20"></i> Chương trình học
+            </a>
+            <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item">
+                <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
+            </a>
+            <a href="UC14_PheDuyetDonTu.html" class="sidebar-item active">
+                <i data-lucide="file-check-2" size="20"></i> Phê duyệt đơn từ
+            </a>
+            <div class="menu-group-title">Tài Chính</div>
+            <a href="UC09_LichSuGiaoDich.html" class="sidebar-item">
+                <i data-lucide="receipt" size="20"></i> Lịch sử giao dịch
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Phê duyệt đơn từ sinh viên</h1>
+                    <p style="color: var(--text-gray); font-size: 14px; margin-top: 4px;">Danh sách các yêu cầu, khiếu nại, đơn từ cần xem xét.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <!-- Toolbar / Filters -->
+                <div class="filter-toolbar">
+                    <div class="filter-control" style="flex: 1;">
+                        <i data-lucide="search" size="18" style="color: var(--text-gray); position: absolute; margin-left: 12px;"></i>
+                        <input type="text" placeholder="Tìm kiếm MSSV, Tên sinh viên..." style="width: 100%; padding-left: 38px;">
+                    </div>
+                    <div class="filter-control">
+                        <select>
+                            <option value="">Tất cả loại đơn</option>
+                            <option value="nghihoc">Xin nghỉ học</option>
+                            <option value="baoluu">Xin bảo lưu</option>
+                            <option value="phuckhao">Phúc khảo điểm</option>
+                            <option value="bangdiem">Xin cấp bảng điểm</option>
+                        </select>
+                    </div>
+                    <div class="filter-control">
+                        <select id="statusFilter" onchange="filterTable()">
+                            <option value="all">Tất cả trạng thái</option>
+                            <option value="pending" selected>Chờ duyệt</option>
+                            <option value="approved">Đã duyệt</option>
+                            <option value="rejected">Từ chối</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Ngày nộp</th>
+                            <th>Sinh viên</th>
+                            <th>Lớp</th>
+                            <th>Loại đơn</th>
+                            <th>File đính kèm</th>
+                            <th>Trạng thái</th>
+                            <th style="text-align: center;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1: Pending -->
+                        <tr class="row-req" data-status="pending">
+                            <td style="font-weight: 500;">REQ-240901</td>
+                            <td>25/09/2026</td>
+                            <td>
+                                <b>HE150001</b><br>
+                                <span style="font-size: 12px; color: var(--text-gray)">Nguyễn Văn A</span>
+                            </td>
+                            <td>SE1501</td>
+                            <td>Xin nghỉ học (ốm)</td>
+                            <td>
+                                <a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i> GiayKhamBenh.pdf</a>
+                            </td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-outline" style="padding: 6px 12px;" onclick="openModal('req1')">Chi tiết</button>
+                            </td>
+                        </tr>
+                        <!-- Row 2: Pending -->
+                        <tr class="row-req" data-status="pending">
+                            <td style="font-weight: 500;">REQ-240902</td>
+                            <td>24/09/2026</td>
+                            <td>
+                                <b>BA150022</b><br>
+                                <span style="font-size: 12px; color: var(--text-gray)">Trần Thị B</span>
+                            </td>
+                            <td>BA1501</td>
+                            <td>Phúc khảo điểm</td>
+                            <td>-</td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-outline" style="padding: 6px 12px;" onclick="openModal('req2')">Chi tiết</button>
+                            </td>
+                        </tr>
+                        <!-- Row 3: Approved -->
+                        <tr class="row-req" data-status="approved" style="display: none;">
+                            <td style="font-weight: 500;">REQ-240899</td>
+                            <td>22/09/2026</td>
+                            <td>
+                                <b>GD150111</b><br>
+                                <span style="font-size: 12px; color: var(--text-gray)">Lê Minh C</span>
+                            </td>
+                            <td>GD1502</td>
+                            <td>Xin cấp bảng điểm</td>
+                            <td>-</td>
+                            <td><span class="badge success"><i data-lucide="check-circle" size="12"></i> Approved</span></td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-outline" style="padding: 6px 12px;">Xem lại</button>
+                            </td>
+                        </tr>
+                        <!-- Row 4: Rejected -->
+                        <tr class="row-req" data-status="rejected" style="display: none;">
+                            <td style="font-weight: 500;">REQ-240890</td>
+                            <td>20/09/2026</td>
+                            <td>
+                                <b>HE150045</b><br>
+                                <span style="font-size: 12px; color: var(--text-gray)">Phạm Hùng D</span>
+                            </td>
+                            <td>SE1503</td>
+                            <td>Xin bảo lưu</td>
+                            <td>
+                                <a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i> DonBaoLuu.docx</a>
+                            </td>
+                            <td><span class="badge danger"><i data-lucide="x-circle" size="12"></i> Rejected</span></td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-outline" style="padding: 6px 12px;">Xem lại</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Xét Duyệt Đơn -->
+    <div class="modal-overlay" id="approvalModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">Chi tiết Đơn Từ #REQ-240901</div>
+                <i data-lucide="x" class="close-btn" size="24" onclick="closeModal()"></i>
+            </div>
+            <div class="modal-body">
+                <!-- Info Grid -->
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">Sinh viên</span>
+                        <span class="val">Nguyễn Văn A (HE150001)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Lớp</span>
+                        <span class="val">SE1501</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Loại đơn</span>
+                        <span class="val">Xin nghỉ học</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Ngày gửi</span>
+                        <span class="val">25/09/2026 08:30 AM</span>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="content-box">
+                    <h4>Nội dung đơn / Lý do</h4>
+                    <p id="modalContentText">Em bị sốt xuất huyết đang nằm viện nên xin phép thầy/cô cho em nghỉ các môn ngày 25/09 và 26/09 ạ. Em có đính kèm giấy khám bệnh của bác sĩ.</p>
+                    
+                    <h4 style="margin-top: 16px;">Tệp đính kèm</h4>
+                    <a href="#" class="file-link" style="display: inline-flex; background: #EAF4FF; padding: 8px 12px; border-radius: 6px; margin-top: 4px;">
+                        <i data-lucide="file-text" size="18"></i> GiayKhamBenh_BVXanhPon.pdf
+                    </a>
+                </div>
+
+                <!-- Feedback -->
+                <div class="feedback-form">
+                    <label style="font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; display: block;">
+                        Phản hồi / Ghi chú duyệt đơn (Sẽ gửi qua Email cho SV):
+                    </label>
+                    <textarea id="feedbackText" placeholder="Nhập ghi chú hoặc lý do từ chối..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal()">Hủy</button>
+                <button class="btn btn-danger" onclick="processRequest('rejected')">Từ chối</button>
+                <button class="btn btn-success" onclick="processRequest('approved')">Phê duyệt</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toastMsg">
+        <i data-lucide="check-circle" size="24"></i>
+        <span>Đã phê duyệt đơn và gửi email thông báo cho sinh viên!</span>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function filterTable() {
+            const status = document.getElementById('statusFilter').value;
+            const rows = document.querySelectorAll('.row-req');
+            rows.forEach(row => {
+                if (status === 'all' || row.dataset.status === status) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+        
+        // Initial filter
+        filterTable();
+
+        let currentActiveRow = null;
+
+        function openModal(reqId) {
+            // In a real app, fetch data based on reqId
+            // Here we just use the static modal content for demo
+            document.getElementById('approvalModal').classList.add('active');
+            document.getElementById('feedbackText').value = ''; // clear textarea
+            
+            // Find the row that opened this to hide it later (demo purpose)
+            currentActiveRow = event.target.closest('tr');
+        }
+
+        function closeModal() {
+            document.getElementById('approvalModal').classList.remove('active');
+        }
+
+        function processRequest(action) {
+            // Close modal
+            closeModal();
+            
+            // Update row (hide it since it's no longer pending, if filter is on 'pending')
+            if (currentActiveRow) {
+                currentActiveRow.dataset.status = action;
+                filterTable(); // re-filter
+            }
+            
+            // Show toast (Tiêu chí UC-14.NT01 - Email kết quả <= 1 phút)
+            const toast = document.getElementById('toastMsg');
+            const icon = toast.querySelector('i');
+            const text = toast.querySelector('span');
+            
+            if (action === 'approved') {
+                toast.style.background = '#10B981';
+                icon.setAttribute('data-lucide', 'check-circle');
+                text.textContent = 'Đã phê duyệt đơn và gửi Email kết quả thành công!';
+            } else {
+                toast.style.background = '#EF4444';
+                icon.setAttribute('data-lucide', 'x-circle');
+                text.textContent = 'Đã từ chối đơn và gửi Email phản hồi thành công!';
+            }
+            
+            lucide.createIcons(); // Re-render icon
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+

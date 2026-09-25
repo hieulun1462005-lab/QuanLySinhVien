@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng quan Giảng viên - Hệ Thống Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #0757A6;
+            --primary-dark: #063B75;
+            --primary-light: #CFE6FF;
+            --text-dark: #102A43;
+            --text-gray: #5E7184;
+            --text-light: #E7F2FE;
+            --bg-light: #F5F8FC;
+            --bg-white: #FFFFFF;
+            --border: #DCE8F3;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 64px;
+            height: 64px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .emblem {
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-copy .uni {
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        .brand-copy .sys-name {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .user-profile:hover {
+            background: #F8FAFC;
+            border-color: var(--border);
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #F0FDF4;
+            color: #166534;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .user-info .name { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+
+        /* Layout */
+        .dashboard-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .menu-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            padding: 12px 24px 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover {
+            background: #F8FAFC;
+            color: var(--primary);
+        }
+
+        .sidebar-item.active {
+            background: #EAF4FF;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .dashboard-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #EAF4FF;
+            color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stat-info h4 { font-size: 13px; color: var(--text-gray); font-weight: 600; margin-bottom: 4px; }
+        .stat-info .val { font-size: 24px; font-weight: 700; color: var(--text-dark); }
+
+        /* Schedule / Class List */
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+        }
+
+        .schedule-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            margin-bottom: 24px;
+        }
+
+        .class-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .class-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(7, 87, 166, 0.05);
+        }
+
+        .class-time {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 120px;
+        }
+        
+        .class-time .slot { font-weight: 700; color: var(--primary); }
+        .class-time .hours { font-size: 13px; color: var(--text-gray); }
+
+        .class-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .class-info .subject { font-weight: 600; font-size: 16px; color: var(--text-dark); }
+        .class-info .details { font-size: 14px; color: var(--text-gray); display: flex; gap: 16px; }
+        .class-info .details span { display: inline-flex; align-items: center; gap: 4px; }
+
+        .class-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); }
+        .btn-outline:hover { background: #F8FAFC; }
+        .btn-warning { background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A; }
+        .btn-warning:hover { background: #FEF3C7; }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(16, 42, 67, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
+            width: 500px;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title { font-size: 18px; font-weight: 600; }
+        .close-btn { cursor: pointer; color: var(--text-gray); }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Form elements for Modals */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+        }
+        
+        .form-control:focus { border-color: var(--primary); }
+        textarea.form-control { resize: vertical; min-height: 80px; }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            background: #F8FAFC;
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* QR Code Scanner Display */
+        .qr-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .qr-box {
+            width: 250px;
+            height: 250px;
+            background: white;
+            border: 2px dashed var(--primary);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 10px;
+        }
+        
+        .qr-img {
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0;
+            background-image: repeating-linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), repeating-linear-gradient(45deg, #ccc 25%, #f0f0f0 25%, #f0f0f0 75%, #ccc 75%, #ccc);
+            background-position: 0 0, 10px 10px;
+            background-size: 20px 20px;
+            /* In real app, this is an actual img src of QR */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #888;
+        }
+
+        .refresh-text {
+            font-size: 13px;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .timer { font-weight: 700; color: var(--primary); }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #10B981;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 2000;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="UC00_TongQuanGV.html" class="sys-identity">
+            <div class="emblem"><i data-lucide="book-open"></i></div>
+            <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='UC13_QuanLyProfileGV.html'">
+            <div class="user-info">
+                <span class="name">Lê Văn Bình</span>
+                <span class="role">Giảng viên (IT)</span>
+            </div>
+            <div class="avatar">B</div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="menu-group-title">Giảng dạy</div>
+            <a href="UC00_TongQuanGV.html" class="sidebar-item active">
+                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+            </a>
+            <a href="UC08_LichGiangDay.html" class="sidebar-item">
+                <i data-lucide="calendar-days" size="20"></i> Lịch giảng dạy
+            </a>
+            <a href="UC09_DiemDanhQR.html" class="sidebar-item">
+                <i data-lucide="scan-line" size="20"></i> Điểm danh QR
+            </a>
+            <div class="menu-group-title">Đánh giá</div>
+            <a href="UC10_QuanLyDiemSo.html" class="sidebar-item">
+                <i data-lucide="file-spreadsheet" size="20"></i> Quản lý điểm số
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Chào mừng, Thầy Bình!</h1>
+                    <p class="page-subtitle">Hôm nay là Thứ Tư, ngày 25 tháng 09 năm 2026. Chúc thầy một ngày giảng dạy hiệu quả.</p>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i data-lucide="book-open-check" size="24"></i></div>
+                    <div class="stat-info">
+                        <h4>Lớp đang phụ trách</h4>
+                        <div class="val">4 Lớp</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #FFFBEB; color: #D97706;"><i data-lucide="clock" size="24"></i></div>
+                    <div class="stat-info">
+                        <h4>Giờ dạy tuần này</h4>
+                        <div class="val">18 Giờ</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #F0FDF4; color: #166534;"><i data-lucide="users" size="24"></i></div>
+                    <div class="stat-info">
+                        <h4>Tổng sinh viên</h4>
+                        <div class="val">125 SV</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lịch dạy hôm nay (UC-08, UC-09) -->
+            <h2 class="section-title">Lịch dạy hôm nay</h2>
+            <div class="schedule-card">
+                
+                <!-- Class 1 -->
+                <div class="class-item">
+                    <div class="class-time">
+                        <span class="slot">Slot 1</span>
+                        <span class="hours">07:30 - 09:50</span>
+                    </div>
+                    <div class="class-info">
+                        <div class="subject">PRJ301 - Java Web Development</div>
+                        <div class="details">
+                            <span><i data-lucide="map-pin" size="14"></i> Phòng 202</span>
+                            <span><i data-lucide="users" size="14"></i> Lớp: SE1501</span>
+                            <span><i data-lucide="users-2" size="14"></i> Sĩ số: 30</span>
+                        </div>
+                    </div>
+                    <div class="class-actions">
+                        <button class="btn btn-primary" onclick="window.location.href='UC09_DiemDanhQR.html'">
+                            <i data-lucide="scan-line" size="18"></i> Mở Điểm Danh
+                        </button>
+                        <button class="btn btn-warning" onclick="window.location.href='UC08_LichGiangDay.html'">
+                            <i data-lucide="calendar-off" size="18"></i> Báo Nghỉ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Class 2 -->
+                <div class="class-item">
+                    <div class="class-time">
+                        <span class="slot">Slot 3</span>
+                        <span class="hours">12:50 - 15:10</span>
+                    </div>
+                    <div class="class-info">
+                        <div class="subject">SWE201 - Software Requirement</div>
+                        <div class="details">
+                            <span><i data-lucide="map-pin" size="14"></i> Phòng 304</span>
+                            <span><i data-lucide="users" size="14"></i> Lớp: SE1502</span>
+                            <span><i data-lucide="users-2" size="14"></i> Sĩ số: 32</span>
+                        </div>
+                    </div>
+                    <div class="class-actions">
+                        <button class="btn btn-primary" onclick="window.location.href='UC09_DiemDanhQR.html'">
+                            <i data-lucide="scan-line" size="18"></i> Mở Điểm Danh
+                        </button>
+                        <button class="btn btn-warning" onclick="window.location.href='UC08_LichGiangDay.html'">
+                            <i data-lucide="calendar-off" size="18"></i> Báo Nghỉ
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div style="margin-top: 32px;">
+                <h2 class="section-title">Quản lý điểm số (Truy cập nhanh)</h2>
+                <div style="display: flex; gap: 16px;">
+                    <button class="btn btn-outline" style="height: 100px; width: 200px; flex-direction: column; justify-content: center; gap: 12px;" onclick="window.location.href='UC10_QuanLyDiemSo.html'">
+                        <i data-lucide="file-spreadsheet" size="32" color="var(--primary)"></i>
+                        Lớp SE1501 (PRJ301)
+                    </button>
+                    <button class="btn btn-outline" style="height: 100px; width: 200px; flex-direction: column; justify-content: center; gap: 12px;" onclick="window.location.href='UC10_QuanLyDiemSo.html'">
+                        <i data-lucide="file-spreadsheet" size="32" color="var(--primary)"></i>
+                        Lớp SE1502 (SWE201)
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Mở Điểm Danh (UC-09) -->
+    <div class="modal-overlay" id="qrModal">
+        <div class="modal-container" style="width: 450px;">
+            <div class="modal-header">
+                <div class="modal-title">Điểm Danh Bằng QR Code</div>
+                <i data-lucide="x" class="close-btn" size="24" onclick="closeQrModal()"></i>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; margin-bottom: 8px;">
+                    <h3 id="qrSubject" style="font-size: 18px;">Môn: PRJ301 - Lớp: SE1501</h3>
+                    <p style="color: var(--text-gray); font-size: 14px; margin-top: 4px;">Sinh viên sử dụng PWA để quét mã (Refresh mỗi 10s)</p>
+                </div>
+                
+                <div class="qr-display">
+                    <div class="qr-box">
+                        <div class="qr-img">QR CODE HIỂN THỊ Ở ĐÂY</div>
+                    </div>
+                    <div class="refresh-text">
+                        <i data-lucide="refresh-cw" size="14"></i> Mã sẽ tự động làm mới sau <span class="timer" id="qrTimer">10</span>s
+                    </div>
+                </div>
+                
+                <div style="background: #F8FAFC; padding: 12px; border-radius: 8px; margin-top: 16px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 14px; font-weight: 600;">Đã quét: <span style="color: var(--success); font-size: 18px;" id="scannedCount">0</span>/30</span>
+                    <button class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;" onclick="alert('Mở danh sách để sửa điểm danh thủ công (Trường hợp SV hỏng ĐT)')">
+                        Chỉnh sửa thủ công
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" style="width: 100%;" onclick="closeQrSession()">Kết Thúc Phiên Điểm Danh</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Báo Nghỉ / Lịch Bù (UC-08) -->
+    <div class="modal-overlay" id="absenceModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">Báo Nghỉ & Xếp Lịch Bù</div>
+                <i data-lucide="x" class="close-btn" size="24" onclick="closeAbsenceModal()"></i>
+            </div>
+            <div class="modal-body">
+                <div style="background: #FFFBEB; border: 1px solid #FDE68A; padding: 12px; border-radius: 8px; font-size: 13px; color: #D97706; margin-bottom: 8px;">
+                    <i data-lucide="alert-circle" size="14" style="display: inline; vertical-align: middle;"></i> 
+                    Lưu ý: Báo nghỉ phải thực hiện cách thời điểm lớp bắt đầu ít nhất 12 giờ.
+                </div>
+                
+                <div class="form-group">
+                    <label>Lớp / Môn báo nghỉ</label>
+                    <input type="text" class="form-control" id="absenceClassInfo" readonly style="background: #F8FAFC;">
+                </div>
+                
+                <div class="form-group">
+                    <label>Lý do xin nghỉ <span style="color: red;">*</span></label>
+                    <textarea class="form-control" placeholder="Nhập lý do cụ thể..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Đề xuất ngày học bù <span style="color: red;">*</span></label>
+                    <input type="date" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Đề xuất Slot học bù <span style="color: red;">*</span></label>
+                    <select class="form-control">
+                        <option value="">-- Chọn Slot --</option>
+                        <option value="1">Slot 1 (07:30 - 09:50)</option>
+                        <option value="2">Slot 2 (10:00 - 12:20)</option>
+                        <option value="3">Slot 3 (12:50 - 15:10)</option>
+                        <option value="4">Slot 4 (15:20 - 17:40)</option>
+                        <option value="5">Slot 5 (17:50 - 20:10)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeAbsenceModal()">Hủy</button>
+                <button class="btn btn-primary" onclick="submitAbsenceRequest()">Gửi Yêu Cầu Cho QN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toastMsg">
+        <i data-lucide="check-circle" size="24"></i>
+        <span id="toastText">Thao tác thành công!</span>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        let qrInterval;
+        let scanInterval;
+        let countdown = 10;
+        let scanned = 0;
+
+        // --- QR Modal (UC-09) ---
+        function openQrModal(subject, className, slot) {
+            document.getElementById('qrSubject').innerText = `Môn: ${subject} - Lớp: ${className}`;
+            document.getElementById('scannedCount').innerText = '0';
+            document.getElementById('qrModal').classList.add('active');
+            
+            scanned = 0;
+            countdown = 10;
+            document.getElementById('qrTimer').innerText = countdown;
+            
+            // Simulate QR Refresh every 10s (UC-09.NT01)
+            qrInterval = setInterval(() => {
+                countdown--;
+                if (countdown <= 0) {
+                    countdown = 10;
+                    // Flash effect to show QR refresh
+                    const img = document.querySelector('.qr-img');
+                    img.style.opacity = '0.5';
+                    setTimeout(() => { img.style.opacity = '1'; }, 200);
+                }
+                document.getElementById('qrTimer').innerText = countdown;
+            }, 1000);
+            
+            // Simulate students scanning
+            scanInterval = setInterval(() => {
+                if(scanned < 30) {
+                    scanned++;
+                    document.getElementById('scannedCount').innerText = scanned;
+                }
+            }, 2500);
+        }
+
+        function closeQrModal() {
+            document.getElementById('qrModal').classList.remove('active');
+            clearInterval(qrInterval);
+            clearInterval(scanInterval);
+        }
+        
+        function closeQrSession() {
+            closeQrModal();
+            showToast('Đã đóng phiên điểm danh. Sinh viên chưa quét sẽ bị vắng (Absent).');
+        }
+
+        // --- Absence Modal (UC-08) ---
+        function openAbsenceModal(subject, className, timeInfo) {
+            document.getElementById('absenceClassInfo').value = `${subject} (${className}) - ${timeInfo}`;
+            document.getElementById('absenceModal').classList.add('active');
+        }
+
+        function closeAbsenceModal() {
+            document.getElementById('absenceModal').classList.remove('active');
+        }
+        
+        function submitAbsenceRequest() {
+            closeAbsenceModal();
+            showToast('Yêu cầu báo nghỉ & lịch bù đã được gửi tới Quản nhiệm. Chờ phê duyệt.');
+        }
+
+        // --- Utils ---
+        function showToast(message) {
+            const toast = document.getElementById('toastMsg');
+            document.getElementById('toastText').innerText = message;
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
+

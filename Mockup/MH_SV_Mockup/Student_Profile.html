@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ Sơ Cá Nhân - Đại Học ONENET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-light: #EFF6FF;
+            --primary-hover: #1D4ED8;
+            --text-dark: #1E293B;
+            --text-gray: #64748B;
+            --bg-light: #F8FAFC;
+            --border: #E2E8F0;
+            --danger: #EF4444;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .emblem {
+            width: 40px; height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .brand-copy {
+            display: flex; flex-direction: column;
+        }
+
+        .uni { font-size: 11px; font-weight: 700; color: var(--text-gray); letter-spacing: 0.5px; }
+        .sys-name { font-size: 16px; font-weight: 700; color: var(--primary); }
+
+        .user-profile { display: flex; align-items: center; gap: 16px; cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; }
+        .user-profile:hover { background: var(--primary-light); }
+
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+
+        .avatar {
+            width: 40px; height: 40px;
+            background: #F3E8FD; color: #8E24AA;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 16px;
+        }
+
+        /* DASHBOARD LAYOUT */
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex; flex-direction: column; gap: 24px;
+            overflow-y: auto;
+        }
+
+        .menu-group { display: flex; flex-direction: column; gap: 8px; }
+        .menu-title {
+            font-size: 11px; font-weight: 700; color: var(--text-gray);
+            letter-spacing: 0.5px; margin-left: 12px; margin-bottom: 4px;
+        }
+
+        .menu-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 12px; border-radius: 8px;
+            color: var(--text-gray); font-size: 14px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .menu-item:hover { background: var(--bg-light); color: var(--primary); }
+        .menu-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+
+        .main-content {
+            flex: 1; padding: 32px 40px; overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 24px; font-weight: 700;
+        }
+
+        .content-section {
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* PROFILE LAYOUT */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: white; border: 1px solid var(--border);
+            border-radius: 12px; padding: 24px; margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .profile-sidebar {
+            text-align: center;
+        }
+
+        .profile-avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 16px;
+        }
+
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-light);
+            background: #EAF4FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .edit-avatar-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid white;
+            transition: all 0.2s;
+        }
+
+        .edit-avatar-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .profile-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .profile-roll {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 16px;
+        }
+
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-gray);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        /* FORMS */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group { margin-bottom: 16px; }
+        .form-group.full-width { grid-column: span 2; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-dark); }
+        .form-input { 
+            width: 100%; 
+            padding: 10px 14px; 
+            border: 1px solid var(--border); 
+            border-radius: 8px; 
+            font-size: 14px; 
+            outline: none; 
+            transition: all 0.2s; 
+            color: var(--text-dark);
+        }
+        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        .form-input:disabled, .form-input[readonly] { background-color: var(--bg-light); color: var(--text-gray); cursor: not-allowed; }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; border: none;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); }
+        .btn-outline:hover { background: #F8FAFC; }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* TOAST */
+        .toast-container { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 2000; }
+        .toast { background: white; border-left: 4px solid var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 16px 20px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transform: translateX(120%); animation: slideIn 0.3s forwards; }
+        .toast.success { border-left-color: var(--success); }
+        .toast.danger { border-left-color: var(--danger); }
+        @keyframes slideIn { to { transform: translateX(0); } }
+        .toast.hide { animation: slideOut 0.3s forwards; }
+        @keyframes slideOut { to { transform: translateX(120%); opacity: 0; } }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="Student_Dashboard.html" class="sys-identity">
+            <div class="emblem">
+                <i data-lucide="book-open" size="20"></i>
+            </div>
+            <div class="brand-copy">
+                <span class="uni">TRƯỜNG</span>
+                <span class="sys-name">Đại Học ONENET</span>
+            </div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='Student_Profile.html'">
+            <div class="user-info">
+                <span class="name">Trần Văn Học</span>
+                <span class="role">Sinh viên (K19)</span>
+            </div>
+            <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
+                H
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="menu-group">
+                <div class="menu-title">HỌC TẬP</div>
+                <a href="Student_Dashboard.html" class="menu-item">
+                    <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                </a>
+                <a href="Student_Timetable.html" class="menu-item">
+                    <i data-lucide="calendar" size="18"></i> Thời khóa biểu
+                </a>
+                <a href="Student_Attendance.html" class="menu-item">
+                    <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
+                </a>
+                <a href="Student_ExamSchedule.html" class="menu-item">
+                    <i data-lucide="clock" size="18"></i> Lịch thi
+                </a>
+                <a href="Student_Grades.html" class="menu-item">
+                    <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
+                </a>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
+                <a href="Student_Requests.html" class="menu-item">
+                    <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
+                </a>
+                <a href="Student_Billing.html" class="menu-item">
+                    <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
+                </a>
+            </div>
+        </div>
+
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">Quản lý Hồ sơ Cá nhân</h1>
+            </div>
+
+            <div class="profile-layout">
+                <!-- Left Sidebar: Avatar & Summary -->
+                <div class="card profile-sidebar">
+                    <div class="profile-avatar-container">
+                        <div class="profile-avatar" id="avatarPreview">H</div>
+                        <div class="edit-avatar-btn" onclick="document.getElementById('avatarInput').click()">
+                            <i data-lucide="camera" size="14"></i>
+                        </div>
+                        <input type="file" id="avatarInput" style="display: none;" accept="image/*" onchange="previewAvatar(event)">
+                    </div>
+                    <div class="profile-name">Trần Văn Học</div>
+                    <div class="profile-roll">MSSV: HE190001</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);">
+                        <div style="font-size: 13px; color: var(--text-gray);">Chuyên ngành:</div>
+                        <div style="font-size: 14px; font-weight: 500;">Kỹ thuật phần mềm (SE)</div>
+                        <div style="font-size: 13px; color: var(--text-gray); margin-top: 8px;">Tình trạng học tập:</div>
+                        <div style="font-size: 14px; font-weight: 500; color: var(--success);">Đang học</div>
+                    </div>
+                </div>
+
+                <!-- Right Content: Tabs & Forms -->
+                <div class="card" style="padding: 0;">
+                    <div class="profile-tabs">
+                        <div class="tab-btn active" onclick="switchTab('info')">Thông tin Cá nhân</div>
+                        <div class="tab-btn" onclick="switchTab('parent')">Thông tin Phụ huynh</div>
+                        <div class="tab-btn" onclick="switchTab('security')">Bảo mật & Mật khẩu</div>
+                    </div>
+
+                    <div style="padding: 24px;">
+                        <!-- Tab: Thông tin Cá nhân -->
+                        <div id="tab-info" class="tab-content active">
+                            <h2 class="section-title"><i data-lucide="user" size="20"></i> Thông tin cơ bản</h2>
+                            <form onsubmit="event.preventDefault(); showToast('Cập nhật thông tin thành công!');">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">Họ và tên</label>
+                                        <input type="text" class="form-input" value="Trần Văn Học" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Ngày sinh</label>
+                                        <input type="date" class="form-input" value="2005-10-15" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Giới tính</label>
+                                        <input type="text" class="form-input" value="Nam" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Số CMND/CCCD</label>
+                                        <input type="text" class="form-input" value="001205012345" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Ngày cấp</label>
+                                        <input type="date" class="form-input" value="2021-05-20" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Nơi cấp</label>
+                                        <input type="text" class="form-input" value="Cục cảnh sát QLHC về TTXH" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Dân tộc</label>
+                                        <input type="text" class="form-input" value="Kinh" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Tôn giáo</label>
+                                        <input type="text" class="form-input" value="Không" readonly>
+                                    </div>
+                                </div>
+                                
+                                <h2 class="section-title" style="margin-top: 24px;"><i data-lucide="phone" size="20"></i> Thông tin liên hệ</h2>
+                                <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 16px;">Bạn có thể cập nhật Số điện thoại cá nhân.</p>
+                                <div class="form-grid">
+                                    <div class="form-group full-width">
+                                        <label class="form-label">Địa chỉ</label>
+                                        <input type="text" class="form-input" value="Khu công nghệ cao Hòa Lạc, Thạch Thất, Hà Nội" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email trường cấp</label>
+                                        <input type="email" class="form-input" value="hoctvhe190001@fpt.edu.vn" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Số điện thoại liên hệ <span style="color: var(--danger);">*</span></label>
+                                        <input type="tel" class="form-input" value="0987654321" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary"><i data-lucide="save" size="18"></i> Lưu Thay Đổi</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Tab: Thông tin Phụ huynh -->
+                        <div id="tab-parent" class="tab-content">
+                            <h2 class="section-title"><i data-lucide="users" size="20"></i> Chi tiết liên hệ Phụ huynh / Người giám hộ</h2>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label class="form-label">Họ và tên Phụ huynh</label>
+                                    <input type="text" class="form-input" value="Trần Văn Khảo" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Số điện thoại</label>
+                                    <input type="text" class="form-input" value="0912345678" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-input" value="phuhuynh@example.com" readonly>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label class="form-label">Địa chỉ</label>
+                                    <input type="text" class="form-input" value="Thanh Hóa, Việt Nam" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Nghề nghiệp</label>
+                                    <input type="text" class="form-input" value="Giáo viên" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Nơi làm việc</label>
+                                    <input type="text" class="form-input" value="Trường THPT" readonly>
+                                </div>
+                            </div>
+                            <div style="margin-top: 16px; font-size: 13px; color: var(--text-gray); background: var(--bg-light); padding: 12px; border-radius: 8px;">
+                                <i data-lucide="info" size="14" style="vertical-align: middle;"></i> Để thay đổi thông tin phụ huynh, vui lòng liên hệ phòng Công tác Sinh viên hoặc tạo đơn từ trực tuyến.
+                            </div>
+                        </div>
+
+                        <!-- Tab: Bảo mật -->
+                        <div id="tab-security" class="tab-content">
+                            <h2 class="section-title"><i data-lucide="shield-check" size="20"></i> Đổi mật khẩu</h2>
+                            <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 24px;">Đảm bảo tài khoản của bạn đang sử dụng một mật khẩu dài, ngẫu nhiên để an toàn.</p>
+                            
+                            <form onsubmit="handleChangePassword(event)" style="max-width: 400px;">
+                                <div class="form-group">
+                                    <label class="form-label">Mật khẩu hiện tại <span style="color: var(--danger);">*</span></label>
+                                    <input type="password" id="oldPwd" class="form-input" placeholder="Nhập mật khẩu cũ" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Mật khẩu mới <span style="color: var(--danger);">*</span></label>
+                                    <input type="password" id="newPwd" class="form-input" placeholder="Nhập mật khẩu mới" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Nhập lại mật khẩu mới <span style="color: var(--danger);">*</span></label>
+                                    <input type="password" id="confirmPwd" class="form-input" placeholder="Nhập lại mật khẩu mới" required>
+                                </div>
+                                <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 24px;">
+                                    * Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số. Không được trùng với 3 mật khẩu gần nhất.
+                                </div>
+                                <button type="submit" class="btn btn-primary"><i data-lucide="key" size="18"></i> Đổi Mật Khẩu</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        lucide.createIcons();
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = 'check-circle';
+            if (type === 'danger') icon = 'x-circle';
+
+            toast.innerHTML = `<i data-lucide="${icon}" size="20"></i> <span style="font-size: 14px; font-weight: 500;">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function previewAvatar(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // In real app, we would upload this via API.
+                // For mockup, just read as data URL and set background
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatar = document.getElementById('avatarPreview');
+                    avatar.style.backgroundImage = `url(${e.target.result})`;
+                    avatar.style.backgroundSize = 'cover';
+                    avatar.style.backgroundPosition = 'center';
+                    avatar.innerHTML = '';
+                    showToast('Cập nhật ảnh đại diện thành công!');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleChangePassword(e) {
+            e.preventDefault();
+            const newPwd = document.getElementById('newPwd').value;
+            const confirmPwd = document.getElementById('confirmPwd').value;
+
+            if (newPwd !== confirmPwd) {
+                showToast('Mật khẩu mới không khớp!', 'danger');
+                return;
+            }
+
+            if (newPwd.length < 8) {
+                showToast('Mật khẩu không đủ mạnh (Ít nhất 8 ký tự)!', 'danger');
+                return;
+            }
+
+            // Simulate API call for checking old password & updating
+            showToast('Đổi mật khẩu thành công!');
+            document.getElementById('oldPwd').value = '';
+            document.getElementById('newPwd').value = '';
+            document.getElementById('confirmPwd').value = '';
+        }
+    </script>
+</body>
+</html>
+
