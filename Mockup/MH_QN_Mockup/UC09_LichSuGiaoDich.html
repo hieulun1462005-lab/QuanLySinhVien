@@ -411,6 +411,9 @@
             <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="20"></i> Chương trình học
             </a>
+            <a href="MH-02-2_XepTKB.html" class="sidebar-item">
+                <i data-lucide="calendar-range" size="20"></i> Xếp Thời khóa biểu
+            </a>
             <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
             </a>
@@ -452,7 +455,7 @@
                     </div>
 
                     <div class="form-group" style="flex: 1;">
-                        <label>Trạng thái</label>
+                        <label>Trạng thái Giao dịch</label>
                         <select class="form-control" style="width: 100%;">
                             <option value="all">Tất cả trạng thái</option>
                             <option value="success">Thành công</option>
@@ -482,7 +485,7 @@
                             <th>Số tiền</th>
                             <th>Thời gian GD</th>
                             <th>Phương thức</th>
-                            <th>Trạng thái</th>
+                            <th>Trạng thái GD</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -571,7 +574,7 @@
                             <td>Chuyển khoản (QR Code)</td>
                             <td><span class="status-badge status-pending"><i data-lucide="clock" size="14"></i> Chờ xử lý</span></td>
                             <td>
-                                <button class="btn btn-outline btn-sm" style="color: var(--primary); border-color: var(--primary);" onclick="alert('Xác nhận thành công giao dịch.')">
+                                <button class="btn btn-outline btn-sm" style="color: var(--primary); border-color: var(--primary);" onclick="promptApproval('TXN-88192305')">
                                     <i data-lucide="check" size="14"></i> Duyệt
                                 </button>
                             </td>
@@ -600,6 +603,17 @@
 
     <script>
         lucide.createIcons();
+        
+        function promptApproval(txnId) {
+            const reason = prompt(`Nhập lý do/Log phê duyệt cho giao dịch ${txnId} (Bắt buộc theo BR-035):`);
+            if (reason) {
+                if (reason.trim() === '') {
+                    alert('Lỗi: Bạn phải nhập lý do!');
+                } else {
+                    alert('Xác nhận thành công giao dịch. Lý do đã được lưu vào hệ thống.');
+                }
+            }
+        }
     </script>
 </body>
 

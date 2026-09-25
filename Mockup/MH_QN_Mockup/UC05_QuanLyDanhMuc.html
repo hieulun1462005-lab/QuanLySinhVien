@@ -161,6 +161,9 @@
             <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="20"></i> Chương trình học
             </a>
+            <a href="MH-02-2_XepTKB.html" class="sidebar-item">
+                <i data-lucide="calendar-range" size="20"></i> Xếp Thời khóa biểu
+            </a>
                         <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
             </a>
@@ -417,7 +420,7 @@
                     <i data-lucide="alert-triangle" color="#DC2626"></i>
                     <div class="alert-text">
                         <strong>Phát hiện Deadlock tiên quyết!</strong><br>
-                        Môn <span id="alertSubjCode"></span> không thể lấy <span id="alertPreCode"></span> làm môn tiên quyết vì <span id="alertPreCode"></span> đang yêu cầu <span id="alertSubjCode"></span>.
+                        Môn <span id="alertSubjCode1"></span> không thể lấy <span id="alertPreCode1"></span> làm môn tiên quyết vì <span id="alertPreCode2"></span> đang yêu cầu <span id="alertSubjCode2"></span>.
                     </div>
                 </div>
 
@@ -578,10 +581,10 @@
             if (demoTag.style.display !== 'none') {
                 const preCode = demoTag.querySelector('span').innerText;
                 if (code === 'PRF192' && preCode === 'PRO192') {
-                    document.getElementById('alertSubjCode').innerText = code;
-                    document.getElementById('alertPreCode').innerText = preCode;
-                    document.getElementById('alertSubjCode').nextElementSibling.innerText = preCode;
-                    document.getElementById('alertPreCode').nextElementSibling.innerText = code;
+                    document.getElementById('alertSubjCode1').innerText = code;
+                    document.getElementById('alertPreCode1').innerText = preCode;
+                    document.getElementById('alertPreCode2').innerText = preCode;
+                    document.getElementById('alertSubjCode2').innerText = code;
 
                     const alertBox = document.getElementById('deadlockAlert');
                     alertBox.classList.add('active');

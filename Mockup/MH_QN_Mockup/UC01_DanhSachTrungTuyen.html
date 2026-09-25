@@ -266,7 +266,48 @@
             background: #F1F5F9;
             color: #64748B;
         }
-            .user-profile { display: flex !important; align-items: center !important; gap: 12px !important; cursor: pointer !important; padding: 6px 12px !important; border-radius: 8px !important; transition: background 0.2s !important; border: 1px solid transparent !important; }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(16, 42, 67, 0.4);
+            display: none; justify-content: center; align-items: center;
+            z-index: 1000;
+        }
+        .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .modal-container {
+            background: white; width: 800px; border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: flex;
+            flex-direction: column; max-height: 90vh;
+        }
+        .modal-header {
+            padding: 20px 24px; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-title { font-size: 18px; font-weight: 600; }
+        .close-btn { cursor: pointer; color: var(--text-gray); }
+        .modal-body { padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+        .modal-footer {
+            padding: 16px 24px; border-top: 1px solid var(--border);
+            display: flex; justify-content: flex-end; gap: 12px; background: #F8FAFC;
+            border-radius: 0 0 12px 12px;
+        }
+        
+        .error-row { background: #FEF2F2 !important; border-left: 3px solid #DC2626; }
+        .error-text { color: #DC2626; font-size: 12px; font-weight: 500; }
+
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 24px; right: 24px; background: #10B981; color: white;
+            padding: 16px 24px; border-radius: 8px; display: flex; align-items: center; gap: 12px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); transform: translateY(100px); opacity: 0;
+            transition: all 0.3s; z-index: 2000;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        
+        .user-profile { display: flex !important; align-items: center !important; gap: 12px !important; cursor: pointer !important; padding: 6px 12px !important; border-radius: 8px !important; transition: background 0.2s !important; border: 1px solid transparent !important; }
         .user-profile:hover { background: #F8FAFC !important; border-color: var(--border) !important; }
         .avatar { width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #EAF4FF !important; color: var(--primary) !important; display: flex !important; justify-content: center !important; align-items: center !important; font-weight: 600 !important; font-size: 14px !important; position: relative !important; overflow: hidden !important; }
         .user-info { display: flex !important; flex-direction: column !important; text-align: right !important; }
@@ -322,6 +363,9 @@
             </a>
             <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="20"></i> Chương trình học
+            </a>
+            <a href="MH-02-2_XepTKB.html" class="sidebar-item">
+                <i data-lucide="calendar-range" size="20"></i> Xếp Thời khóa biểu
             </a>
                         <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
@@ -383,48 +427,136 @@
         </main>
     </div>
 
+    <!-- Preview Modal -->
+    <div class="modal-overlay" id="previewModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">Xem trước dữ liệu Import</div>
+                <i data-lucide="x" class="close-btn" size="24" onclick="closeModal()"></i>
+            </div>
+            <div class="modal-body">
+                <div style="background: #FFFBEB; border: 1px solid #FDE68A; padding: 12px; border-radius: 6px; color: #B45309; font-size: 14px;">
+                    <i data-lucide="alert-triangle" size="16" style="vertical-align: text-bottom; margin-right: 4px;"></i>
+                    Phát hiện <strong id="errorCount">1</strong> dòng lỗi. Hệ thống sẽ bỏ qua các dòng lỗi (bôi đỏ) và chỉ lưu các dòng hợp lệ, đồng thời tự động cấp tài khoản (S0→S1).
+                </div>
+                <table class="table" style="border: 1px solid var(--border);">
+                    <thead>
+                        <tr>
+                            <th>Mã trúng tuyển</th>
+                            <th>Mã SV</th>
+                            <th>Họ và Tên</th>
+                            <th>CCCD</th>
+                            <th>Email</th>
+                            <th>Lỗi (nếu có)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="previewList">
+                        <!-- Preview rows injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal()">Hủy bỏ</button>
+                <button class="btn btn-primary" onclick="confirmImport()">Xác nhận Import</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toastMsg">
+        <i data-lucide="check-circle" size="24"></i>
+        <span id="toastText">Thao tác thành công!</span>
+    </div>
+
     <script>
         lucide.createIcons();
 
         function handleExcelImport(event) {
             const file = event.target.files[0];
             if (file) {
-                setTimeout(() => {
-                    document.getElementById('emptyState').style.display = 'none';
-
-                    const tbody = document.getElementById('studentList');
-                    tbody.innerHTML = `
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>TT-24001</td>
-                            <td>Nguyễn Văn Minh</td>
-                            <td>15/10/2005</td>
-                            <td>Kỹ thuật phần mềm (HE)</td>
-                            <td><span class="status-badge status-empty">Chưa làm thủ tục</span></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>TT-24002</td>
-                            <td>Lê Thị Hoa</td>
-                            <td>20/03/2005</td>
-                            <td>Quản trị kinh doanh (HS)</td>
-                            <td><span class="status-badge status-empty">Chưa làm thủ tục</span></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>TT-24003</td>
-                            <td>Trần Đức Toàn</td>
-                            <td>05/08/2005</td>
-                            <td>Thiết kế đồ họa (HA)</td>
-                            <td><span class="status-badge status-empty">Chưa làm thủ tục</span></td>
-                        </tr>
-                    `;
-
-                    alert('Đã import thành công danh sách trúng tuyển từ: ' + file.name);
-                    event.target.value = '';
-                    lucide.createIcons();
-                }, 500);
+                // Show preview modal
+                document.getElementById('previewModal').classList.add('active');
+                
+                const previewBody = document.getElementById('previewList');
+                previewBody.innerHTML = `
+                    <tr>
+                        <td>TT-24001</td>
+                        <td>HE190001</td>
+                        <td>Nguyễn Văn Minh</td>
+                        <td>001090012345</td>
+                        <td>minhnvhe190001@fpt.edu.vn</td>
+                        <td>-</td>
+                    </tr>
+                    <tr class="error-row">
+                        <td>TT-24002</td>
+                        <td>HE190002</td>
+                        <td>Lê Thị Hoa</td>
+                        <td>001090012345</td>
+                        <td>hoalthe190002@fpt.edu.vn</td>
+                        <td class="error-text">Lỗi: Trùng CCCD (ERR-QLSV-01)</td>
+                    </tr>
+                    <tr class="error-row">
+                        <td>TT-24003</td>
+                        <td>HE190001</td>
+                        <td>Trần Đức Toàn</td>
+                        <td>001203004567</td>
+                        <td>toantdhe190001@fpt.edu.vn</td>
+                        <td class="error-text">Lỗi: Trùng Mã SV (ERR-QLSV-01)</td>
+                    </tr>
+                    <tr>
+                        <td>TT-24004</td>
+                        <td>HS190001</td>
+                        <td>Phạm Văn Đức</td>
+                        <td>001205008910</td>
+                        <td>ducpvhs190001@fpt.edu.vn</td>
+                        <td>-</td>
+                    </tr>
+                `;
+                document.getElementById('errorCount').innerText = '2';
+                lucide.createIcons();
             }
+        }
+
+        function closeModal() {
+            document.getElementById('previewModal').classList.remove('active');
+            document.getElementById('excelFileInput').value = '';
+        }
+
+        function confirmImport() {
+            closeModal();
+            document.getElementById('emptyState').style.display = 'none';
+
+            const tbody = document.getElementById('studentList');
+            tbody.innerHTML = `
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>TT-24001</td>
+                    <td>Nguyễn Văn Minh</td>
+                    <td>15/10/2005</td>
+                    <td>Kỹ thuật phần mềm (HE)</td>
+                    <td><span class="status-badge status-empty">Chưa làm thủ tục</span></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>TT-24004</td>
+                    <td>Phạm Văn Đức</td>
+                    <td>12/11/2005</td>
+                    <td>Quản trị kinh doanh (HS)</td>
+                    <td><span class="status-badge status-empty">Chưa làm thủ tục</span></td>
+                </tr>
+            `;
+
+            showToast('Đã import thành công 2 hồ sơ hợp lệ. Đã bỏ qua 2 dòng lỗi. Tài khoản (S1) đã được cấp phát tự động.');
+            lucide.createIcons();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toastMsg');
+            document.getElementById('toastText').innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
         }
     </script>
 </body>

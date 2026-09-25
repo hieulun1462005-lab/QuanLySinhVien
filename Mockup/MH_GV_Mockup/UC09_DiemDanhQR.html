@@ -165,8 +165,11 @@
                         <div class="qr-img" id="qrImg">QR CODE</div>
                     </div>
                     
-                    <div class="timer-text">
+                    <div class="timer-text" style="margin-bottom: 8px;">
                         <i data-lucide="refresh-cw" size="16"></i> Mã tự động làm mới sau <span id="timer">10</span>s
+                    </div>
+                    <div style="width: 100%; height: 6px; background: #E2E8F0; border-radius: 4px; margin-bottom: 24px; overflow: hidden;">
+                        <div id="progressBar" style="height: 100%; width: 100%; background: var(--primary); transition: width 1s linear;"></div>
                     </div>
                     
                     <div class="stats-box">
@@ -197,6 +200,7 @@
                                     <th>Họ và tên</th>
                                     <th>Trạng thái (QR)</th>
                                     <th style="text-align: center;">Điểm danh tay</th>
+                                    <th>Lý do sửa (Bắt buộc)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -210,6 +214,7 @@
                                             <button class="act-btn btn-a" title="Absent (Vắng mặt)"><i data-lucide="x" size="16"></i></button>
                                         </div>
                                     </td>
+                                    <td><input type="text" class="reason-input" placeholder="Nhập lý do..." style="width: 100%; padding: 6px; border: 1px solid var(--border); border-radius: 4px; outline: none; font-size: 13px; display: none;"></td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: 500;">HE150002</td>
@@ -221,6 +226,7 @@
                                             <button class="act-btn btn-a" title="Absent (Vắng mặt)"><i data-lucide="x" size="16"></i></button>
                                         </div>
                                     </td>
+                                    <td><input type="text" class="reason-input" placeholder="Nhập lý do..." style="width: 100%; padding: 6px; border: 1px solid var(--border); border-radius: 4px; outline: none; font-size: 13px; display: none;"></td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: 500;">HE150003</td>
@@ -232,6 +238,7 @@
                                             <button class="act-btn btn-a" title="Absent (Vắng mặt)"><i data-lucide="x" size="16"></i></button>
                                         </div>
                                     </td>
+                                    <td><input type="text" class="reason-input" placeholder="Nhập lý do..." style="width: 100%; padding: 6px; border: 1px solid var(--border); border-radius: 4px; outline: none; font-size: 13px; display: none;"></td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: 500;">HE150004</td>
@@ -243,6 +250,7 @@
                                             <button class="act-btn btn-a" title="Absent (Vắng mặt)"><i data-lucide="x" size="16"></i></button>
                                         </div>
                                     </td>
+                                    <td><input type="text" class="reason-input" placeholder="Nhập lý do..." style="width: 100%; padding: 6px; border: 1px solid var(--border); border-radius: 4px; outline: none; font-size: 13px; display: none;"></td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: 500;">HE150005</td>
@@ -254,6 +262,7 @@
                                             <button class="act-btn btn-a active" title="Absent (Vắng mặt)"><i data-lucide="x" size="16"></i></button>
                                         </div>
                                     </td>
+                                    <td><input type="text" class="reason-input" placeholder="Nhập lý do..." style="width: 100%; padding: 6px; border: 1px solid var(--border); border-radius: 4px; outline: none; font-size: 13px; display: block;" required></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -286,6 +295,18 @@
                 countdown = 10;
                 document.getElementById('qrImg').style.opacity = '0.5';
                 setTimeout(() => { document.getElementById('qrImg').style.opacity = '1'; }, 200);
+                
+                const pBar = document.getElementById('progressBar');
+                if (pBar) {
+                    pBar.style.transition = 'none';
+                    pBar.style.width = '100%';
+                    setTimeout(() => { pBar.style.transition = 'width 1s linear'; }, 50);
+                }
+            } else {
+                const pBar = document.getElementById('progressBar');
+                if (pBar) {
+                    pBar.style.width = (countdown * 10) + '%';
+                }
             }
             document.getElementById('timer').innerText = countdown;
         }, 1000);
@@ -323,6 +344,12 @@
                 tr.querySelectorAll('.act-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 
+                const reasonInput = tr.querySelector('.reason-input');
+                if(reasonInput) {
+                    reasonInput.style.display = 'block';
+                    reasonInput.setAttribute('required', 'true');
+                }
+                
                 // Update badge text if needed
                 const badge = tr.querySelector('.status-badge');
                 if(this.classList.contains('btn-p')) {
@@ -330,7 +357,7 @@
                     badge.innerHTML = '<i data-lucide="check-circle" size="14"></i> Có mặt (Sửa tay)';
                 } else {
                     badge.className = 'status-badge status-absent';
-                    badge.innerHTML = '<i data-lucide="x-circle" size="14"></i> Vắng';
+                    badge.innerHTML = '<i data-lucide="x-circle" size="14"></i> Vắng (Sửa tay)';
                 }
                 lucide.createIcons();
             });

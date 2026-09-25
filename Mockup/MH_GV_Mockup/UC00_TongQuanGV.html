@@ -622,8 +622,13 @@
                     <div class="qr-box">
                         <div class="qr-img">QR CODE HIỂN THỊ Ở ĐÂY</div>
                     </div>
-                    <div class="refresh-text">
-                        <i data-lucide="refresh-cw" size="14"></i> Mã sẽ tự động làm mới sau <span class="timer" id="qrTimer">10</span>s
+                    <div class="refresh-text" style="width: 100%; flex-direction: column; gap: 8px;">
+                        <div>
+                            <i data-lucide="refresh-cw" size="14"></i> Mã sẽ tự động làm mới sau <span class="timer" id="qrTimer">10</span>s
+                        </div>
+                        <div style="width: 250px; height: 6px; background: #E2E8F0; border-radius: 4px; overflow: hidden;">
+                            <div id="qrProgressBar" style="height: 100%; width: 100%; background: var(--primary); transition: width 1s linear;"></div>
+                        </div>
                     </div>
                 </div>
                 
@@ -720,6 +725,18 @@
                     const img = document.querySelector('.qr-img');
                     img.style.opacity = '0.5';
                     setTimeout(() => { img.style.opacity = '1'; }, 200);
+                    
+                    const pBar = document.getElementById('qrProgressBar');
+                    if (pBar) {
+                        pBar.style.transition = 'none';
+                        pBar.style.width = '100%';
+                        setTimeout(() => { pBar.style.transition = 'width 1s linear'; }, 50);
+                    }
+                } else {
+                    const pBar = document.getElementById('qrProgressBar');
+                    if (pBar) {
+                        pBar.style.width = (countdown * 10) + '%';
+                    }
                 }
                 document.getElementById('qrTimer').innerText = countdown;
             }, 1000);

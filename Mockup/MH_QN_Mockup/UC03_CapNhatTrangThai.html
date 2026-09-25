@@ -123,6 +123,9 @@
             <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="20"></i> Chương trình học
             </a>
+            <a href="MH-02-2_XepTKB.html" class="sidebar-item">
+                <i data-lucide="calendar-range" size="20"></i> Xếp Thời khóa biểu
+            </a>
                         <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
             </a>
@@ -137,7 +140,10 @@
 
         <main class="dashboard-content">
             <div class="card">
-                <h1 class="page-title"><i data-lucide="user-cog" color="var(--primary)"></i> Cập nhật trạng thái học tập</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <h1 class="page-title" style="margin-bottom: 0;"><i data-lucide="user-cog" color="var(--primary)"></i> Cập nhật trạng thái học tập</h1>
+                    <button class="btn btn-outline" onclick="openAuditLog()"><i data-lucide="history" size="18"></i> Lịch sử (Audit Log)</button>
+                </div>
                 
                 <div class="form-group" style="display: flex; gap: 12px; align-items: flex-end;">
                     <div style="flex: 1;">
@@ -174,6 +180,23 @@
                     </div>
                 </div>
 
+                <!-- Alert for Graduation rules -->
+                <div id="gradAlert" class="alert">
+                    <i data-lucide="alert-circle" size="20" style="margin-top: 2px;"></i>
+                    <div>
+                        <strong>Không đủ điều kiện tốt nghiệp!</strong><br>
+                        Sinh viên chưa hoàn thành chương trình đào tạo (nợ môn/chưa qua môn). Chặn trạng thái "Tốt nghiệp".
+                    </div>
+                </div>
+
+                <!-- Warning for Suspension -->
+                <div id="suspendAlert" class="alert" style="background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309;">
+                    <i data-lucide="info" size="20" style="margin-top: 2px;"></i>
+                    <div>
+                        <strong>Lưu ý:</strong> Chuyển sang "Đình chỉ" sẽ tự động gỡ sinh viên khỏi lớp và <b>chặn quyền đăng ký học kỳ tiếp theo (BR-038)</b>.
+                    </div>
+                </div>
+
                 <!-- Update Form -->
                 <div id="updateForm" style="opacity: 0.5; pointer-events: none;">
                     <div class="form-group">
@@ -184,6 +207,8 @@
                             <option value="thoihoc">Thôi học</option>
                             <option value="totnghiep">Tốt nghiệp</option>
                             <option value="dinhchi">Đình chỉ</option>
+                            <option value="tainhaphoc">Tái nhập học (Từ Bảo lưu)</option>
+                            <option value="hetdinhchi">Hết hạn đình chỉ</option>
                         </select>
                     </div>
 
@@ -200,38 +225,84 @@
 
                 <!-- Simulate Exception Trigger -->
                 <div style="margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--border); text-align: center;">
-                    <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 8px;">Dành cho Test: Click nút dưới đây để giả lập Luồng ngoại lệ 3a (SV nợ phí)</p>
-                    <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px; margin: 0 auto;" onclick="simulateDebt()">
-                        Giả lập tìm thấy SV nợ phí
-                    </button>
+                    <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 8px;">Dành cho Test: Click nút dưới đây để giả lập Luồng ngoại lệ</p>
+                    <div style="display: flex; gap: 8px; justify-content: center;">
+                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;" onclick="simulateDebt()">
+                            Giả lập SV nợ phí
+                        </button>
+                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;" onclick="simulateNotGraduated()">
+                            Giả lập SV chưa đủ ĐK tốt nghiệp
+                        </button>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
 
+    <!-- Audit Log Modal -->
+    <div id="auditLogModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); justify-content: center; align-items: center; z-index: 1000;">
+        <div style="background: white; padding: 32px; border-radius: 16px; width: 600px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="font-size: 18px; font-weight: 700;">Lịch sử thay đổi hệ thống (Audit Log)</h3>
+                <i data-lucide="x" size="20" style="cursor: pointer; color: var(--text-gray);" onclick="closeAuditLog()"></i>
+            </div>
+            
+            <div style="max-height: 400px; overflow-y: auto;">
+                <div style="border-left: 2px solid var(--border); padding-left: 16px; margin-bottom: 20px; position: relative;">
+                    <div style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; position: absolute; left: -6px; top: 4px;"></div>
+                    <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">25/09/2026 08:30:15 - CBQN Nguyễn Văn A</div>
+                    <div style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Cập nhật trạng thái SV HE19201</div>
+                    <div style="font-size: 14px; color: var(--text-gray); margin-top: 4px;">Từ "Đang học" -> "Bảo lưu". Lý do: QĐ số 123/QĐ-BGD.</div>
+                </div>
+                <div style="border-left: 2px solid var(--border); padding-left: 16px; margin-bottom: 20px; position: relative;">
+                    <div style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; position: absolute; left: -6px; top: 4px;"></div>
+                    <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">24/09/2026 14:20:00 - Hệ thống (System)</div>
+                    <div style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Cấp phát tài khoản tự động</div>
+                    <div style="font-size: 14px; color: var(--text-gray); margin-top: 4px;">Tạo tài khoản HE19999 (S0 -> S1).</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         lucide.createIcons();
         let isDebt = false;
+        let isEligibleForGraduation = true;
 
         function searchStudent() {
             const id = document.getElementById('searchId').value;
             if (!id) { alert("Vui lòng nhập mã SV!"); return; }
             
             isDebt = false;
-            document.getElementById('debtAlert').classList.remove('active');
+            isEligibleForGraduation = true;
+            hideAllAlerts();
             
             // Show Normal Profile
-            document.getElementById('profileSummary').classList.add('active');
+            const profile = document.getElementById('profileSummary');
+            profile.innerHTML = `
+                <div class="profile-header">
+                    <div>
+                        <div class="profile-name">Trần Thị Bích</div>
+                        <div class="profile-id">HE19201 • Lớp SE1901</div>
+                    </div>
+                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại: Đang học (S1)</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-gray); display: flex; align-items: center; gap: 24px; margin-top: 8px;">
+                    <span><i data-lucide="credit-card" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Đã đóng đủ</span>
+                    <span><i data-lucide="book-check" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Tiến độ: Hoàn thành 100%</span>
+                </div>
+            `;
+            profile.classList.add('active');
+            lucide.createIcons();
             
             // Enable Form
-            document.getElementById('updateForm').style.opacity = '1';
-            document.getElementById('updateForm').style.pointerEvents = 'auto';
-            document.getElementById('submitBtn').disabled = false;
+            enableForm();
         }
 
         function simulateDebt() {
             document.getElementById('searchId').value = 'HE19999';
             isDebt = true;
+            isEligibleForGraduation = true;
             
             // Show Debt Profile
             const profile = document.getElementById('profileSummary');
@@ -248,24 +319,70 @@
                 </div>
             `;
             profile.classList.add('active');
+            lucide.createIcons();
             
-            // Enable Form
+            enableForm();
+            checkRules();
+        }
+
+        function simulateNotGraduated() {
+            document.getElementById('searchId').value = 'HE19005';
+            isDebt = false;
+            isEligibleForGraduation = false;
+            
+            // Show Normal Profile
+            const profile = document.getElementById('profileSummary');
+            profile.innerHTML = `
+                <div class="profile-header">
+                    <div>
+                        <div class="profile-name">Đặng Trọng Thi</div>
+                        <div class="profile-id">HE19005 • Lớp SE1905</div>
+                    </div>
+                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại: Đang học</span>
+                </div>
+                <div style="font-size: 13px; color: #B45309; display: flex; align-items: center; gap: 24px; margin-top: 8px; font-weight: 600;">
+                    <span><i data-lucide="x-circle" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Tiến độ: Nợ môn MAD101</span>
+                </div>
+            `;
+            profile.classList.add('active');
+            lucide.createIcons();
+            
+            enableForm();
+            checkRules();
+        }
+
+        function hideAllAlerts() {
+            document.getElementById('debtAlert').classList.remove('active');
+            document.getElementById('gradAlert').classList.remove('active');
+            document.getElementById('suspendAlert').classList.remove('active');
+        }
+
+        function enableForm() {
             document.getElementById('updateForm').style.opacity = '1';
             document.getElementById('updateForm').style.pointerEvents = 'auto';
-            checkRules();
+            document.getElementById('newStatus').value = '';
+            document.getElementById('reason').value = '';
+            document.getElementById('submitBtn').disabled = false;
         }
 
         function checkRules() {
             const status = document.getElementById('newStatus').value;
-            const alertBox = document.getElementById('debtAlert');
             const submitBtn = document.getElementById('submitBtn');
+            hideAllAlerts();
+            submitBtn.disabled = false;
 
             if (isDebt && (status === 'baoluu' || status === 'thoihoc')) {
-                alertBox.classList.add('active');
+                document.getElementById('debtAlert').classList.add('active');
                 submitBtn.disabled = true;
-            } else {
-                alertBox.classList.remove('active');
-                submitBtn.disabled = false;
+            }
+            
+            if (!isEligibleForGraduation && status === 'totnghiep') {
+                document.getElementById('gradAlert').classList.add('active');
+                submitBtn.disabled = true;
+            }
+
+            if (status === 'dinhchi') {
+                document.getElementById('suspendAlert').classList.add('active');
             }
         }
 
@@ -274,7 +391,7 @@
             document.getElementById('newStatus').value = '';
             document.getElementById('reason').value = '';
             document.getElementById('profileSummary').classList.remove('active');
-            document.getElementById('debtAlert').classList.remove('active');
+            hideAllAlerts();
             document.getElementById('updateForm').style.opacity = '0.5';
             document.getElementById('updateForm').style.pointerEvents = 'none';
         }
@@ -282,8 +399,15 @@
         function submitUpdate() {
             const status = document.getElementById('newStatus').value;
             if(!status) { alert('Vui lòng chọn trạng thái mới!'); return; }
-            alert('Cập nhật thành công! Trạng thái sinh viên đã được thay đổi, quyền truy cập hệ thống đã được đồng bộ, và sinh viên đã được gỡ khỏi lớp hiện tại.');
+            alert('Cập nhật thành công! Trạng thái sinh viên đã được thay đổi, quyền truy cập hệ thống đã được đồng bộ, và sinh viên đã được gỡ khỏi lớp hiện tại (BR-003).');
             resetForm();
+        }
+
+        function openAuditLog() {
+            document.getElementById('auditLogModal').style.display = 'flex';
+        }
+        function closeAuditLog() {
+            document.getElementById('auditLogModal').style.display = 'none';
         }
     </script>
 </body>

@@ -616,6 +616,9 @@
             <a href="UC06_KhungChuongTrinh.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="20"></i> Chương trình học
             </a>
+            <a href="MH-02-2_XepTKB.html" class="sidebar-item">
+                <i data-lucide="calendar-range" size="20"></i> Xếp Thời khóa biểu
+            </a>
                         <a href="UC08_DieuChinhLichHoc.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
             </a>
@@ -655,8 +658,12 @@
                                 style="background-color: #f1f5f9; color: #64748b; cursor: not-allowed;">
                         </div>
                         <div class="form-group">
-                            <label>Số CCCD</label>
-                            <input type="text" id="cccd" placeholder="Nhập số CCCD" required>
+                            <label>Mã Sinh Viên <span style="color:red">*</span></label>
+                            <input type="text" id="studentId" placeholder="VD: HE190001" pattern="^[a-zA-Z]{2}[0-9]{6,8}$" required title="Mã SV phải theo định dạng (vd: HE190001)">
+                        </div>
+                        <div class="form-group">
+                            <label>Số CCCD <span style="color:red">*</span></label>
+                            <input type="text" id="cccd" placeholder="Nhập 12 số CCCD" required pattern="[0-9]{12}" title="Số CCCD phải gồm đúng 12 chữ số">
                         </div>
                         <div class="form-group">
                             <label>Ngày sinh</label>
@@ -725,6 +732,7 @@
                             // Populate dummy data based on search
                             document.getElementById('fullname').value = 'Nguyễn Văn Minh';
                             document.getElementById('dob').value = '2005-10-15';
+                            document.getElementById('studentId').value = 'HE190001';
 
                             const majorSelect = document.getElementById('major');
                             majorSelect.value = 'se'; // Khớp chuyên ngành KTPM
