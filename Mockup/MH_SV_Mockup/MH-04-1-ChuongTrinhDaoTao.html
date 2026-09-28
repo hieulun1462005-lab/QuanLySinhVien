@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Thông Tin Sinh Viên - Đại Học ONENET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-light: #EFF6FF;
+            --primary-hover: #1D4ED8;
+            --text-dark: #1E293B;
+            --text-gray: #64748B;
+            --bg-light: #F1F5F9;
+            --border: #E2E8F0;
+            --danger: #EF4444;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .emblem {
+            width: 40px; height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .brand-copy {
+            display: flex; flex-direction: column;
+        }
+
+        .uni { font-size: 11px; font-weight: 700; color: var(--text-gray); letter-spacing: 0.5px; }
+        .sys-name { font-size: 16px; font-weight: 700; color: var(--primary); }
+
+        .user-profile { display: flex; align-items: center; gap: 16px; cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; }
+        .user-profile:hover { background: var(--primary-light); }
+
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+
+        .avatar {
+            width: 40px; height: 40px;
+            background: #F3E8FD; color: #8E24AA;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 16px;
+        }
+
+        /* DASHBOARD LAYOUT */
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex; flex-direction: column; gap: 24px;
+            overflow-y: auto;
+        }
+
+        .menu-group { display: flex; flex-direction: column; gap: 8px; }
+        .menu-title {
+            font-size: 11px; font-weight: 700; color: var(--text-gray);
+            letter-spacing: 0.5px; margin-left: 12px; margin-bottom: 4px;
+        }
+
+        .menu-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 12px; border-radius: 8px;
+            color: var(--text-gray); font-size: 14px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s;
+        }
+
+        .menu-item:hover { background: var(--bg-light); color: var(--primary); }
+        .menu-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+
+        .main-content {
+            flex: 1; padding: 32px 40px; overflow-y: auto;
+        }
+
+        .page-title {
+            font-size: 24px; font-weight: 700; margin-bottom: 24px;
+        }
+
+        .content-section {
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* CARDS */
+        .card {
+            background: white; border: 1px solid var(--border);
+            border-radius: 12px; padding: 24px; margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        
+        .form-group label {
+            display: block; font-size: 13px; font-weight: 600; color: var(--text-gray); margin-bottom: 8px;
+        }
+        .form-control {
+            width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px;
+            font-size: 14px; outline: none; transition: border 0.2s;
+        }
+        .form-control:focus { border-color: var(--primary); }
+
+        .btn {
+            padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; border: none;
+        }
+        .btn-primary { background: #3730A3; color: white; }
+        .btn-primary:hover { background: #312E81; }
+        .btn-secondary { background: #64748B; color: white; }
+        .btn-secondary:hover { background: #475569; }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary-light); }
+
+        /* TABLE */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        table {
+            width: 100%; border-collapse: collapse; min-width: 1000px;
+        }
+        th {
+            background: #F1F5F9; color: var(--text-dark); font-weight: 600; font-size: 13px;
+            padding: 16px; text-align: left; border-bottom: 2px solid var(--border);
+        }
+        td {
+            padding: 16px; font-size: 14px; color: var(--text-dark);
+            border-bottom: 1px solid var(--border); vertical-align: top;
+        }
+        tr:hover td { background: #F8FAFC; }
+        
+        .check-icon { color: #64748B; }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="sys-identity" onclick="window.location.href='../MH_Chung_Mockup/MH-00-5-DangNhapAdmin.html'">
+            <div class="emblem">
+                <i data-lucide="book-open" size="20"></i>
+            </div>
+            <div class="brand-copy">
+                <span class="uni">TRƯỜNG</span>
+                <span class="sys-name">Đại Học ONENET</span>
+            </div>
+        </div>
+        <div class="user-profile" onclick="window.location.href='MH-05-4-QuanLyHoSoCaNhan.html'">
+            <div class="user-info">
+                <span class="name">Nguyễn Hồng Long Khánh</span>
+                <span class="role">Sinh viên (K19)</span>
+            </div>
+            <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
+                K
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="menu-group">
+                <div class="menu-title">HỌC TẬP</div>
+                <div class="menu-item " onclick="window.location.href='MH-00-9-TongQuanHocTap.html'">
+                    <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-03-3-QRDiemDanh.html'">
+                    <i data-lucide="scan-line" size="18"></i> Lịch học & Điểm danh QR
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-02-6-ThoiKhoaBieu.html'">
+                    <i data-lucide="calendar" size="18"></i> Thời khóa biểu
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
+                    <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
+                </div>
+                <div class="menu-item active" onclick="window.location.href='MH-04-1-ChuongTrinhDaoTao.html'">
+                    <i data-lucide="book" size="18"></i> Chương trình đào tạo
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
+                    <i data-lucide="clock" size="18"></i> Lịch thi
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-04-2-KetQuaHocTap.html'">
+                    <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
+                <div class="menu-item " onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'">
+                    <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'">
+                    <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <h1 class="page-title">Khung chương trình & Quản lý môn học</h1>
+            <div class="content-section">
+                
+                <!-- FILTER CARD -->
+                <div class="card" style="padding: 24px;">
+                    <div style="display: flex; gap: 24px; align-items: flex-end; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <div class="form-group">
+                                <label>Từ khóa</label>
+                                <input type="text" class="form-control" placeholder="Từ khóa">
+                            </div>
+                        </div>
+
+                        <div style="width: 200px;">
+                            <div class="form-group">
+                                <label>Là môn tốt nghiệp</label>
+                                <select class="form-control">
+                                    <option>-- Tất cả --</option>
+                                    <option>Có</option>
+                                    <option>Không</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-primary">Tìm kiếm</button>
+                            <button class="btn btn-secondary">Đặt lại</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABLE CARD -->
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <div class="table-container" style="border: none;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">STT</th>
+                                    <th style="width: 120px;">Mã môn học</th>
+                                    <th>
+                                        <div>Tên môn học</div>
+                                        <div style="font-weight: 400; color: var(--text-gray); margin-top: 2px;">Tên môn tiếng việt</div>
+                                    </th>
+                                    <th style="width: 150px; text-align: center;">Là môn tốt nghiệp</th>
+
+                                    <th style="width: 120px; text-align: right;">Phí</th>
+                                    <th style="width: 140px; text-align: right;">Phí nước ngoài</th>
+                                    <th style="width: 100px; text-align: center;">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- HỌC KỲ 1 -->
+                                <tr style="background: #F8FAFC;">
+                                    <td colspan="7" style="font-weight: 700; color: var(--primary); font-size: 15px; border-left: 4px solid var(--primary);">Học kỳ 1 (Semester 1)</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td><td style="font-weight: 600;">CSI104</td>
+                                    <td>
+                                        <div style="color: var(--text-dark); margin-bottom: 4px; font-weight: 600;">Introduction to Computing</div>
+                                        <div style="color: var(--text-gray); font-size: 13px;">Nhập môn điện toán</div>
+                                    </td>
+                                    <td style="text-align: center;"></td><td style="text-align: right;">0</td><td style="text-align: right;">0</td><td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 16px; border-color: #CBD5E1;">Chi tiết</button></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td><td style="font-weight: 600;">PRF192</td>
+                                    <td>
+                                        <div style="color: var(--text-dark); margin-bottom: 4px; font-weight: 600;">Programming Fundamentals</div>
+                                        <div style="color: var(--text-gray); font-size: 13px;">Nhập môn lập trình (C)</div>
+                                    </td>
+                                    <td style="text-align: center;"></td><td style="text-align: right;">0</td><td style="text-align: right;">0</td><td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 16px; border-color: #CBD5E1;">Chi tiết</button></td>
+                                </tr>
+                                
+                                <!-- HỌC KỲ 2 -->
+                                <tr style="background: #F8FAFC;">
+                                    <td colspan="7" style="font-weight: 700; color: var(--primary); font-size: 15px; border-left: 4px solid var(--primary);">Học kỳ 2 (Semester 2)</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td><td style="font-weight: 600;">PRO192</td>
+                                    <td>
+                                        <div style="color: var(--text-dark); margin-bottom: 4px; font-weight: 600;">Object-Oriented Programming</div>
+                                        <div style="color: var(--text-gray); font-size: 13px;">Lập trình hướng đối tượng (Java)</div>
+                                    </td>
+                                    <td style="text-align: center;"></td><td style="text-align: right;">0</td><td style="text-align: right;">0</td><td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 16px; border-color: #CBD5E1;">Chi tiết</button></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td><td style="font-weight: 600;">MAD101</td>
+                                    <td>
+                                        <div style="color: var(--text-dark); margin-bottom: 4px; font-weight: 600;">Discrete Mathematics</div>
+                                        <div style="color: var(--text-gray); font-size: 13px;">Toán rời rạc</div>
+                                    </td>
+                                    <td style="text-align: center;"></td><td style="text-align: right;">0</td><td style="text-align: right;">0</td><td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 16px; border-color: #CBD5E1;">Chi tiết</button></td>
+                                </tr>
+
+                                <!-- HỌC KỲ 3 -->
+                                <tr style="background: #F8FAFC;">
+                                    <td colspan="7" style="font-weight: 700; color: var(--primary); font-size: 15px; border-left: 4px solid var(--primary);">Học kỳ 3 (Semester 3)</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td><td style="font-weight: 600;">DBI202</td>
+                                    <td>
+                                        <div style="color: var(--text-dark); margin-bottom: 4px; font-weight: 600;">Database Systems</div>
+                                        <div style="color: var(--text-gray); font-size: 13px;">Hệ cơ sở dữ liệu</div>
+                                    </td>
+                                    <td style="text-align: center;"></td><td style="text-align: right;">0</td><td style="text-align: right;">0</td><td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 16px; border-color: #CBD5E1;">Chi tiết</button></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td><td style="font-weight: 600;">CSD201</td>
+                                    <td>
+                                        <div style="color: var(--text-dark); margin-bottom: 4px; font-weight: 600;">Data Structures and Algorithms</div>
+                                        <div style="color: var(--text-gray); font-size: 13px;">Cấu trúc dữ liệu và giải thuật</div>
+                                    </td>
+                                    <td style="text-align: center;"></td><td style="text-align: right;">0</td><td style="text-align: right;">0</td><td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 16px; border-color: #CBD5E1;">Chi tiết</button></td>
+                                </tr>
+
+                                <!-- HỌC KỲ 4 -->
+                                <tr style="background: #F8FAFC;">
+                                    <td colspan="7" style="font-weight: 700; color: var(--primary); font-size: 15px; border-left: 4px solid var(--primary);">Học kỳ 4 (Semester 4)</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td><td style="font-weight: 600;">PRJ301</td>
+                                    <td>
+                                        <div style="color: var(--text-dark); margin-bottom: 4px; font-weight: 600;">Java Web Development</div>
+                                        <div style="color: var(--text-gray); font-size: 13px;">Lập trình Web bằng Java</div>
+                                    </td>
+                                    <td style="text-align: center;"></td><td style="text-align: right;">0</td><td style="text-align: right;">0</td><td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 16px; border-color: #CBD5E1;">Chi tiết</button></td>
+                                </tr>
+
+                                <!-- HỌC KỲ 5 -->
+                                <tr style="background: #F8FAFC;">
+                                    <td colspan="7" style="font-weight: 700; color: var(--primary); font-size: 15px; border-left: 4px solid var(--primary);">Học kỳ 5 (Semester 5)</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td><td style="font-weight: 600;">SWP391</td>
+                                    <td>
+                                        <div style="color: var(--text-dark); margin-bottom: 4px; font-weight: 600;">Application Development Project</div>
+                                        <div style="color: var(--text-gray); font-size: 13px;">Dự án phát triển ứng dụng</div>
+                                    </td>
+                                    <td style="text-align: center;"></td><td style="text-align: right;">0</td><td style="text-align: right;">0</td><td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 16px; border-color: #CBD5E1;">Chi tiết</button></td>
+                                </tr>
+
+                                <!-- HỌC KỲ 6 -->
+                                <tr style="background: #FFFBEB;">
+                                    <td colspan="7" style="font-weight: 700; color: #D97706; font-size: 15px; border-left: 4px solid #F59E0B;">Học kỳ 6 (Semester 6) - Thực tập doanh nghiệp (OJT)</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td><td style="font-weight: 600;">OJT202</td>
+                                    <td>
+                                        <div style="color: var(--text-dark); margin-bottom: 4px; font-weight: 600;">On the Job Training</div>
+                                        <div style="color: var(--text-gray); font-size: 13px;">Thực tập thực tế tại doanh nghiệp</div>
+                                    </td>
+                                    <td style="text-align: center;"></td><td style="text-align: right;">0</td><td style="text-align: right;">0</td><td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 16px; border-color: #CBD5E1;">Chi tiết</button></td>
+                                </tr>
+
+                                <!-- HỌC KỲ 9 -->
+                                <tr style="background: #F0FDF4;">
+                                    <td colspan="7" style="font-weight: 700; color: #166534; font-size: 15px; border-left: 4px solid #22C55E;">Học kỳ 9 (Semester 9) - Đồ án tốt nghiệp</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td><td style="font-weight: 600;">SWP490</td>
+                                    <td>
+                                        <div style="color: var(--text-dark); margin-bottom: 4px; font-weight: 600;">Capstone Project</div>
+                                        <div style="color: var(--text-gray); font-size: 13px;">Đồ án tốt nghiệp chuyên ngành Kỹ thuật phần mềm</div>
+                                    </td>
+                                    <td style="text-align: center;"><i data-lucide="check" size="18" style="color: #22C55E;"></i></td><td style="text-align: right;">5.820.000</td><td style="text-align: right;">5.820.000</td><td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 16px; border-color: #CBD5E1;">Chi tiết</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

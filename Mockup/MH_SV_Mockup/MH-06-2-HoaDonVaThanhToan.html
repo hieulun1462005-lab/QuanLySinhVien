@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
             --primary-hover: #1D4ED8;
             --text-dark: #1E293B;
             --text-gray: #64748B;
-            --bg-light: #F8FAFC;
+            --bg-light: #F1F5F9;
             --border: #E2E8F0;
             --danger: #EF4444;
             --success: #10B981;
@@ -187,11 +187,11 @@
         </div>
         <div class="user-profile" onclick="window.location.href='MH-05-4-QuanLyHoSoCaNhan.html'">
             <div class="user-info">
-                <span class="name">Trần Văn Học</span>
+                <span class="name">Nguyễn Hồng Long Khánh</span>
                 <span class="role">Sinh viên (K19)</span>
             </div>
             <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
-                H
+                K
             </div>
         </div>
     </header>
@@ -205,11 +205,17 @@
                 <div class="menu-item " onclick="window.location.href='MH-00-9-TongQuanHocTap.html'">
                     <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
                 </div>
+                <div class="menu-item " onclick="window.location.href='MH-03-3-QRDiemDanh.html'">
+                    <i data-lucide="scan-line" size="18"></i> Lịch học & Điểm danh QR
+                </div>
                 <div class="menu-item " onclick="window.location.href='MH-02-6-ThoiKhoaBieu.html'">
                     <i data-lucide="calendar" size="18"></i> Thời khóa biểu
                 </div>
                 <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
                     <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-04-1-ChuongTrinhDaoTao.html'">
+                    <i data-lucide="book" size="18"></i> Chương trình đào tạo
                 </div>
                 <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
                     <i data-lucide="clock" size="18"></i> Lịch thi
@@ -233,49 +239,139 @@
 
         <!-- MAIN CONTENT -->
         <div class="main-content">
-            <h1 class="page-title">Hóa đơn & Thanh toán</h1>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+                <div>
+                    <h1 class="page-title" style="margin-bottom: 8px;">Quản lý Tài chính</h1>
+                    <div style="color: var(--text-gray); font-size: 14px;">Theo dõi công nợ, hóa đơn và thực hiện thanh toán trực tuyến</div>
+                </div>
+                <button class="btn btn-outline" onclick="showToast('Đang tải dữ liệu mới nhất...')"><i data-lucide="refresh-cw" size="16"></i> Cập nhật dữ liệu</button>
+            </div>
+
             <div class="content-section">
+                <!-- THỐNG KÊ TÀI CHÍNH -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 24px;">
+                    <div class="card" style="margin-bottom: 0; background: linear-gradient(to right, #ffffff, #FEF2F2); border: 1px solid #FCA5A5;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <div style="font-size: 13px; color: #991B1B; font-weight: 600; margin-bottom: 8px; text-transform: uppercase;">Tổng nợ cần nộp</div>
+                                <div style="font-size: 28px; font-weight: 700; color: #DC2626;">28,700,000 đ</div>
+                            </div>
+                            <div style="background: #FEE2E2; color: #EF4444; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="alert-circle" size="20"></i>
+                            </div>
+                        </div>
+                        <div style="margin-top: 16px; font-size: 13px; color: #B91C1C; display: flex; align-items: center; gap: 6px;">
+                            <i data-lucide="clock" size="14"></i> Hạn cuối: 27/09/2026 (Còn 3 ngày)
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <div style="font-size: 13px; color: var(--text-gray); font-weight: 600; margin-bottom: 8px; text-transform: uppercase;">Đã thanh toán (Kỳ này)</div>
+                                <div style="font-size: 24px; font-weight: 700; color: var(--text-dark);">100,000 đ</div>
+                            </div>
+                            <div style="background: #E6F4EA; color: #10B981; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="check-circle-2" size="20"></i>
+                            </div>
+                        </div>
+                        <div style="margin-top: 16px; font-size: 13px; color: var(--text-gray);">
+                            Cập nhật lần cuối: 15/08/2026
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <div style="font-size: 13px; color: var(--text-gray); font-weight: 600; margin-bottom: 8px; text-transform: uppercase;">Số dư Ví SV</div>
+                                <div style="font-size: 24px; font-weight: 700; color: var(--primary);">0 đ</div>
+                            </div>
+                            <div style="background: var(--primary-light); color: var(--primary); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="wallet" size="20"></i>
+                            </div>
+                        </div>
+                        <div style="margin-top: 16px; font-size: 13px; color: var(--primary); font-weight: 500; cursor: pointer;">
+                            + Nạp tiền vào ví
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BỘ LỌC & TÌM KIẾM -->
+                <div class="card" style="padding: 16px 24px; margin-bottom: 24px; display: flex; gap: 16px; align-items: center; background: #F8FAFC; border: none;">
+                    <div style="flex: 1; position: relative;">
+                        <i data-lucide="search" size="16" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-gray);"></i>
+                        <input type="text" placeholder="Tìm kiếm nội dung hóa đơn..." style="width: 100%; padding: 10px 10px 10px 36px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; outline: none;">
+                    </div>
+                    <select style="padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; min-width: 140px; background: white; outline: none; cursor: pointer;">
+                        <option value="all">Tất cả học kỳ</option>
+                        <option value="fa26" selected>Fall 2026</option>
+                        <option value="su26">Summer 2026</option>
+                        <option value="sp26">Spring 2026</option>
+                    </select>
+                    <select style="padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; min-width: 140px; background: white; outline: none; cursor: pointer;">
+                        <option value="all">Mọi trạng thái</option>
+                        <option value="unpaid">Chưa nộp (1)</option>
+                        <option value="paid">Đã nộp (1)</option>
+                    </select>
+                    <button class="btn btn-primary" style="padding: 10px 16px;"><i data-lucide="filter" size="16"></i> Lọc</button>
+                </div>
+
+                <!-- DANH SÁCH HÓA ĐƠN -->
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Hóa đơn & Thanh toán</div>
+                        <div class="card-title">Danh sách Hóa đơn</div>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Kỳ học</th>
-                                <th>Nội dung thu</th>
-                                <th>Số tiền</th>
-                                <th>Hạn nộp</th>
-                                <th>Trạng thái</th>
-                                <th style="text-align: right;">Thanh toán qua Gateway</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>FA26</td>
-                                <td>Học phí chính khóa (15 TC)</td>
-                                <td>28,700,000 VNĐ</td>
-                                <td>27/09/2026</td>
-                                <td><span class="badge badge-danger">Chưa nộp</span></td>
-                                <td style="text-align: right;">
-                                    <div style="display: flex; gap: 8px; justify-content: flex-end;">
-                                        <button class="btn btn-outline" onclick="showToast('Chuyển hướng cổng VNPay...')">VNPay</button>
-                                        <button class="btn btn-primary" onclick="showToast('Chuyển hướng cổng Momo...')">Momo</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>SU26</td>
-                                <td>Lệ phí thi lại (MAD101)</td>
-                                <td>100,000 VNĐ</td>
-                                <td>--</td>
-                                <td><span class="badge badge-success">Đã nộp</span></td>
-                                <td style="text-align: right;">
-                                    <button class="btn btn-outline" disabled>Xem biên lai</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; min-width: 800px;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px;">Kỳ học</th>
+                                    <th>Nội dung thu</th>
+                                    <th style="width: 150px; text-align: right;">Số tiền</th>
+                                    <th style="width: 120px; text-align: center;">Hạn nộp</th>
+                                    <th style="width: 120px; text-align: center;">Trạng thái</th>
+                                    <th style="width: 200px; text-align: right;">Thanh toán trực tuyến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Hóa đơn chưa nộp -->
+                                <tr style="background: #FEF2F2;">
+                                    <td><span style="font-weight: 600; color: var(--text-dark);">FA26</span></td>
+                                    <td>
+                                        <div style="font-weight: 600; color: #1E293B;">Học phí chính khóa (15 TC)</div>
+                                        <div style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Mã HĐ: INV-2609-0012</div>
+                                    </td>
+                                    <td style="text-align: right; font-weight: 700; color: #DC2626; font-size: 15px;">28,700,000 đ</td>
+                                    <td style="text-align: center; color: #DC2626; font-weight: 500; font-size: 13px;">27/09/2026</td>
+                                    <td style="text-align: center;"><span class="badge badge-danger" style="background: #FCA5A5; color: #7F1D1D;"><i data-lucide="alert-circle" size="12"></i> Chưa nộp</span></td>
+                                    <td style="text-align: right;">
+                                        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                                            <button class="btn" style="background: #005BAA; color: white; border: none; padding: 6px 12px; border-radius: 6px;" onclick="showToast('Chuyển hướng cổng VNPay...')">
+                                                <img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418189687.png" alt="VNPay" style="height: 14px; object-fit: contain;">
+                                            </button>
+                                            <button class="btn" style="background: #A50064; color: white; border: none; padding: 6px 12px; border-radius: 6px;" onclick="showToast('Chuyển hướng cổng Momo...')">
+                                                <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo" style="height: 14px; object-fit: contain;">
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Hóa đơn đã nộp -->
+                                <tr>
+                                    <td><span style="font-weight: 600; color: var(--text-dark);">SU26</span></td>
+                                    <td>
+                                        <div style="font-weight: 600; color: #1E293B;">Lệ phí thi lại (MAD101)</div>
+                                        <div style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Mã HĐ: INV-2608-0845 &nbsp;&bull;&nbsp; Nộp: 15/08/2026</div>
+                                    </td>
+                                    <td style="text-align: right; font-weight: 600; color: var(--text-dark);">100,000 đ</td>
+                                    <td style="text-align: center; color: var(--text-gray); font-size: 13px;">--</td>
+                                    <td style="text-align: center;"><span class="badge badge-success"><i data-lucide="check-circle" size="12"></i> Đã nộp</span></td>
+                                    <td style="text-align: right;">
+                                        <button class="btn btn-outline" style="padding: 6px 12px;"><i data-lucide="download" size="14"></i> Tải biên lai</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

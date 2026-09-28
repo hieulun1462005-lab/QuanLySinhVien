@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
             --primary-hover: #1D4ED8;
             --text-dark: #1E293B;
             --text-gray: #64748B;
-            --bg-light: #F8FAFC;
+            --bg-light: #F1F5F9;
             --border: #E2E8F0;
             --danger: #EF4444;
             --success: #10B981;
@@ -318,11 +318,11 @@
         </a>
         <div class="user-profile" onclick="window.location.href='MH-05-4-QuanLyHoSoCaNhan.html'">
             <div class="user-info">
-                <span class="name">Trần Văn Học</span>
+                <span class="name">Nguyễn Hồng Long Khánh</span>
                 <span class="role">Sinh viên (K19)</span>
             </div>
             <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
-                H
+                K
             </div>
         </div>
     </header>
@@ -332,31 +332,37 @@
         <div class="sidebar">
             <div class="menu-group">
                 <div class="menu-title">HỌC TẬP</div>
-                <a href="MH-00-9-TongQuanHocTap.html" class="menu-item">
+                <div class="menu-item " onclick="window.location.href='MH-00-9-TongQuanHocTap.html'">
                     <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
-                </a>
-                <a href="MH-02-6-ThoiKhoaBieu.html" class="menu-item">
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-03-3-QRDiemDanh.html'">
+                    <i data-lucide="scan-line" size="18"></i> Lịch học & Điểm danh QR
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-02-6-ThoiKhoaBieu.html'">
                     <i data-lucide="calendar" size="18"></i> Thời khóa biểu
-                </a>
-                <a href="MH-03-2-BaoCaoDiemDanh.html" class="menu-item">
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
                     <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
-                </a>
-                <a href="MH-04-3-LichThi.html" class="menu-item">
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-04-1-ChuongTrinhDaoTao.html'">
+                    <i data-lucide="book" size="18"></i> Chương trình đào tạo
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
                     <i data-lucide="clock" size="18"></i> Lịch thi
-                </a>
-                <a href="MH-04-2-KetQuaHocTap.html" class="menu-item">
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-04-2-KetQuaHocTap.html'">
                     <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
-                </a>
+                </div>
             </div>
 
             <div class="menu-group">
                 <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
-                <a href="MH-05-5-DichVuHanhChinhMotCua.html" class="menu-item">
+                <div class="menu-item " onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'">
                     <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
-                </a>
-                <a href="MH-06-2-HoaDonVaThanhToan.html" class="menu-item">
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'">
                     <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
-                </a>
+                </div>
             </div>
         </div>
 
@@ -371,14 +377,14 @@
                 <!-- Left Sidebar: Avatar & Summary -->
                 <div class="card profile-sidebar">
                     <div class="profile-avatar-container">
-                        <div class="profile-avatar" id="avatarPreview">H</div>
+                        <div class="profile-avatar" id="avatarPreview">K</div>
                         <div class="edit-avatar-btn" onclick="document.getElementById('avatarInput').click()">
                             <i data-lucide="camera" size="14"></i>
                         </div>
                         <input type="file" id="avatarInput" style="display: none;" accept="image/*" onchange="previewAvatar(event)">
                     </div>
-                    <div class="profile-name">Trần Văn Học</div>
-                    <div class="profile-roll">MSSV: HE190001</div>
+                    <div class="profile-name">Nguyễn Hồng Long Khánh</div>
+                    <div class="profile-roll">MSSV: HE190868</div>
                     <div style="display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);">
                         <div style="font-size: 13px; color: var(--text-gray);">Chuyên ngành:</div>
                         <div style="font-size: 14px; font-weight: 500;">Kỹ thuật phần mềm (SE)</div>
@@ -403,7 +409,7 @@
                                 <div class="form-grid">
                                     <div class="form-group">
                                         <label class="form-label">Họ và tên</label>
-                                        <input type="text" class="form-input" value="Trần Văn Học" readonly>
+                                        <input type="text" class="form-input" value="Nguyễn Hồng Long Khánh" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Ngày sinh</label>
@@ -444,7 +450,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Email trường cấp</label>
-                                        <input type="email" class="form-input" value="hoctvhe190001@fpt.edu.vn" readonly>
+                                        <input type="email" class="form-input" value="khanhnhlhe190868@fpt.edu.vn" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Số điện thoại liên hệ <span style="color: var(--danger);">*</span></label>
