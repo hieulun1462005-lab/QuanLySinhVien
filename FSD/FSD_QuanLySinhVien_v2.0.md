@@ -13,10 +13,10 @@ _Tự động hóa & Khách quan · Real-time & Đồng bộ · Truy vết toàn
 | Loại tài liệu | FSD — Đặc tả chức năng |
 | Phạm vi | Đặc tả field-level các nhóm chức năng cốt lõi: Hồ sơ, Đào tạo, Điểm danh QR động, Quản lý Điểm & Khảo thí, Hành chính, Thanh toán. |
 | Thực thể sở hữu | TT-01 Hồ sơ SV, TT-06 TKB, TT-07/08 Điểm danh, TT-09 Bảng điểm, TT-10 Đơn từ, TT-11 Hóa đơn, TT-12 Giao dịch, TT-15 ĐK Học lại, TT-18 Thông báo |
-| Tài liệu nguồn | BRD-QLSV-v5.0 (Cập nhật 23/09/2026) |
+| Tài liệu nguồn | BRD-QLSV-v5.0 & Bộ Mockup Giao diện chuẩn (Cập nhật mới nhất) |
 | Ranh giới chính | QLSV sở hữu TÀI KHOẢN, HỒ SƠ HỌC TẬP, QUY TRÌNH ĐÀO TẠO của Sinh viên. KHÔNG sở hữu dữ liệu tuyển sinh, không tính lương giảng viên. |
-| Phiên bản | 2.1 (Cập nhật theo template chuẩn) |
-| Ngày phát hành | 23/09/2026 |
+| Phiên bản | 3.0 (Cập nhật theo template chuẩn BRD v5.0 & Cấu trúc Mockup mới) |
+| Ngày phát hành | 28/09/2026 |
 | Đơn vị xây dựng | ONENET |
 
 # **KIỂM SOÁT TÀI LIỆU**
@@ -25,14 +25,15 @@ _Tự động hóa & Khách quan · Real-time & Đồng bộ · Truy vết toàn
 | --- | --- | --- | --- |
 | 1.0 | 18/09/2026 | Khảo sát BA | Khởi tạo tài liệu Draft ban đầu. |
 | 2.0 | 21/09/2026 | Team Dev | Đặc tả kỹ thuật các luồng chức năng theo BRD v4.0. |
-| 2.1 | 23/09/2026 | BA & Team Dev | Chuẩn hóa FSD theo khuôn 13 chương / mẫu 10 mục của Template chuẩn. Mapping lại toàn bộ mã định danh theo BRD v5.0 (BR-001..051, NFR-01..18). Viết lại hoàn toàn các bảng bằng định dạng Markdown Table chuẩn. |
+| 2.1 | 23/09/2026 | BA & Team Dev | Chuẩn hóa FSD theo khuôn 13 chương / mẫu 10 mục của Template chuẩn. Mapping lại toàn bộ mã định danh theo BRD v5.0. |
+| 3.0 | 28/09/2026 | BA & Team Dev | Cập nhật toàn bộ FSD ánh xạ chính xác với bộ giao diện (Mockup) mới nhất và BRD v5.0. |
 
 _Vị trí trong bộ tài liệu: FSD này là cầu nối giữa BRD (nghiệp vụ) và mã nguồn. Mọi ràng buộc (BR), mã lỗi (ERR), luồng ngoại lệ đều được dịch thành quy tắc xử lý phần mềm, đặc biệt tập trung vào máy trạng thái và các thuật toán lõi (QR động, xét điểm tự động)._
 
 # **CHƯƠNG 1. GIỚI THIỆU**
 
 ## **1.1. Mục đích tài liệu**
-Dựa trên BRD-QLSV-v5.0, tài liệu FSD này đặc tả chi tiết cách hệ thống thực hiện các nghiệp vụ: quản lý hồ sơ sinh viên xuyên suốt, đào tạo và thời khóa biểu, điểm danh bằng QR Động (real-time), tự động xét điều kiện điểm số, dịch vụ sinh viên trực tuyến, và tích hợp thanh toán. 
+Dựa trên BRD-QLSV-v5.0 và hệ thống giao diện Mockup, tài liệu FSD này đặc tả chi tiết cách hệ thống thực hiện các nghiệp vụ: quản lý hồ sơ sinh viên xuyên suốt, đào tạo và thời khóa biểu, điểm danh bằng QR Động (real-time), tự động xét điều kiện điểm số, dịch vụ sinh viên trực tuyến, và tích hợp thanh toán. 
 
 ## **1.2. Ba nguyên tắc chi phối cả tài liệu**
 
@@ -60,6 +61,7 @@ Dựa trên BRD-QLSV-v5.0, tài liệu FSD này đặc tả chi tiết cách h�
 | ERR-QLSV-xx | Mã thông báo lỗi | ERR-QLSV-14 |
 | TC-QLSV-xx | Ca kiểm thử của FSD | TC-QLSV-01 |
 | NT-QLSV-xx | Tiêu chí nghiệm thu (Từ BRD) | UC-01.NT01 |
+| MH-xx-x | Mã màn hình giao diện (Mockup) | MH-01-2 |
 
 # **CHƯƠNG 3. TỔNG QUAN CHỨC NĂNG & MÀN HÌNH**
 
@@ -71,23 +73,47 @@ Dựa trên BRD-QLSV-v5.0, tài liệu FSD này đặc tả chi tiết cách h�
 | QLSV-02-100 | Đào tạo & Thời khóa biểu | Quản nhiệm | FS-QLSV-02-100-0010 |
 | QLSV-03-100 | Điểm danh bằng QR Động | Giảng viên, SV | FS-QLSV-03-100-0010 |
 | QLSV-04-100 | Điểm & Khảo thí (Nhập điểm, Tự động xét Đạt/Trượt) | Giảng viên, Admin | FS-QLSV-04-100-0020 |
-| QLSV-05-100 | Dịch vụ Sinh viên (Đơn từ) | SV, Quản nhiệm | Xem BRD Chương 7 |
+| QLSV-05-100 | Dịch vụ Sinh viên (Đơn từ, Hành chính) | SV, Quản nhiệm | Xem BRD Chương 7 |
 | QLSV-06-100 | Thanh toán (Payment Gateway) | SV, Kế toán | FS-QLSV-06-100-0010 |
 | QLSV-07-100 | Đăng ký học lại & Kỷ luật | SV, Quản nhiệm | Xem BRD Chương 7 |
 | QLSV-08-100 | Notification Center (Thông báo) | Tất cả Users | Xem BRD Chương 7 |
 
-## **3.2. Màn hình**
+## **3.2. Danh Mục Màn Hình Giao Diện (Từ Mockup)**
 
-| **Mã** | **Màn hình** | **Vai trò** | **Nhóm** |
+| **Mã màn hình** | **Tên màn hình** | **Vai trò** | **Nhóm (Module)** |
 | --- | --- | --- | --- |
-| MH-01-1 | Import hồ sơ Sinh viên | Quản nhiệm | QLSV-01-100 |
-| MH-01-3 | Phân lớp chuyên ngành | Quản nhiệm | QLSV-01-100 |
-| MH-02-2 | Xếp Thời khóa biểu | Quản nhiệm | QLSV-02-100 |
-| MH-03-1 | Mở phiên Điểm danh (QR) | Giảng viên | QLSV-03-100 |
-| MH-03-2 | Quét QR Điểm danh (PWA) | Sinh viên | QLSV-03-100 |
-| MH-04-2 | Chốt sổ điểm | Quản nhiệm | QLSV-04-100 |
-| MH-06-1 | Hóa đơn & Thanh toán | Sinh viên | QLSV-06-100 |
-| MH-06-3 | Tra soát & Gạch nợ | Kế toán | QLSV-06-100 |
+| **MH-00-1** | Tổng Quan Hệ Thống (MH-00-1-TongQuanHeThong) | Admin | Dashboard |
+| **MH-00-2** | Quản Lý Tài Khoản (MH-00-2-QuanLyTaiKhoan) | Admin | QLSV-01 |
+| **MH-00-3** | Nhật Ký Hệ Thống (MH-00-3-NhatKyHeThong) | Admin | Dashboard |
+| **MH-00-4** | Backup Restore DB (MH-00-4-BackupRestoreDB) | Admin | Dashboard |
+| **MH-00-5** | Đăng Nhập Admin (MH-00-5-DangNhapAdmin) | Admin | QLSV-01 |
+| **MH-00-6** | Đăng Nhập Hệ Thống (MH-00-6-DangNhapGiangVien) | Cán Bộ/GV/SV | QLSV-01 |
+| **MH-00-7** | Dashboard Báo Cáo (MH-00-7-DashboardBaoCao) | Quản nhiệm | Dashboard |
+| **MH-00-8** | Tổng Quan Giảng Viên (MH-00-8-TongQuanGiangVien) | Giảng viên | Dashboard |
+| **MH-00-9** | Tổng Quan Học Tập (MH-00-9-TongQuanHocTap) | Sinh viên | Dashboard |
+| **MH-01-1** | Danh Sách Trúng Tuyển (MH-01-1-DanhSachTrungTuyen) | Quản nhiệm | QLSV-01 |
+| **MH-01-2** | Tiếp Nhận Hồ Sơ Sinh Viên (MH-01-2-TiepNhanHoSoSinhVien) | Quản nhiệm | QLSV-01 |
+| **MH-01-3** | Cập Nhật Trạng Thái Học Tập (MH-01-3-CapNhatTrangThaiHocTap) | Quản nhiệm | QLSV-01 |
+| **MH-01-4** | Phân Bổ Sinh Viên Vào Lớp (MH-01-4-PhanBoSinhVienVaoLop) | Quản nhiệm | QLSV-01 |
+| **MH-02-1** | Quản Lý Danh Mục (MH-02-1-QuanLyDanhMuc) | Quản nhiệm | QLSV-02 |
+| **MH-02-2** | Khung Chương Trình Học (MH-02-2-KhungChuongTrinhHoc) | Quản nhiệm | QLSV-02 |
+| **MH-02-3** | Xếp Thời Khóa Biểu (MH-02-3-XepThoiKhoaBieu) | Quản nhiệm | QLSV-02 |
+| **MH-02-4** | Quản Lý Yêu Cầu Báo Nghỉ Lịch Bù (MH-02-4-QuanLyYeuCauBaoNghiLichBu) | Quản nhiệm | QLSV-02 |
+| **MH-02-5** | Lịch Giảng Dạy Báo Nghỉ (MH-02-5-LichGiangDayBaoNghi) | Giảng viên | QLSV-02 |
+| **MH-02-6** | Thời Khóa Biểu (MH-02-6-ThoiKhoaBieu) | Sinh viên | QLSV-02 |
+| **MH-03-1** | Điểm Danh Lớp Học (MH-03-1-DiemDanhLopHoc) | Giảng viên | QLSV-03 |
+| **MH-03-2** | Báo Cáo Điểm Danh (MH-03-2-BaoCaoDiemDanh) | Sinh viên | QLSV-03 |
+| **MH-03-3** | Lịch Học Trong Ngày (QR Scanner) (MH-03-3-LichHocTrongNgay) | Sinh viên | QLSV-03 |
+| **MH-04-1** | Cập Nhật Điểm Quá Trình (MH-04-1-CapNhatDiemQuaTrinh) | Giảng viên | QLSV-04 |
+| **MH-04-2** | Kết Quả Học Tập (MH-04-2-KetQuaHocTap) | Sinh viên | QLSV-04 |
+| **MH-04-3** | Lịch Thi (MH-04-3-LichThi) | Sinh viên | QLSV-04 |
+| **MH-05-1** | Hồ Sơ Cán Bộ Quản Nhiệm (MH-05-1-HoSoCanBoQuanNhiem) | Quản nhiệm | QLSV-05 |
+| **MH-05-2** | Phê Duyệt Đơn Từ Sinh Viên (MH-05-2-PheDuyetDonTuSinhVien) | Quản nhiệm | QLSV-05 |
+| **MH-05-3** | Quản Lý Hồ Sơ Giảng Viên (MH-05-3-QuanLyHoSoGiangVien) | Giảng viên | QLSV-05 |
+| **MH-05-4** | Quản Lý Hồ Sơ Cá Nhân (MH-05-4-QuanLyHoSoCaNhan) | Sinh viên | QLSV-05 |
+| **MH-05-5** | Dịch Vụ Hành Chính Một Cửa (MH-05-5-DichVuHanhChinhMotCua) | Sinh viên | QLSV-05 |
+| **MH-06-1** | Lịch Sử Giao Dịch (MH-06-1-LichSuGiaoDich) | Quản nhiệm/Kế toán | QLSV-06 |
+| **MH-06-2** | Hóa Đơn Và Thanh Toán (MH-06-2-HoaDonVaThanhToan) | Sinh viên | QLSV-06 |
 
 # **CHƯƠNG 4. ĐẶC TẢ LUỒNG NGHIỆP VỤ**
 
@@ -106,9 +132,9 @@ Dựa trên BRD-QLSV-v5.0, tài liệu FSD này đặc tả chi tiết cách h�
 | **Mã** | **Tình huống** | **Cách xử lý** |
 | --- | --- | --- |
 | NL-01 | **Gian lận QR:** Sinh viên dùng app ngoài quét hộ. | Chặn hoàn toàn. Token mã hóa (AES-256) chỉ app PWA giải mã được. Kết hợp check IP nội bộ (BR-016). |
-| NL-02 | **Mất kết nối mạng:** Không quét được QR. | GV điểm danh thủ công. Bắt buộc ghi Log giải trình. |
-| NL-03 | **Payment rớt Webhook:** Tiền trừ nhưng hệ thống không gạch nợ. | Cung cấp nút Query Transaction cho Kế toán tra soát và gạch nợ. Ghi Audit Log. |
-| NL-04 | **Quá sĩ số lớp:** Phân lớp vượt MaxCapacity. | Chặn gán vào lớp, đưa SV vào danh sách Waitlisted (S0). |
+| NL-02 | **Mất kết nối mạng:** Không quét được QR. | GV điểm danh thủ công qua màn hình **MH-03-1**. Bắt buộc ghi Log giải trình. |
+| NL-03 | **Payment rớt Webhook:** Tiền trừ nhưng hệ thống không gạch nợ. | Kế toán sử dụng tính năng trên màn hình **MH-06-1** để tra soát API và gạch nợ. Ghi Audit Log. |
+| NL-04 | **Quá sĩ số lớp:** Phân lớp vượt MaxCapacity. | Chặn gán vào lớp trên màn hình **MH-01-4**, đưa SV vào danh sách Waitlisted (S0). |
 
 # **CHƯƠNG 5. ĐẶC TẢ CHI TIẾT CHỨC NĂNG**
 
@@ -120,7 +146,7 @@ Số hóa danh sách sinh viên đầu vào, tự động cấp phát tài kho�
 
 **② Tác nhân · Tiền điều kiện · Kích hoạt**
 - Tác nhân: VT-01 Quản nhiệm.
-- Kích hoạt: Upload file Excel danh sách SV.
+- Kích hoạt: Upload file Excel danh sách SV trên **MH-01-2**. Thực hiện phân lớp trên **MH-01-4**.
 
 **③ Logic xử lý**
 1. Đọc file Excel, validate Unique constraint (CCCD, Mã SV, Email).
@@ -165,13 +191,13 @@ Số hóa danh sách sinh viên đầu vào, tự động cấp phát tài kho�
 Chống gian lận điểm danh hộ bằng QR refresh liên tục và mã hóa PWA.
 
 **② Tác nhân · Tiền điều kiện · Kích hoạt**
-- Tác nhân: VT-02 Giảng viên (mở phiên), VT-03 Sinh viên (quét).
+- Tác nhân: VT-02 Giảng viên (mở phiên trên **MH-03-1**), VT-03 Sinh viên (quét trên **MH-03-3**).
 - Kích hoạt: Giảng viên ấn btnOpenSession.
 
 **③ Logic xử lý**
 1. Server sinh chuỗi Token = AES256(SessionID + Timestamp + ClassID).
 2. UI Giảng viên hiển thị mã QR, dùng SignalR/WebSockets refresh mã sau mỗi 10 giây.
-3. SV mở PWA Camera, quét mã.
+3. SV mở PWA Camera trên **MH-03-3**, quét mã.
 4. Gửi Token lên API. Giải mã Token:
    - Check `(Now - Timestamp) > 10s` → Lỗi mã hết hạn.
    - Check `ClientIP in AllowedRange` → Lỗi sai IP (nếu áp dụng BR-016).
@@ -192,8 +218,8 @@ Chống gian lận điểm danh hộ bằng QR refresh liên tục và mã hóa 
 - **BR-018**: Sửa tay bắt buộc ghi Log.
 
 **⑥ Hành vi màn hình**
-- Màn hình chiếu: QR lớn chiếm 80%, có thanh progress bar 10s.
-- App PWA: Camera chiếm trọn, hiện overlay Thành công/Thất bại.
+- **MH-03-1**: QR lớn chiếm 80%, có thanh progress bar 10s.
+- **MH-03-3**: Camera chiếm trọn, hiện overlay Thành công/Thất bại.
 
 **⑦ Xử lý ngoại lệ & thông báo lỗi**
 - ERR-QLSV-04: Quét bằng Zalo/Camera thường (Mã hóa không giải được).
@@ -217,7 +243,7 @@ Loại bỏ cảm tính con người. Tự động tính điểm và chốt tr�
 
 **② Tác nhân · Tiền điều kiện · Kích hoạt**
 - Tác nhân: Hệ thống (tự động), VT-01 Quản nhiệm (chốt sổ).
-- Kích hoạt: Có đủ điểm FE và QN bấm "Chốt sổ".
+- Kích hoạt: Có đủ điểm FE và tiến hành "Chốt sổ" (Thực hiện trên module nghiệp vụ).
 
 **③ Logic xử lý (Rule Engine)**
 1. Tính `AbsentRatio = AbsentSlots / TotalSlots`. Nếu `>= 0.2` → UPDATE trạng thái `G3`. Stop.
@@ -236,14 +262,14 @@ Loại bỏ cảm tính con người. Tự động tính điểm và chốt tr�
 | FLD-IS-LOCKED | Bool | ✱ | Cờ khóa bảng điểm |
 
 **⑤ Quy tắc nghiệp vụ áp dụng**
-- **BR-019, BR-020**: Thang 10, Chốt sổ cấm GV sửa.
+- **BR-019, BR-020**: Thang 10, Chốt sổ cấm GV sửa điểm trên **MH-04-1**.
 - **BR-021, BR-022, BR-023**: Điều kiện liệt, thi lại, học lại.
 - **BR-025b, BR-025c**: Giới hạn số lần thi lại/học lại.
 - **BR-051**: Sửa sau chốt phải qua Admin và ghi Audit Log vĩnh viễn.
 
 **⑥ Hành vi màn hình**
-- Sau khi QN bấm chốt, DataGrid của GV lập tức chuyển thành Read-only (Disabled).
-- Những dòng G3, G4, G5 bị bôi đỏ cảnh báo trên bảng điểm.
+- GV nhập điểm trên **MH-04-1**. Sau khi có xác nhận chốt, DataGrid của GV lập tức chuyển thành Read-only (Disabled).
+- SV xem điểm qua **MH-04-2**. Các dòng G3, G4, G5 sẽ bị highlight/bôi đỏ cảnh báo.
 
 **⑦ Xử lý ngoại lệ & thông báo lỗi**
 - VLD-QLSV-04: Nhập điểm ngoài dải 0.0 - 10.0 (Chặn, viền đỏ).
@@ -267,16 +293,16 @@ Loại bỏ cảm tính con người. Tự động tính điểm và chốt tr�
 Gạch nợ tự động học phí, xử lý rớt mạng/mất webhook.
 
 **② Tác nhân · Tiền điều kiện · Kích hoạt**
-- Tác nhân: VT-03 Sinh viên, VT-04 Kế toán, VNPay.
-- Kích hoạt: Nút "Thanh toán".
+- Tác nhân: VT-03 Sinh viên (**MH-06-2**), VT-04 Kế toán/Quản nhiệm (**MH-06-1**), VNPay.
+- Kích hoạt: Nút "Thanh toán" tại **MH-06-2**.
 
 **③ Logic xử lý**
 1. SV chọn hóa đơn `Unpaid`. Gen mã phiên giao dịch (hạn 15p).
-2. Điều hướng qua VNPay.
+2. Điều hướng qua cổng thanh toán VNPay/MoMo.
 3. VNPay gọi IPN Webhook về hệ thống.
 4. Verify chữ ký `HMAC SHA512`. Nếu đúng, check số tiền (BR-031). Đổi hóa đơn sang `Paid`. Giao dịch sang `Success`.
 5. Background job hàng ngày quét hóa đơn quá `DueDate`, chuyển thành `Overdue`.
-6. Kế toán nhấn "Query Transaction", gọi API `vnp_Querydr` của VNPay để đồng bộ lại nếu Webhook rớt.
+6. Kế toán sử dụng **MH-06-1** để nhấn "Query Transaction", gọi API `vnp_Querydr` của VNPay để đồng bộ lại nếu Webhook rớt.
 
 **④ Đặc tả trường dữ liệu**
 
@@ -292,7 +318,7 @@ Gạch nợ tự động học phí, xử lý rớt mạng/mất webhook.
 - **BR-046**: Overdue chặn SV đăng ký/xem điểm.
 
 **⑥ Hành vi màn hình**
-- Báo cáo Kế toán phân biệt rõ doanh thu đã gạch tự động vs gạch tay.
+- Báo cáo Giao dịch (**MH-06-1**) cho phép phân biệt rõ doanh thu đã gạch tự động qua Webhook so với gạch tay thủ công.
 
 **⑦ Xử lý ngoại lệ & thông báo lỗi**
 - ERR-QLSV-05: Checksum trả về sai (Nghi vấn giả mạo) → Chặn gạch nợ.
@@ -308,14 +334,14 @@ Gạch nợ tự động học phí, xử lý rớt mạng/mất webhook.
 
 ---
 
-# **CHƯƠNG 6. ĐẶC TẢ MÀN HÌNH CHÍNH**
+# **CHƯƠNG 6. ĐẶC TẢ GIAO DIỆN CHÍNH**
 
 | **Mã MH** | **Đặc tả UI & Hành vi** |
 | --- | --- |
-| **MH-03-1** (Mở QR) | Hiển thị QR Code kích thước lớn chiếm 80% màn chiếu, đếm ngược 10 giây bên dưới để refresh QR mới. Bảng danh sách bên cạnh Real-time cập nhật dòng xanh (Present) khi có SV quét thành công. |
-| **MH-03-2** (PWA Scan) | Bật camera với vùng nhận diện định sẵn, hiện trạng thái “Thành công” nền xanh lá khi quét đúng mã. |
-| **MH-04-2** (Chốt sổ) | Grid SV kèm điểm thành phần. Nút “Chốt sổ” yêu cầu xác nhận 2 lần. Sau khi chốt, Grid nhập điểm của GV bị khóa cứng. |
-| **MH-06-3** (Tra soát) | Kế toán xem danh sách giao dịch `Pending`. Có nút "Query API" để chủ động gọi lệnh tra soát lên cổng thanh toán. Form gạch nợ tay yêu cầu nhập Log. |
+| **MH-03-1** | (Mở QR Điểm Danh) Hiển thị QR Code kích thước lớn chiếm 80% màn chiếu, đếm ngược 10 giây bên dưới để refresh QR mới. Bảng danh sách bên cạnh Real-time cập nhật dòng xanh (Present) khi có SV quét thành công. |
+| **MH-03-3** | (Lịch Học - PWA Scan QR) Tích hợp chức năng bật camera với vùng nhận diện định sẵn trên di động, hiện trạng thái “Thành công” nền xanh lá khi quét đúng mã QR của giảng viên. |
+| **MH-04-1** | (Cập nhật điểm quá trình) Grid nhập điểm dành cho GV. Ô nhập điểm tự động validate < 0 hoặc > 10. Sau khi lớp được "Chốt sổ", toàn bộ Grid sẽ bị khóa cứng (Read-only). |
+| **MH-06-1** | (Lịch sử giao dịch) Kế toán/Quản nhiệm xem danh sách giao dịch. Có nút "Truy vấn API" để chủ động gọi lệnh tra soát lên cổng thanh toán VNPay nếu trạng thái là Pending. Form gạch nợ tay yêu cầu nhập Log lý do đầy đủ. |
 
 # **CHƯƠNG 7. MÁY TRẠNG THÁI HỒ SƠ**
 
@@ -344,7 +370,7 @@ Gạch nợ tự động học phí, xử lý rớt mạng/mất webhook.
 
 | **Quy tắc (BR)** | **Nội dung chốt chặn** | **Áp dụng tại** | **Vì sao chặn là đúng** |
 | --- | --- | --- | --- |
-| **BR-001/002** | Mã SV, CCCD, Email phải duy nhất | FS-QLSV-01-100 | Tránh nhầm lẫn dữ liệu người bệnh. |
+| **BR-001/002** | Mã SV, CCCD, Email phải duy nhất | FS-QLSV-01-100 | Tránh nhầm lẫn dữ liệu. |
 | **BR-003** | Bảo lưu/Thôi học bị gỡ khỏi lớp | Nhóm 01-100 | SV thôi học không được phép tồn tại trong TKB và điểm danh. |
 | **BR-017** | Vắng ≥ 20% chốt Fail thẳng | FS-QLSV-03-100 | Tuân thủ tuyệt đối quy chế đào tạo FPT. |
 | **BR-020** | Sau “Chốt sổ”, GV không được sửa | FS-QLSV-04-100 | Toàn vẹn bảng điểm cuối kỳ đã công bố. |
@@ -376,7 +402,7 @@ Gạch nợ tự động học phí, xử lý rớt mạng/mất webhook.
 ### **Sự kiện hệ thống (Events)**
 - `EVT-STUDENT-ATTENDANCE-FAILED`: Kích hoạt khi chạm mốc vắng 20%.
 - `EVT-PAYMENT-SUCCESS`: Kích hoạt khi Webhook trả về thành công.
-- `EVT-GRADE-LOCKED`: Khóa DataGrid khi QN chốt sổ.
+- `EVT-GRADE-LOCKED`: Khóa DataGrid khi QN chốt sổ điểm.
 
 # **CHƯƠNG 11. DANH MỤC THÔNG BÁO LỖI (ERRORS)**
 
@@ -406,13 +432,13 @@ Gạch nợ tự động học phí, xử lý rớt mạng/mất webhook.
 
 | **Mã NT** | **Tiêu chí nghiệm thu (Acceptance Criteria)** | **Nguồn truy vết (Đặc tả / BR)** |
 | --- | --- | --- |
-| UC-02.NT01 | Import file hợp lệ: tạo đủ hồ sơ + tài khoản ≤ 10s. | FS-QLSV-01-100, BR-001, VLD-01 |
-| UC-04.NT01 | Phân lớp không vượt MaxCapacity, sĩ số đều. | FS-QLSV-01-100, BR-004 |
-| UC-07.NT01 | Xếp TKB tự động ra kết quả 0% Conflict phòng/GV. | FS-QLSV-02-100, BR-008, BR-009 |
-| UC-09.NT01 | QR refresh mỗi 10s, quét thành công → Present real-time. | FS-QLSV-03-100, BR-013 |
-| UC-11.NT01 | Chuyển trạng thái G1/G3/G4/G5 đúng quy chế, % vắng, điểm FE. | FS-QLSV-04-100, BR-021->025c |
+| UC-02.NT01 | Import file hợp lệ: tạo đủ hồ sơ + tài khoản ≤ 10s. | FS-QLSV-01-100, BR-001, VLD-01, MH-01-2 |
+| UC-04.NT01 | Phân lớp không vượt MaxCapacity, sĩ số đều. | FS-QLSV-01-100, BR-004, MH-01-4 |
+| UC-07.NT01 | Xếp TKB tự động ra kết quả 0% Conflict phòng/GV. | FS-QLSV-02-100, BR-008, BR-009, MH-02-3 |
+| UC-09.NT01 | QR refresh mỗi 10s, quét thành công → Present real-time. | FS-QLSV-03-100, BR-013, MH-03-1, MH-03-3 |
+| UC-11.NT01 | Chuyển trạng thái G1/G3/G4/G5 đúng quy chế, % vắng, điểm FE. | FS-QLSV-04-100, BR-021->025c, MH-04-1 |
 | UC-12.NT02 | Chặn tuyệt đối SV bị đình chỉ (S5) đăng ký học lại. | Nhóm 07-100, BR-038 |
-| UC-16.NT01 | VNPay thành công → Paid tự động. Mất webhook có gạch tay. | FS-QLSV-06-100, BR-031, BR-035 |
-| UC-16.NT02 | Webhook bị mất → Kế toán Query Transaction thành công. | FS-QLSV-06-100, BR-034 |
+| UC-16.NT01 | VNPay thành công → Paid tự động. Mất webhook có gạch tay. | FS-QLSV-06-100, BR-031, BR-035, MH-06-2 |
+| UC-16.NT02 | Webhook bị mất → Kế toán Query Transaction thành công. | FS-QLSV-06-100, BR-034, MH-06-1 |
 
 _Hết tài liệu._

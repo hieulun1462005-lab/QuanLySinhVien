@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -171,25 +171,6 @@
         
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
-        /* CUSTOM STUDENT COMPONENTS */
-        .timeline-item {
-            display: flex; gap: 16px; margin-bottom: 16px;
-        }
-        .timeline-time {
-            width: 80px; text-align: right; font-size: 13px; font-weight: 600; color: var(--primary);
-        }
-        .timeline-divider {
-            width: 2px; background: var(--border); position: relative;
-        }
-        .timeline-divider::after {
-            content: ''; position: absolute; top: 0; left: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--primary);
-        }
-        .timeline-content {
-            flex: 1; padding-bottom: 16px;
-        }
-        .timeline-content h4 { font-size: 15px; margin-bottom: 4px; }
-        .timeline-content p { font-size: 13px; color: var(--text-gray); }
-
         /* TOAST */
         .toast-container { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 2000; }
         .toast { background: white; border-left: 4px solid var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 16px 20px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transform: translateX(120%); animation: slideIn 0.3s forwards; }
@@ -198,12 +179,17 @@
         .toast.hide { animation: slideOut 0.3s forwards; }
         @keyframes slideOut { to { transform: translateX(120%); opacity: 0; } }
 
+            /* TABLES (For Retake) */
+        table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+        th { text-align: left; padding: 12px; font-size: 13px; font-weight: 600; color: var(--text-gray); border-bottom: 1px solid var(--border); background: #F8FAFC; }
+        td { padding: 12px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        tr:hover td { background: #F8FAFC; }
     </style>
 </head>
 <body>
 
         <header class="header">
-        <div class="sys-identity" onclick="window.location.href='Login.html'">
+        <div class="sys-identity" onclick="window.location.href='../MH_Chung_Mockup/MH-00-5-DangNhapAdmin.html'">
             <div class="emblem">
                 <i data-lucide="book-open" size="20"></i>
             </div>
@@ -212,7 +198,7 @@
                 <span class="sys-name">Đại Học ONENET</span>
             </div>
         </div>
-        <div class="user-profile" onclick="window.location.href='Student_Profile.html'">
+        <div class="user-profile" onclick="window.location.href='MH-05-4-QuanLyHoSoCaNhan.html'">
             <div class="user-info">
                 <span class="name">Trần Văn Học</span>
                 <span class="role">Sinh viên (K19)</span>
@@ -229,29 +215,29 @@
         <div class="sidebar">
             <div class="menu-group">
                 <div class="menu-title">HỌC TẬP</div>
-                <div class="menu-item active" onclick="window.location.href='Student_Dashboard.html'">
+                <div class="menu-item " onclick="window.location.href='MH-00-9-TongQuanHocTap.html'">
                     <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
                 </div>
-                <div class="menu-item " onclick="window.location.href='Student_Timetable.html'">
+                <div class="menu-item " onclick="window.location.href='MH-02-6-ThoiKhoaBieu.html'">
                     <i data-lucide="calendar" size="18"></i> Thời khóa biểu
                 </div>
-                <div class="menu-item " onclick="window.location.href='Student_Attendance.html'">
+                <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
                     <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
                 </div>
-                <div class="menu-item " onclick="window.location.href='Student_ExamSchedule.html'">
+                <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
                     <i data-lucide="clock" size="18"></i> Lịch thi
                 </div>
-                <div class="menu-item " onclick="window.location.href='Student_Grades.html'">
+                <div class="menu-item " onclick="window.location.href='MH-04-2-KetQuaHocTap.html'">
                     <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
                 </div>
             </div>
 
             <div class="menu-group">
                 <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
-                <div class="menu-item " onclick="window.location.href='Student_Requests.html'">
+                <div class="menu-item active" onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'">
                     <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
                 </div>
-                <div class="menu-item " onclick="window.location.href='Student_Billing.html'">
+                <div class="menu-item " onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'">
                     <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
                 </div>
             </div>
@@ -260,76 +246,112 @@
 
         <!-- MAIN CONTENT -->
         <div class="main-content">
-            <h1 class="page-title">Tổng quan học tập</h1>
+            <h1 class="page-title">Dịch vụ hành chính một cửa</h1>
             <div class="content-section">
                 <div class="grid-2">
-                    <!-- TKB Hôm Nay -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Thời khóa biểu hôm nay</div>
-                            <span class="badge badge-primary">24/09/2026</span>
+                            <div class="card-title">Nộp đơn từ mới</div>
                         </div>
-                        <div>
-                            <div class="timeline-item">
-                                <div class="timeline-time">07:30<br>09:50</div>
-                                <div class="timeline-divider"></div>
-                                <div class="timeline-content">
-                                    <h4>PRJ301 (Java Web Development)</h4>
-                                    <p>Phòng: AL-204 • Giảng viên: Lê Thị Giảng (Slot 1)</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-time">10:00<br>12:20</div>
-                                <div class="timeline-divider"></div>
-                                <div class="timeline-content">
-                                    <h4>DBI202 (Database Systems)</h4>
-                                    <p>Phòng: BE-305 • Giảng viên: Trần Văn B (Slot 2)</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item" style="margin-bottom: 0;">
-                                <div class="timeline-time" style="color: var(--text-gray);">12:50</div>
-                                <div class="timeline-divider" style="background: transparent;"></div>
-                                <div class="timeline-content">
-                                    <p style="font-style: italic;">Không có lịch học buổi chiều (Slot 3)</p>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label class="form-label">Loại đơn</label>
+                            <select class="form-input">
+                                <option>Đơn xin nghỉ học tạm thời</option>
+                                <option>Đơn đăng ký phúc khảo điểm</option>
+                                <option>Đơn xin cấp bảng điểm</option>
+                                <option>Đơn xin miễn giảm học phí</option>
+                            </select>
                         </div>
+                        <div class="form-group">
+                            <label class="form-label">Lý do / Ghi chú</label>
+                            <textarea class="form-input" rows="3" placeholder="Nhập chi tiết..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="showToast('Đã nộp đơn thành công. Đang chờ duyệt!')">Gửi yêu cầu</button>
                     </div>
 
-                    <div style="display: flex; flex-direction: column; gap: 24px;">
-                        <!-- Thông báo khẩn -->
-                        <div class="card" style="margin-bottom: 0;">
-                            <div class="card-header">
-                                <div class="card-title" style="color: var(--danger); display: flex; align-items: center; gap: 8px;">
-                                    <i data-lucide="alert-circle" size="18"></i> Thông báo khẩn
-                                </div>
-                            </div>
-                            <div style="padding: 16px; background: #FEF2F2; border: 1px solid #FEE2E2; border-radius: 8px;">
-                                <h4 style="font-size: 14px; margin-bottom: 8px;">[Cảnh báo] Hạn chót đóng học phí kỳ FA26</h4>
-                                <p style="font-size: 13px; color: #991B1B;">Chỉ còn 3 ngày nữa là hết hạn nộp học phí kỳ FA26. Vui lòng thanh toán để không bị hủy học phần.</p>
-                            </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Lịch sử đơn từ</div>
                         </div>
-
-                        <!-- Tình trạng đơn từ -->
-                        <div class="card" style="margin-bottom: 0;">
-                            <div class="card-header">
-                                <div class="card-title">Tình trạng đơn từ gần đây</div>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="padding: 12px; border: 1px solid var(--border); border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                    <span style="font-weight: 600; font-size: 14px;">Đơn xin cấp bảng điểm</span>
+                                    <span class="badge badge-success">Đã duyệt</span>
+                                </div>
+                                <div style="font-size: 12px; color: var(--text-gray);">Ngày nộp: 10/09/2026</div>
                             </div>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td style="padding: 8px 0; border: none; font-size: 13px;">Đơn xin miễn giảm học phí</td>
-                                        <td style="padding: 8px 0; border: none; text-align: right;"><span class="badge badge-success">Đã duyệt</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 8px 0; border: none; font-size: 13px;">Đơn đăng ký phúc khảo</td>
-                                        <td style="padding: 8px 0; border: none; text-align: right;"><span class="badge badge-warning">Đang xử lý</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div style="padding: 12px; border: 1px solid var(--border); border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                    <span style="font-weight: 600; font-size: 14px;">Đơn đăng ký phúc khảo</span>
+                                    <span class="badge badge-warning">Đang xử lý</span>
+                                </div>
+                                <div style="font-size: 12px; color: var(--text-gray);">Ngày nộp: 22/09/2026</div>
                         </div>
                     </div>
+                </div> <!-- END grid-2 -->
+
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-header">
+                        <div class="card-title">Đăng ký học lại</div>
+                    </div>
+                    <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 20px;">Các học phần có trạng thái NOT PASSED không đủ điều kiện thi lại sẽ bắt buộc phải đăng ký học lại.</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mã HP</th>
+                                <th>Tên học phần</th>
+                                <th>Lần học</th>
+                                <th>Tình trạng</th>
+                                <th style="text-align: right;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MAD101</td>
+                                <td>Discrete Mathematics</td>
+                                <td>1</td>
+                                <td><span class="badge badge-danger" style="text-transform: uppercase;">NOT PASSED</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-primary" onclick="showToast('Đăng ký học lại thành công! Vui lòng thanh toán học phí (3 TC).')">Đăng ký (3 TC)</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-header">
+                        <div class="card-title">Đăng ký thi lại</div>
+                    </div>
+                    <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 20px;">Các học phần có trạng thái NOT PASSED nhưng đủ điều kiện thi lại.</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mã HP</th>
+                                <th>Tên học phần</th>
+                                <th>Lần học</th>
+                                <th>Tình trạng</th>
+                                <th style="text-align: right;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>WDU203c</td>
+                                <td>UI/UX Design</td>
+                                <td>1</td>
+                                <td><span class="badge badge-danger" style="text-transform: uppercase;">NOT PASSED</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-primary" onclick="showToast('Đăng ký thi lại thành công! Miễn phí thi lại lần 1.')">Đăng ký (Miễn phí)</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -361,3 +383,4 @@
     </script>
 </body>
 </html>
+
