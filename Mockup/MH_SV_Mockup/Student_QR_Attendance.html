@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm danh QR - Đại Học ONENET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-light: #EFF6FF;
+            --primary-hover: #1D4ED8;
+            --text-dark: #1E293B;
+            --text-gray: #64748B;
+            --bg-light: #F8FAFC;
+            --border: #E2E8F0;
+            --danger: #EF4444;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .emblem {
+            width: 40px; height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .brand-copy {
+            display: flex; flex-direction: column;
+        }
+
+        .uni { font-size: 11px; font-weight: 700; color: var(--text-gray); letter-spacing: 0.5px; }
+        .sys-name { font-size: 16px; font-weight: 700; color: var(--primary); }
+
+        .user-profile { display: flex; align-items: center; gap: 16px; cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; }
+        .user-profile:hover { background: var(--primary-light); }
+
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+
+        .avatar {
+            width: 40px; height: 40px;
+            background: #F3E8FD; color: #8E24AA;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 16px;
+        }
+
+        /* DASHBOARD LAYOUT */
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex; flex-direction: column; gap: 24px;
+            overflow-y: auto;
+        }
+
+        .menu-group { display: flex; flex-direction: column; gap: 8px; }
+        .menu-title {
+            font-size: 11px; font-weight: 700; color: var(--text-gray);
+            letter-spacing: 0.5px; margin-left: 12px; margin-bottom: 4px;
+        }
+
+        .menu-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 12px; border-radius: 8px;
+            color: var(--text-gray); font-size: 14px; font-weight: 500;
+            cursor: pointer; transition: all 0.2s; text-decoration: none;
+        }
+
+        .menu-item:hover { background: var(--bg-light); color: var(--primary); }
+        .menu-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+
+        .main-content {
+            flex: 1; padding: 32px 40px; overflow-y: auto;
+        }
+
+        .page-title {
+            font-size: 24px; font-weight: 700; margin-bottom: 8px;
+        }
+        
+        .page-subtitle {
+            font-size: 14px; color: var(--text-gray); margin-bottom: 24px;
+        }
+
+        .content-section {
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* SCHEDULE CARDS */
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .schedule-card {
+            background: white; border: 1px solid var(--border);
+            border-radius: 12px; padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            display: flex; align-items: center; justify-content: space-between;
+            transition: border-color 0.2s;
+        }
+        
+        .schedule-card:hover {
+            border-color: var(--primary);
+        }
+        
+        .schedule-time {
+            display: flex; flex-direction: column; gap: 4px;
+            min-width: 120px; border-right: 1px solid var(--border);
+            padding-right: 20px;
+        }
+        .schedule-time .slot { font-size: 14px; font-weight: 600; color: var(--primary); }
+        .schedule-time .hours { font-size: 13px; color: var(--text-gray); }
+        
+        .schedule-info {
+            flex: 1; padding: 0 24px;
+            display: flex; flex-direction: column; gap: 6px;
+        }
+        .schedule-info .course-name { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+        .schedule-info .course-meta-row { display: flex; gap: 16px; font-size: 14px; color: var(--text-gray); }
+        .schedule-info .course-meta-item { display: flex; align-items: center; gap: 6px; }
+        
+        .schedule-action {
+            min-width: 160px;
+            text-align: right;
+        }
+        
+        .btn {
+            padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
+            cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 8px;
+            transition: all 0.2s; outline: none;
+        }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        .btn-disabled { background: var(--border); color: var(--text-gray); cursor: not-allowed; }
+        
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 600;
+        }
+        .status-success { background: #E6F4EA; color: #1E8E3E; border: 1px solid #CEEAD6; }
+
+        /* MODAL QR SCANNER */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .modal-content {
+            background: white; border-radius: 16px; width: 400px; max-width: 90vw;
+            padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: scale(0.95); transition: transform 0.3s;
+            display: flex; flex-direction: column; align-items: center; position: relative;
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        
+        .modal-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .modal-title { font-size: 18px; font-weight: 700; }
+        .close-btn { cursor: pointer; color: var(--text-gray); transition: color 0.2s; }
+        .close-btn:hover { color: var(--danger); }
+        
+        .scanner-container {
+            width: 100%; aspect-ratio: 1; background: #000; border-radius: 12px;
+            position: relative; overflow: hidden; margin-bottom: 24px;
+        }
+
+        #reader {
+            width: 100%; height: 100%; background: white;
+        }
+
+        /* Success overlay within modal */
+        .success-overlay {
+            position: absolute; inset: 0; background: rgba(16, 185, 129, 0.9);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+            z-index: 10; border-radius: 12px;
+        }
+        .success-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .scanner-info {
+            text-align: center; color: var(--text-gray); font-size: 14px; margin-bottom: 16px; line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="Student_Dashboard.html" class="sys-identity" style="text-decoration: none;">
+            <div class="emblem">
+                <i data-lucide="book-open" size="20"></i>
+            </div>
+            <div class="brand-copy">
+                <span class="uni">TRƯỜNG</span>
+                <span class="sys-name">Đại Học ONENET</span>
+            </div>
+        </a>
+        <div class="user-profile" onclick="window.location.href='Student_Profile.html'">
+            <div class="user-info">
+                <span class="name">Trần Văn Học</span>
+                <span class="role">Sinh viên (K19)</span>
+            </div>
+            <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
+                H
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="menu-group">
+                <div class="menu-title">HỌC TẬP</div>
+                <a href="Student_Dashboard.html" class="menu-item">
+                    <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                </a>
+                <a href="Student_QR_Attendance.html" class="menu-item active">
+                    <i data-lucide="scan-line" size="18"></i> Lịch học & Điểm danh QR
+                </a>
+                <a href="Student_Timetable.html" class="menu-item">
+                    <i data-lucide="calendar" size="18"></i> Thời khóa biểu
+                </a>
+                <a href="Student_Attendance.html" class="menu-item">
+                    <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
+                </a>
+                <a href="Student_ExamSchedule.html" class="menu-item">
+                    <i data-lucide="clock" size="18"></i> Lịch thi
+                </a>
+                <a href="Student_Grades.html" class="menu-item">
+                    <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
+                </a>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
+                <a href="Student_Requests.html" class="menu-item">
+                    <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
+                </a>
+                <a href="Student_Billing.html" class="menu-item">
+                    <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
+                </a>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <h1 class="page-title">Lịch học trong ngày</h1>
+            <p class="page-subtitle">Hôm nay, Thứ Hai ngày 28/09/2026</p>
+            
+            <div class="content-section">
+                
+                <div class="schedule-list">
+                    <!-- Class 1: Completed -->
+                    <div class="schedule-card">
+                        <div class="schedule-time">
+                            <span class="slot">Slot 1</span>
+                            <span class="hours">07:30 - 09:50</span>
+                        </div>
+                        <div class="schedule-info">
+                            <div class="course-name">SWT301 - Software Testing</div>
+                            <div class="course-meta-row">
+                                <span class="course-meta-item"><i data-lucide="map-pin" size="16"></i> Phòng P.202</span>
+                                <span class="course-meta-item"><i data-lucide="user" size="16"></i> GV: Nguyễn Văn A</span>
+                                <span class="course-meta-item"><i data-lucide="users" size="16"></i> Lớp: SE2003-NET</span>
+                            </div>
+                        </div>
+                        <div class="schedule-action" id="action-slot1">
+                            <div class="status-badge status-success">
+                                <i data-lucide="check-circle" size="18"></i> Đã điểm danh
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Class 2: Active for Attendance -->
+                    <div class="schedule-card" style="border-color: var(--primary); background: var(--primary-light);">
+                        <div class="schedule-time">
+                            <span class="slot">Slot 2</span>
+                            <span class="hours">10:00 - 12:20</span>
+                        </div>
+                        <div class="schedule-info">
+                            <div class="course-name">WDU203c - UI/UX Design</div>
+                            <div class="course-meta-row">
+                                <span class="course-meta-item"><i data-lucide="map-pin" size="16"></i> Phòng P.204</span>
+                                <span class="course-meta-item"><i data-lucide="user" size="16"></i> GV: Trần Thị B</span>
+                                <span class="course-meta-item"><i data-lucide="users" size="16"></i> Lớp: SE2014-NJ</span>
+                            </div>
+                        </div>
+                        <div class="schedule-action" id="action-slot2">
+                            <button class="btn btn-primary" onclick="openScanner('slot2')">
+                                <i data-lucide="scan-line" size="18"></i> Quét mã QR
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Class 3: Upcoming -->
+                    <div class="schedule-card">
+                        <div class="schedule-time">
+                            <span class="slot" style="color: var(--text-gray);">Slot 4</span>
+                            <span class="hours">15:10 - 17:30</span>
+                        </div>
+                        <div class="schedule-info">
+                            <div class="course-name">SWR302 - Software Requirement</div>
+                            <div class="course-meta-row">
+                                <span class="course-meta-item"><i data-lucide="map-pin" size="16"></i> Phòng P.305</span>
+                                <span class="course-meta-item"><i data-lucide="user" size="16"></i> GV: Lê Hoàng C</span>
+                                <span class="course-meta-item"><i data-lucide="users" size="16"></i> Lớp: SE2003-NET</span>
+                            </div>
+                        </div>
+                        <div class="schedule-action">
+                            <button class="btn btn-disabled" disabled>
+                                Chưa đến giờ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Scanner Modal -->
+    <div class="modal-overlay" id="scannerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">Quét QR Điểm danh</span>
+                <i data-lucide="x" size="24" class="close-btn" onclick="closeScanner()"></i>
+            </div>
+            
+            <div class="scanner-container">
+                <!-- Vùng chứa camera thật -->
+                <div id="reader"></div>
+                
+                <div class="success-overlay" id="successOverlay">
+                    <i data-lucide="check-circle" size="48"></i>
+                    <span style="font-weight: 600; font-size: 18px; margin-top: 12px;">Điểm danh thành công!</span>
+                    <span id="scannedDataText" style="font-size: 12px; margin-top: 8px; opacity: 0.8;"></span>
+                </div>
+            </div>
+            
+            <p class="scanner-info">
+                Đưa mã QR trên màn hình của giảng viên vào vùng nhận diện để điểm danh.<br/>
+                <strong style="color: var(--primary);">Hãy mở trang Teacher_QR_Display.html trên máy tính để lấy QR quét thử!</strong>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        let currentSlotId = '';
+        let html5QrcodeScanner = null;
+
+        function openScanner(slotId) {
+            currentSlotId = slotId;
+            document.getElementById('scannerModal').classList.add('active');
+            document.getElementById('successOverlay').classList.remove('active');
+            
+            // Khởi tạo camera khi mở modal
+            if (!html5QrcodeScanner) {
+                html5QrcodeScanner = new Html5QrcodeScanner(
+                    "reader", { fps: 10, qrbox: 250 }, /* verbose= */ false
+                );
+            }
+            
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        }
+        
+        function onScanSuccess(decodedText, decodedResult) {
+            console.log("Scanned:", decodedText);
+            
+            // Hiển thị nội dung quét được
+            document.getElementById('scannedDataText').innerText = "Mã: " + decodedText;
+            
+            // Dừng camera
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.clear().then(() => {
+                    simulateSuccess();
+                }).catch(err => {
+                    console.error("Failed to clear html5QrcodeScanner. ", err);
+                    simulateSuccess();
+                });
+            } else {
+                simulateSuccess();
+            }
+        }
+        
+        function onScanFailure(error) {
+            // Liên tục gọi khi chưa thấy QR
+        }
+        
+        function closeScanner() {
+            document.getElementById('scannerModal').classList.remove('active');
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.clear();
+            }
+        }
+        
+        function simulateSuccess() {
+            // Show success overlay
+            document.getElementById('successOverlay').classList.add('active');
+            
+            // Wait a bit, then close modal and update UI
+            setTimeout(() => {
+                closeScanner();
+                
+                // Update the slot UI to show success state
+                if (currentSlotId) {
+                    const actionContainer = document.getElementById('action-' + currentSlotId);
+                    if(actionContainer) {
+                        actionContainer.innerHTML = `
+                            <div class="status-badge status-success">
+                                <i data-lucide="check-circle" size="18"></i> Đã điểm danh
+                            </div>
+                        `;
+                        lucide.createIcons();
+                        
+                        // Update card styling
+                        const card = actionContainer.closest('.schedule-card');
+                        card.style.borderColor = 'var(--border)';
+                        card.style.background = 'white';
+                    }
+                }
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
