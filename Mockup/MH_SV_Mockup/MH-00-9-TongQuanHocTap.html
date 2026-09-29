@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
             --primary-hover: #1D4ED8;
             --text-dark: #1E293B;
             --text-gray: #64748B;
-            --bg-light: #F8FAFC;
+            --bg-light: #F1F5F9;
             --border: #E2E8F0;
             --danger: #EF4444;
             --success: #10B981;
@@ -214,11 +214,11 @@
         </div>
         <div class="user-profile" onclick="window.location.href='MH-05-4-QuanLyHoSoCaNhan.html'">
             <div class="user-info">
-                <span class="name">Trần Văn Học</span>
+                <span class="name">Nguyễn Hồng Long Khánh</span>
                 <span class="role">Sinh viên (K19)</span>
             </div>
             <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
-                H
+                K
             </div>
         </div>
     </header>
@@ -232,11 +232,17 @@
                 <div class="menu-item active" onclick="window.location.href='MH-00-9-TongQuanHocTap.html'">
                     <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
                 </div>
+                <div class="menu-item " onclick="window.location.href='MH-03-3-QRDiemDanh.html'">
+                    <i data-lucide="scan-line" size="18"></i> Lịch học & Điểm danh QR
+                </div>
                 <div class="menu-item " onclick="window.location.href='MH-02-6-ThoiKhoaBieu.html'">
                     <i data-lucide="calendar" size="18"></i> Thời khóa biểu
                 </div>
                 <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
                     <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-04-1-ChuongTrinhDaoTao.html'">
+                    <i data-lucide="book" size="18"></i> Chương trình đào tạo
                 </div>
                 <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
                     <i data-lucide="clock" size="18"></i> Lịch thi
@@ -262,6 +268,55 @@
         <div class="main-content">
             <h1 class="page-title">Tổng quan học tập</h1>
             <div class="content-section">
+                
+                <!-- THÔNG TIN SINH VIÊN BANNER -->
+                <div class="student-overview-card" style="display: flex; background: white; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 24px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                    <div style="background: var(--primary); color: white; padding: 24px; width: 320px; display: flex; align-items: center; gap: 16px; flex-shrink: 0;">
+                        <div style="width: 64px; height: 64px; background: rgba(255,255,255,0.2); border-radius: 16px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="graduation-cap" size="32"></i>
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 11px; font-weight: 700; opacity: 0.8; letter-spacing: 0.5px; margin-bottom: 4px; text-transform: uppercase;">Thông tin sinh viên</span>
+                            <span style="font-size: 18px; font-weight: 700; margin-bottom: 4px; line-height: 1.2;">Nguyễn Hồng Long Khánh</span>
+                            <span style="font-size: 13px; opacity: 0.9;">HE190868</span>
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1; padding: 24px; display: flex; gap: 16px; overflow-x: auto;">
+                        <div style="flex: 1; min-width: 150px; padding: 16px; border: 1px solid var(--border); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; gap: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-gray); font-weight: 500;">
+                                <div style="width: 28px; height: 28px; background: var(--primary-light); color: var(--primary); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                                    <i data-lucide="shield-check" size="16"></i>
+                                </div>
+                                Trạng thái
+                            </div>
+                            <div style="font-size: 16px; font-weight: 700;">HD</div>
+                        </div>
+
+                        <div style="flex: 1; min-width: 150px; padding: 16px; border: 1px solid var(--border); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; gap: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-gray); font-weight: 500;">
+                                <div style="width: 28px; height: 28px; background: #F3F4F6; color: #4B5563; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                                    <i data-lucide="calendar" size="16"></i>
+                                </div>
+                                Khóa
+                            </div>
+                            <div style="font-size: 16px; font-weight: 700;">19</div>
+                        </div>
+
+                        <div style="flex: 1; min-width: 200px; padding: 16px; border: 1px solid #D1FAE5; background: #ECFDF5; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; gap: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #065F46; font-weight: 500;">
+                                <div style="width: 28px; height: 28px; background: #A7F3D0; color: #047857; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                                    <i data-lucide="award" size="16"></i>
+                                </div>
+                                Điểm TB (Overall)
+                            </div>
+                            <div style="font-size: 16px; font-weight: 700; color: #065F46; display: flex; align-items: baseline; gap: 4px;">
+                                8.5 <span style="font-size: 12px; font-weight: 500; opacity: 0.8;">/ 10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="grid-2">
                     <!-- TKB Hôm Nay -->
                     <div class="card">
