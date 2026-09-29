@@ -133,8 +133,14 @@
         .btn-success:hover { box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3); transform: translateY(-1px); }
         .btn-danger-outline { background: white; border: 1px solid #FECACA; color: var(--danger); }
         .btn-danger-outline:hover { background: var(--danger-light); }
-        .btn-ghost { background: transparent; color: var(--text-gray); padding: 8px; border-radius: 8px; }
+        .btn-ghost { background: transparent; color: var(--text-gray); padding: 8px; border-radius: 8px; border: none; cursor: pointer; }
         .btn-ghost:hover { background: var(--bg-light); color: var(--primary); }
+        .btn-auto {
+            background: linear-gradient(135deg, #7C3AED, #8B5CF6); color: white;
+            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
+            padding: 14px 32px; font-size: 15px; border-radius: var(--radius-md);
+        }
+        .btn-auto:hover { box-shadow: 0 6px 24px rgba(124, 58, 237, 0.35); transform: translateY(-2px); }
 
         /* ─── Filter Card ─── */
         .filter-card {
@@ -210,6 +216,155 @@
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* ─── Dual Panel Layout ─── */
+        .dual-panel-layout {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;
+        }
+        .list-panel {
+            background: white; border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl); overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            display: flex; flex-direction: column;
+            min-height: 480px;
+            animation: fadeSlideUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        .list-panel:nth-child(1) { animation-delay: 0.05s; }
+        .list-panel:nth-child(2) { animation-delay: 0.15s; }
+
+        .panel-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 24px; border-bottom: 1px solid var(--border-light);
+            background: #FAFBFD;
+        }
+        .panel-header-left { display: flex; align-items: center; gap: 12px; }
+        .panel-header-left .panel-icon {
+            width: 42px; height: 42px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .panel-header-left .panel-info { display: flex; flex-direction: column; gap: 2px; }
+        .panel-header-left .panel-title { font-size: 15px; font-weight: 700; color: var(--text-dark); }
+        .panel-header-left .panel-desc { font-size: 11px; color: var(--text-light); }
+
+        /* Filter toolbar in panels */
+        .panel-filter {
+            display: flex; align-items: center; gap: 10px; padding: 14px 24px;
+            border-bottom: 1px solid var(--border-light); background: white;
+        }
+        .panel-filter .search-box {
+            display: flex; align-items: center; gap: 8px;
+            border: 1px solid var(--border); border-radius: var(--radius-sm);
+            padding: 0 10px; height: 36px; background: white; flex: 1;
+            transition: all 0.2s;
+        }
+        .panel-filter .search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(7, 87, 166, 0.08); }
+        .panel-filter .search-box i { color: var(--text-light); flex-shrink: 0; }
+        .panel-filter .search-box input {
+            border: none; outline: none; font-size: 12.5px; flex: 1;
+            background: transparent; color: var(--text-dark); min-width: 0;
+        }
+        .panel-filter .search-box input::placeholder { color: var(--text-light); }
+        .panel-filter .filter-select {
+            height: 36px; padding: 0 10px; border: 1px solid var(--border);
+            border-radius: var(--radius-sm); font-size: 12.5px; color: var(--text-dark);
+            background: white; outline: none; cursor: pointer;
+        }
+        .panel-filter .filter-select:focus { border-color: var(--primary); }
+
+        /* List items in panels */
+        .panel-list { flex: 1; overflow-y: auto; padding: 6px 0; }
+        .panel-list::-webkit-scrollbar { width: 4px; }
+        .panel-list::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+
+        .list-item {
+            display: flex; align-items: center; gap: 14px;
+            padding: 14px 24px;
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+            cursor: default;
+            position: relative;
+        }
+        .list-item:last-child { border-bottom: none; }
+        .list-item:hover { background: #F8FAFD; }
+
+        .list-item .item-avatar {
+            width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 14px; flex-shrink: 0;
+        }
+        .list-item .item-info { flex: 1; min-width: 0; }
+        .list-item .item-name { font-size: 13.5px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+        .list-item .item-meta { font-size: 11.5px; color: var(--text-light); display: flex; align-items: center; gap: 6px; }
+        .list-item .item-badge {
+            font-size: 11px; font-weight: 600; padding: 3px 10px;
+            border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;
+            white-space: nowrap;
+        }
+
+        /* Teacher items - draggable */
+        .teacher-item {
+            cursor: grab; user-select: none;
+        }
+        .teacher-item:active { cursor: grabbing; }
+        .teacher-item.dragging {
+            opacity: 0.5; transform: scale(0.97);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        /* Class items - drop target */
+        .class-item.drag-over {
+            background: var(--primary-50);
+            border: 2px dashed var(--primary);
+            border-bottom: 2px dashed var(--primary);
+            margin: -1px 0;
+        }
+
+        .class-item .assigned-gv {
+            font-size: 11px; font-weight: 600; padding: 4px 10px;
+            border-radius: 6px; display: inline-flex; align-items: center; gap: 5px;
+            transition: all 0.3s ease;
+        }
+        .class-item .assigned-gv.empty {
+            background: #FEF3C7; color: #92400E; border: 1px dashed #FBBF24;
+        }
+        .class-item .assigned-gv.filled {
+            background: var(--success-light); color: var(--success); border: 1px solid #A7F3D0;
+        }
+
+        /* Drop hint badge */
+        .drop-hint {
+            position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+            font-size: 10px; font-weight: 700; color: var(--primary);
+            background: var(--primary-50); padding: 4px 10px; border-radius: 6px;
+            display: none; align-items: center; gap: 4px;
+            animation: pulse 1s infinite;
+        }
+        .class-item.drag-over .drop-hint { display: inline-flex; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* ─── Bottom Action Bar ─── */
+        .bottom-action-bar {
+            background: white; border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl); padding: 24px 32px;
+            box-shadow: var(--shadow-md);
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 24px;
+            animation: fadeSlideUp 0.5s ease 0.25s forwards;
+            opacity: 0;
+        }
+        .bottom-action-bar .bar-info {
+            display: flex; flex-direction: column; gap: 4px;
+        }
+        .bottom-action-bar .bar-title {
+            font-size: 16px; font-weight: 700; color: var(--text-dark);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .bottom-action-bar .bar-desc { font-size: 12px; color: var(--text-light); }
+        .bottom-action-bar .bar-actions { display: flex; gap: 12px; align-items: center; }
 
         /* ─── View Toggle ─── */
         .view-toggle-bar {
@@ -323,25 +478,19 @@
             padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
             background: var(--primary-50); color: var(--primary);
         }
-        .table .days-chip {
-            display: inline-flex; gap: 4px;
-        }
+        .table .days-chip { display: inline-flex; gap: 4px; }
         .table .days-chip span {
             display: inline-flex; align-items: center; justify-content: center;
             width: 28px; height: 24px; border-radius: 5px; font-size: 11px; font-weight: 600;
             background: var(--bg-light); color: var(--text-gray);
         }
         .table .days-chip span.active { background: var(--primary-50); color: var(--primary); }
-        .table .capacity-bar {
-            display: flex; align-items: center; gap: 8px;
-        }
+        .table .capacity-bar { display: flex; align-items: center; gap: 8px; }
         .table .capacity-bar .bar {
             flex: 1; height: 6px; background: var(--border-light); border-radius: 4px;
             overflow: hidden; min-width: 50px;
         }
-        .table .capacity-bar .bar-fill {
-            height: 100%; border-radius: 4px; transition: width 0.6s ease;
-        }
+        .table .capacity-bar .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
         .table .capacity-bar .bar-fill.full { background: linear-gradient(90deg, var(--primary), #3B82F6); }
         .table .capacity-bar .bar-fill.partial { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
         .table .capacity-bar .label { font-size: 12px; font-weight: 600; color: var(--text-gray); white-space: nowrap; }
@@ -458,6 +607,17 @@
         /* ─── Scrollbar ─── */
         .dashboard-content::-webkit-scrollbar { width: 5px; }
         .dashboard-content::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+
+        /* ─── Drag ghost ─── */
+        .drag-ghost {
+            position: fixed; pointer-events: none; z-index: 9999;
+            background: white; border: 2px solid var(--primary);
+            border-radius: 12px; padding: 10px 16px;
+            box-shadow: var(--shadow-xl);
+            font-size: 13px; font-weight: 600; color: var(--primary);
+            display: flex; align-items: center; gap: 8px;
+            opacity: 0.95;
+        }
     </style>
 </head>
 
@@ -531,7 +691,7 @@
                         <span class="dot"></span>
                         <span>QLSV-02-100</span>
                         <span class="dot"></span>
-                        <span>NFR-04: ≤ 30 giây, 0% Conflict</span>
+                        <span>Kéo giáo viên vào lớp hoặc dùng phân bổ tự động</span>
                     </div>
                 </div>
             </div>
@@ -572,13 +732,92 @@
                         </select>
                     </div>
                     <div class="filter-actions">
-                        <button class="btn btn-primary" id="btnAutoSchedule" onclick="simulateAutoSchedule()">
-                            <i data-lucide="wand-2" size="16"></i> Tự động xếp
-                        </button>
                         <button class="btn btn-outline" onclick="openManualModal()">
                             <i data-lucide="plus" size="16"></i> Thủ công
                         </button>
                     </div>
+                </div>
+            </div>
+
+            <!-- ═══════════ DUAL PANEL: Class List + Teacher List ═══════════ -->
+            <div class="dual-panel-layout">
+                <!-- LEFT: Class List -->
+                <div class="list-panel" id="classPanelContainer">
+                    <div class="panel-header">
+                        <div class="panel-header-left">
+                            <div class="panel-icon" style="background: #DBEAFE; color: #1D4ED8;">
+                                <i data-lucide="layers" size="20"></i>
+                            </div>
+                            <div class="panel-info">
+                                <span class="panel-title">Danh sách Lớp</span>
+                                <span class="panel-desc" id="classCount">5 lớp • Kéo giáo viên vào đây</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-filter">
+                        <div class="search-box">
+                            <i data-lucide="search" size="14"></i>
+                            <input type="text" placeholder="Tìm lớp..." id="searchClass" oninput="filterClassList()">
+                        </div>
+                        <select class="filter-select" id="filterClassMajor" onchange="filterClassList()">
+                            <option value="">Tất cả ngành</option>
+                            <option value="SE">Kỹ thuật phần mềm</option>
+                            <option value="AI">Trí tuệ nhân tạo</option>
+                            <option value="IB">Kinh doanh quốc tế</option>
+                        </select>
+                    </div>
+                    <div class="panel-list" id="classList">
+                        <!-- Classes are rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- RIGHT: Teacher List -->
+                <div class="list-panel" id="teacherPanelContainer">
+                    <div class="panel-header">
+                        <div class="panel-header-left">
+                            <div class="panel-icon" style="background: #D1FAE5; color: #047857;">
+                                <i data-lucide="graduation-cap" size="20"></i>
+                            </div>
+                            <div class="panel-info">
+                                <span class="panel-title">Danh sách Giáo viên</span>
+                                <span class="panel-desc" id="teacherCount">4 giáo viên • Kéo thả để phân bổ</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-filter">
+                        <div class="search-box">
+                            <i data-lucide="search" size="14"></i>
+                            <input type="text" placeholder="Tìm giáo viên..." id="searchTeacher" oninput="filterTeacherList()">
+                        </div>
+                        <select class="filter-select" id="filterTeacherMajor" onchange="filterTeacherList()">
+                            <option value="">Tất cả ngành</option>
+                            <option value="CNTT">Công nghệ thông tin</option>
+                            <option value="KT">Kinh tế</option>
+                            <option value="NN">Ngôn ngữ</option>
+                        </select>
+                    </div>
+                    <div class="panel-list" id="teacherList">
+                        <!-- Teachers are rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════ AUTO ALLOCATE BUTTON ═══════════ -->
+            <div class="bottom-action-bar">
+                <div class="bar-info">
+                    <div class="bar-title">
+                        <i data-lucide="wand-2" size="20" style="color: #7C3AED;"></i>
+                        Phân bổ tự động
+                    </div>
+                    <div class="bar-desc">Hệ thống sẽ tự động gán giáo viên phù hợp cho các lớp chưa có GV, đảm bảo 0% conflict.</div>
+                </div>
+                <div class="bar-actions">
+                    <button class="btn btn-outline" onclick="resetAllAssignments()">
+                        <i data-lucide="rotate-ccw" size="15"></i> Đặt lại
+                    </button>
+                    <button class="btn btn-auto" id="btnAutoSchedule" onclick="simulateAutoSchedule()">
+                        <i data-lucide="sparkles" size="18"></i> Phân bổ tự động
+                    </button>
                 </div>
             </div>
 
@@ -1092,7 +1331,22 @@
     <script>
         lucide.createIcons();
 
-        // === Data ===
+        // ═══════════ DATA ═══════════
+        const classData = [
+            { id: 'SE1901', name: 'Lớp SE1901', subject: 'PRO192 – OOP', major: 'SE', majorName: 'Kỹ thuật phần mềm', students: 30, gv: null },
+            { id: 'SE1902', name: 'Lớp SE1902', subject: 'DBI202 – Database', major: 'SE', majorName: 'Kỹ thuật phần mềm', students: 28, gv: null },
+            { id: 'SE1903', name: 'Lớp SE1903', subject: 'PRF192 – Prog. Fund.', major: 'SE', majorName: 'Kỹ thuật phần mềm', students: 30, gv: null },
+            { id: 'SE1904', name: 'Lớp SE1904', subject: 'WED201 – Web Design', major: 'SE', majorName: 'Kỹ thuật phần mềm', students: 25, gv: null },
+            { id: 'SE1905', name: 'Lớp SE1905', subject: 'SWR302 – Software Req.', major: 'SE', majorName: 'Kỹ thuật phần mềm', students: 29, gv: null },
+        ];
+
+        const teacherData = [
+            { id: 'GV001', name: 'TS. Nguyễn Văn Hùng', dept: 'CNTT', deptFull: 'Công nghệ thông tin', color: '#3B82F6', initial: 'H' },
+            { id: 'GV002', name: 'ThS. Trần Thị Mai', dept: 'KT', deptFull: 'Kinh tế', color: '#10B981', initial: 'M' },
+            { id: 'GV003', name: 'TS. Lê Hoàng Nam', dept: 'CNTT', deptFull: 'Công nghệ thông tin', color: '#8B5CF6', initial: 'N' },
+            { id: 'GV004', name: 'PGS. Phạm Minh Tuấn', dept: 'CNTT', deptFull: 'Công nghệ thông tin', color: '#F43F5E', initial: 'T' },
+        ];
+
         const currentSchedule = [
             { cls: 'SE1901', gv: 'GV001', room: 'P.301', slot: '1', days: '246' },
             { cls: 'SE1902', gv: 'GV002', room: 'P.302', slot: '2', days: '246' },
@@ -1101,13 +1355,180 @@
             { cls: 'SE1905', gv: 'GV004', room: 'P.304', slot: '1', days: '35' },
         ];
 
-        // === Auto Schedule ===
+        // ═══════════ RENDER LISTS ═══════════
+        function renderClassList() {
+            const container = document.getElementById('classList');
+            container.innerHTML = '';
+            const search = (document.getElementById('searchClass')?.value || '').toLowerCase();
+            const majorFilter = document.getElementById('filterClassMajor')?.value || '';
+
+            let visibleCount = 0;
+            classData.forEach((cls, idx) => {
+                if (search && !cls.name.toLowerCase().includes(search) && !cls.id.toLowerCase().includes(search) && !cls.subject.toLowerCase().includes(search)) return;
+                if (majorFilter && cls.major !== majorFilter) return;
+                visibleCount++;
+
+                const gvInfo = cls.gv ? teacherData.find(t => t.id === cls.gv) : null;
+                const item = document.createElement('div');
+                item.className = 'list-item class-item';
+                item.setAttribute('data-class-id', cls.id);
+                item.setAttribute('data-class-index', idx);
+                item.innerHTML = `
+                    <div class="item-avatar" style="background: #DBEAFE; color: #1D4ED8; font-size: 11px;">${cls.id.slice(-2)}</div>
+                    <div class="item-info">
+                        <div class="item-name">${cls.id} – ${cls.subject}</div>
+                        <div class="item-meta">
+                            <i data-lucide="users" size="11"></i> ${cls.students} SV
+                            <span style="color:#CBD5E1;">•</span>
+                            ${cls.majorName}
+                        </div>
+                    </div>
+                    <div>
+                        <span class="assigned-gv ${gvInfo ? 'filled' : 'empty'}">
+                            ${gvInfo
+                                ? `<i data-lucide="check-circle" size="12"></i> ${gvInfo.name}`
+                                : `<i data-lucide="user-x" size="12"></i> Chưa gán GV`
+                            }
+                        </span>
+                    </div>
+                    <div class="drop-hint"><i data-lucide="arrow-down" size="10"></i> Thả vào đây</div>
+                `;
+
+                // Drop target events
+                item.addEventListener('dragover', handleDragOver);
+                item.addEventListener('dragenter', handleDragEnter);
+                item.addEventListener('dragleave', handleDragLeave);
+                item.addEventListener('drop', handleDrop);
+                container.appendChild(item);
+            });
+
+            document.getElementById('classCount').textContent = `${visibleCount} lớp • Kéo giáo viên vào đây`;
+            lucide.createIcons();
+        }
+
+        function renderTeacherList() {
+            const container = document.getElementById('teacherList');
+            container.innerHTML = '';
+            const search = (document.getElementById('searchTeacher')?.value || '').toLowerCase();
+            const deptFilter = document.getElementById('filterTeacherMajor')?.value || '';
+
+            let visibleCount = 0;
+            teacherData.forEach(teacher => {
+                if (search && !teacher.name.toLowerCase().includes(search) && !teacher.id.toLowerCase().includes(search)) return;
+                if (deptFilter && teacher.dept !== deptFilter) return;
+                visibleCount++;
+
+                const assignedClasses = classData.filter(c => c.gv === teacher.id).map(c => c.id);
+                const item = document.createElement('div');
+                item.className = 'list-item teacher-item';
+                item.setAttribute('draggable', 'true');
+                item.setAttribute('data-teacher-id', teacher.id);
+                item.innerHTML = `
+                    <div class="item-avatar" style="background: ${teacher.color}22; color: ${teacher.color};">
+                        ${teacher.initial}
+                    </div>
+                    <div class="item-info">
+                        <div class="item-name">${teacher.id} – ${teacher.name}</div>
+                        <div class="item-meta">
+                            <i data-lucide="briefcase" size="11"></i> ${teacher.deptFull}
+                            ${assignedClasses.length > 0
+                                ? `<span style="color:#CBD5E1;">•</span> <span style="color:var(--success);font-weight:600;">${assignedClasses.length} lớp</span>`
+                                : ''
+                            }
+                        </div>
+                    </div>
+                    <div class="item-badge" style="background: ${teacher.color}15; color: ${teacher.color};">
+                        <i data-lucide="grip-vertical" size="14"></i> Kéo
+                    </div>
+                `;
+
+                // Drag events
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+                container.appendChild(item);
+            });
+
+            document.getElementById('teacherCount').textContent = `${visibleCount} giáo viên • Kéo thả để phân bổ`;
+            lucide.createIcons();
+        }
+
+        // Initial render
+        renderClassList();
+        renderTeacherList();
+
+        // ═══════════ DRAG & DROP ═══════════
+        let draggedTeacherId = null;
+
+        function handleDragStart(e) {
+            draggedTeacherId = e.currentTarget.getAttribute('data-teacher-id');
+            e.currentTarget.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', draggedTeacherId);
+
+            // Custom drag image
+            const ghost = document.createElement('div');
+            ghost.className = 'drag-ghost';
+            const teacher = teacherData.find(t => t.id === draggedTeacherId);
+            ghost.innerHTML = `<i data-lucide="user" size="14"></i> ${teacher.name}`;
+            ghost.style.position = 'absolute';
+            ghost.style.top = '-1000px';
+            document.body.appendChild(ghost);
+            e.dataTransfer.setDragImage(ghost, 0, 0);
+            setTimeout(() => ghost.remove(), 0);
+        }
+
+        function handleDragEnd(e) {
+            e.currentTarget.classList.remove('dragging');
+            draggedTeacherId = null;
+            document.querySelectorAll('.class-item.drag-over').forEach(el => el.classList.remove('drag-over'));
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleDragEnter(e) {
+            e.preventDefault();
+            const classItem = e.currentTarget;
+            classItem.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            const classItem = e.currentTarget;
+            if (!classItem.contains(e.relatedTarget)) {
+                classItem.classList.remove('drag-over');
+            }
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const classItem = e.currentTarget;
+            classItem.classList.remove('drag-over');
+
+            const teacherId = e.dataTransfer.getData('text/plain');
+            const classIndex = parseInt(classItem.getAttribute('data-class-index'));
+            const classId = classItem.getAttribute('data-class-id');
+
+            if (teacherId && classIndex >= 0 && classIndex < classData.length) {
+                classData[classIndex].gv = teacherId;
+                const teacher = teacherData.find(t => t.id === teacherId);
+                renderClassList();
+                renderTeacherList();
+                showToast(`Đã gán ${teacher.name} vào lớp ${classId}`, 'success');
+            }
+        }
+
+        // ═══════════ FILTER FUNCTIONS ═══════════
+        function filterClassList() { renderClassList(); }
+        function filterTeacherList() { renderTeacherList(); }
+
+        // ═══════════ AUTO SCHEDULE ═══════════
         function simulateAutoSchedule() {
             const overlay = document.getElementById('loadingOverlay');
             const bar = document.getElementById('loadingBar');
             overlay.classList.add('active');
 
-            // Reset steps
             ['step1','step2','step3','step4'].forEach(id => {
                 document.getElementById(id).className = 'step';
             });
@@ -1138,23 +1559,41 @@
             });
 
             setTimeout(() => {
+                // Auto-assign teachers to classes
+                const autoAssignments = ['GV001', 'GV002', 'GV003', 'GV001', 'GV004'];
+                classData.forEach((cls, i) => {
+                    cls.gv = autoAssignments[i];
+                });
+
                 const elapsed = ((performance.now() - t0) / 1000).toFixed(1);
                 document.getElementById('processTime').innerText = elapsed;
                 overlay.classList.remove('active');
                 document.getElementById('scheduleResult').style.display = 'block';
 
+                renderClassList();
+                renderTeacherList();
+
                 // Re-trigger stat card animations
                 document.querySelectorAll('.stat-card').forEach(card => {
                     card.style.animation = 'none';
-                    card.offsetHeight; // force reflow
+                    card.offsetHeight;
                     card.style.animation = '';
                 });
 
                 lucide.createIcons();
+                showToast('Phân bổ tự động hoàn tất! 0% Conflict.', 'success');
             }, 2200);
         }
 
-        // === View Toggle ===
+        // ═══════════ RESET ASSIGNMENTS ═══════════
+        function resetAllAssignments() {
+            classData.forEach(cls => cls.gv = null);
+            renderClassList();
+            renderTeacherList();
+            showToast('Đã đặt lại toàn bộ phân bổ.', 'success');
+        }
+
+        // ═══════════ VIEW TOGGLE ═══════════
         function switchView(view) {
             const gridView = document.getElementById('gridView');
             const tableView = document.getElementById('tableView');
@@ -1174,7 +1613,7 @@
             }
         }
 
-        // === Edit Modal ===
+        // ═══════════ EDIT MODAL ═══════════
         let currentEditingClass = '';
 
         function openEditModal(className, teacher, room, slot, days) {
@@ -1228,7 +1667,7 @@
             }
         }
 
-        // === Manual Modal ===
+        // ═══════════ MANUAL MODAL ═══════════
         function openManualModal() {
             document.getElementById('manualConflictAlert').classList.remove('active');
             document.getElementById('manualModal').classList.add('active');
@@ -1269,7 +1708,6 @@
                 currentSchedule.push({ cls, gv: newGV, room: newRoom, slot: newSlot, days: newDays });
                 closeManualModal();
 
-                // Add to table view
                 const tableBody = document.querySelector('.table tbody');
                 if (tableBody) {
                     const rowCount = tableBody.children.length + 1;
@@ -1296,12 +1734,12 @@
             }
         }
 
-        // === Save TKB ===
+        // ═══════════ SAVE TKB ═══════════
         function saveTKB() {
             showToast('Đã lưu toàn bộ TKB kỳ Fall 2026 thành công!', 'success');
         }
 
-        // === Toast System ===
+        // ═══════════ TOAST ═══════════
         function showToast(msg, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
@@ -1334,5 +1772,3 @@
     </script>
 </body>
 </html>
-
-

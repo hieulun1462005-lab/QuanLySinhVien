@@ -13,88 +13,126 @@
             --primary: #0757A6; --primary-dark: #063B75; --primary-light: #CFE6FF;
             --text-dark: #102A43; --text-gray: #5E7184; --text-light: #E7F2FE;
             --bg-light: #F5F8FC; --bg-white: #FFFFFF; --border: #DCE8F3;
+            --success: #10B981; --warning: #F59E0B; --danger: #EF4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
 
         /* Header & Sidebar */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 0 64px; height: 64px; background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); z-index: 100; }
-        .sys-identity { display: flex; align-items: center; gap: 16px; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 0 64px; height: 64px; background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); z-index: 100; position: relative;}
+        .sys-identity { display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit;}
         .emblem { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; }
         .brand-copy { display: flex; flex-direction: column; gap: 2px; }
         .brand-copy .uni { font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--text-gray); }
         .brand-copy .sys-name { font-weight: 700; font-size: 18px; color: var(--primary); }
         
         .dashboard-layout { display: flex; height: calc(100vh - 64px); }
-        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 8px; }
-        .menu-group-title { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; padding: 12px 24px 4px; }
-        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: var(--text-gray); font-weight: 500; font-size: 14px; cursor: pointer; text-decoration: none; border-left: 3px solid transparent; }
-        .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
-        .sidebar-item.active { background: #EAF4FF; color: var(--primary); border-left: 3px solid var(--primary); font-weight: 600; }
-
-        .dashboard-content { flex: 1; padding: 32px; overflow-y: auto; }
-        
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .page-title { font-size: 24px; font-weight: 700; color: var(--text-dark); }
-        
-        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); }
-
-        /* Split Layout */
-        .split-layout { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: start; }
-        
-        .card { background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; height: 600px; }
-        .card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; }
-        .card-title { font-size: 15px; font-weight: 600; }
-        .card-body { padding: 20px; flex: 1; overflow-y: auto; background: #F8FAFC; }
-
-        /* Draggable Student Item */
-        .student-item { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; cursor: grab; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .student-item:active { cursor: grabbing; }
-        .student-info { display: flex; flex-direction: column; gap: 4px; }
-        .student-info .name { font-weight: 600; font-size: 14px; }
-        .student-info .id { font-size: 12px; color: var(--text-gray); }
-        
-        /* Class Bucket */
-        .class-bucket { background: white; border: 2px dashed var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; transition: all 0.2s; }
-        .class-bucket:hover { border-color: var(--primary); background: #F0F7FF; }
-        .class-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .class-name { font-weight: 600; font-size: 15px; }
-        .class-capacity { font-size: 13px; color: var(--text-gray); background: #F1F5F9; padding: 4px 8px; border-radius: 999px; }
-        .class-capacity.full { background: #FEE2E2; color: #DC2626; }
-
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); justify-content: center; align-items: center; z-index: 1000; }
-        .modal.active { display: flex; }
-        .modal-content { background: white; padding: 32px; border-radius: 16px; width: 500px; }
-        .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
-        .modal-desc { color: var(--text-gray); font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
-        .draft-preview { background: #F8FAFC; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 24px; font-size: 14px; }
-            .user-profile { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; border: 1px solid transparent; }
-        .user-profile:hover { background: #F8FAFC; border-color: var(--border); }
-        .avatar { width: 36px; height: 36px; border-radius: 50%; background: #EAF4FF; color: var(--primary); display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px; position: relative; overflow: hidden; }
-        .user-info { display: flex; flex-direction: column; text-align: right; }
-        .user-info .name { font-size: 14px; font-weight: 600; color: var(--text-dark); }
-        .user-info .role { font-size: 12px; color: var(--text-gray); }
-            .user-profile { display: flex !important; align-items: center !important; gap: 12px !important; cursor: pointer !important; padding: 6px 12px !important; border-radius: 8px !important; transition: background 0.2s !important; border: 1px solid transparent !important; }
-        .user-profile:hover { background: #F8FAFC !important; border-color: var(--border) !important; }
-        .avatar { width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #EAF4FF !important; color: var(--primary) !important; display: flex !important; justify-content: center !important; align-items: center !important; font-weight: 600 !important; font-size: 14px !important; position: relative !important; overflow: hidden !important; }
-        .user-info { display: flex !important; flex-direction: column !important; text-align: right !important; }
-        .user-info .name { font-size: 14px !important; font-weight: 600 !important; color: var(--text-dark) !important; }
-        .user-info .role { font-size: 12px !important; color: var(--text-gray) !important; }
-            .sidebar { flex-shrink: 0 !important; overflow-y: auto !important; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; overflow-y: auto; }
         .sidebar::-webkit-scrollbar { width: 4px; }
         .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
         .sidebar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+        .menu-group-title { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; padding: 12px 24px 4px; }
+        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: var(--text-gray); font-weight: 500; font-size: 14px; cursor: pointer; text-decoration: none; border-left: 3px solid transparent; transition: all 0.2s; }
+        .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
+        .sidebar-item.active { background: #EAF4FF; color: var(--primary); border-left: 3px solid var(--primary); font-weight: 600; }
+
+        .user-profile { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; border: 1px solid transparent; }
+        .user-profile:hover { background: #F8FAFC; border-color: var(--border); }
+        .avatar { width: 36px; height: 36px; border-radius: 50%; background: #EAF4FF; color: var(--primary); display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px; }
+        .user-info { display: flex; flex-direction: column; text-align: right; }
+        .user-info .name { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        .user-info .role { font-size: 12px; color: var(--text-gray); }
+
+        .dashboard-content { flex: 1; padding: 32px; overflow-y: auto; display: flex; flex-direction: column; }
+        
+        .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+        .page-title { font-size: 24px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+        .page-subtitle { color: var(--text-gray); font-size: 14px; }
+        
+        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(7, 87, 166, 0.2); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(7, 87, 166, 0.3); }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); }
+        .btn-outline:hover { background: #F8FAFC; border-color: #CBD5E1; }
+        .btn-success { background: var(--success); color: white; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
+        .btn-success:hover { background: #059669; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3); }
+        
+        /* Main Layout */
+        .main-panel { background: white; border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; flex: 1; min-height: 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); overflow: hidden; }
+        
+        .filters-row { padding: 16px 24px; border-bottom: 1px solid var(--border); background: #F8FAFC; display: flex; justify-content: space-between; align-items: center; }
+        .table-title { font-size: 16px; font-weight: 700; color: var(--text-dark); margin: 0; }
+        .filters-actions { display: flex; gap: 16px; align-items: center; }
+        .search-box { position: relative; width: 300px; }
+        .search-box i, .search-box svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-gray); }
+        .search-box input { width: 100%; height: 40px; padding: 0 12px 0 36px; border: 1px solid var(--border); border-radius: 8px; outline: none; font-size: 14px; transition: border-color 0.2s; }
+        .search-box input:focus { border-color: var(--primary); }
+        .filter-select { height: 40px; padding: 0 36px 0 16px; border: 1px solid var(--border); border-radius: 8px; outline: none; font-size: 14px; background: white; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235E7184' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+        .filter-select:focus { border-color: var(--primary); }
+
+        .table-container { flex: 1; overflow-y: auto; }
+        .student-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .student-table th { padding: 16px 24px; font-size: 13px; font-weight: 600; color: var(--text-gray); position: sticky; top: 0; background: white; z-index: 10; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 0.5px; }
+        .student-table td { padding: 16px 24px; font-size: 14px; border-bottom: 1px solid var(--border); }
+        .student-table tbody tr { transition: background 0.2s; }
+        .student-table tbody tr:hover { background-color: #F8FAFC; }
+        .student-table td .status-badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+        .status-badge.hoc-di { background: #E0F2FE; color: #0284C7; }
+        .status-badge.hoc-lai { background: #FEF2F2; color: #DC2626; }
+        .status-badge.hoc-vuot { background: #ECFDF5; color: #059669; }
+        .status-badge.cai-thien { background: #FFFBEB; color: #D97706; }
+
+        .bottom-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding: 24px; background: white; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); }
+        .class-selector { display: flex; align-items: center; gap: 16px; }
+        .class-selector label { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        .class-selector select { height: 44px; padding: 0 40px 0 16px; border: 1px solid var(--primary); border-radius: 8px; outline: none; font-size: 15px; font-weight: 600; color: var(--primary-dark); background: #F0F7FF; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230757A6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; min-width: 300px; transition: all 0.2s; }
+        .class-selector select:hover { background-color: #E6F2FF; }
+        .action-buttons { display: flex; gap: 16px; }
+
+        /* Custom Checkbox */
+        input[type="checkbox"] { width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--border); appearance: none; outline: none; cursor: pointer; position: relative; transition: all 0.2s; }
+        input[type="checkbox"]:checked { background-color: var(--primary); border-color: var(--primary); }
+        input[type="checkbox"]:checked::after { content: ''; position: absolute; left: 5px; top: 2px; width: 4px; height: 8px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(16, 42, 67, 0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000; padding: 24px; }
+        .modal.active { display: flex; animation: fadeIn 0.2s ease-out; }
+        .modal-content { background: white; padding: 0; border-radius: 16px; width: 100%; max-width: 800px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); overflow: hidden; }
+        .modal-header { padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; }
+        .modal-title { font-size: 20px; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
+        .modal-close { cursor: pointer; color: var(--text-gray); transition: color 0.2s; }
+        .modal-close:hover { color: var(--text-dark); }
+        .modal-body { padding: 24px; overflow-y: auto; }
+        .modal-footer { padding: 24px; border-top: 1px solid var(--border); background: #F8FAFC; display: flex; justify-content: flex-end; gap: 12px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+        /* Wishlist specific styles */
+        .wishlist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+        .wishlist-card { border: 1px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+        .wishlist-card:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(7, 87, 166, 0.1); transform: translateY(-2px); }
+        .wishlist-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--primary); opacity: 0; transition: opacity 0.2s; }
+        .wishlist-card:hover::before { opacity: 1; }
+        .wishlist-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .wishlist-card-title { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+        .wishlist-card-count { background: #E0F2FE; color: var(--primary-dark); padding: 4px 10px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+        .wishlist-card-count.ready { background: #ECFDF5; color: #059669; }
+        .wishlist-card-desc { font-size: 14px; color: var(--text-gray); }
+
+        #wishlistStudentsView { display: none; }
+        
+        /* Utilities */
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .gap-2 { gap: 8px; }
+        .gap-3 { gap: 12px; }
+        .gap-4 { gap: 16px; }
     </style>
 </head>
 
 <body>
-        <header class="header">
-        <a href="MH-00-7-DashboardBaoCao.html" class="sys-identity" style="text-decoration: none; color: inherit;">
+    <header class="header">
+        <a href="MH-00-7-DashboardBaoCao.html" class="sys-identity">
             <div class="emblem"><i data-lucide="book-open"></i></div>
             <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
         </a>
@@ -140,7 +178,7 @@
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item">
                 <i data-lucide="calendar-range" size="20"></i> Xếp Thời khóa biểu
             </a>
-                        <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
+            <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
             </a>
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
@@ -154,146 +192,204 @@
 
         <main class="dashboard-content">
             <div class="page-header">
-                <h1 class="page-title">Phân bổ sinh viên vào lớp chuyên ngành</h1>
-                <button class="btn btn-primary" onclick="openAutoModal()">
-                    <i data-lucide="wand-2" size="18"></i> Phân lớp tự động
-                </button>
+                <div>
+                    <h1 class="page-title">Phân bổ sinh viên vào lớp chuyên ngành</h1>
+                    <p class="page-subtitle">Quản lý và phân bổ sinh viên vào các lớp học mục tiêu theo chuyên ngành.</p>
+                </div>
+                <div>
+                    <button class="btn btn-outline" style="background: white; font-weight: 600; color: var(--primary); border-color: var(--primary);" onclick="openWishlistModal()">
+                        <i data-lucide="clipboard-list" size="18"></i> Danh sách Wishlist (2)
+                    </button>
+                </div>
             </div>
 
-            <div class="split-layout">
-                <!-- Chờ gán lớp -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Sinh viên chờ gán lớp (Trạng thái S0)</div>
-                        <span style="background: var(--primary-light); color: var(--primary-dark); padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;">12 SV</span>
-                    </div>
-                    <div class="card-body">
-                        <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 16px;">Kéo thả sinh viên vào các lớp bên phải để phân bổ thủ công.</p>
-                        
-                        <div class="student-item" draggable="true">
-                            <div class="student-info">
-                                <span class="name">Nguyễn Văn Minh</span>
-                                <span class="id">HE19205 • Kỹ thuật phần mềm</span>
-                            </div>
-                            <i data-lucide="grip-vertical" size="16" color="#94A3B8"></i>
+            <div class="main-panel">
+                <div class="filters-row">
+                    <h3 class="table-title">Danh sách sinh viên</h3>
+                    <div class="filters-actions">
+                        <div class="search-box">
+                            <i data-lucide="search" size="16"></i>
+                            <input type="text" placeholder="Tìm kiếm theo Tên hoặc MSSV...">
                         </div>
-                        <div class="student-item" draggable="true">
-                            <div class="student-info">
-                                <span class="name">Trần Quang Khải</span>
-                                <span class="id">HE19206 • Kỹ thuật phần mềm</span>
-                            </div>
-                            <i data-lucide="grip-vertical" size="16" color="#94A3B8"></i>
-                        </div>
-                        <div class="student-item" draggable="true">
-                            <div class="student-info">
-                                <span class="name">Lê Phương Thảo</span>
-                                <span class="id">HE19207 • Kỹ thuật phần mềm</span>
-                            </div>
-                            <i data-lucide="grip-vertical" size="16" color="#94A3B8"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Danh sách lớp -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Danh sách Lớp khả dụng</div>
-                        <select style="padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border); outline: none;">
-                            <option>Chuyên ngành KTPM</option>
-                            <option>Chuyên ngành QTKD</option>
+                        <select class="filter-select">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="HocDi">Học đi</option>
+                            <option value="HocLai">Học lại</option>
+                            <option value="HocVuot">Học vượt</option>
+                            <option value="CaiThien">Cải thiện</option>
+                        </select>
+                        <select class="filter-select">
+                            <option value="">Tất cả chuyên ngành</option>
+                            <option value="KTPM">Kỹ thuật phần mềm</option>
+                            <option value="QTKD">Quản trị kinh doanh</option>
+                            <option value="TKDH">Thiết kế đồ họa</option>
                         </select>
                     </div>
-                    <div class="card-body" style="background: white;">
-                        <div class="class-bucket">
-                            <div class="class-header">
-                                <span class="class-name">Lớp SE1901</span>
-                                <span class="class-capacity">Sĩ số: 28/30</span>
-                            </div>
-                            <div style="font-size: 13px; color: var(--text-gray); text-align: center; padding: 20px 0;">
-                                Thả sinh viên vào đây
-                            </div>
-                        </div>
-
-                        <div class="class-bucket">
-                            <div class="class-header">
-                                <span class="class-name">Lớp SE1902</span>
-                                <span class="class-capacity">Sĩ số: 25/30</span>
-                            </div>
-                            <div style="font-size: 13px; color: var(--text-gray); text-align: center; padding: 20px 0;">
-                                Thả sinh viên vào đây
-                            </div>
-                        </div>
-                        
-                        <div class="class-bucket" style="border-color: #FCA5A5; background: #FEF2F2;">
-                            <div class="class-header">
-                                <span class="class-name">Lớp SE1903</span>
-                                <span class="class-capacity full">Sĩ số: 30/30 (Đầy)</span>
-                            </div>
-                            <div style="font-size: 13px; color: #DC2626; text-align: center; padding: 20px 0;">
-                                Lớp đã đạt tối đa giới hạn (MaxCapacity)
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Waitlist -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title" style="color: #B45309;">Danh sách Waitlisted</div>
-                        <span style="background: #FFFBEB; color: #B45309; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;">2 SV</span>
-                    </div>
-                    <div class="card-body">
-                        <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 16px;">
-                            Sinh viên chưa được phân lớp do đã đạt tối đa giới hạn (MaxCapacity) của các lớp (Theo NL-04).
-                        </p>
-                        
-                        <div class="student-item">
-                            <div class="student-info">
-                                <span class="name">Đoàn Văn Dự</span>
-                                <span class="id">HE19208 • Kỹ thuật phần mềm</span>
-                            </div>
-                            <span style="font-size: 12px; color: #B45309;">Chờ xử lý</span>
-                        </div>
-                        <div class="student-item">
-                            <div class="student-info">
-                                <span class="name">Mai Thị Lan</span>
-                                <span class="id">HE19209 • Kỹ thuật phần mềm</span>
-                            </div>
-                            <span style="font-size: 12px; color: #B45309;">Chờ xử lý</span>
-                        </div>
+                <div class="table-container">
+                    <table class="student-table">
+                        <thead>
+                            <tr>
+                                <th width="40"><input type="checkbox" onclick="toggleAllStudents(this)"></th>
+                                <th>MSSV</th>
+                                <th>Họ và tên</th>
+                                <th>Chuyên ngành</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="student-cb"></td>
+                                <td style="font-weight: 500;">HE19205</td>
+                                <td>Nguyễn Văn Minh</td>
+                                <td style="color: var(--text-gray);">Kỹ thuật phần mềm</td>
+                                <td><span class="status-badge hoc-di">Học đi</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="student-cb"></td>
+                                <td style="font-weight: 500;">HE19206</td>
+                                <td>Trần Quang Khải</td>
+                                <td style="color: var(--text-gray);">Kỹ thuật phần mềm</td>
+                                <td><span class="status-badge hoc-lai">Học lại</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="student-cb"></td>
+                                <td style="font-weight: 500;">HE19207</td>
+                                <td>Lê Phương Thảo</td>
+                                <td style="color: var(--text-gray);">Quản trị kinh doanh</td>
+                                <td><span class="status-badge hoc-di">Học đi</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="student-cb"></td>
+                                <td style="font-weight: 500;">HE19208</td>
+                                <td>Phạm Tuấn Anh</td>
+                                <td style="color: var(--text-gray);">Kỹ thuật phần mềm</td>
+                                <td><span class="status-badge hoc-vuot">Học vượt</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="student-cb"></td>
+                                <td style="font-weight: 500;">HE19209</td>
+                                <td>Hoàng Mai Linh</td>
+                                <td style="color: var(--text-gray);">Thiết kế đồ họa</td>
+                                <td><span class="status-badge cai-thien">Cải thiện</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="student-cb"></td>
+                                <td style="font-weight: 500;">HE19210</td>
+                                <td>Vũ Hải Đăng</td>
+                                <td style="color: var(--text-gray);">Kỹ thuật phần mềm</td>
+                                <td><span class="status-badge hoc-di">Học đi</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="student-cb"></td>
+                                <td style="font-weight: 500;">HE19211</td>
+                                <td>Đoàn Văn Dự</td>
+                                <td style="color: var(--text-gray);">Kỹ thuật phần mềm</td>
+                                <td><span class="status-badge hoc-di">Học đi</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="student-cb"></td>
+                                <td style="font-weight: 500;">HE19212</td>
+                                <td>Mai Thị Lan</td>
+                                <td style="color: var(--text-gray);">Quản trị kinh doanh</td>
+                                <td><span class="status-badge hoc-lai">Học lại</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                        <div style="margin-top: 16px; text-align: center;">
-                            <button class="btn btn-outline" style="width: 100%; justify-content: center; font-size: 13px;">
-                                <i data-lucide="plus-circle" size="16"></i> Đề xuất mở lớp mới
-                            </button>
-                        </div>
-                    </div>
+            <div class="bottom-actions">
+                <div class="class-selector">
+                    <label>Danh sách lớp:</label>
+                    <select id="targetClassSelect">
+                        <option value="">-- Chọn lớp để phân bổ --</option>
+                        <optgroup label="Lớp đang hoạt động">
+                            <option value="SE1901">SE1901 (KTPM - Sĩ số: 28/30)</option>
+                            <option value="SE1902">SE1902 (KTPM - Sĩ số: 25/30)</option>
+                            <option value="BA1901">BA1901 (QTKD - Sĩ số: 29/30)</option>
+                        </optgroup>
+                        <optgroup label="Danh sách có sẵn (Trống)">
+                            <option value="SE1903">SE1903 (KTPM - Sĩ số: 0/30)</option>
+                            <option value="GD1901">GD1901 (TKĐH - Sĩ số: 0/30)</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-outline" onclick="manualAllocate()">
+                        <i data-lucide="user-plus" size="18"></i> Phân bổ lớp thủ công
+                    </button>
+                    <button class="btn btn-primary" onclick="autoAllocate()">
+                        <i data-lucide="wand-2" size="18"></i> Phân bổ lớp tự động
+                    </button>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Modal Phân lớp tự động -->
-    <div id="autoModal" class="modal">
+    <!-- Wishlist Modal -->
+    <div id="wishlistModal" class="modal">
         <div class="modal-content">
-            <h3 class="modal-title">Xác nhận bản nháp phân lớp (Draft)</h3>
-            <p class="modal-desc">Hệ thống đã tự động chia đều sinh viên vào các lớp khả dụng. Vui lòng kiểm tra và xác nhận.</p>
+            <div class="modal-header">
+                <h3 class="modal-title"><i data-lucide="clipboard-list" class="text-primary"></i> Danh sách Wishlist</h3>
+                <i data-lucide="x" class="modal-close" size="24" onclick="closeWishlistModal()"></i>
+            </div>
             
-            <div class="draft-preview">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <b>Lớp SE1901:</b> <span>+2 Sinh viên (Tổng: 30/30)</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <b>Lớp SE1902:</b> <span>+5 Sinh viên (Tổng: 30/30)</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; color: #1E8E3E;">
-                    <b>Lớp SE1904 (Mở mới):</b> <span>+5 Sinh viên (Tổng: 5/30)</span>
+            <div class="modal-body" id="wishlistClassesView">
+                <p style="color: var(--text-gray); margin-bottom: 20px;">Danh sách các lớp wishlist do sinh viên đăng ký hoặc hệ thống dự kiến mở dựa trên nhu cầu học đi/học lại.</p>
+                <div class="wishlist-grid">
+                    <div class="wishlist-card" onclick="viewWishlistClass('SE_Wishlist_1', 32)">
+                        <div class="wishlist-card-header">
+                            <span class="wishlist-card-title">SE_Wishlist_1</span>
+                            <span class="wishlist-card-count ready">32 SV</span>
+                        </div>
+                        <div class="wishlist-card-desc">Chuyên ngành: Kỹ thuật phần mềm</div>
+                        <div class="wishlist-card-desc" style="margin-top: 4px;">Trạng thái: Đủ điều kiện mở lớp</div>
+                    </div>
+                    
+                    <div class="wishlist-card" onclick="viewWishlistClass('BA_Wishlist_1', 15)">
+                        <div class="wishlist-card-header">
+                            <span class="wishlist-card-title">BA_Wishlist_1</span>
+                            <span class="wishlist-card-count">15 SV</span>
+                        </div>
+                        <div class="wishlist-card-desc">Chuyên ngành: Quản trị kinh doanh</div>
+                        <div class="wishlist-card-desc" style="margin-top: 4px;">Trạng thái: Đang gom sinh viên</div>
+                    </div>
                 </div>
             </div>
 
-            <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                <button class="btn btn-outline" onclick="closeModal()">Hủy</button>
-                <button class="btn btn-primary" onclick="confirmAuto()">Xác nhận gán lớp</button>
+            <div class="modal-body" id="wishlistStudentsView">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                    <button class="btn btn-outline" style="padding: 6px 12px;" onclick="backToWishlistClasses()">
+                        <i data-lucide="arrow-left" size="16"></i> Quay lại
+                    </button>
+                    <h3 style="font-size: 18px; font-weight: 600;" id="currentWishlistClassName">SE_Wishlist_1</h3>
+                    <span id="currentWishlistClassCount" class="wishlist-card-count ready">32 SV</span>
+                </div>
+                
+                <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; max-height: 400px; overflow-y: auto;">
+                    <table class="student-table" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>MSSV</th>
+                                <th>Họ và tên</th>
+                                <th>Chuyên ngành</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wishlistStudentList">
+                            <!-- JS sẽ render -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="wishlistFooter">
+                <button class="btn btn-outline" onclick="closeWishlistModal()">Đóng</button>
+                <button class="btn btn-success" id="btnConfirmCreateClass" style="display: none;" onclick="confirmCreateClass()">
+                    <i data-lucide="check-circle" size="18"></i> Xác nhận tạo lớp
+                </button>
             </div>
         </div>
     </div>
@@ -301,20 +397,105 @@
     <script>
         lucide.createIcons();
 
-        function openAutoModal() {
-            document.getElementById('autoModal').classList.add('active');
+        function toggleAllStudents(checkbox) {
+            const checkboxes = document.querySelectorAll('.student-cb');
+            checkboxes.forEach(cb => cb.checked = checkbox.checked);
         }
 
-        function closeModal() {
-            document.getElementById('autoModal').classList.remove('active');
+        function manualAllocate() {
+            const selectedClass = document.getElementById('targetClassSelect').value;
+            const checkedCount = document.querySelectorAll('.student-cb:checked').length;
+            
+            if (checkedCount === 0) {
+                alert('Vui lòng chọn ít nhất 1 sinh viên để phân bổ!');
+                return;
+            }
+            if (!selectedClass) {
+                alert('Vui lòng chọn lớp học mục tiêu từ danh sách dưới cùng!');
+                return;
+            }
+            alert(`Đã phân bổ thành công ${checkedCount} sinh viên vào lớp ${selectedClass}`);
+            // Reset selection
+            document.querySelectorAll('.student-cb:checked').forEach(cb => cb.checked = false);
+            document.querySelector('th input[type="checkbox"]').checked = false;
         }
 
-        function confirmAuto() {
-            alert('Đã cập nhật trạng thái sinh viên sang S1 và lưu sĩ số mới!');
-            closeModal();
+        function autoAllocate() {
+            alert('Hệ thống đang chạy thuật toán phân bổ tự động. Vui lòng chờ...');
+            setTimeout(() => {
+                alert('Phân bổ tự động hoàn tất. Đã xếp 100 sinh viên vào các lớp phù hợp.');
+            }, 1000);
+        }
+
+        // Modal Logic
+        const modal = document.getElementById('wishlistModal');
+        const viewClasses = document.getElementById('wishlistClassesView');
+        const viewStudents = document.getElementById('wishlistStudentsView');
+        const btnCreateClass = document.getElementById('btnConfirmCreateClass');
+
+        function openWishlistModal() {
+            modal.classList.add('active');
+            backToWishlistClasses();
+        }
+
+        function closeWishlistModal() {
+            modal.classList.remove('active');
+        }
+
+        function backToWishlistClasses() {
+            viewClasses.style.display = 'block';
+            viewStudents.style.display = 'none';
+            btnCreateClass.style.display = 'none';
+        }
+
+        function viewWishlistClass(className, studentCount) {
+            viewClasses.style.display = 'none';
+            viewStudents.style.display = 'block';
+            
+            document.getElementById('currentWishlistClassName').innerText = className;
+            const countBadge = document.getElementById('currentWishlistClassCount');
+            countBadge.innerText = `${studentCount} SV`;
+            
+            if (studentCount >= 30) {
+                countBadge.className = 'wishlist-card-count ready';
+                btnCreateClass.style.display = 'flex';
+            } else {
+                countBadge.className = 'wishlist-card-count';
+                btnCreateClass.style.display = 'none';
+            }
+
+            // Generate mock data for the table
+            const tbody = document.getElementById('wishlistStudentList');
+            tbody.innerHTML = '';
+            
+            const majors = ['Kỹ thuật phần mềm', 'Quản trị kinh doanh', 'Thiết kế đồ họa'];
+            const statuses = [
+                { class: 'hoc-di', text: 'Học đi' },
+                { class: 'hoc-lai', text: 'Học lại' },
+                { class: 'hoc-vuot', text: 'Học vượt' },
+                { class: 'cai-thien', text: 'Cải thiện' }
+            ];
+
+            const majorStr = className.includes('SE') ? majors[0] : majors[1];
+
+            for (let i = 1; i <= studentCount; i++) {
+                const status = statuses[Math.floor(Math.random() * statuses.length)];
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="font-weight: 500;">HE19${String(300 + i).padStart(3, '0')}</td>
+                        <td>Nguyễn Sinh Viên ${i}</td>
+                        <td style="color: var(--text-gray);">${majorStr}</td>
+                        <td><span class="status-badge ${status.class}">${status.text}</span></td>
+                    </tr>
+                `;
+            }
+        }
+
+        function confirmCreateClass() {
+            const className = document.getElementById('currentWishlistClassName').innerText;
+            alert(`Tạo lớp thành công từ wishlist: ${className}`);
+            closeWishlistModal();
         }
     </script>
 </body>
 </html>
-
-

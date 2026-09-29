@@ -4,124 +4,425 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý Danh mục - Hệ Thống Quản Lý Sinh Viên</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Quản lý danh mục giảng viên, chuyên ngành và môn học cho hệ thống quản lý sinh viên Đại Học ONENET">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --primary: #0757A6;
             --primary-dark: #063B75;
             --primary-light: #CFE6FF;
+            --primary-50: #EAF4FF;
             --text-dark: #102A43;
             --text-gray: #5E7184;
+            --text-light: #8FA4B8;
             --bg-light: #F5F8FC;
             --bg-white: #FFFFFF;
             --border: #DCE8F3;
+            --border-light: #EDF2F7;
+            --success: #059669;
+            --success-light: #ECFDF5;
+            --danger: #DC2626;
+            --danger-light: #FEF2F2;
+            --warning: #D97706;
+            --warning-light: #FFFBEB;
+            --shadow-sm: 0 1px 3px rgba(7, 87, 166, 0.04);
+            --shadow-md: 0 4px 16px rgba(7, 87, 166, 0.06);
+            --shadow-lg: 0 8px 32px rgba(7, 87, 166, 0.10);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
 
-        /* Dashboard Header */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 0 64px; height: 64px; background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); z-index: 100; }
-        .sys-identity { display: flex; align-items: center; gap: 16px; }
-        .emblem { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; }
-        .brand-copy { display: flex; flex-direction: column; gap: 2px; }
-        .brand-copy .uni { font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--text-gray); }
-        .brand-copy .sys-name { font-weight: 700; font-size: 18px; color: var(--primary); }
-        
-        .user-profile { display: flex; align-items: center; gap: 12px; }
-        .avatar { width: 36px; height: 36px; border-radius: 50%; background: #EAF4FF; color: var(--primary); display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px; }
+        /* ─── Header ─── */
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 48px; height: 64px; background: white;
+            box-shadow: 0 1px 0 var(--border), var(--shadow-sm);
+            z-index: 100; position: sticky; top: 0;
+        }
+        .sys-identity { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; }
+        .emblem {
+            width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), #0A6BC4);
+            border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white;
+            box-shadow: 0 2px 8px rgba(7, 87, 166, 0.25);
+        }
+        .brand-copy { display: flex; flex-direction: column; gap: 1px; }
+        .brand-copy .uni { font-weight: 600; font-size: 10px; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.5px; }
+        .brand-copy .sys-name { font-weight: 700; font-size: 17px; color: var(--primary); }
+
+        .user-profile {
+            display: flex; align-items: center; gap: 12px; cursor: pointer;
+            padding: 6px 12px; border-radius: var(--radius-sm); transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .user-profile:hover { background: var(--bg-light); border-color: var(--border); }
+        .avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-50), var(--primary-light));
+            color: var(--primary); display: flex; justify-content: center; align-items: center;
+            font-weight: 700; font-size: 14px;
+        }
         .user-info { display: flex; flex-direction: column; text-align: right; }
-        .user-info .name { font-size: 14px; font-weight: 600; color: var(--text-dark); }
-        .user-info .role { font-size: 12px; color: var(--text-gray); }
+        .user-info .name { font-size: 13px; font-weight: 600; color: var(--text-dark); }
+        .user-info .role { font-size: 11px; color: var(--text-light); }
 
-        /* Layout */
+        /* ─── Layout ─── */
         .dashboard-layout { display: flex; height: calc(100vh - 64px); }
-        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
-        .menu-group-title { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; padding: 12px 24px 4px; letter-spacing: 0.5px; }
-        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: var(--text-gray); font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; text-decoration: none; }
-        .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
-        .sidebar-item.active { background: #EAF4FF; color: var(--primary); border-left: 3px solid var(--primary); font-weight: 600; }
-        
-        .dashboard-content { flex: 1; padding: 32px; overflow-y: auto; }
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .page-title { font-size: 24px; font-weight: 700; color: var(--text-dark); }
 
-        /* Card & Tabs */
-        .card { background: white; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-bottom: 24px; overflow: hidden; }
-        .tabs { display: flex; border-bottom: 1px solid var(--border); background: #F8FAFC; }
-        .tab { padding: 16px 24px; font-weight: 600; font-size: 14px; color: var(--text-gray); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
-        .tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); background: white; }
-        .tab:hover:not(.active) { color: var(--text-dark); background: #f1f5f9; }
-        
-        /* Table */
-        .table-toolbar { display: flex; justify-content: space-between; padding: 16px 24px; align-items: center; border-bottom: 1px solid var(--border); }
-        .search-input { height: 38px; padding: 0 12px; border: 1px solid var(--border); border-radius: 6px; outline: none; width: 300px; font-size: 14px; }
-        .search-input:focus { border-color: var(--primary); }
-        .table { width: 100%; border-collapse: collapse; }
-        .table th { text-align: left; padding: 14px 24px; font-size: 13px; font-weight: 600; color: var(--text-gray); border-bottom: 1px solid var(--border); background: white; text-transform: uppercase; }
-        .table td { padding: 14px 24px; font-size: 14px; color: var(--text-dark); border-bottom: 1px solid var(--border); }
-        .table tbody tr:hover { background: #F8FAFC; }
-        
-        /* Buttons */
-        .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s; border: none; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        
-        .action-btns { display: flex; gap: 8px; justify-content: flex-end; }
-        .btn-icon { width: 32px; height: 32px; border-radius: 6px; border: none; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; background: transparent; }
+        /* ─── Sidebar ─── */
+        .sidebar {
+            width: 256px; background: white; border-right: 1px solid var(--border-light);
+            padding: 20px 0; display: flex; flex-direction: column; gap: 2px;
+            flex-shrink: 0; overflow-y: auto;
+        }
+        .sidebar::-webkit-scrollbar { width: 3px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .menu-group-title {
+            font-size: 10px; font-weight: 700; color: var(--text-light);
+            text-transform: uppercase; padding: 16px 24px 6px; letter-spacing: 0.8px;
+        }
+        .sidebar-item {
+            display: flex; align-items: center; gap: 12px; padding: 10px 24px;
+            color: var(--text-gray); font-weight: 500; font-size: 13.5px; cursor: pointer;
+            text-decoration: none; border-left: 3px solid transparent;
+            transition: all 0.15s ease;
+        }
+        .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
+        .sidebar-item.active {
+            background: var(--primary-50); color: var(--primary);
+            border-left-color: var(--primary); font-weight: 600;
+        }
+
+        /* ─── Main Content ─── */
+        .dashboard-content { flex: 1; padding: 28px 32px; overflow-y: auto; }
+
+        .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+        .page-header-left { display: flex; flex-direction: column; gap: 6px; }
+        .page-title { font-size: 22px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.3px; }
+        .page-subtitle { display: flex; align-items: center; gap: 8px; color: var(--text-light); font-size: 13px; }
+        .page-subtitle .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--text-light); }
+
+        /* ─── Category Cards Grid ─── */
+        .category-cards {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 28px;
+        }
+        .category-card {
+            background: white; border: 2px solid var(--border-light);
+            border-radius: var(--radius-xl); padding: 28px 24px;
+            cursor: pointer; transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; gap: 16px;
+            text-align: center;
+            animation: fadeSlideUp 0.4s ease forwards;
+            opacity: 0;
+        }
+        .category-card:nth-child(1) { animation-delay: 0s; }
+        .category-card:nth-child(2) { animation-delay: 0.08s; }
+        .category-card:nth-child(3) { animation-delay: 0.16s; }
+
+        .category-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            transition: height 0.3s ease;
+        }
+        .category-card.card-lecturer::before { background: linear-gradient(90deg, #0757A6, #3B82F6); }
+        .category-card.card-major::before { background: linear-gradient(90deg, #059669, #10B981); }
+        .category-card.card-subject::before { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+        .category-card:hover::before { height: 6px; }
+
+        .category-card.active {
+            border-color: transparent;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+        .category-card.active.card-lecturer { border-color: #3B82F6; background: linear-gradient(180deg, #EFF6FF 0%, white 40%); }
+        .category-card.active.card-major { border-color: #10B981; background: linear-gradient(180deg, #ECFDF5 0%, white 40%); }
+        .category-card.active.card-subject { border-color: #8B5CF6; background: linear-gradient(180deg, #F5F3FF 0%, white 40%); }
+
+        .category-icon {
+            width: 60px; height: 60px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .card-lecturer .category-icon { background: #DBEAFE; color: #1D4ED8; }
+        .card-major .category-icon { background: #D1FAE5; color: #047857; }
+        .card-subject .category-icon { background: #EDE9FE; color: #6D28D9; }
+
+        .category-card.active .category-icon { transform: scale(1.1); }
+
+        .category-label { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+        .category-count {
+            font-size: 12px; font-weight: 600; padding: 4px 14px;
+            border-radius: 999px; margin-top: -4px;
+        }
+        .card-lecturer .category-count { background: #DBEAFE; color: #1D4ED8; }
+        .card-major .category-count { background: #D1FAE5; color: #047857; }
+        .card-subject .category-count { background: #EDE9FE; color: #6D28D9; }
+
+        .category-card .check-indicator {
+            position: absolute; top: 14px; right: 14px;
+            width: 24px; height: 24px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transform: scale(0.5);
+            transition: all 0.3s ease;
+        }
+        .category-card.active .check-indicator { opacity: 1; transform: scale(1); }
+        .card-lecturer .check-indicator { background: #3B82F6; color: white; }
+        .card-major .check-indicator { background: #10B981; color: white; }
+        .card-subject .check-indicator { background: #8B5CF6; color: white; }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── Data Panel ─── */
+        .data-panel {
+            background: white; border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl); overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            animation: panelFadeIn 0.35s ease forwards;
+        }
+        @keyframes panelFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 24px; border-bottom: 1px solid var(--border-light);
+            background: #FAFBFD;
+        }
+        .panel-header-left { display: flex; align-items: center; gap: 12px; }
+        .panel-header-left .panel-icon {
+            width: 36px; height: 36px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .panel-header-left .panel-title { font-size: 15px; font-weight: 700; color: var(--text-dark); }
+        .panel-header-right { display: flex; gap: 10px; }
+
+        /* ─── Toolbar (Search + Filter) ─── */
+        .table-toolbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 24px; border-bottom: 1px solid var(--border-light);
+            gap: 12px; flex-wrap: wrap;
+        }
+        .toolbar-left { display: flex; align-items: center; gap: 10px; flex: 1; }
+        .toolbar-right { display: flex; align-items: center; gap: 10px; }
+
+        .search-box {
+            display: flex; align-items: center; gap: 8px;
+            border: 1px solid var(--border); border-radius: var(--radius-sm);
+            padding: 0 12px; height: 38px; background: white;
+            transition: all 0.2s; min-width: 260px;
+        }
+        .search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(7, 87, 166, 0.08); }
+        .search-box i { color: var(--text-light); }
+        .search-box input {
+            border: none; outline: none; font-size: 13px; flex: 1;
+            background: transparent; color: var(--text-dark);
+        }
+        .search-box input::placeholder { color: var(--text-light); }
+
+        .filter-select {
+            height: 38px; padding: 0 12px; border: 1px solid var(--border);
+            border-radius: var(--radius-sm); font-size: 13px; color: var(--text-dark);
+            background: white; outline: none; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-select:focus { border-color: var(--primary); }
+
+        /* ─── Buttons ─── */
+        .btn {
+            padding: 9px 16px; border-radius: var(--radius-sm); font-weight: 600; font-size: 13px;
+            display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+            border: none; transition: all 0.2s ease; white-space: nowrap;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #0A6BC4); color: white;
+            box-shadow: 0 2px 8px rgba(7, 87, 166, 0.2);
+        }
+        .btn-primary:hover { box-shadow: 0 4px 16px rgba(7, 87, 166, 0.3); transform: translateY(-1px); }
+        .btn-outline { background: white; border: 1px solid var(--border); color: var(--text-dark); }
+        .btn-outline:hover { background: var(--bg-light); border-color: #C5D5E5; }
+        .btn-success {
+            background: linear-gradient(135deg, #059669, #10B981); color: white;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2);
+        }
+        .btn-success:hover { box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3); transform: translateY(-1px); }
+        .btn-danger-outline { background: white; border: 1px solid #FECACA; color: var(--danger); }
+        .btn-danger-outline:hover { background: var(--danger-light); }
+        .btn-ghost { background: transparent; color: var(--text-gray); padding: 8px; border-radius: 8px; border: none; cursor: pointer; }
+        .btn-ghost:hover { background: var(--bg-light); color: var(--primary); }
+
+        .action-btns { display: flex; gap: 4px; justify-content: flex-end; }
+        .btn-icon {
+            width: 32px; height: 32px; border-radius: 8px; border: none;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: all 0.2s; background: transparent;
+        }
         .btn-edit { color: #059669; } .btn-edit:hover { background: #D1FAE5; }
         .btn-delete { color: #DC2626; } .btn-delete:hover { background: #FEE2E2; }
+        .btn-view { color: var(--primary); } .btn-view:hover { background: var(--primary-50); }
 
-        /* Modal */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 1000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
-        .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .modal { background: white; width: 650px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; transform: translateY(20px); opacity: 0; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .modal-overlay.active .modal { transform: translateY(0); opacity: 1; }
-        
-        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .modal-title { font-size: 18px; font-weight: 700; color: var(--text-dark); }
-        .modal-close { cursor: pointer; color: var(--text-gray); transition: color 0.2s; }
-        .modal-close:hover { color: var(--text-dark); }
-        .modal-body { padding: 24px; max-height: calc(100vh - 200px); overflow-y: auto; }
-        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); background: #F8FAFC; display: flex; justify-content: flex-end; gap: 12px; }
+        /* ─── Table ─── */
+        .table { width: 100%; border-collapse: collapse; }
+        .table th {
+            text-align: left; padding: 13px 24px; font-size: 11.5px; font-weight: 700;
+            color: var(--text-light); border-bottom: 1px solid var(--border-light);
+            background: #F9FBFD; text-transform: uppercase; letter-spacing: 0.4px;
+        }
+        .table td {
+            padding: 13px 24px; font-size: 13.5px; border-bottom: 1px solid var(--border-light);
+            color: var(--text-dark);
+        }
+        .table tbody tr { transition: background 0.15s; }
+        .table tbody tr:hover { background: #F8FAFD; }
 
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        .code-badge {
+            font-weight: 700; color: var(--primary); background: var(--primary-50);
+            padding: 4px 10px; border-radius: 6px; font-size: 12px;
+            display: inline-block;
+        }
+        .major-badge {
+            font-weight: 600; padding: 3px 10px; border-radius: 6px; font-size: 12px;
+            display: inline-flex; align-items: center; gap: 4px;
+        }
+        .major-badge.se { background: #DBEAFE; color: #1D4ED8; }
+        .major-badge.ai { background: #FEF3C7; color: #92400E; }
+        .major-badge.ib { background: #D1FAE5; color: #047857; }
+
+        /* ─── Alert ─── */
+        .alert-inline {
+            background: var(--danger-light); border: 1px solid #FECACA;
+            border-radius: var(--radius-sm); padding: 12px 16px; margin: 16px 24px;
+            display: none; align-items: center; gap: 10px;
+            animation: fadeSlideUp 0.25s ease;
+        }
+        .alert-inline.active { display: flex; }
+        .alert-inline .alert-icon {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: #FEE2E2; color: var(--danger);
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .alert-inline .alert-text { color: #991B1B; font-size: 13px; font-weight: 500; }
+
+        /* ─── Modal ─── */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(16, 42, 67, 0.45); backdrop-filter: blur(4px);
+            justify-content: center; align-items: center; z-index: 1000;
+            animation: fadeIn 0.2s ease;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-panel {
+            background: white; border-radius: var(--radius-xl); width: 620px;
+            box-shadow: 0 16px 48px rgba(7, 87, 166, 0.14);
+            animation: modalSlideUp 0.3s ease; overflow: hidden;
+        }
+        .modal-header {
+            padding: 22px 28px; border-bottom: 1px solid var(--border-light);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .modal-header h3 {
+            font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px;
+        }
+        .modal-body { padding: 24px 28px; }
+        .modal-footer {
+            padding: 18px 28px; border-top: 1px solid var(--border-light);
+            display: flex; gap: 10px; justify-content: flex-end; background: #FAFBFD;
+        }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
         .form-group.full-width { grid-column: span 2; }
-        .form-label { font-size: 13px; font-weight: 600; color: var(--text-gray); }
-        .form-control { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; outline: none; }
-        .form-control:focus { border-color: var(--primary); }
+        .form-group label {
+            font-size: 12px; font-weight: 600; color: var(--text-gray);
+            text-transform: uppercase; letter-spacing: 0.3px;
+        }
+        .form-group label .req { color: var(--danger); }
+        .form-control {
+            padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+            font-size: 13.5px; outline: none; transition: all 0.2s; color: var(--text-dark);
+            background: white; width: 100%;
+        }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(7, 87, 166, 0.08); }
 
-        /* Tags for Prerequisites */
-        .tags-input { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px; border: 1px solid var(--border); border-radius: 8px; min-height: 42px; }
-        .tag { background: #EAF4FF; color: var(--primary); padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+        /* Tags */
+        .tags-input {
+            display: flex; flex-wrap: wrap; gap: 8px; padding: 8px;
+            border: 1px solid var(--border); border-radius: 8px; min-height: 42px;
+        }
+        .tag {
+            background: var(--primary-50); color: var(--primary);
+            padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 500;
+            display: flex; align-items: center; gap: 6px;
+        }
         .tag i { cursor: pointer; }
 
-        .alert { background: #FEF2F2; border-left: 4px solid #DC2626; padding: 16px; margin-bottom: 20px; border-radius: 4px; display: none; align-items: center; gap: 12px; }
-        .alert.active { display: flex; }
-        .alert-text { color: #991B1B; font-size: 14px; font-weight: 500; }
-        
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-            .user-profile { display: flex !important; align-items: center !important; gap: 12px !important; cursor: pointer !important; padding: 6px 12px !important; border-radius: 8px !important; transition: background 0.2s !important; border: 1px solid transparent !important; }
-        .user-profile:hover { background: #F8FAFC !important; border-color: var(--border) !important; }
-        .avatar { width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #EAF4FF !important; color: var(--primary) !important; display: flex !important; justify-content: center !important; align-items: center !important; font-weight: 600 !important; font-size: 14px !important; position: relative !important; overflow: hidden !important; }
-        .user-info { display: flex !important; flex-direction: column !important; text-align: right !important; }
-        .user-info .name { font-size: 14px !important; font-weight: 600 !important; color: var(--text-dark) !important; }
-        .user-info .role { font-size: 12px !important; color: var(--text-gray) !important; }
-            .sidebar { flex-shrink: 0 !important; overflow-y: auto !important; }
-        .sidebar::-webkit-scrollbar { width: 4px; }
-        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
-        .sidebar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+        /* ─── Tab content ─── */
+        .tab-content-area { display: none; }
+        .tab-content-area.active { display: block; }
+
+        /* ─── Toast ─── */
+        .toast-container {
+            position: fixed; bottom: 24px; right: 24px; z-index: 2000;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .toast {
+            background: white; border: 1px solid var(--border-light);
+            padding: 14px 20px; border-radius: var(--radius-md);
+            display: flex; align-items: center; gap: 12px;
+            box-shadow: var(--shadow-lg); transform: translateX(120%); opacity: 0;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 13px; font-weight: 600; color: var(--text-dark);
+        }
+        .toast.show { transform: translateX(0); opacity: 1; }
+        .toast .toast-icon {
+            width: 32px; height: 32px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .toast.toast-success .toast-icon { background: var(--success-light); color: var(--success); }
+        .toast.toast-error .toast-icon { background: var(--danger-light); color: var(--danger); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes modalSlideUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .dashboard-content::-webkit-scrollbar { width: 5px; }
+        .dashboard-content::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+
+        /* ─── Empty State ─── */
+        .empty-state {
+            text-align: center; padding: 60px 24px;
+            color: var(--text-light);
+        }
+        .empty-state .empty-icon {
+            width: 72px; height: 72px; border-radius: 20px;
+            background: var(--bg-light); margin: 0 auto 16px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-light);
+        }
+        .empty-state h4 { font-size: 16px; font-weight: 700; color: var(--text-gray); margin-bottom: 6px; }
+        .empty-state p { font-size: 13px; }
     </style>
 </head>
 <body>
-        <header class="header">
-        <a href="MH-00-7-DashboardBaoCao.html" class="sys-identity" style="text-decoration: none; color: inherit;">
-            <div class="emblem"><i data-lucide="book-open"></i></div>
+    <header class="header">
+        <a href="MH-00-7-DashboardBaoCao.html" class="sys-identity">
+            <div class="emblem"><i data-lucide="book-open" size="20"></i></div>
             <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
         </a>
         <div class="user-profile" onclick="window.location.href='MH-05-1-HoSoCanBoQuanNhiem.html'">
@@ -138,70 +439,122 @@
         <aside class="sidebar">
             <div class="menu-group-title">Menu Chính</div>
             <a href="MH-00-7-DashboardBaoCao.html" class="sidebar-item">
-                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+                <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
             </a>
             <div class="menu-group-title">Tuyển Sinh</div>
             <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
-                <i data-lucide="users" size="20"></i> Danh sách trúng tuyển
+                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
             <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item">
-                <i data-lucide="folder-plus" size="20"></i> Tiếp nhận hồ sơ
+                <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
             <div class="menu-group-title">Sinh Viên</div>
             <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
                 <i data-lucide="list" size="20"></i> Danh sách lớp
             </a>
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
-                <i data-lucide="network" size="20"></i> Phân bổ lớp
+                <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
             <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
-                <i data-lucide="user-cog" size="20"></i> Cập nhật trạng thái
+                <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
             </a>
             <div class="menu-group-title">Đào Tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item active">
-                <i data-lucide="server" size="20"></i> Quản lý danh mục
+                <i data-lucide="server" size="18"></i> Quản lý danh mục
             </a>
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="20"></i> Chương trình học
+                <i data-lucide="book-open-check" size="18"></i> Chương trình học
             </a>
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item">
-                <i data-lucide="calendar-range" size="20"></i> Xếp Thời khóa biểu
+                <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
-                        <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
-                <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
+            <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
+                <i data-lucide="calendar-clock" size="18"></i> Lịch báo nghỉ/bù
             </a>
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
-                <i data-lucide="file-check-2" size="20"></i> Phê duyệt đơn từ
+                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
-                <i data-lucide="receipt" size="20"></i> Lịch sử giao dịch
+                <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
             </a>
         </aside>
 
         <!-- Main Content -->
         <main class="dashboard-content">
             <div class="page-header">
-                <h1 class="page-title">Quản lý Danh mục</h1>
+                <div class="page-header-left">
+                    <h1 class="page-title">Quản lý Danh mục</h1>
+                    <div class="page-subtitle">
+                        <span>MH-02-1</span>
+                        <span class="dot"></span>
+                        <span>Chọn danh mục để quản lý</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="card">
-                <div class="tabs">
-                    <div class="tab active" onclick="switchTab('lecturer', this)">Giảng viên</div>
-                    <div class="tab" onclick="switchTab('major', this)">Chuyên ngành</div>
-                    <div class="tab" onclick="switchTab('subject', this)">Môn học</div>
+            <!-- Category Selection Cards -->
+            <div class="category-cards">
+                <div class="category-card card-lecturer active" onclick="switchCategory('lecturer')" id="cardLecturer">
+                    <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
+                    <div class="category-icon"><i data-lucide="graduation-cap" size="28"></i></div>
+                    <div class="category-label">Giảng viên</div>
+                    <div class="category-count" id="countLecturer">2 giảng viên</div>
                 </div>
+                <div class="category-card card-major" onclick="switchCategory('major')" id="cardMajor">
+                    <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
+                    <div class="category-icon"><i data-lucide="git-branch" size="28"></i></div>
+                    <div class="category-label">Chuyên ngành</div>
+                    <div class="category-count" id="countMajor">2 chuyên ngành</div>
+                </div>
+                <div class="category-card card-subject" onclick="switchCategory('subject')" id="cardSubject">
+                    <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
+                    <div class="category-icon"><i data-lucide="book-text" size="28"></i></div>
+                    <div class="category-label">Môn học</div>
+                    <div class="category-count" id="countSubject">2 môn học</div>
+                </div>
+            </div>
 
-                <!-- LECTURER TAB -->
-                <div id="tab-lecturer" class="tab-content active">
-                    <div class="alert" id="fkAlert" style="margin: 16px 24px;">
-                        <i data-lucide="alert-triangle" color="#DC2626"></i>
+            <!-- ========== LECTURER PANEL ========== -->
+            <div class="tab-content-area active" id="panel-lecturer">
+                <div class="data-panel">
+                    <div class="panel-header">
+                        <div class="panel-header-left">
+                            <div class="panel-icon" style="background: #DBEAFE; color: #1D4ED8;">
+                                <i data-lucide="graduation-cap" size="18"></i>
+                            </div>
+                            <span class="panel-title">Danh sách Giảng viên</span>
+                        </div>
+                        <div class="panel-header-right">
+                            <button class="btn btn-primary" onclick="openModal('lecturerModal')">
+                                <i data-lucide="plus" size="15"></i> Thêm giảng viên
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="alert-inline" id="fkAlert">
+                        <div class="alert-icon"><i data-lucide="alert-triangle" size="14"></i></div>
                         <span class="alert-text">Không thể xóa! Dữ liệu giảng viên đang được sử dụng trong Thời khóa biểu.</span>
                     </div>
 
                     <div class="table-toolbar">
-                        <input type="text" placeholder="Tìm kiếm giảng viên..." class="search-input">
-                        <button class="btn btn-primary" onclick="openModal('lecturerModal')"><i data-lucide="plus" size="16"></i> Thêm giảng viên</button>
+                        <div class="toolbar-left">
+                            <div class="search-box">
+                                <i data-lucide="search" size="16"></i>
+                                <input type="text" placeholder="Tìm kiếm giảng viên..." id="searchLecturer" oninput="filterLecturer()">
+                            </div>
+                            <select class="filter-select" id="filterLecturerDept" onchange="filterLecturer()">
+                                <option value="">Tất cả Khoa</option>
+                                <option value="Công nghệ thông tin">Công nghệ thông tin</option>
+                                <option value="Kinh tế">Kinh tế</option>
+                                <option value="Ngôn ngữ Anh">Ngôn ngữ Anh</option>
+                            </select>
+                        </div>
+                        <div class="toolbar-right">
+                            <button class="btn btn-outline" onclick="filterLecturerReset()">
+                                <i data-lucide="rotate-ccw" size="14"></i> Đặt lại
+                            </button>
+                        </div>
                     </div>
 
                     <table class="table">
@@ -217,40 +570,65 @@
                         </thead>
                         <tbody id="lecturerTableBody">
                             <tr>
-                                <td>GV001</td>
-                                <td style="font-weight: 500;">TS. Nguyễn Văn Hùng</td>
+                                <td><span class="code-badge">GV001</span></td>
+                                <td style="font-weight: 600;">TS. Nguyễn Văn Hùng</td>
                                 <td>Công nghệ thông tin</td>
                                 <td>hungnv@onenet.edu.vn</td>
                                 <td>0988123456</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
-                                        <button class="btn-icon btn-delete" onclick="showError('fkAlert')"><i data-lucide="trash-2" size="18"></i></button>
+                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
+                                        <button class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i data-lucide="trash-2" size="16"></i></button>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>GV002</td>
-                                <td style="font-weight: 500;">ThS. Trần Thị Mai</td>
+                                <td><span class="code-badge">GV002</span></td>
+                                <td style="font-weight: 600;">ThS. Trần Thị Mai</td>
                                 <td>Kinh tế</td>
                                 <td>maitt@onenet.edu.vn</td>
                                 <td>0909123456</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
-                                        <button class="btn-icon btn-delete" onclick="showError('fkAlert')"><i data-lucide="trash-2" size="18"></i></button>
+                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
+                                        <button class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i data-lucide="trash-2" size="16"></i></button>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
 
-                <!-- MAJOR TAB -->
-                <div id="tab-major" class="tab-content">
+            <!-- ========== MAJOR PANEL ========== -->
+            <div class="tab-content-area" id="panel-major">
+                <div class="data-panel">
+                    <div class="panel-header">
+                        <div class="panel-header-left">
+                            <div class="panel-icon" style="background: #D1FAE5; color: #047857;">
+                                <i data-lucide="git-branch" size="18"></i>
+                            </div>
+                            <span class="panel-title">Danh sách Chuyên ngành</span>
+                        </div>
+                        <div class="panel-header-right">
+                            <button class="btn btn-success" onclick="openModal('majorModal')">
+                                <i data-lucide="plus" size="15"></i> Thêm chuyên ngành
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="table-toolbar">
-                        <input type="text" placeholder="Tìm kiếm chuyên ngành..." class="search-input">
-                        <button class="btn btn-primary" onclick="openModal('majorModal')"><i data-lucide="plus" size="16"></i> Thêm chuyên ngành</button>
+                        <div class="toolbar-left">
+                            <div class="search-box">
+                                <i data-lucide="search" size="16"></i>
+                                <input type="text" placeholder="Tìm kiếm chuyên ngành..." id="searchMajor" oninput="filterMajor()">
+                            </div>
+                        </div>
+                        <div class="toolbar-right">
+                            <button class="btn btn-outline" onclick="document.getElementById('searchMajor').value=''; filterMajor();">
+                                <i data-lucide="rotate-ccw" size="14"></i> Đặt lại
+                            </button>
+                        </div>
                     </div>
 
                     <table class="table">
@@ -264,36 +642,73 @@
                         </thead>
                         <tbody id="majorTableBody">
                             <tr>
-                                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">SE</span></td>
-                                <td style="font-weight: 500;">Kỹ thuật phần mềm (Software Engineering)</td>
+                                <td><span class="code-badge">SE</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật phần mềm (Software Engineering)</td>
                                 <td>Đào tạo kỹ sư phát triển phần mềm chuyên nghiệp</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
-                                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
+                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">AI</span></td>
-                                <td style="font-weight: 500;">Trí tuệ nhân tạo (Artificial Intelligence)</td>
+                                <td><span class="code-badge">AI</span></td>
+                                <td style="font-weight: 600;">Trí tuệ nhân tạo (Artificial Intelligence)</td>
                                 <td>Nghiên cứu ứng dụng AI, Machine Learning</td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
-                                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
+                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
 
-                <!-- SUBJECT TAB -->
-                <div id="tab-subject" class="tab-content">
+            <!-- ========== SUBJECT PANEL ========== -->
+            <div class="tab-content-area" id="panel-subject">
+                <div class="data-panel">
+                    <div class="panel-header">
+                        <div class="panel-header-left">
+                            <div class="panel-icon" style="background: #EDE9FE; color: #6D28D9;">
+                                <i data-lucide="book-text" size="18"></i>
+                            </div>
+                            <span class="panel-title">Danh sách Môn học</span>
+                        </div>
+                        <div class="panel-header-right">
+                            <button class="btn" style="background: linear-gradient(135deg, #7C3AED, #8B5CF6); color: white; box-shadow: 0 2px 8px rgba(124,58,237,0.2);" onclick="openModal('subjectModal')">
+                                <i data-lucide="plus" size="15"></i> Tạo môn học
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="table-toolbar">
-                        <input type="text" placeholder="Tìm kiếm môn học..." class="search-input">
-                        <button class="btn btn-primary" onclick="openModal('subjectModal')"><i data-lucide="plus" size="16"></i> Tạo môn học</button>
+                        <div class="toolbar-left">
+                            <div class="search-box">
+                                <i data-lucide="search" size="16"></i>
+                                <input type="text" placeholder="Tìm kiếm môn học..." id="searchSubject" oninput="filterSubject()">
+                            </div>
+                            <select class="filter-select" id="filterSubjectMajor" onchange="filterSubject()">
+                                <option value="">Tất cả chuyên ngành</option>
+                                <option value="SE">Kỹ thuật phần mềm (SE)</option>
+                                <option value="AI">Trí tuệ nhân tạo (AI)</option>
+                                <option value="IB">Kinh doanh quốc tế (IB)</option>
+                            </select>
+                            <select class="filter-select" id="filterSubjectCredits" onchange="filterSubject()">
+                                <option value="">Tất cả tín chỉ</option>
+                                <option value="2">2 tín chỉ</option>
+                                <option value="3">3 tín chỉ</option>
+                                <option value="4">4 tín chỉ</option>
+                            </select>
+                        </div>
+                        <div class="toolbar-right">
+                            <button class="btn btn-outline" onclick="filterSubjectReset()">
+                                <i data-lucide="rotate-ccw" size="14"></i> Đặt lại
+                            </button>
+                        </div>
                     </div>
 
                     <table class="table">
@@ -307,27 +722,33 @@
                             </tr>
                         </thead>
                         <tbody id="subjectTableBody">
-                            <tr>
-                                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">PRF192</span></td>
-                                <td style="font-weight: 500;">Programming Fundamentals</td>
+                            <tr data-major="SE,AI" data-credits="3">
+                                <td><span class="code-badge">PRF192</span></td>
+                                <td style="font-weight: 600;">Programming Fundamentals</td>
                                 <td>3</td>
-                                <td>SE, AI</td>
+                                <td>
+                                    <span class="major-badge se">SE</span>
+                                    <span class="major-badge ai">AI</span>
+                                </td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
-                                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
+                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">PRO192</span></td>
-                                <td style="font-weight: 500;">Object-Oriented Programming</td>
+                            <tr data-major="SE,AI" data-credits="3">
+                                <td><span class="code-badge">PRO192</span></td>
+                                <td style="font-weight: 600;">Object-Oriented Programming</td>
                                 <td>3</td>
-                                <td>SE, AI</td>
+                                <td>
+                                    <span class="major-badge se">SE</span>
+                                    <span class="major-badge ai">AI</span>
+                                </td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
-                                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
+                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -338,98 +759,112 @@
         </main>
     </div>
 
+    <!-- ═══════════ MODALS ═══════════ -->
+
     <!-- Modal LECTURER -->
     <div class="modal-overlay" id="lecturerModal">
-        <div class="modal">
+        <div class="modal-panel">
             <div class="modal-header">
-                <h3 class="modal-title">Thêm mới Giảng viên</h3>
-                <i data-lucide="x" size="20" class="modal-close" onclick="closeModal('lecturerModal')"></i>
+                <h3>
+                    <div style="width:28px;height:28px;border-radius:8px;background:#DBEAFE;color:#1D4ED8;display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="user-plus" size="14"></i>
+                    </div>
+                    Thêm mới Giảng viên
+                </h3>
+                <button class="btn-ghost" onclick="closeModal('lecturerModal')"><i data-lucide="x" size="18"></i></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="form-label">Mã Giảng viên</label>
+                    <label>Mã Giảng viên <span class="req">*</span></label>
                     <input type="text" id="gvCode" class="form-control" placeholder="VD: GV003">
                 </div>
-                
                 <div class="form-group">
-                    <label class="form-label">Họ và Tên</label>
+                    <label>Họ và Tên <span class="req">*</span></label>
                     <input type="text" id="gvName" class="form-control" placeholder="Nguyễn Văn A">
                 </div>
-
                 <div class="form-group">
-                    <label class="form-label">Khoa / Bộ môn</label>
+                    <label>Khoa / Bộ môn <span class="req">*</span></label>
                     <select id="gvDept" class="form-control">
                         <option>Công nghệ thông tin</option>
                         <option>Kinh tế</option>
                         <option>Ngôn ngữ Anh</option>
                     </select>
                 </div>
-
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="form-label">Email</label>
+                        <label>Email</label>
                         <input type="email" id="gvEmail" class="form-control" placeholder="email@onenet.edu.vn">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Số điện thoại</label>
+                        <label>Số điện thoại</label>
                         <input type="text" id="gvPhone" class="form-control" placeholder="09xxxxxxxxx">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn" style="background: white; border: 1px solid var(--border); color: var(--text-dark);" onclick="closeModal('lecturerModal')">Hủy</button>
-                <button class="btn btn-primary" onclick="saveLecturer()">Lưu giảng viên</button>
+                <button class="btn btn-outline" onclick="closeModal('lecturerModal')">Hủy</button>
+                <button class="btn btn-primary" onclick="saveLecturer()"><i data-lucide="save" size="15"></i> Lưu giảng viên</button>
             </div>
         </div>
     </div>
 
     <!-- Modal MAJOR -->
     <div class="modal-overlay" id="majorModal">
-        <div class="modal">
+        <div class="modal-panel">
             <div class="modal-header">
-                <h3 class="modal-title">Thêm chuyên ngành mới</h3>
-                <i data-lucide="x" size="20" class="modal-close" onclick="closeModal('majorModal')"></i>
+                <h3>
+                    <div style="width:28px;height:28px;border-radius:8px;background:#D1FAE5;color:#047857;display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="plus-circle" size="14"></i>
+                    </div>
+                    Thêm chuyên ngành mới
+                </h3>
+                <button class="btn-ghost" onclick="closeModal('majorModal')"><i data-lucide="x" size="18"></i></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="form-label">Mã chuyên ngành <span style="color:red">*</span></label>
+                    <label>Mã chuyên ngành <span class="req">*</span></label>
                     <input type="text" id="majorCode" class="form-control" placeholder="Ví dụ: SE, AI, IB...">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Tên chuyên ngành <span style="color:red">*</span></label>
+                    <label>Tên chuyên ngành <span class="req">*</span></label>
                     <input type="text" id="majorName" class="form-control" placeholder="Ví dụ: Kỹ thuật phần mềm">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Mô tả thêm</label>
+                    <label>Mô tả thêm</label>
                     <input type="text" id="majorDesc" class="form-control" placeholder="...">
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn" style="background: white; border: 1px solid var(--border); color: var(--text-dark);" onclick="closeModal('majorModal')">Hủy bỏ</button>
-                <button class="btn btn-primary" onclick="saveMajor()"><i data-lucide="save" size="16"></i> Lưu chuyên ngành</button>
+                <button class="btn btn-outline" onclick="closeModal('majorModal')">Hủy bỏ</button>
+                <button class="btn btn-success" onclick="saveMajor()"><i data-lucide="save" size="15"></i> Lưu chuyên ngành</button>
             </div>
         </div>
     </div>
 
     <!-- Modal SUBJECT -->
     <div class="modal-overlay" id="subjectModal">
-        <div class="modal" style="width: 700px;">
+        <div class="modal-panel" style="width: 680px;">
             <div class="modal-header">
-                <h3 class="modal-title" id="subjectModalTitle">Thêm môn học mới</h3>
-                <i data-lucide="x" size="20" class="modal-close" onclick="closeModal('subjectModal')"></i>
+                <h3>
+                    <div style="width:28px;height:28px;border-radius:8px;background:#EDE9FE;color:#6D28D9;display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="book-plus" size="14"></i>
+                    </div>
+                    Thêm môn học mới
+                </h3>
+                <button class="btn-ghost" onclick="closeModal('subjectModal')"><i data-lucide="x" size="18"></i></button>
             </div>
             <div class="modal-body">
-                <div class="alert" id="deadlockAlert">
-                    <i data-lucide="alert-triangle" color="#DC2626"></i>
-                    <div class="alert-text">
+                <div class="alert-inline" id="deadlockAlert">
+                    <div class="alert-icon"><i data-lucide="alert-triangle" size="14"></i></div>
+                    <span class="alert-text">
                         <strong>Phát hiện Deadlock tiên quyết!</strong><br>
                         Môn <span id="alertSubjCode1"></span> không thể lấy <span id="alertPreCode1"></span> làm môn tiên quyết vì <span id="alertPreCode2"></span> đang yêu cầu <span id="alertSubjCode2"></span>.
-                    </div>
+                    </span>
                 </div>
 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="form-label">Thuộc chuyên ngành <span style="color:red">*</span></label>
+                        <label>Thuộc chuyên ngành <span class="req">*</span></label>
                         <select class="form-control" id="formMajor">
                             <option value="SE">Kỹ thuật phần mềm (Software Engineering)</option>
                             <option value="AI">Trí tuệ nhân tạo (Artificial Intelligence)</option>
@@ -437,7 +872,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Học kỳ <span style="color:red">*</span></label>
+                        <label>Học kỳ <span class="req">*</span></label>
                         <select class="form-control" id="formSemester">
                             <option value="1">Học kỳ 1</option>
                             <option value="2">Học kỳ 2</option>
@@ -447,70 +882,134 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="form-label">Mã môn học <span style="color:red">*</span></label>
+                        <label>Mã môn học <span class="req">*</span></label>
                         <input type="text" class="form-control" id="formSubjCode" placeholder="VD: PRO192">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Tên môn học <span style="color:red">*</span></label>
+                        <label>Tên môn học <span class="req">*</span></label>
                         <input type="text" class="form-control" id="formSubjName" placeholder="Tên môn học...">
                     </div>
-                    
                     <div class="form-group">
-                        <label class="form-label">Số tín chỉ <span style="color:red">*</span></label>
+                        <label>Số tín chỉ <span class="req">*</span></label>
                         <input type="number" class="form-control" id="formCredits" value="3">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Tổng số Slot <span style="color:red">*</span></label>
+                        <label>Tổng số Slot <span class="req">*</span></label>
                         <input type="number" class="form-control" id="formSlots" value="30">
                     </div>
-
                     <div class="form-group full-width">
-                        <label class="form-label">Môn tiên quyết (Prerequisites)</label>
+                        <label>Môn tiên quyết (Prerequisites)</label>
                         <div class="tags-input" id="formPreTags">
                             <div class="tag" id="demoTag" style="display: none;"><span>PRF192</span> <i data-lucide="x" size="14"></i></div>
-                            <input type="text" id="preInput" placeholder="Gõ mã môn và nhấn Enter..." style="border: none; outline: none; flex: 1; min-width: 150px; background: transparent;">
+                            <input type="text" id="preInput" placeholder="Gõ mã môn và nhấn Enter..." style="border: none; outline: none; flex: 1; min-width: 150px; background: transparent; font-size: 13px;">
                         </div>
-                        <p style="font-size: 12px; color: var(--text-gray); margin-top: 4px;">Hệ thống tự động kiểm tra vòng lặp tiên quyết (Deadlock).</p>
+                        <p style="font-size: 11px; color: var(--text-light); margin-top: 4px;">Hệ thống tự động kiểm tra vòng lặp tiên quyết (Deadlock).</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn" style="background: white; border: 1px solid var(--border); color: var(--text-dark);" onclick="closeModal('subjectModal')">Hủy bỏ</button>
-                <button class="btn btn-primary" onclick="saveSubject()"><i data-lucide="save" size="16"></i> Lưu môn học</button>
+                <button class="btn btn-outline" onclick="closeModal('subjectModal')">Hủy bỏ</button>
+                <button class="btn" style="background: linear-gradient(135deg, #7C3AED, #8B5CF6); color: white;" onclick="saveSubject()"><i data-lucide="save" size="15"></i> Lưu môn học</button>
             </div>
         </div>
     </div>
 
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <script>
         lucide.createIcons();
 
-        function switchTab(tabId, element) {
-            // Update tabs
-            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            
-            // Update content
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.getElementById('tab-' + tabId).classList.add('active');
+        // === Category Switching ===
+        function switchCategory(category) {
+            // Update cards
+            document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+            document.getElementById('card' + category.charAt(0).toUpperCase() + category.slice(1)).classList.add('active');
+
+            // Update panels
+            document.querySelectorAll('.tab-content-area').forEach(p => p.classList.remove('active'));
+            const panel = document.getElementById('panel-' + category);
+            panel.classList.remove('active');
+            // Force re-trigger animation
+            void panel.offsetWidth;
+            panel.classList.add('active');
         }
 
-        function openModal(id) { 
-            document.getElementById(id).classList.add('active'); 
+        // === Modal ===
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            lucide.createIcons();
         }
-        function closeModal(id) { 
-            document.getElementById(id).classList.remove('active'); 
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
         }
-        
+
+        // Close modal on backdrop
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', e => {
+                if (e.target === modal) modal.classList.remove('active');
+            });
+        });
+
+        // === Alerts ===
         function showError(id) {
             const alertBox = document.getElementById(id);
             alertBox.classList.add('active');
-            setTimeout(() => { alertBox.classList.remove('active'); }, 4000);
+            setTimeout(() => alertBox.classList.remove('active'), 4000);
         }
 
-        // Handle enter on tags input for demo
+        // === Filter: Lecturer ===
+        function filterLecturer() {
+            const search = document.getElementById('searchLecturer').value.toLowerCase();
+            const dept = document.getElementById('filterLecturerDept').value;
+            const rows = document.querySelectorAll('#lecturerTableBody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                const deptMatch = !dept || row.children[2].textContent.includes(dept);
+                row.style.display = (text.includes(search) && deptMatch) ? '' : 'none';
+            });
+        }
+        function filterLecturerReset() {
+            document.getElementById('searchLecturer').value = '';
+            document.getElementById('filterLecturerDept').value = '';
+            filterLecturer();
+        }
+
+        // === Filter: Major ===
+        function filterMajor() {
+            const search = document.getElementById('searchMajor').value.toLowerCase();
+            const rows = document.querySelectorAll('#majorTableBody tr');
+            rows.forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(search) ? '' : 'none';
+            });
+        }
+
+        // === Filter: Subject ===
+        function filterSubject() {
+            const search = document.getElementById('searchSubject').value.toLowerCase();
+            const major = document.getElementById('filterSubjectMajor').value;
+            const credits = document.getElementById('filterSubjectCredits').value;
+            const rows = document.querySelectorAll('#subjectTableBody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                const majorData = row.getAttribute('data-major') || '';
+                const creditsData = row.getAttribute('data-credits') || '';
+                const matchSearch = text.includes(search);
+                const matchMajor = !major || majorData.includes(major);
+                const matchCredits = !credits || creditsData === credits;
+                row.style.display = (matchSearch && matchMajor && matchCredits) ? '' : 'none';
+            });
+        }
+        function filterSubjectReset() {
+            document.getElementById('searchSubject').value = '';
+            document.getElementById('filterSubjectMajor').value = '';
+            document.getElementById('filterSubjectCredits').value = '';
+            filterSubject();
+        }
+
+        // === Tags Input ===
         document.getElementById('preInput').addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && this.value.trim() !== '') {
                 e.preventDefault();
@@ -522,7 +1021,7 @@
             }
         });
 
-        // Dummy saves to reflect in UI
+        // === Save Functions ===
         function saveLecturer() {
             const code = document.getElementById('gvCode').value || 'GV999';
             const name = document.getElementById('gvName').value || 'Giảng viên mới';
@@ -533,44 +1032,48 @@
             const tbody = document.getElementById('lecturerTableBody');
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${code}</td>
-                <td style="font-weight: 500;">${name}</td>
+                <td><span class="code-badge">${code}</span></td>
+                <td style="font-weight: 600;">${name}</td>
                 <td>${dept}</td>
                 <td>${email}</td>
                 <td>${phone}</td>
                 <td>
                     <div class="action-btns">
-                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
-                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
+                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
                     </div>
                 </td>
             `;
             tbody.appendChild(tr);
+            updateCounts();
             lucide.createIcons();
             closeModal('lecturerModal');
+            showToast('Đã thêm giảng viên ' + name + ' thành công!', 'success');
         }
 
         function saveMajor() {
             const code = document.getElementById('majorCode').value || 'NEW';
             const name = document.getElementById('majorName').value || 'Chuyên ngành mới';
             const desc = document.getElementById('majorDesc').value || '...';
-            
+
             const tbody = document.getElementById('majorTableBody');
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">${code}</span></td>
-                <td style="font-weight: 500;">${name}</td>
+                <td><span class="code-badge">${code}</span></td>
+                <td style="font-weight: 600;">${name}</td>
                 <td>${desc}</td>
                 <td>
                     <div class="action-btns">
-                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
-                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
+                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
                     </div>
                 </td>
             `;
             tbody.appendChild(tr);
+            updateCounts();
             lucide.createIcons();
             closeModal('majorModal');
+            showToast('Đã thêm chuyên ngành ' + name + ' thành công!', 'success');
         }
 
         function saveSubject() {
@@ -578,8 +1081,7 @@
             const name = document.getElementById('formSubjName').value || 'Môn học mới';
             const credits = document.getElementById('formCredits').value || '3';
             const major = document.getElementById('formMajor').value || 'SE';
-            
-            // Check deadlock logic demo
+
             const demoTag = document.getElementById('demoTag');
             if (demoTag.style.display !== 'none') {
                 const preCode = demoTag.querySelector('span').innerText;
@@ -588,33 +1090,64 @@
                     document.getElementById('alertPreCode1').innerText = preCode;
                     document.getElementById('alertPreCode2').innerText = preCode;
                     document.getElementById('alertSubjCode2').innerText = code;
-
-                    const alertBox = document.getElementById('deadlockAlert');
-                    alertBox.classList.add('active');
-                    return; // Stop saving
+                    document.getElementById('deadlockAlert').classList.add('active');
+                    return;
                 }
             }
 
+            const majorClass = major.toLowerCase();
             const tbody = document.getElementById('subjectTableBody');
             const tr = document.createElement('tr');
+            tr.setAttribute('data-major', major);
+            tr.setAttribute('data-credits', credits);
             tr.innerHTML = `
-                <td><span style="font-weight: 600; color: var(--primary); background: #EAF4FF; padding: 4px 8px; border-radius: 4px; font-size: 13px;">${code}</span></td>
-                <td style="font-weight: 500;">${name}</td>
+                <td><span class="code-badge">${code}</span></td>
+                <td style="font-weight: 600;">${name}</td>
                 <td>${credits}</td>
-                <td>${major}</td>
+                <td><span class="major-badge ${majorClass}">${major}</span></td>
                 <td>
                     <div class="action-btns">
-                        <button class="btn-icon btn-edit"><i data-lucide="edit" size="18"></i></button>
-                        <button class="btn-icon btn-delete"><i data-lucide="trash-2" size="18"></i></button>
+                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
+                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
                     </div>
                 </td>
             `;
             tbody.appendChild(tr);
+            updateCounts();
             lucide.createIcons();
             closeModal('subjectModal');
+            showToast('Đã thêm môn học ' + name + ' thành công!', 'success');
+        }
+
+        // === Update Counts ===
+        function updateCounts() {
+            const lecturerCount = document.querySelectorAll('#lecturerTableBody tr').length;
+            const majorCount = document.querySelectorAll('#majorTableBody tr').length;
+            const subjectCount = document.querySelectorAll('#subjectTableBody tr').length;
+            document.getElementById('countLecturer').textContent = lecturerCount + ' giảng viên';
+            document.getElementById('countMajor').textContent = majorCount + ' chuyên ngành';
+            document.getElementById('countSubject').textContent = subjectCount + ' môn học';
+        }
+
+        // === Toast ===
+        function showToast(msg, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <div class="toast-icon"><i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}" size="16"></i></div>
+                <span>${msg}</span>
+            `;
+            container.appendChild(toast);
+            lucide.createIcons();
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => toast.classList.add('show'));
+            });
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 350);
+            }, 3500);
         }
     </script>
 </body>
 </html>
-
-

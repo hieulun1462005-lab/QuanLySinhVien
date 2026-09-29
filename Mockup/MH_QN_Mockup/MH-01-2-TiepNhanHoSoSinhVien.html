@@ -643,7 +643,12 @@
             <!-- Import Section -->
             <div class="card">
                 <div class="card-header" style="flex-direction: column; align-items: flex-start; gap: 16px;">
-                    <h2 class="card-title">Tra cứu & Cập nhật hồ sơ nhập học</h2>
+                    <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                        <h2 class="card-title">Tra cứu & Cập nhật hồ sơ nhập học</h2>
+                        <button type="button" class="btn btn-primary" onclick="addStudentManually()">
+                            <i data-lucide="user-plus" size="18"></i> Thêm SV thủ công
+                        </button>
+                    </div>
                     <div style="display: flex; gap: 12px; width: 100%;">
                         <input type="text" id="searchStudent" placeholder="Nhập mã trúng tuyển hoặc Họ tên sinh viên..."
                             style="flex: 1; height: 42px; padding: 0 16px; border: 1px solid var(--border); border-radius: 8px; outline: none; font-size: 14px;">
@@ -661,12 +666,8 @@
                                 style="background-color: #f1f5f9; color: #64748b; cursor: not-allowed;">
                         </div>
                         <div class="form-group">
-                            <label>Mã Sinh Viên <span style="color:red">*</span></label>
-                            <input type="text" id="studentId" placeholder="VD: HE190001" pattern="^[a-zA-Z]{2}[0-9]{6,8}$" required title="Mã SV phải theo định dạng (vd: HE190001)">
-                        </div>
-                        <div class="form-group">
                             <label>Số CCCD <span style="color:red">*</span></label>
-                            <input type="text" id="cccd" placeholder="Nhập 12 số CCCD" required pattern="[0-9]{12}" title="Số CCCD phải gồm đúng 12 chữ số">
+                            <input type="text" id="cccd" placeholder="Nhập 12 số CCCD" required pattern="[0-9]{12}" title="Số CCCD phải gồm đúng 12 chữ số" disabled style="background-color: #f1f5f9; color: #64748b; cursor: not-allowed;">
                         </div>
                         <div class="form-group">
                             <label>Ngày sinh</label>
@@ -682,6 +683,14 @@
                             <input type="email" id="email" placeholder="Nhập email" required>
                         </div>
                         <div class="form-group">
+                            <label>Dân tộc</label>
+                            <input type="text" id="ethnicity" placeholder="Nhập dân tộc">
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ thường trú</label>
+                            <input type="text" id="address" placeholder="Nhập địa chỉ thường trú">
+                        </div>
+                        <div class="form-group">
                             <label>Chuyên ngành đăng ký</label>
                             <select id="major" required disabled
                                 style="background-color: #f1f5f9; cursor: not-allowed; color: #94a3b8;">
@@ -695,7 +704,7 @@
                     </div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-outline"
-                            onclick="document.getElementById('profileForm').reset()">Làm mới</button>
+                            onclick="resetForm()">Làm mới</button>
                         <button type="submit" class="btn btn-primary">
                             <i data-lucide="check-circle" size="18"></i>
                             Xác nhận nhập hồ sơ
@@ -724,6 +733,38 @@
                         // Initialize lucide icons
                         lucide.createIcons();
 
+                        // Add student manually
+                        function addStudentManually() {
+                            document.getElementById('profileForm').reset();
+                            document.getElementById('searchStudent').value = '';
+                            
+                            const fields = ['fullname', 'dob', 'major', 'cccd'];
+                            fields.forEach(id => {
+                                const el = document.getElementById(id);
+                                el.disabled = false;
+                                el.style.backgroundColor = 'white';
+                                el.style.cursor = id === 'major' ? 'pointer' : 'text';
+                                if (id === 'major') el.style.color = 'var(--text-dark)';
+                            });
+                            
+                            document.getElementById('fullname').focus();
+                        }
+
+                        // Reset form to default (locked) state
+                        function resetForm() {
+                            document.getElementById('profileForm').reset();
+                            document.getElementById('searchStudent').value = '';
+                            
+                            const fields = ['fullname', 'dob', 'major', 'cccd'];
+                            fields.forEach(id => {
+                                const el = document.getElementById(id);
+                                el.disabled = true;
+                                el.style.backgroundColor = '#f1f5f9';
+                                el.style.cursor = 'not-allowed';
+                                if (id === 'major') el.style.color = '#94a3b8';
+                            });
+                        }
+
                         // Simulate Search Student
                         function simulateSearch() {
                             const query = document.getElementById('searchStudent').value;
@@ -733,16 +774,19 @@
                             }
 
                             // Populate dummy data based on search
+                            resetForm();
+                            document.getElementById('searchStudent').value = query;
+
                             document.getElementById('fullname').value = 'Nguyễn Văn Minh';
                             document.getElementById('dob').value = '2005-10-15';
-                            document.getElementById('studentId').value = 'HE190001';
+                            document.getElementById('cccd').value = '001090012345';
 
                             const majorSelect = document.getElementById('major');
                             majorSelect.value = 'se'; // Khớp chuyên ngành KTPM
                             majorSelect.style.color = 'var(--text-dark)';
 
-                            // Focus on CCCD to input missing fields
-                            document.getElementById('cccd').focus();
+                            // Focus on phone to input missing fields
+                            document.getElementById('phone').focus();
                         }
 
                         // Form Submit Simulation
