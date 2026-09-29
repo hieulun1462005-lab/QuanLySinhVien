@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,67 +9,737 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #0757A6; --primary-dark: #063B75; --primary-light: #CFE6FF;
-            --text-dark: #102A43; --text-gray: #5E7184; --bg-light: #F5F8FC; --border: #DCE8F3;
-            --success: #10B981; --warning: #F59E0B; --danger: #EF4444;
+            --primary: #0757A6;
+            --primary-dark: #063B75;
+            --primary-light: #CFE6FF;
+            --text-dark: #102A43;
+            --text-gray: #5E7184;
+            --bg-light: #F5F8FC;
+            --border: #DCE8F3;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 0 64px; height: 64px; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 100; }
-        .sys-identity { display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit; }
-        .emblem { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; }
-        .brand-copy { display: flex; flex-direction: column; gap: 2px; }
-        .brand-copy .uni { font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--text-gray); }
-        .brand-copy .sys-name { font-weight: 700; font-size: 18px; color: var(--primary); }
-        .user-profile { display: flex; align-items: center; gap: 12px; padding: 6px 12px; border-radius: 8px;  cursor: pointer; transition: background 0.2s; } .user-profile:hover { background: #F8FAFC; }
-        .avatar { width: 36px; height: 36px; border-radius: 50%; background: #F0FDF4; color: #166534; display: flex; justify-content: center; align-items: center; font-weight: 600; font-size: 14px; }
-        .user-info { display: flex; flex-direction: column; text-align: right; }
-        .user-info .name { font-size: 14px; font-weight: 600; }
-        .user-info .role { font-size: 12px; color: var(--text-gray); }
-        .dashboard-layout { display: flex; height: calc(100vh - 64px); }
-        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
-        .menu-group-title { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; padding: 12px 24px 4px; letter-spacing: 0.5px; }
-        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: var(--text-gray); font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; text-decoration: none; }
-        .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
-        .sidebar-item.active { background: #EAF4FF; color: var(--primary); border-left: 3px solid var(--primary); font-weight: 600; }
-        .dashboard-content { flex: 1; padding: 32px; overflow-y: auto; }
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .page-title { font-size: 24px; font-weight: 700; color: var(--text-dark); }
-        
-        .calendar-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-        .calendar-nav button { width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; background: white; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; }
-        .calendar-nav button:hover { background: #F8FAFC; }
-        .calendar-nav h2 { font-size: 18px; font-weight: 600; }
-        
-        .schedule-grid { display: grid; grid-template-columns: 80px repeat(7, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-        .grid-header { background: #F8FAFC; padding: 12px; text-align: center; font-weight: 600; font-size: 14px; color: var(--text-gray); }
-        .grid-header.today { color: var(--primary); background: #EAF4FF; }
-        .grid-cell { background: white; min-height: 100px; padding: 8px; }
-        .grid-time { background: #F8FAFC; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; color: var(--text-gray); }
-        
-        .class-card { background: #EAF4FF; border-left: 3px solid var(--primary); padding: 8px; border-radius: 4px; font-size: 12px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
-        .class-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-        .class-card .subj { font-weight: 700; color: var(--primary-dark); }
-        .class-card .loc { color: var(--text-gray); margin-top: 4px; display: flex; align-items: center; gap: 4px; }
-        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 64px;
+            height: 64px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .emblem {
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-copy .uni {
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        .brand-copy .sys-name {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .user-profile:hover {
+            background: #F8FAFC;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #F0FDF4;
+            color: #166534;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .user-info .name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .user-info .role {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .dashboard-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .menu-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            padding: 12px 24px 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover {
+            background: #F8FAFC;
+            color: var(--primary);
+        }
+
+        .sidebar-item.active {
+            background: #EAF4FF;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            font-weight: 600;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Cụm chuyển tuần dạng segmented */
+        .week-switcher {
+            display: inline-flex;
+            align-items: stretch;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3px;
+            gap: 2px;
+        }
+
+        .nav-arrow {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            border: none;
+            border-radius: 9px;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: background .15s, color .15s, box-shadow .15s;
+        }
+
+        .nav-arrow:hover {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 1px 4px rgba(16, 42, 67, .1);
+        }
+
+        .nav-arrow:active {
+            transform: scale(.94);
+        }
+
+        .week-label {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 268px;
+            padding: 0 14px;
+            background: white;
+            border: none;
+            border-radius: 9px;
+            box-shadow: 0 1px 4px rgba(16, 42, 67, .08);
+            cursor: pointer;
+            font: inherit;
+            color: var(--text-dark);
+            text-align: left;
+            transition: box-shadow .15s;
+        }
+
+        .week-label:hover {
+            box-shadow: 0 2px 8px rgba(7, 87, 166, .18);
+        }
+
+        .week-label svg {
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .week-label .range {
+            font-size: 15px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            line-height: 1.2;
+        }
+
+        .week-label .sub {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-gray);
+            line-height: 1.2;
+        }
+
+        .week-label .text {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            padding: 6px 0;
+        }
+
+        #datePicker {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .today-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 42px;
+            padding: 0 14px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: .15s;
+        }
+
+        .today-btn:hover:not(:disabled) {
+            background: #EAF4FF;
+            border-color: var(--primary-light);
+        }
+
+        .today-btn:disabled {
+            color: var(--text-gray);
+            opacity: .55;
+            cursor: default;
+        }
+
+        .nav-arrow:focus-visible,
+        .week-label:focus-visible,
+        .today-btn:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .semester-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .semester-box label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+
+        .semester-box select {
+            padding: 9px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+        }
+
+        .semester-box select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        /* Hiệu ứng đổi tuần */
+        @keyframes weekInNext {
+            from {
+                opacity: 0;
+                transform: translateX(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes weekInPrev {
+            from {
+                opacity: 0;
+                transform: translateX(-24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .schedule-grid.anim-next {
+            animation: weekInNext .28s ease-out;
+        }
+
+        .schedule-grid.anim-prev {
+            animation: weekInPrev .28s ease-out;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .schedule-grid.anim-next,
+            .schedule-grid.anim-prev {
+                animation: none;
+            }
+        }
+
+        .grid-header .month-tag {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-top: -2px;
+            min-height: 14px;
+        }
+
+        .grid-cell.is-today {
+            background: #F7FBFF;
+            border-color: var(--primary-light);
+        }
+
+        .grid-cell.is-makeup {
+            background: #F0FDF4;
+            border-color: #BBF7D0;
+        }
+
+        .class-card.makeup {
+            background: linear-gradient(135deg, #ffffff, #F0FDF4);
+            border-color: #BBF7D0;
+            border-left-color: var(--success);
+        }
+
+        .class-card.makeup .subj {
+            color: #166534;
+        }
+
+        .class-card .tag {
+            font-size: 10px;
+            font-weight: 700;
+            color: #166534;
+            background: #DCFCE7;
+            border-radius: 4px;
+            padding: 1px 6px;
+            width: fit-content;
+            margin-bottom: 4px;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .grid-header {
+            padding: 12px 4px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .grid-header .day {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .grid-header .date {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .grid-header.today .day {
+            color: var(--primary);
+        }
+
+        .grid-header.today .date {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(7, 87, 166, 0.3);
+        }
+
+        .grid-cell {
+            background: white;
+            min-height: 120px;
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px dashed #CBD5E1;
+            transition: all 0.2s;
+        }
+
+        .grid-cell:hover {
+            border-color: var(--primary-light);
+            background: #F8FAFC;
+        }
+
+        .grid-time {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 12px;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-dark);
+        }
+
+        .grid-time .time-range {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-gray);
+            margin-top: 4px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .class-card {
+            background: linear-gradient(135deg, #ffffff, #F0F7FF);
+            border: 1px solid #D4E5FF;
+            border-left: 4px solid var(--primary);
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(7, 87, 166, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .class-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(7, 87, 166, 0.12);
+            border-color: #B6D5FF;
+        }
+
+        .class-card .subj {
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 14px;
+        }
+
+        .class-card .cls-name {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .class-card .loc {
+            color: var(--text-gray);
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            background: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            font-weight: 500;
+            width: fit-content;
+        }
+
         /* Modal Báo Nghỉ */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(16, 42, 67, 0.5); display: none; justify-content: center; align-items: center; z-index: 1000; }
-        .modal-overlay.active { display: flex; }
-        .modal-container { background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); width: 450px; }
-        .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .modal-title { font-size: 18px; font-weight: 600; }
-        .close-btn { cursor: pointer; color: var(--text-gray); }
-        .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
-        .form-group { display: flex; flex-direction: column; gap: 8px; }
-        .form-group label { font-size: 13px; font-weight: 600; }
-        .form-control { padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-family: inherit; outline: none; }
-        .form-control:focus { border-color: var(--primary); }
-        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 12px; background: #F8FAFC; border-radius: 0 0 12px 12px; }
-        .btn { padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-outline { background: white; border: 1px solid var(--border); }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(16, 42, 67, 0.4);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+            width: 450px;
+            transform: scale(0.95);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            color: var(--text-gray);
+        }
+
+        .modal-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            background: #F8FAFC;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(7, 87, 166, 0.2);
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: #F8FAFC;
+            border-color: #CBD5E1;
+        }
+
+        /* Modal Danh Sách Lớp */
+        .student-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .student-table th,
+        .student-table td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .student-table th {
+            background: #F8FAFC;
+            font-weight: 600;
+            color: var(--text-gray);
+            position: sticky;
+            top: 0;
+        }
+
+        .student-table tr:last-child td {
+            border-bottom: none;
+        }
     </style>
 </head>
+
 <body>
     <header class="header">
         <a href="MH-00-8-TongQuanGiangVien.html" class="sys-identity">
@@ -98,74 +769,55 @@
             </a>
         </aside>
         <main class="dashboard-content">
-            <div class="page-header">
-                <h1 class="page-title">Lịch giảng dạy & Báo nghỉ</h1>
+            <div class="page-header"
+                style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <div>
+                    <h1 class="page-title" style="margin-bottom: 4px; font-size: 22px;">Lịch giảng dạy & Báo nghỉ</h1>
+                    <div style="color: var(--text-gray); font-size: 14px;">Quản lý thời khóa biểu, điểm danh và xếp lịch
+                        bù</div>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-outline" onclick="window.print()">
+                        <i data-lucide="printer" size="18"></i> In Lịch
+                    </button>
+
+                </div>
             </div>
-            
+
             <div class="calendar-nav">
-                <button><i data-lucide="chevron-left" size="20"></i></button>
-                <h2>Tuần 23/09/2026 - 29/09/2026</h2>
-                <button><i data-lucide="chevron-right" size="20"></i></button>
+                <div class="nav-left">
+                    <div class="week-switcher">
+                        <button class="nav-arrow" id="prevWeek" aria-label="Tuần trước" title="Tuần trước (←)"><i
+                                data-lucide="chevron-left" size="20"></i></button>
+                        <button class="week-label" id="weekLabel" aria-label="Chọn ngày để chuyển tuần"
+                            title="Chọn ngày">
+                            <i data-lucide="calendar-range" size="18"></i>
+                            <span class="text">
+                                <span class="range" id="weekRange"></span>
+                                <span class="sub" id="weekSub"></span>
+                            </span>
+                            <input type="date" id="datePicker" tabindex="-1" aria-hidden="true">
+                        </button>
+                        <button class="nav-arrow" id="nextWeek" aria-label="Tuần sau" title="Tuần sau (→)"><i
+                                data-lucide="chevron-right" size="20"></i></button>
+                    </div>
+                    <button class="today-btn" id="todayBtn"><i data-lucide="calendar-check" size="16"></i> Hôm
+                        nay</button>
+                </div>
+                <div class="semester-box">
+                    <label for="semester">Học kỳ:</label>
+                    <select id="semester">
+                        <option>Fall 2026</option>
+                        <option>Summer 2026</option>
+                        <option>Spring 2026</option>
+                    </select>
+                </div>
             </div>
-            
-            <div class="schedule-grid">
-                <!-- Headers -->
-                <div class="grid-header">Ca học</div>
-                <div class="grid-header">Thứ 2 (23/09)</div>
-                <div class="grid-header">Thứ 3 (24/09)</div>
-                <div class="grid-header today">Thứ 4 (25/09)</div>
-                <div class="grid-header">Thứ 5 (26/09)</div>
-                <div class="grid-header">Thứ 6 (27/09)</div>
-                <div class="grid-header">Thứ 7 (28/09)</div>
-                <div class="grid-header">CN (29/09)</div>
-                
-                <!-- Slot 1 -->
-                <div class="grid-time">Slot 1<br>07:30</div>
-                <div class="grid-cell">
-                    <div class="class-card" onclick="openAbsenceModal('PRJ301', 'SE1501')">
-                        <div class="subj">PRJ301</div><div>SE1501</div>
-                        <div class="loc"><i data-lucide="map-pin" size="12"></i> 202</div>
-                    </div>
-                </div>
-                <div class="grid-cell"></div>
-                <div class="grid-cell" style="background: #F0FDF4;">
-                    <div class="class-card" onclick="openAbsenceModal('PRJ301', 'SE1501')">
-                        <div class="subj">PRJ301</div><div>SE1501</div>
-                        <div class="loc"><i data-lucide="map-pin" size="12"></i> 202</div>
-                    </div>
-                </div>
-                <div class="grid-cell"></div>
-                <div class="grid-cell">
-                    <div class="class-card" onclick="openAbsenceModal('PRJ301', 'SE1501')">
-                        <div class="subj">PRJ301</div><div>SE1501</div>
-                        <div class="loc"><i data-lucide="map-pin" size="12"></i> 202</div>
-                    </div>
-                </div>
-                <div class="grid-cell"></div>
-                <div class="grid-cell"></div>
-                
-                <!-- Slot 3 -->
-                <div class="grid-time">Slot 3<br>12:50</div>
-                <div class="grid-cell"></div>
-                <div class="grid-cell">
-                    <div class="class-card" onclick="openAbsenceModal('SWE201', 'SE1502')">
-                        <div class="subj">SWE201</div><div>SE1502</div>
-                        <div class="loc"><i data-lucide="map-pin" size="12"></i> 304</div>
-                    </div>
-                </div>
-                <div class="grid-cell" style="background: #F0FDF4;">
-                    <div class="class-card" onclick="openAbsenceModal('SWE201', 'SE1502')">
-                        <div class="subj">SWE201</div><div>SE1502</div>
-                        <div class="loc"><i data-lucide="map-pin" size="12"></i> 304</div>
-                    </div>
-                </div>
-                <div class="grid-cell"></div>
-                <div class="grid-cell"></div>
-                <div class="grid-cell"></div>
-                <div class="grid-cell"></div>
-            </div>
+
+            <div class="schedule-grid" id="scheduleGrid"></div>
             <div style="font-size: 13px; color: var(--text-gray); margin-top: 16px;">
-                <i data-lucide="mouse-pointer-click" size="14" style="vertical-align: middle;"></i> Nhấn vào một lớp trong lịch để mở <b>Form Báo Nghỉ (UC-08)</b>
+                <i data-lucide="mouse-pointer-click" size="14" style="vertical-align: middle;"></i> Nhấn vào một lớp
+                trong lịch để xem <b>Danh sách lớp</b> hoặc <b>Báo nghỉ/Học bù</b>
             </div>
         </main>
     </div>
@@ -195,18 +847,244 @@
                     <select class="form-control">
                         <option>Slot 1 (07:30 - 09:50)</option>
                         <option>Slot 2 (10:00 - 12:20)</option>
+                        <option>Slot 3 (12:50 - 15:10)</option>
+                        <option>Slot 4 (15:20 - 17:40)</option>
+                        <option>Slot 5 (17:50 - 20:10)</option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline" onclick="closeAbsenceModal()">Hủy</button>
-                <button class="btn btn-primary" onclick="alert('Đã gửi yêu cầu Báo nghỉ!'); closeAbsenceModal();">Gửi Yêu Cầu</button>
+                <button class="btn btn-primary" onclick="alert('Đã gửi yêu cầu Báo nghỉ!'); closeAbsenceModal();">Gửi
+                    Yêu Cầu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Chi Tiết Lớp -->
+    <div class="modal-overlay" id="classDetailsModal">
+        <div class="modal-container" style="width: 600px;">
+            <div class="modal-header">
+                <div class="modal-title">Thông tin lớp học <span id="detailClassTitle"
+                        style="color: var(--primary);"></span></div>
+                <i data-lucide="x" class="close-btn" size="24" onclick="closeClassDetails()"></i>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-weight: 600;">Danh sách sinh viên (Sĩ số: 30)</div>
+                    <button class="btn btn-primary" onclick="openAbsenceFromDetails()">
+                        <i data-lucide="calendar-off" size="16"></i> Báo Nghỉ & Xếp Lịch Bù
+                    </button>
+                </div>
+                <div class="student-list">
+                    <table class="student-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>MSSV</th>
+                                <th>Họ và Tên</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>HE150001</td>
+                                <td>Nguyễn Văn A</td>
+                                <td><span style="color: var(--success); font-weight: 500;">Học đi</span></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>HE150002</td>
+                                <td>Trần Thị B</td>
+                                <td><span style="color: var(--success); font-weight: 500;">Học đi</span></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>HE150003</td>
+                                <td>Lê Hoàng C</td>
+                                <td><span style="color: var(--warning); font-weight: 500;">Học lại</span></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>HE150004</td>
+                                <td>Phạm Tuấn D</td>
+                                <td><span style="color: var(--success); font-weight: 500;">Học đi</span></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>HE150005</td>
+                                <td>Đỗ Văn E</td>
+                                <td><span style="color: var(--success); font-weight: 500;">Học đi</span></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>HE150006</td>
+                                <td>Lý Hữu F</td>
+                                <td><span style="color: var(--success); font-weight: 500;">Học đi</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         lucide.createIcons();
+
+        /* ====== Lịch tuần ====== */
+        const SLOTS = [
+            { name: 'Slot 1', t: ['07:30', '09:50'] },
+            { name: 'Slot 2', t: ['10:00', '12:20'] },
+            { name: 'Slot 3', t: ['12:50', '15:10'] },
+            { name: 'Slot 4', t: ['15:20', '17:40'] },
+            { name: 'Slot 5', t: ['17:50', '20:10'] }
+        ];
+        const DAY_NAMES = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'];
+
+        // Lịch cố định hằng tuần: key = "thứ-slot" (thứ 0 = Thứ 2, slot 0 = Slot 1)
+        const WEEKLY = {
+            '0-0': { subj: 'PRJ301', cls: 'SE1501', room: 'P.202' },
+            '4-0': { subj: 'PRJ301', cls: 'SE1501', room: 'P.202' },
+            '3-1': { subj: 'DBI202', cls: 'SE1503', room: 'P.105' },
+            '1-2': { subj: 'SWE201', cls: 'SE1502', room: 'P.304' },
+            '4-3': { subj: 'MAS291', cls: 'AI1601', room: 'P.402' }
+        };
+        // Buổi học bù theo ngày cụ thể (YYYY-MM-DD)
+        const MAKEUP = {
+            '2026-09-30': {
+                0: { subj: 'PRJ301', cls: 'SE1501', room: 'P.202' },
+                2: { subj: 'SWE201', cls: 'SE1502', room: 'P.304' }
+            }
+        };
+
+        const pad = n => String(n).padStart(2, '0');
+        const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+        const fmt = d => `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+        const sameDay = (a, b) => iso(a) === iso(b);
+
+        function startOfWeek(d) {           // Thứ 2 đầu tuần
+            const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+            x.setDate(x.getDate() - ((x.getDay() + 6) % 7));
+            return x;
+        }
+        function addDays(d, n) {
+            const x = new Date(d); x.setDate(x.getDate() + n); return x;
+        }
+
+        const grid = document.getElementById('scheduleGrid');
+        let weekStart = startOfWeek(new Date());
+
+        function cardHTML(c, makeup) {
+            return `<div class="class-card${makeup ? ' makeup' : ''}" onclick="openClassDetails('${c.subj}', '${c.cls}')">
+                ${makeup ? '<div class="tag">Học bù</div>' : ''}
+                <div class="subj">${c.subj}</div>
+                <div class="cls-name">${c.cls}</div>
+                <div class="loc"><i data-lucide="map-pin" size="12"></i> ${c.room}</div>
+            </div>`;
+        }
+
+        function renderWeek(dir) {
+            const today = new Date();
+            const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+            let html = '<div class="grid-header"></div>';
+
+            days.forEach((d, i) => {
+                const isToday = sameDay(d, today);
+                const showMonth = i === 0 || d.getDate() === 1;
+                const red = i === 6 ? ' style="color: var(--danger);"' : '';
+                html += `<div class="grid-header${isToday ? ' today' : ''}">
+                    <div class="day"${red}>${DAY_NAMES[i]}</div>
+                    <div class="date"${red}>${d.getDate()}</div>
+                    <div class="month-tag">${showMonth ? 'Th' + (d.getMonth() + 1) : ''}</div>
+                </div>`;
+            });
+
+            SLOTS.forEach((sl, s) => {
+                html += `<div class="grid-time">${sl.name}<div class="time-range">${sl.t[0]}<br>${sl.t[1]}</div></div>`;
+                days.forEach((d, i) => {
+                    const makeup = (MAKEUP[iso(d)] || {})[s];
+                    const regular = WEEKLY[`${i}-${s}`];
+                    const cls = ['grid-cell'];
+                    if (sameDay(d, today)) cls.push('is-today');
+                    if (makeup) cls.push('is-makeup');
+                    const item = makeup || regular;
+                    html += `<div class="${cls.join(' ')}">${item ? cardHTML(item, !!makeup) : ''}</div>`;
+                });
+            });
+
+            grid.innerHTML = html;
+            lucide.createIcons();
+
+            // Hiệu ứng trượt theo hướng chuyển tuần
+            grid.classList.remove('anim-next', 'anim-prev');
+            if (dir) {
+                void grid.offsetWidth;
+                grid.classList.add(dir > 0 ? 'anim-next' : 'anim-prev');
+            }
+
+            // Nhãn tuần
+            const end = addDays(weekStart, 6);
+            document.getElementById('weekRange').textContent = `${fmt(weekStart)} - ${fmt(end)}`;
+            const diff = Math.round((weekStart - startOfWeek(today)) / 604800000);
+            const subs = { '-1': 'Tuần trước', '0': 'Tuần này', '1': 'Tuần sau' };
+            document.getElementById('weekSub').textContent =
+                subs[diff] || (diff > 0 ? `Sau ${diff} tuần` : `Trước ${-diff} tuần`);
+            document.getElementById('todayBtn').disabled = diff === 0;
+            document.getElementById('datePicker').value = iso(weekStart);
+        }
+
+        function goWeek(n) { weekStart = addDays(weekStart, n * 7); renderWeek(n); }
+
+        document.getElementById('prevWeek').onclick = () => goWeek(-1);
+        document.getElementById('nextWeek').onclick = () => goWeek(1);
+        document.getElementById('todayBtn').onclick = () => {
+            const target = startOfWeek(new Date());
+            const dir = target > weekStart ? 1 : -1;
+            weekStart = target; renderWeek(dir);
+        };
+
+        const picker = document.getElementById('datePicker');
+        document.getElementById('weekLabel').onclick = () => {
+            if (picker.showPicker) { try { picker.showPicker(); return; } catch (e) { } }
+            picker.focus(); picker.click();
+        };
+        picker.onchange = () => {
+            if (!picker.value) return;
+            const [y, m, d] = picker.value.split('-').map(Number);
+            const target = startOfWeek(new Date(y, m - 1, d));
+            const dir = target > weekStart ? 1 : (target < weekStart ? -1 : 0);
+            weekStart = target; renderWeek(dir);
+        };
+
+        // Phím mũi tên trái/phải để chuyển tuần (khi không mở modal / không gõ chữ)
+        document.addEventListener('keydown', e => {
+            if (document.querySelector('.modal-overlay.active')) return;
+            if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
+            if (e.key === 'ArrowLeft') goWeek(-1);
+            if (e.key === 'ArrowRight') goWeek(1);
+        });
+
+        renderWeek(0);
+
+        let currentSubj = '';
+        let currentCls = '';
+
+        function openClassDetails(subj, cls) {
+            currentSubj = subj;
+            currentCls = cls;
+            document.getElementById('detailClassTitle').innerText = `- ${subj} (${cls})`;
+            document.getElementById('classDetailsModal').classList.add('active');
+        }
+        function closeClassDetails() {
+            document.getElementById('classDetailsModal').classList.remove('active');
+        }
+        function openAbsenceFromDetails() {
+            closeClassDetails();
+            openAbsenceModal(currentSubj, currentCls);
+        }
+
         function openAbsenceModal(subj, cls) {
             document.getElementById('absenceClassInfo').value = `${subj} - ${cls}`;
             document.getElementById('absenceModal').classList.add('active');
@@ -216,8 +1094,5 @@
         }
     </script>
 </body>
+
 </html>
-
-
-
-

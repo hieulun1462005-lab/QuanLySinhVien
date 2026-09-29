@@ -173,6 +173,15 @@
             text-align: center;
         }
 
+        .login-title-h4 {
+            font-size: 16px;
+            font-weight: 700;
+            font-style: italic;
+            color: white;
+            line-height: 1.2;
+            text-align: center;
+        }
+
         .login-desc {
             font-size: 13px;
             color: var(--text-light);
@@ -655,10 +664,12 @@
                 <div class="login-intro">
 
                     <h2 class="login-title">Đăng nhập<br></h2>
+                    <h4 class="login-title-h4">Quản trị hệ thống<br></h4>
                     <p class="login-desc"></p>
                 </div>
 
-                <form class="login-form" onsubmit="event.preventDefault(); window.location.href='../MH_Admin_Mockup/MH-00-1-TongQuanHeThong.html';">
+                <form class="login-form"
+                    onsubmit="event.preventDefault(); window.location.href='../MH_Admin_Mockup/MH-00-1-TongQuanHeThong.html';">
                     <div class="form-field" style="margin-bottom: 8px;">
                     </div>
 
@@ -692,7 +703,7 @@
                         <i data-lucide="arrow-right" size="18"></i>
                     </button>
 
-                    <a href="Login.html"
+                    <a href="MH-00-6-DangNhapGiangVien.html"
                         style="display: block; text-align: center; margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 13px; text-decoration: none; transition: color 0.2s;"
                         onmouseover="this.style.color='#fff'"
                         onmouseout="this.style.color='rgba(255,255,255,0.7)'">&larr; Quay lại Đăng nhập chung</a>

@@ -1,4 +1,4 @@
-**TÀI LIỆU YÊU CẦU NGHIỆP VỤ — CHI TIẾT PHÂN HỆ**
+**TTÀI LIỆU YÊU CẦU NGHIỆP VỤ — CHI TIẾT PHÂN HỆ**
 
 MODULE BUSINESS REQUIREMENTS DOCUMENT
 
@@ -30,10 +30,10 @@ _Tài liệu yêu cầu nghiệp vụ cho Hệ thống Quản Lý Sinh Viên_
 | --- | --- |
 | Tên dự án | Xây dựng Hệ thống Quản Lý Sinh Viên (QLSV) |
 | Loại tài liệu | Business Requirements Document — Chi tiết phân hệ |
-| Mã tài liệu | BRD-QLSV-v5.2 |
-| Phiên bản | 5.2 |
+| Mã tài liệu | BRD-QLSV-v5.1 |
+| Phiên bản | 5.1 |
 | Trạng thái | Chờ phê duyệt |
-| Ngày phát hành | 29/09/2026 |
+| Ngày phát hành | 28/09/2026 |
 | Đơn vị xây dựng | ONENET |
 | Mức độ mật | Nội bộ — Hạn chế |
 
@@ -50,7 +50,6 @@ _Tài liệu yêu cầu nghiệp vụ cho Hệ thống Quản Lý Sinh Viên_
 | 4.0 | 21/09/2026 | Khánh, Hiếu | Review toàn diện: Thống nhất KPI/NFR, bổ sung Glossary, thêm bảng Giảng viên (TT-17) & Notification (TT-18), bổ sung BR-042→BR-047, UC-14/UC-15, hoàn thiện Tiêu chí Nghiệm thu, sửa RBAC & State Machine, thêm DateOfBirth/Semester vào Data Dictionary, tách bảng PreRequisite & Grade Weight, làm rõ PWA cho QR. |
 | 5.0 | 23/09/2026 | Khánh, Hiếu | Tái cấu trúc toàn diện theo template BRD chuẩn: chuẩn hóa mã định danh, sửa tham chiếu chéo UC/BR/NFR, đồng nhất bảng markdown, bổ sung BR-048→BR-051, đánh lại NFR liên tục, sửa ma trận truy vết & tiêu chí nghiệm thu, bổ sung mục Tài liệu tham chiếu. |
 | 5.1 | 28/09/2026 | Khánh, Hiếu | Chuẩn hóa quy ước đặt tên file Mockup, cập nhật mã định danh màn hình (UI). |
-| 5.2 | 29/09/2026 | Khánh, Hiếu | Đối chiếu toàn diện BRD với 36 file Mockup thực tế: sửa xung đột mã MH-04-1 (tách SV thành MH-04-1b), cập nhật MH-03-3 đúng tên file QRDiemDanh, bổ sung 2 màn hình MH-01-5/MH-01-6 thiếu, sửa ma trận truy vết, chuẩn hóa tên màn hình khớp mockup. |
 
 ## Phê duyệt tài liệu
 
@@ -188,7 +187,7 @@ CHƯƠNG 9. MA TRẬN PHÂN QUYỀN (RBAC) 38
 
 CHƯƠNG 10. DANH SÁCH MÀN HÌNH UI THEO PHÂN HỆ 39
 
-10.1. Các màn hình Hệ thống và Chung (Dashboard & Đăng nhập) 39
+10.1. Dashboard Chung 39
 
 10.2. Module 1: Quản lý Sinh viên (QLSV-01) 40
 
@@ -243,7 +242,7 @@ Mọi đối tượng trong tài liệu đều có mã định danh duy nhất, 
 | Tiêu chí nghiệm thu UC | &lt;mã UC&gt;.NT&lt;2 số&gt; | UC-01.NT01 | Tiêu chí nghiệm thu thứ 1 của UC-01 |
 | Thực thể nghiệp vụ | TT-&lt;2 số&gt; | TT-01 | Hồ sơ Sinh viên |
 | Vai trò / Tác nhân | VT-&lt;2 số&gt; | VT-01 | Quản nhiệm |
-| Màn hình UI | MH-&lt;Module&gt;-&lt;số&gt; | MH-01-2-TiepNhanHoSoSinhVien | Màn hình Import hồ sơ SV |
+| Màn hình UI | MH-&lt;Module&gt;-&lt;số&gt; | MH-01-1-ImportHoSoSinhVien | Màn hình Import hồ sơ SV |
 | Điểm tích hợp | TH-&lt;2 số&gt; | TH-01 | Tích hợp Payment Gateway |
 | Yêu cầu phi chức năng | NFR-&lt;2 số&gt; | NFR-01 | Hiệu năng đăng nhập |
 
@@ -1005,8 +1004,6 @@ _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Khô
 | MH-01-2-TiepNhanHoSoSinhVien | Tiếp nhận hồ sơ sinh viên mới | VT-01 | Import Excel/CSV, tạo tài khoản | UC-02 |
 | MH-01-3-CapNhatTrangThaiHocTap | Cập nhật trạng thái học tập | VT-01 | Sửa trạng thái SV | UC-03 |
 | MH-01-4-PhanBoSinhVienVaoLop | Phân bổ sinh viên vào lớp chuyên ngành | VT-01 | Phân lớp tự động/thủ công | UC-04 |
-| MH-01-5-DanhSachLop | Danh sách lớp chuyên ngành | VT-01 | Xem, lọc, quản lý danh sách lớp | UC-04 |
-| MH-01-6-DanhSachSinhVienTrongLop | Danh sách sinh viên trong lớp | VT-01 | Xem chi tiết sĩ số & danh sách SV theo lớp | UC-04 |
 
 ## 10.3. Module 2: Đào tạo & TKB (QLSV-02)
 
@@ -1023,17 +1020,16 @@ _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Khô
 
 | **Mã MH (Tên File)** | **Màn hình** | **Vai trò** | **Chức năng chính** | **UC** |
 | --- | --- | --- | --- | --- |
-| MH-03-1-DiemDanhLopHoc | Điểm danh Lớp học | VT-02 | Mở/đóng phiên QR, hiển thị QR động | UC-09 |
-| MH-03-2-BaoCaoDiemDanh | Báo cáo điểm danh | VT-03 | Xem tỉ lệ đi học theo từng môn, cảnh báo vắng mặt | UC-09 |
-| MH-03-3-QRDiemDanh | Lịch học trong ngày & Quét QR điểm danh | VT-03 | Xem lịch học, quét QR qua camera (SV) | UC-09 |
+| MH-03-1-DiemDanhLopHoc | Điểm danh Lớp học | VT-02 | Mở/đóng phiên QR | UC-09 |
+| MH-03-2-BaoCaoDiemDanh | Báo cáo điểm danh | VT-03 | Quét QR qua camera (SV) | UC-09 |
+| MH-03-3-LichHocTrongNgay | Lịch học trong ngày | VT-03 | Xem lịch để điểm danh | UC-09 |
 
 ## 10.5. Module 4: Quản lý Điểm & Khảo thí (QLSV-04)
 
 | **Mã MH (Tên File)** | **Màn hình** | **Vai trò** | **Chức năng chính** | **UC** |
 | --- | --- | --- | --- | --- |
 | MH-04-1-CapNhatDiemQuaTrinh | Cập nhật điểm quá trình | VT-02 | Grid nhập điểm TP (GV) | UC-10 |
-| MH-04-1b-ChuongTrinhDaoTao | Khung chương trình & Quản lý môn học (SV) | VT-03 | Xem CTDT theo học kỳ, thông tin môn học | UC-06 |
-| MH-04-2-KetQuaHocTap | Kết quả học tập | VT-03 | Xem điểm tổng hợp, bảng điểm cá nhân | UC-11 |
+| MH-04-2-KetQuaHocTap | Kết quả học tập | VT-03 | Xem điểm tổng hợp | UC-11 |
 | MH-04-3-LichThi | Lịch thi (Exam Schedule) | VT-03 | Xem lịch thi cá nhân | UC-10, UC-11 |
 
 ## 10.6. Module 5: Dịch vụ Hành chính (QLSV-05)
@@ -1155,21 +1151,21 @@ Danh mục dùng chung (Master Data) bao gồm dữ liệu tham chiếu ít bi�
 
 | **Mục tiêu** | **Phân hệ** | **UC** | **BR** | **NFR** | **Màn hình** |
 | --- | --- | --- | --- | --- | --- |
-| G-01: Tự động hóa QL Sinh viên | QLSV-01 | UC-01, UC-02, UC-03, UC-04 | BR-001→005b | NFR-01, NFR-02 | MH-01-1→MH-01-6 |
-| G-02: Số hóa CTĐT & TKB | QLSV-02 | UC-05, UC-06, UC-07, UC-08 | BR-006→012 | NFR-04, NFR-05 | MH-02-1→MH-02-6 |
-| G-03: Hiện đại hóa điểm danh | QLSV-03 | UC-09 | BR-013→018 | NFR-03, NFR-12 | MH-03-1→MH-03-3 |
-| G-04: Minh bạch QL Điểm | QLSV-04 | UC-10, UC-11, UC-12 | BR-019→025c, BR-036→042 | NFR-06, NFR-13 | MH-04-1→MH-04-3, MH-04-1b |
-| G-05: Số hóa hành chính | QLSV-05 | UC-13, UC-14, UC-15 | BR-026→029, BR-048 | NFR-07, NFR-16 | MH-05-1→MH-05-5 |
-| G-06: Tích hợp Payment | QLSV-06 | UC-16 | BR-030→035, BR-045→046 | NFR-08, NFR-09 | MH-06-1→MH-06-2 |
-| Xuyên suốt: Bảo mật & Audit | Toàn hệ | UC-01 | BR-047→051 | NFR-10→15 | MH-00-1→MH-00-9 |
+| G-01: Tự động hóa QL Sinh viên | QLSV-01 | UC-01, UC-02, UC-03, UC-04 | BR-001→005b | NFR-01, NFR-02 | MH-01-1-ImportHoSoSinhVien→3 |
+| G-02: Số hóa CTĐT & TKB | QLSV-02 | UC-05, UC-06, UC-07, UC-08 | BR-006→012 | NFR-04, NFR-05 | MH-02-1-QuanLyMonHocCTDT→6 |
+| G-03: Hiện đại hóa điểm danh | QLSV-03 | UC-09 | BR-013→018 | NFR-03, NFR-12 | MH-03-1-MoPhienDiemDanhQR→3 |
+| G-04: Minh bạch QL Điểm | QLSV-04 | UC-10, UC-11, UC-12 | BR-019→025c, BR-036→042 | NFR-06, NFR-13 | MH-04-1-NhapImportDiem→4 |
+| G-05: Số hóa hành chính | QLSV-05 | UC-13, UC-14, UC-15 | BR-026→029, BR-048 | NFR-07, NFR-16 | MH-05-1-NopDonTuTrucTuyen→4 |
+| G-06: Tích hợp Payment | QLSV-06 | UC-16 | BR-030→035, BR-045→046 | NFR-08, NFR-09 | MH-06-1-HoaDonThanhToan→3 |
+| Xuyên suốt: Bảo mật & Audit | Toàn hệ | UC-01 | BR-047→051 | NFR-10→15 | —   |
 
 ## 16.2. Kết luận
 
 Tài liệu này thiết lập khung nghiệp vụ chi tiết đầy đủ cho Hệ thống Quản Lý Sinh Viên: mã định danh chuẩn hóa, 16 quy trình nghiệp vụ đầu–cuối theo template, bảng trạng thái các thực thể chính, ma trận phân quyền theo vai trò, danh sách màn hình theo phân hệ, tiêu chí nghiệm thu và yêu cầu phi chức năng có ngưỡng đo cụ thể. Đây là cơ sở vững chắc để suy ra các tài liệu FRD/SRS, thiết kế UI/UX, API, test case và kế hoạch triển khai.
 
-**Trạng thái tài liệu:** Chờ phê duyệt — Phiên bản 5.2
+**Trạng thái tài liệu:** Chờ phê duyệt — Phiên bản 5.0
 
-**Ngày cập nhật:** 29/09/2026
+**Ngày cập nhật:** 23/09/2026
 
 **Người cập nhật:** Hiếu, Khánh
 

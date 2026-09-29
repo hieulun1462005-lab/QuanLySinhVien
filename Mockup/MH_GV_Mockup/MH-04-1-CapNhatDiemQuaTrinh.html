@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -79,9 +79,24 @@
         <main class="dashboard-content">
             <div class="page-header">
                 <h1 class="page-title">Cập nhật điểm quá trình</h1>
-                <button class="btn btn-primary" onclick="alert('Lưu bảng điểm thành công!')">
-                    <i data-lucide="save" size="18"></i> Lưu bảng điểm
-                </button>
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn" style="background: white; border: 1px solid var(--border); color: var(--text-dark);" onclick="alert('Mở hộp thoại Import Điểm')">
+                        <i data-lucide="upload" size="18"></i> Import Điểm
+                    </button>
+                    <div style="display: flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: white;">
+                        <select style="border: none; outline: none; padding: 0 12px; font-family: inherit; font-size: 14px; font-weight: 500; background: transparent; border-right: 1px solid var(--border); cursor: pointer;">
+                            <option>Export as Excel (.xlsx)</option>
+                            <option>Export as CSV (.csv)</option>
+                            <option>Export as PDF (.pdf)</option>
+                        </select>
+                        <button class="btn" style="background: transparent; border-radius: 0; color: var(--text-dark);" onclick="alert('Đang tải xuống báo cáo...')">
+                            <i data-lucide="download" size="18"></i> Export
+                        </button>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Lưu bảng điểm thành công!')">
+                        <i data-lucide="save" size="18"></i> Lưu bảng điểm
+                    </button>
+                </div>
             </div>
             <div class="card">
                 <div class="toolbar">

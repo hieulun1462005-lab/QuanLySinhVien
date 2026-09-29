@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -205,8 +206,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Cards */
@@ -218,7 +226,7 @@
             margin-bottom: 24px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
         }
-        
+
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -353,11 +361,30 @@
             gap: 4px;
         }
 
-        .badge-success { background: #E6F4EA; color: #1E8E3E; }
-        .badge-danger { background: #FCE8E6; color: #D32F2F; }
-        .badge-warning { background: #FFF3E0; color: #F57C00; }
-        .badge-primary { background: #EAF4FF; color: var(--primary); }
-        .badge-purple { background: #F3E8FD; color: #8E24AA; }
+        .badge-success {
+            background: #E6F4EA;
+            color: #1E8E3E;
+        }
+
+        .badge-danger {
+            background: #FCE8E6;
+            color: #D32F2F;
+        }
+
+        .badge-warning {
+            background: #FFF3E0;
+            color: #F57C00;
+        }
+
+        .badge-primary {
+            background: #EAF4FF;
+            color: var(--primary);
+        }
+
+        .badge-purple {
+            background: #F3E8FD;
+            color: #8E24AA;
+        }
 
         .action-btns {
             display: flex;
@@ -383,13 +410,13 @@
             color: var(--primary);
             border-color: var(--primary-light);
         }
-        
+
         .btn-icon.danger:hover {
             color: var(--danger);
             border-color: #FEE2E2;
             background: #FEF2F2;
         }
-        
+
         .btn-icon.success:hover {
             color: var(--success);
             border-color: #DCFCE7;
@@ -440,7 +467,7 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
             transition: transform 0.2s;
         }
-        
+
         .stat-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -476,79 +503,121 @@
         /* Modals */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: flex; justify-content: center; align-items: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             z-index: 1000;
-            opacity: 0; visibility: hidden;
+            opacity: 0;
+            visibility: hidden;
             transition: all 0.3s;
         }
+
         .modal-overlay.active {
-            opacity: 1; visibility: visible;
+            opacity: 1;
+            visibility: visible;
         }
+
         .modal-content {
             background: white;
             width: 500px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transform: translateY(20px);
             transition: all 0.3s;
             overflow: hidden;
         }
+
         .modal-overlay.active .modal-content {
             transform: translateY(0);
         }
+
         .modal-header {
             padding: 20px 24px;
             border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
         .modal-title {
-            font-size: 18px; font-weight: 600;
+            font-size: 18px;
+            font-weight: 600;
         }
+
         .modal-body {
             padding: 24px;
         }
+
         .modal-footer {
             padding: 16px 24px;
             background: #F8FAFC;
             border-top: 1px solid var(--border);
-            display: flex; justify-content: flex-end; gap: 12px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
         }
 
         /* Toast Notifications */
         .toast-container {
             position: fixed;
-            bottom: 24px; right: 24px;
-            display: flex; flex-direction: column; gap: 10px;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
             z-index: 2000;
         }
+
         .toast {
             background: white;
             border-left: 4px solid var(--primary);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 16px 20px;
             border-radius: 8px;
-            display: flex; align-items: center; gap: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             transform: translateX(120%);
             animation: slideIn 0.3s forwards;
             min-width: 300px;
         }
-        .toast.success { border-left-color: var(--success); }
-        .toast.warning { border-left-color: var(--warning); }
-        .toast.danger { border-left-color: var(--danger); }
+
+        .toast.success {
+            border-left-color: var(--success);
+        }
+
+        .toast.warning {
+            border-left-color: var(--warning);
+        }
+
+        .toast.danger {
+            border-left-color: var(--danger);
+        }
 
         @keyframes slideIn {
-            to { transform: translateX(0); }
+            to {
+                transform: translateX(0);
+            }
         }
+
         .toast.hide {
             animation: slideOut 0.3s forwards;
         }
+
         @keyframes slideOut {
-            to { transform: translateX(120%); opacity: 0; }
+            to {
+                transform: translateX(120%);
+                opacity: 0;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- DASHBOARD HEADER -->
@@ -575,7 +644,7 @@
 
     <!-- DASHBOARD LAYOUT -->
     <div class="dashboard-container">
-        
+
         <!-- SIDEBAR -->
         <div class="sidebar">
             <div class="menu-group">
@@ -605,13 +674,15 @@
 
         <!-- MAIN CONTENT -->
         <div class="main-content">
-            <h1 class="page-title" id="pageTitle">T?ng quan h? th?ng</h1>
-            
+            <h1 class="page-title" id="pageTitle">Tổng quan hệ thống</h1>
+
             <!-- SECTION: TỔNG QUAN -->
             <div id="section-dashboard" class="content-section active">
                 <div style="margin-bottom: 24px;">
-                    <h2 style="font-size: 20px; font-weight: 700; color: var(--text-dark);">Xin chào, Nguyễn Quản Trị 👋</h2>
-                    <p style="color: var(--text-gray); font-size: 14px;">Dưới đây là tóm tắt tình trạng hoạt động của hệ thống ONENET ngày hôm nay.</p>
+                    <h2 style="font-size: 20px; font-weight: 700; color: var(--text-dark);">Xin chào, Nguyễn Quản Trị 👋
+                    </h2>
+                    <p style="color: var(--text-gray); font-size: 14px;">Dưới đây là tóm tắt tình trạng hoạt động của hệ
+                        thống ONENET ngày hôm nay.</p>
                 </div>
 
                 <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
@@ -661,30 +732,37 @@
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 16px;">
                             <div>
-                                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 8px;">
+                                <div
+                                    style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 8px;">
                                     <span>Sinh viên</span>
                                     <span>8,450 (78%)</span>
                                 </div>
                                 <div style="height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;">
-                                    <div style="height: 100%; background: var(--primary); width: 78%; border-radius: 4px;"></div>
+                                    <div
+                                        style="height: 100%; background: var(--primary); width: 78%; border-radius: 4px;">
+                                    </div>
                                 </div>
                             </div>
                             <div>
-                                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 8px;">
+                                <div
+                                    style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 8px;">
                                     <span>Giảng viên</span>
                                     <span>1,250 (12%)</span>
                                 </div>
                                 <div style="height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;">
-                                    <div style="height: 100%; background: #1E8E3E; width: 12%; border-radius: 4px;"></div>
+                                    <div style="height: 100%; background: #1E8E3E; width: 12%; border-radius: 4px;">
+                                    </div>
                                 </div>
                             </div>
                             <div>
-                                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 8px;">
+                                <div
+                                    style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 8px;">
                                     <span>Nhân viên / Khác</span>
                                     <span>1,080 (10%)</span>
                                 </div>
                                 <div style="height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;">
-                                    <div style="height: 100%; background: #F57C00; width: 10%; border-radius: 4px;"></div>
+                                    <div style="height: 100%; background: #F57C00; width: 10%; border-radius: 4px;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -696,20 +774,29 @@
                             <div class="card-title">Cảnh báo & Chú ý</div>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <div style="display: flex; gap: 12px; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px dashed var(--border);">
-                                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--danger); margin-top: 6px;"></div>
+                            <div
+                                style="display: flex; gap: 12px; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px dashed var(--border);">
+                                <div
+                                    style="width: 8px; height: 8px; border-radius: 50%; background: var(--danger); margin-top: 6px;">
+                                </div>
                                 <div>
-                                    <div style="font-size: 13px; font-weight: 600; color: var(--text-dark);">Đăng nhập sai 5 lần</div>
+                                    <div style="font-size: 13px; font-weight: 600; color: var(--text-dark);">Đăng nhập
+                                        sai 5 lần</div>
                                     <div style="font-size: 12px; color: var(--text-gray);">Tài khoản: GV2015002</div>
-                                    <div style="font-size: 11px; color: var(--text-gray); margin-top: 4px;">10 phút trước</div>
+                                    <div style="font-size: 11px; color: var(--text-gray); margin-top: 4px;">10 phút
+                                        trước</div>
                                 </div>
                             </div>
                             <div style="display: flex; gap: 12px; align-items: flex-start;">
-                                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--warning); margin-top: 6px;"></div>
+                                <div
+                                    style="width: 8px; height: 8px; border-radius: 50%; background: var(--warning); margin-top: 6px;">
+                                </div>
                                 <div>
-                                    <div style="font-size: 13px; font-weight: 600; color: var(--text-dark);">Dung lượng DB > 80%</div>
+                                    <div style="font-size: 13px; font-weight: 600; color: var(--text-dark);">Dung lượng
+                                        DB > 80%</div>
                                     <div style="font-size: 12px; color: var(--text-gray);">Cần dọn dẹp log file cũ</div>
-                                    <div style="font-size: 11px; color: var(--text-gray); margin-top: 4px;">2 giờ trước</div>
+                                    <div style="font-size: 11px; color: var(--text-gray); margin-top: 4px;">2 giờ trước
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -729,7 +816,8 @@
                     <div class="filter-bar">
                         <div class="search-box">
                             <i data-lucide="search" size="18" color="#8794A8"></i>
-                            <input type="text" id="accSearch" placeholder="Tìm kiếm tên, mã số, email..." oninput="renderAccounts()">
+                            <input type="text" id="accSearch" placeholder="Tìm kiếm tên, mã số, email..."
+                                oninput="renderAccounts()">
                         </div>
                         <select class="form-input" id="accRoleFilter" style="width: 200px;" onchange="renderAccounts()">
                             <option value="">Tất cả vai trò</option>
@@ -739,7 +827,8 @@
                             <option value="Cán bộ quản nhiệm">Cán bộ quản nhiệm</option>
                             <option value="Kế toán">Kế toán</option>
                         </select>
-                        <select class="form-input" id="accStatusFilter" style="width: 150px;" onchange="renderAccounts()">
+                        <select class="form-input" id="accStatusFilter" style="width: 150px;"
+                            onchange="renderAccounts()">
                             <option value="">Trạng thái</option>
                             <option value="Hoạt động">Hoạt động</option>
                             <option value="Bị khóa">Bị khóa</option>
@@ -769,14 +858,16 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Kiểm soát hoạt động</div>
-                        <button class="btn btn-outline" onclick="showToast('Đã xuất báo cáo CSV thành công!', 'success')">
+                        <button class="btn btn-outline"
+                            onclick="showToast('Đã xuất báo cáo CSV thành công!', 'success')">
                             <i data-lucide="download" size="16"></i> Xuất báo cáo
                         </button>
                     </div>
                     <div class="filter-bar">
                         <div class="search-box">
                             <i data-lucide="search" size="18" color="#8794A8"></i>
-                            <input type="text" id="logSearch" placeholder="Tìm kiếm người thao tác..." oninput="renderLogs()">
+                            <input type="text" id="logSearch" placeholder="Tìm kiếm người thao tác..."
+                                oninput="renderLogs()">
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -799,7 +890,7 @@
 
             <!-- SECTION: BACKUP & RESTORE -->
             <div id="section-backup" class="content-section">
-                
+
                 <!-- Stats -->
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -835,7 +926,7 @@
                     <div class="card-header">
                         <div class="card-title">Tạo bản sao lưu mới</div>
                     </div>
-                    
+
                     <div class="form-grid" style="margin-bottom: 24px;">
                         <div class="form-group">
                             <label class="form-label">Tên bản sao lưu</label>
@@ -850,12 +941,13 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div style="display: flex; gap: 12px;">
                         <button class="btn btn-primary" onclick="createBackup()">
                             <i data-lucide="download-cloud" size="18"></i> Tiến hành sao lưu
                         </button>
-                        <button class="btn btn-outline" onclick="showToast('Tính năng đang được phát triển.', 'warning')">
+                        <button class="btn btn-outline"
+                            onclick="showToast('Tính năng đang được phát triển.', 'warning')">
                             <i data-lucide="settings" size="18"></i> Cấu hình tự động
                         </button>
                     </div>
@@ -867,9 +959,10 @@
                         <button class="btn btn-outline" onclick="document.getElementById('uploadFile').click()">
                             <i data-lucide="upload-cloud" size="16"></i> Tải lên file backup
                         </button>
-                        <input type="file" id="uploadFile" style="display: none;" accept=".sql,.bak,.zip" onchange="uploadBackup(this)">
+                        <input type="file" id="uploadFile" style="display: none;" accept=".sql,.bak,.zip"
+                            onchange="uploadBackup(this)">
                     </div>
-                    
+
                     <div class="table-responsive">
                         <table>
                             <thead>
@@ -946,12 +1039,16 @@
                         <div style="font-weight: 600; font-size: 16px;" id="viewName"></div>
                     </div>
                     <div>
-                        <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">Tên đăng nhập (Mã SV/GV)</div>
-                        <div style="font-family: monospace; font-size: 14px; background: #F8FAFC; padding: 8px; border-radius: 6px; border: 1px solid var(--border);" id="viewUsername"></div>
+                        <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">Tên đăng nhập (Mã
+                            SV/GV)</div>
+                        <div style="font-family: monospace; font-size: 14px; background: #F8FAFC; padding: 8px; border-radius: 6px; border: 1px solid var(--border);"
+                            id="viewUsername"></div>
                     </div>
                     <div>
-                        <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">Mật khẩu hiện tại</div>
-                        <div style="font-family: monospace; font-size: 14px; background: #F8FAFC; padding: 8px; border-radius: 6px; border: 1px solid var(--border);" id="viewPassword"></div>
+                        <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">Mật khẩu hiện tại
+                        </div>
+                        <div style="font-family: monospace; font-size: 14px; background: #F8FAFC; padding: 8px; border-radius: 6px; border: 1px solid var(--border);"
+                            id="viewPassword"></div>
                     </div>
                 </div>
             </div>
@@ -970,7 +1067,7 @@
             lucide.createIcons();
         }
         refreshIcons();
-        
+
         function switchMenu(sectionId, element, title) {
             document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
             element.classList.add('active');
@@ -1003,7 +1100,7 @@
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
-            
+
             let icon = 'check-circle';
             if (type === 'warning') icon = 'alert-triangle';
             if (type === 'danger') icon = 'x-circle';
@@ -1037,7 +1134,7 @@
         }
 
         function getRoleBadgeColor(role) {
-            switch(role) {
+            switch (role) {
                 case 'Admin': return 'badge-primary';
                 case 'Sinh viên': return 'badge-purple';
                 case 'Giảng viên': return 'badge-primary';
@@ -1055,7 +1152,7 @@
             const statusFilter = document.getElementById('accStatusFilter').value;
 
             tbody.innerHTML = '';
-            
+
             let filtered = accounts.filter(acc => {
                 const matchSearch = acc.name.toLowerCase().includes(searchText) || acc.username.toLowerCase().includes(searchText) || acc.email.toLowerCase().includes(searchText);
                 const matchRole = roleFilter ? acc.role === roleFilter : true;
@@ -1069,7 +1166,7 @@
             }
 
             filtered.forEach(acc => {
-                const statusHtml = acc.status === 'Hoạt động' 
+                const statusHtml = acc.status === 'Hoạt động'
                     ? `<span class="badge badge-success"><i data-lucide="check-circle" size="12"></i> Hoạt động</span>`
                     : `<span class="badge badge-danger"><i data-lucide="x-circle" size="12"></i> Bị khóa</span>`;
 
@@ -1208,9 +1305,9 @@
         function renderLogs() {
             const tbody = document.getElementById('logTableBody');
             const searchText = document.getElementById('logSearch').value.toLowerCase();
-            
+
             tbody.innerHTML = '';
-            
+
             let filtered = logs.filter(l => l.user.toLowerCase().includes(searchText) || l.action.toLowerCase().includes(searchText));
 
             if (filtered.length === 0) {
@@ -1236,7 +1333,7 @@
         function renderBackups() {
             const tbody = document.getElementById('backupTableBody');
             tbody.innerHTML = '';
-            
+
             if (backups.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-gray); padding: 32px;">Chưa có bản sao lưu nào</td></tr>`;
             }
@@ -1261,8 +1358,8 @@
                 tbody.appendChild(tr);
             });
             refreshIcons();
-            
-            if(backups.length > 0) {
+
+            if (backups.length > 0) {
                 document.getElementById('lastBackupTime').innerText = backups[0].time;
             } else {
                 document.getElementById('lastBackupTime').innerText = '--/--/----';
@@ -1272,7 +1369,7 @@
         function createBackup() {
             const nameInput = document.getElementById('backupNameInput');
             const typeInput = document.getElementById('backupTypeInput');
-            
+
             const name = nameInput.value.trim() || `Backup_Manual_${new Date().getTime()}`;
             const typeStr = typeInput.value === 'Full Backup' ? 'Full Backup' : 'Partial Backup';
 
@@ -1288,10 +1385,10 @@
             backups.unshift(newBackup); // Add to top
             showToast('Đã tạo bản sao lưu dữ liệu mới thành công!', 'success');
             addLog('Tạo bản sao lưu', `File: ${newBackup.name}\nType: ${typeStr}\nSize: ${newBackup.size}`, 'success');
-            
+
             // Auto generate next name suggestion
-            nameInput.value = `Backup_Manual_${new Date().getDate().toString().padStart(2, '0')}${(new Date().getMonth()+1).toString().padStart(2, '0')}${new Date().getFullYear()}_${Math.floor(Math.random()*100)}`;
-            
+            nameInput.value = `Backup_Manual_${new Date().getDate().toString().padStart(2, '0')}${(new Date().getMonth() + 1).toString().padStart(2, '0')}${new Date().getFullYear()}_${Math.floor(Math.random() * 100)}`;
+
             renderBackups();
         }
 
@@ -1345,7 +1442,5 @@
 
     </script>
 </body>
+
 </html>
-
-
-
