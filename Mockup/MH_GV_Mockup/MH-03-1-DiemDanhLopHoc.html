@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -859,9 +859,15 @@
                 </div>
             </a>
         </div>
-        <div class="user-profile" onclick="window.location.href='MH-05-3-QuanLyHoSoGiangVien.html'">
+        <div class="header-right" style="display: flex; align-items: center; gap: 16px;">
+<div class="user-profile" onclick="window.location.href='MH-05-3-QuanLyHoSoGiangVien.html'">
             <div class="user-info"><span class="name">Lê Văn Bình</span><span class="role">Giảng viên (IT)</span></div>
             <div class="avatar">B</div>
+        </div>
+                <button class="logout-btn" onclick="window.location.href='../MH_Chung_Mockup/MH-00-6-DangNhapGiangVien.html'" style="background: transparent; border: 1px solid #E2E8F0; color: #64748B; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.background='#FEF2F2'; this.style.borderColor='#FECACA'; this.style.color='#DC2626'" onmouseout="this.style.background='transparent'; this.style.borderColor='#E2E8F0'; this.style.color='#64748B'">
+                <i data-lucide="log-out" size="14"></i>
+                Đăng xuất
+            </button>
         </div>
     </header>
 
@@ -1057,7 +1063,7 @@
 
         $('save').onclick = () => {
             const rs = rowsOf();
-            const bad = rs.filter(r => r.src === 'manual' && !r.reason.trim());
+            const bad = rs.filter(r => r.src === 'manual' && r.reason.trim().length < 5);
             if (bad.length) {
                 rs.forEach(r => r.bad = bad.includes(r));
                 filter = 'all'; query = ''; $('q').value = ''; render();

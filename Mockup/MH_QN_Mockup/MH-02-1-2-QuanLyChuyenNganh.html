@@ -429,12 +429,18 @@
             <div class="emblem"><i data-lucide="book-open" size="20"></i></div>
             <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
         </a>
-        <div class="user-profile" onclick="window.location.href='MH-05-1-HoSoCanBoQuanNhiem.html'">
+        <div class="header-right" style="display: flex; align-items: center; gap: 16px;">
+<div class="user-profile" onclick="window.location.href='MH-05-1-HoSoCanBoQuanNhiem.html'">
             <div class="user-info">
                 <span class="name">Nguyễn Văn A</span>
                 <span class="role">Cán bộ quản nhiệm</span>
             </div>
             <div class="avatar">A</div>
+        </div>
+                        <button class="logout-btn" onclick="window.location.href='../MH_Chung_Mockup/MH-00-6-DangNhapGiangVien.html'" style="background: transparent; border: 1px solid #E2E8F0; color: #64748B; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.background='#FEF2F2'; this.style.borderColor='#FECACA'; this.style.color='#DC2626'" onmouseout="this.style.background='transparent'; this.style.borderColor='#E2E8F0'; this.style.color='#64748B'">
+                <i data-lucide="log-out" size="14"></i>
+                Đăng xuất
+            </button>
         </div>
     </header>
 
@@ -1100,6 +1106,13 @@
         // === Save Functions ===
         function saveLecturer() {
             const code = document.getElementById('gvCode').value || 'GV999';
+            
+            // Validate unique code
+            const existingLecturers = Array.from(document.querySelectorAll('#lecturerTableBody .code-badge')).map(el => el.textContent.trim().toLowerCase());
+            if (existingLecturers.includes(code.toLowerCase())) {
+                showToast('Mã giảng viên đã tồn tại!', 'error');
+                return;
+            }
             const name = document.getElementById('gvName').value || 'Giảng viên mới';
             const dept = document.getElementById('gvDept').value || 'Khoa Mới';
             const email = document.getElementById('gvEmail').value || 'new@onenet.edu.vn';
@@ -1129,6 +1142,13 @@
 
         function saveMajor() {
             const code = document.getElementById('majorCode').value || 'NEW';
+            
+            // Validate unique code
+            const existingMajors = Array.from(document.querySelectorAll('#majorTableBody .code-badge')).map(el => el.textContent.trim().toLowerCase());
+            if (existingMajors.includes(code.toLowerCase())) {
+                showToast('Mã chuyên ngành đã tồn tại!', 'error');
+                return;
+            }
             const name = document.getElementById('majorName').value || 'Chuyên ngành mới';
             const desc = document.getElementById('majorDesc').value || '...';
 
@@ -1154,6 +1174,13 @@
 
         function saveSubject() {
             const code = document.getElementById('formSubjCode').value || 'NEW101';
+            
+            // Validate unique code
+            const existingSubjects = Array.from(document.querySelectorAll('#subjectTableBody .code-badge')).map(el => el.textContent.trim().toLowerCase());
+            if (existingSubjects.includes(code.toLowerCase())) {
+                showToast('Mã môn học đã tồn tại!', 'error');
+                return;
+            }
             const name = document.getElementById('formSubjName').value || 'Môn học mới';
             const credits = document.getElementById('formCredits').value || '3';
             const major = document.getElementById('formMajor').value || 'SE';
@@ -1227,3 +1254,4 @@
     </script>
 </body>
 </html>
+

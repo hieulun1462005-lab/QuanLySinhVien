@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -144,12 +144,18 @@
             <div class="emblem"><i data-lucide="book-open"></i></div>
             <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
         </a>
-        <div class="user-profile" onclick="window.location.href='MH-05-1-HoSoCanBoQuanNhiem.html'">
+        <div class="header-right" style="display: flex; align-items: center; gap: 16px;">
+<div class="user-profile" onclick="window.location.href='MH-05-1-HoSoCanBoQuanNhiem.html'">
             <div class="user-info">
                 <span class="name">Nguyễn Văn A</span>
                 <span class="role">Cán bộ quản nhiệm</span>
             </div>
             <div class="avatar">A</div>
+        </div>
+                        <button class="logout-btn" onclick="window.location.href='../MH_Chung_Mockup/MH-00-6-DangNhapGiangVien.html'" style="background: transparent; border: 1px solid #E2E8F0; color: #64748B; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.background='#FEF2F2'; this.style.borderColor='#FECACA'; this.style.color='#DC2626'" onmouseout="this.style.background='transparent'; this.style.borderColor='#E2E8F0'; this.style.color='#64748B'">
+                <i data-lucide="log-out" size="14"></i>
+                Đăng xuất
+            </button>
         </div>
     </header>
 
@@ -210,13 +216,19 @@
             </div>
 
             <div class="filter-bar">
-                <label style="font-weight: 600; color: var(--text-dark);">Hiển thị theo chuyên ngành:</label>
-                <select class="select-control" onchange="filterMajor(this.value)">
+                <label style="font-weight: 600; color: var(--text-dark);">Chuyên ngành:</label>
+                <select class="select-control" id="majorSelect" onchange="filterData()">
                     <option value="SE">Kỹ thuật phần mềm (Software Engineering)</option>
                     <option value="AI">Trí tuệ nhân tạo (Artificial Intelligence)</option>
                     <option value="IB">Kinh doanh quốc tế (International Business)</option>
                 </select>
-                <span style="margin-left: auto; color: var(--text-gray); font-size: 14px;">Tổng cộng <strong>5</strong> môn học</span>
+                <label style="font-weight: 600; color: var(--text-dark); margin-left: 16px;">Khóa:</label>
+                <select class="select-control" id="batchSelect" style="min-width: 150px;" onchange="filterData()">
+                    <option value="K18">Khóa K18</option>
+                    <option value="K17">Khóa K17</option>
+                    <option value="K16">Khóa K16</option>
+                </select>
+                <span style="margin-left: auto; color: var(--text-gray); font-size: 14px;">Tổng cộng <strong id="totalSubjects">5</strong> môn học</span>
             </div>
 
             <div class="table-container">
@@ -246,7 +258,7 @@
                             <td><span style="color: var(--text-gray); font-style: italic;">Không có</span></td>
                             <td>
                                 <div class="action-btns">
-                                    <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ"><i data-lucide="trash-2" size="18"></i></button>
+                                    <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ" onclick="deleteSubject(this)"><i data-lucide="trash-2" size="18"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -258,7 +270,7 @@
                             <td><span style="color: var(--text-gray); font-style: italic;">Không có</span></td>
                             <td>
                                 <div class="action-btns">
-                                    <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ"><i data-lucide="trash-2" size="18"></i></button>
+                                    <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ" onclick="deleteSubject(this)"><i data-lucide="trash-2" size="18"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -277,7 +289,7 @@
                             <td><span class="tag" style="display: inline-flex; margin: 0; padding: 2px 6px; font-size: 12px; background: #E2E8F0; color: var(--text-dark);">PRF192</span></td>
                             <td>
                                 <div class="action-btns">
-                                    <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ"><i data-lucide="trash-2" size="18"></i></button>
+                                    <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ" onclick="deleteSubject(this)"><i data-lucide="trash-2" size="18"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -289,7 +301,7 @@
                             <td><span class="tag" style="display: inline-flex; margin: 0; padding: 2px 6px; font-size: 12px; background: #E2E8F0; color: var(--text-dark);">PRF192</span></td>
                             <td>
                                 <div class="action-btns">
-                                    <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ"><i data-lucide="trash-2" size="18"></i></button>
+                                    <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ" onclick="deleteSubject(this)"><i data-lucide="trash-2" size="18"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -308,7 +320,7 @@
                             <td><span class="tag" style="display: inline-flex; margin: 0; padding: 2px 6px; font-size: 12px; background: #E2E8F0; color: var(--text-dark);">PRO192</span></td>
                             <td>
                                 <div class="action-btns">
-                                    <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ"><i data-lucide="trash-2" size="18"></i></button>
+                                    <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ" onclick="deleteSubject(this)"><i data-lucide="trash-2" size="18"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -356,17 +368,96 @@
             document.getElementById('addSubjectModal').classList.remove('active');
         }
 
+        function updateTotalSubjects() {
+            const count = document.querySelectorAll('#subjectTable .subject-badge').length;
+            const totalEl = document.getElementById('totalSubjects');
+            if (totalEl) {
+                totalEl.innerText = count;
+            }
+        }
+
         function simulateSaveToSemester() {
+            const selectEl = document.getElementById('semesterSubjectSelect');
+            const selectedVal = selectEl.value;
+            const selectedText = selectEl.options[selectEl.selectedIndex].text;
+            
+            if (!selectedVal) {
+                alert("Vui lòng chọn môn học!");
+                return;
+            }
+
+            // Validate that the subject only appears once
+            const existingSubjects = Array.from(document.querySelectorAll('#subjectTable .subject-badge'))
+                                          .map(el => el.textContent.trim().toUpperCase());
+
+            if (existingSubjects.includes(selectedVal.toUpperCase())) {
+                alert("Môn học này đã tồn tại trong khung chương trình! Mỗi môn chỉ được xuất hiện 1 lần.");
+                return;
+            }
+
+            const semesterName = document.getElementById('targetSemesterName').innerText;
+            const tableBody = document.getElementById('subjectTable');
+            const rows = Array.from(tableBody.querySelectorAll('tr'));
+            
+            let insertIndex = -1;
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                if (row.classList.contains('semester-group') && row.textContent.includes(semesterName)) {
+                    insertIndex = i;
+                    for (let j = i + 1; j < rows.length; j++) {
+                        if (rows[j].classList.contains('semester-group')) break;
+                        insertIndex = j;
+                    }
+                    break;
+                }
+            }
+
+            if (insertIndex !== -1) {
+                const subjectName = selectedText.split(' - ')[1] || selectedText;
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td><span class="subject-badge">${selectedVal}</span></td>
+                    <td style="font-weight: 500;">${subjectName}</td>
+                    <td>3</td>
+                    <td>30</td>
+                    <td><span style="color: var(--text-gray); font-style: italic;">Không có</span></td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-icon btn-delete" title="Gỡ khỏi học kỳ" onclick="deleteSubject(this)"><i data-lucide="trash-2" size="18"></i></button>
+                        </div>
+                    </td>
+                `;
+                
+                const nextRow = rows[insertIndex + 1];
+                if (nextRow) {
+                    tableBody.insertBefore(newRow, nextRow);
+                } else {
+                    tableBody.appendChild(newRow);
+                }
+                
+                lucide.createIcons();
+                updateTotalSubjects();
+                alert("Thêm môn học thành công!");
+            }
+
             // Close modal after fake save
             closeModals();
         }
 
-        function filterMajor(major) {
+        function deleteSubject(btn) {
+            if (confirm("Bạn có chắc chắn muốn gỡ môn học này?")) {
+                const row = btn.closest('tr');
+                row.remove();
+                updateTotalSubjects();
+            }
+        }
+
+        function filterData() {
+            const major = document.getElementById('majorSelect').value;
+            const batch = document.getElementById('batchSelect').value;
             // Filter logic
-            console.log('Lọc theo chuyên ngành:', major);
+            console.log('Lọc theo chuyên ngành:', major, 'khóa:', batch);
         }
     </script>
 </body>
 </html>
-
-

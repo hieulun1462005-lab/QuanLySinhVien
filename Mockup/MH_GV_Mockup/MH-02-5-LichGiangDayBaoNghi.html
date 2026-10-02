@@ -737,6 +737,68 @@
         .student-table tr:last-child td {
             border-bottom: none;
         }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 9999;
+        }
+        .toast {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid var(--primary);
+            width: 380px;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .toast.success { border-left-color: var(--success); }
+        .toast.error { border-left-color: var(--danger); }
+        .toast.warning { border-left-color: var(--warning); }
+        .toast-icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .toast.success .toast-icon { color: var(--success); }
+        .toast.error .toast-icon { color: var(--danger); }
+        .toast.warning .toast-icon { color: var(--warning); }
+        .toast-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .toast-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+        .toast-message {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.4;
+        }
+        .toast-close {
+            color: #94A3B8;
+            cursor: pointer;
+            transition: color 0.2s;
+            margin-top: 2px;
+        }
+        .toast-close:hover { color: var(--text-dark); }
     </style>
 </head>
 
@@ -746,9 +808,15 @@
             <div class="emblem"><i data-lucide="book-open"></i></div>
             <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
         </a>
-        <div class="user-profile" onclick="window.location.href='MH-05-3-QuanLyHoSoGiangVien.html'">
+        <div class="header-right" style="display: flex; align-items: center; gap: 16px;">
+<div class="user-profile" onclick="window.location.href='MH-05-3-QuanLyHoSoGiangVien.html'">
             <div class="user-info"><span class="name">Lê Văn Bình</span><span class="role">Giảng viên (IT)</span></div>
             <div class="avatar">B</div>
+        </div>
+                <button class="logout-btn" onclick="window.location.href='../MH_Chung_Mockup/MH-00-6-DangNhapGiangVien.html'" style="background: transparent; border: 1px solid #E2E8F0; color: #64748B; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.background='#FEF2F2'; this.style.borderColor='#FECACA'; this.style.color='#DC2626'" onmouseout="this.style.background='transparent'; this.style.borderColor='#E2E8F0'; this.style.color='#64748B'">
+                <i data-lucide="log-out" size="14"></i>
+                Đăng xuất
+            </button>
         </div>
     </header>
     <div class="dashboard-layout">
@@ -840,22 +908,22 @@
                 </div>
                 <div class="form-group">
                     <label>Đề xuất ngày học bù</label>
-                    <input type="date" class="form-control">
+                    <input type="date" class="form-control" id="makeupDate">
                 </div>
                 <div class="form-group">
                     <label>Đề xuất Slot học bù</label>
-                    <select class="form-control">
-                        <option>Slot 1 (07:30 - 09:50)</option>
-                        <option>Slot 2 (10:00 - 12:20)</option>
-                        <option>Slot 3 (12:50 - 15:10)</option>
-                        <option>Slot 4 (15:20 - 17:40)</option>
-                        <option>Slot 5 (17:50 - 20:10)</option>
+                    <select class="form-control" id="makeupSlot">
+                        <option value="0">Slot 1 (07:30 - 09:50)</option>
+                        <option value="1">Slot 2 (10:00 - 12:20)</option>
+                        <option value="2">Slot 3 (12:50 - 15:10)</option>
+                        <option value="3">Slot 4 (15:20 - 17:40)</option>
+                        <option value="4">Slot 5 (17:50 - 20:10)</option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline" onclick="closeAbsenceModal()">Hủy</button>
-                <button class="btn btn-primary" onclick="alert('Đã gửi yêu cầu Báo nghỉ!'); closeAbsenceModal();">Gửi
+                <button class="btn btn-primary" onclick="submitAbsenceRequest()">Gửi
                     Yêu Cầu</button>
             </div>
         </div>
@@ -930,8 +998,41 @@
         </div>
     </div>
 
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <script>
         lucide.createIcons();
+
+        function showToast(title, message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let iconName = 'check-circle';
+            if (type === 'error') iconName = 'alert-circle';
+            if (type === 'warning') iconName = 'alert-triangle';
+
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i data-lucide="${iconName}" size="20"></i>
+                </div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <i data-lucide="x" class="toast-close" size="16" onclick="this.parentElement.remove()"></i>
+            `;
+            
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
 
         /* ====== Lịch tuần ====== */
         const SLOTS = [
@@ -1091,6 +1192,57 @@
         }
         function closeAbsenceModal() {
             document.getElementById('absenceModal').classList.remove('active');
+        }
+
+        // --- Logic validate lịch báo nghỉ ---
+        const STUDENT_SCHEDULE_MOCK = {
+            'SE1501': { '0-1': 'CSD201', '2-1': 'CSD201', '1-2': 'OSG202', '3-2': 'OSG202' },
+            'SE1502': { '0-0': 'CSD201', '2-0': 'CSD201', '1-3': 'OSG202', '3-3': 'OSG202' },
+            'SE1503': { '0-2': 'CSD201', '2-2': 'CSD201', '1-4': 'OSG202', '3-4': 'OSG202' },
+            'AI1601': { '1-1': 'DBI202', '3-1': 'DBI202' }
+        };
+
+        function submitAbsenceRequest() {
+            const dateStr = document.getElementById('makeupDate').value;
+            const slot = document.getElementById('makeupSlot').value;
+
+            if (!dateStr) {
+                showToast('Lỗi nhập liệu', 'Vui lòng chọn ngày học bù!', 'error');
+                return;
+            }
+
+            const selectedDate = new Date(dateStr);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (selectedDate <= today) {
+                showToast('Lỗi thời gian', 'Ngày học bù phải sau ngày hiện tại!', 'error');
+                return;
+            }
+
+            // Tính thứ (0 = Thứ 2, 6 = Chủ Nhật)
+            const dayOfWeek = (selectedDate.getDay() + 6) % 7;
+            const weekKey = `${dayOfWeek}-${slot}`;
+
+            // 1. Kiểm tra trùng lịch dạy của giảng viên
+            const teacherConflictRegular = WEEKLY[weekKey];
+            const teacherConflictMakeup = MAKEUP[dateStr] && MAKEUP[dateStr][slot];
+
+            if (teacherConflictRegular || teacherConflictMakeup) {
+                const conflictInfo = teacherConflictMakeup || teacherConflictRegular;
+                showToast('Trùng lịch dạy', `Giảng viên đã có lịch dạy môn ${conflictInfo.subj} (${conflictInfo.cls}) vào thời gian này. Vui lòng chọn Slot/Ngày khác!`, 'error');
+                return;
+            }
+
+            // 2. Kiểm tra trùng lịch học của sinh viên
+            const clsSchedule = STUDENT_SCHEDULE_MOCK[currentCls];
+            if (clsSchedule && clsSchedule[weekKey]) {
+                showToast('Trùng lịch sinh viên', `Sinh viên lớp ${currentCls} đã có lịch học môn ${clsSchedule[weekKey]} vào thời gian này. Vui lòng chọn Slot/Ngày khác!`, 'error');
+                return;
+            }
+
+            showToast('Thành công', 'Đã gửi yêu cầu Báo nghỉ và xếp lịch bù thành công!', 'success');
+            closeAbsenceModal();
         }
     </script>
 </body>

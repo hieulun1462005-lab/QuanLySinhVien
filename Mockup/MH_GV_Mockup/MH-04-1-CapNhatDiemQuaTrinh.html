@@ -54,9 +54,15 @@
             <div class="emblem"><i data-lucide="book-open"></i></div>
             <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
         </a>
-        <div class="user-profile" onclick="window.location.href='MH-05-3-QuanLyHoSoGiangVien.html'">
+        <div class="header-right" style="display: flex; align-items: center; gap: 16px;">
+<div class="user-profile" onclick="window.location.href='MH-05-3-QuanLyHoSoGiangVien.html'">
             <div class="user-info"><span class="name">Lê Văn Bình</span><span class="role">Giảng viên (IT)</span></div>
             <div class="avatar">B</div>
+        </div>
+                <button class="logout-btn" onclick="window.location.href='../MH_Chung_Mockup/MH-00-6-DangNhapGiangVien.html'" style="background: transparent; border: 1px solid #E2E8F0; color: #64748B; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.background='#FEF2F2'; this.style.borderColor='#FECACA'; this.style.color='#DC2626'" onmouseout="this.style.background='transparent'; this.style.borderColor='#E2E8F0'; this.style.color='#64748B'">
+                <i data-lucide="log-out" size="14"></i>
+                Đăng xuất
+            </button>
         </div>
     </header>
     <div class="dashboard-layout">
@@ -93,7 +99,7 @@
                             <i data-lucide="download" size="18"></i> Export
                         </button>
                     </div>
-                    <button class="btn btn-primary" onclick="alert('Lưu bảng điểm thành công!')">
+                    <button class="btn btn-primary" onclick="saveGrades()">
                         <i data-lucide="save" size="18"></i> Lưu bảng điểm
                     </button>
                 </div>
@@ -162,7 +168,45 @@
             </div>
         </main>
     </div>
-    <script>lucide.createIcons();</script>
+    <script>
+        lucide.createIcons();
+
+        function saveGrades() {
+            const inputs = document.querySelectorAll('.grade-input:not([disabled])');
+            let hasError = false;
+            inputs.forEach(input => {
+                if (input.classList.contains('error')) {
+                    hasError = true;
+                }
+            });
+            
+            if (hasError) {
+                alert('Không thể lưu! Vui lòng kiểm tra lại các ô bị đỏ (điểm phải từ 0.0 đến 10.0).');
+            } else {
+                alert('Lưu bảng điểm thành công!');
+            }
+        }
+
+        document.querySelectorAll('.grade-input:not([disabled])').forEach(input => {
+            const validateInput = (el) => {
+                const val = parseFloat(el.value);
+                if (el.value.trim() === '') {
+                    el.classList.remove('error');
+                } else if (isNaN(val) || val < 0 || val > 10) {
+                    el.classList.add('error');
+                } else {
+                    el.classList.remove('error');
+                }
+            };
+            
+            // Áp dụng validate ngay khi load để bôi đỏ những ô dữ liệu giả lập bị sai (như ô điểm 11)
+            validateInput(input);
+            
+            input.addEventListener('input', function() {
+                validateInput(this);
+            });
+        });
+    </script>
 </body>
 </html>
 

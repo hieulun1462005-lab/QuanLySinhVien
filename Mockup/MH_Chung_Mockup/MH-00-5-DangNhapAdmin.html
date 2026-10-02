@@ -752,6 +752,61 @@
         input[type="password"]::-ms-clear {
             display: none;
         }
+
+        /* ----- TOAST NOTIFICATION ----- */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toast {
+            background: white;
+            border-left: 4px solid #DC2626;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-width: 300px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            color: #DC2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #111827;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: #4B5563;
+        }
     </style>
 </head>
 
@@ -780,8 +835,7 @@
                     <p class="login-desc"></p>
                 </div>
 
-                <form class="login-form"
-                    onsubmit="event.preventDefault(); window.location.href='../MH_Admin_Mockup/MH-00-1-TongQuanHeThong.html';">
+                <form class="login-form" id="adminLoginForm">
                     <div class="form-field" style="margin-bottom: 8px;">
                     </div>
 
@@ -789,7 +843,7 @@
                         <label class="form-label">Tên đăng nhập</label>
                         <div class="form-input">
                             <i data-lucide="user" color="#8794A8"></i>
-                            <input type="text" placeholder="Nhập mã số sinh viên / giảng viên" required>
+                            <input type="text" id="usernameInput" placeholder="Nhập mã số sinh viên / giảng viên" required>
                         </div>
                     </div>
 
@@ -846,10 +900,38 @@
         </footer>
     </div>
 
-
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
 
 
     <script>
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i data-lucide="alert-circle" size="24"></i>
+                </div>
+                <div class="toast-content">
+                    <span class="toast-title">Đăng nhập thất bại</span>
+                    <span class="toast-message">${message}</span>
+                </div>
+            `;
+            container.appendChild(toast);
+            lucide.createIcons();
+            
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 400);
+            }, 3000);
+        }
         // Khởi tạo icons
         lucide.createIcons();
 
@@ -894,6 +976,24 @@
                 lucide.createIcons();
             }
         }
+
+        // Form Submit Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            if (adminLoginForm) {
+                adminLoginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const username = document.getElementById('usernameInput').value.trim();
+                    const password = document.getElementById('pwdInput').value;
+                    
+                    if (username === 'admin' && password === '1') {
+                        window.location.href = '../MH_Admin_Mockup/MH-00-1-TongQuanHeThong.html';
+                    } else {
+                        showToast('Tài khoản hoặc mật khẩu không đúng!');
+                    }
+                });
+            }
+        });
 
         // Logic Đèn pin & Đồng bộ text
         document.addEventListener('DOMContentLoaded', () => {

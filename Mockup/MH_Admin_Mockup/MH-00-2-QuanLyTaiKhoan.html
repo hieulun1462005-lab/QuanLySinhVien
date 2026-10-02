@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -562,7 +562,8 @@
                 <span class="sys-name">Đại Học ONENET</span>
             </div>
         </div>
-        <div class="user-profile">
+        <div class="header-right" style="display: flex; align-items: center; gap: 16px;">
+<div class="user-profile">
             <div class="user-info">
                 <span class="name">Nguyễn Quản Trị</span>
                 <span class="role">Admin Hệ Thống</span>
@@ -570,6 +571,11 @@
             <div class="avatar">
                 N
             </div>
+        </div>
+                        <button class="logout-btn" onclick="window.location.href='../MH_Chung_Mockup/MH-00-5-DangNhapAdmin.html'" style="background: transparent; border: 1px solid #E2E8F0; color: #64748B; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.background='#FEF2F2'; this.style.borderColor='#FECACA'; this.style.color='#DC2626'" onmouseout="this.style.background='transparent'; this.style.borderColor='#E2E8F0'; this.style.color='#64748B'">
+                <i data-lucide="log-out" size="14"></i>
+                Đăng xuất
+            </button>
         </div>
     </header>
 
@@ -981,8 +987,8 @@
 
         // ================= STATE & DATA =================
         let accounts = [
-            { username: 'SV2023001', name: 'Trần Văn Học', email: 'tranvanhoc@onenet.edu.vn', role: 'Sinh viên', status: 'Hoạt động', password: 'password123' },
-            { username: 'GV2015002', name: 'Lê Thị Giảng', email: 'lethigiang@onenet.edu.vn', role: 'Giảng viên', status: 'Hoạt động', password: 'password123' },
+            { username: 'SV2023001', name: 'Trần Văn Học', email: 'tranvanhoc@onenet.edu.vn', role: 'Sinh viên', status: 'Hoạt động', password: 'password123', inClass: true },
+            { username: 'GV2015002', name: 'Lê Thị Giảng', email: 'lethigiang@onenet.edu.vn', role: 'Giảng viên', status: 'Hoạt động', password: 'password123', isTeaching: true },
             { username: 'KT2018001', name: 'Phạm Tiền Tài', email: 'phamtt@onenet.edu.vn', role: 'Kế toán', status: 'Bị khóa', password: 'password123' },
             { username: 'QN2020005', name: 'Nguyễn Quản Nhiệm', email: 'nguyenqn@onenet.edu.vn', role: 'Cán bộ quản nhiệm', status: 'Hoạt động', password: 'password123' }
         ];
@@ -1139,6 +1145,10 @@
             }
 
             if (editId) {
+                if (accounts.find(a => a.username !== editId && a.email === email)) {
+                    showToast('Email đã được sử dụng bởi tài khoản khác!', 'danger');
+                    return;
+                }
                 const acc = accounts.find(a => a.username === editId);
                 acc.name = name;
                 acc.email = email;
@@ -1148,6 +1158,10 @@
             } else {
                 if (accounts.find(a => a.username === username)) {
                     showToast('Tên đăng nhập (Mã SV/GV) đã tồn tại!', 'danger');
+                    return;
+                }
+                if (accounts.find(a => a.email === email)) {
+                    showToast('Email đã được sử dụng!', 'danger');
                     return;
                 }
                 accounts.push({ username, name, email, role, status: 'Hoạt động', password: '123456' });
@@ -1192,6 +1206,18 @@
         }
 
         function deleteAccount(username) {
+            const acc = accounts.find(a => a.username === username);
+            if (!acc) return;
+            
+            if (acc.role === 'Sinh viên' && acc.inClass) {
+                showToast(`Không thể xóa tài khoản ${username} vì sinh viên này đang trong lớp học!`, 'danger');
+                return;
+            }
+            if (acc.role === 'Giảng viên' && acc.isTeaching) {
+                showToast(`Không thể xóa tài khoản ${username} vì giảng viên này đang giảng dạy!`, 'danger');
+                return;
+            }
+
             if (confirm(`Bạn có chắc chắn muốn XÓA VĨNH VIỄN tài khoản ${username}? Hành động này không thể hoàn tác!`)) {
                 const index = accounts.findIndex(a => a.username === username);
                 if (index !== -1) {
@@ -1346,6 +1372,7 @@
     </script>
 </body>
 </html>
+
 
 
 

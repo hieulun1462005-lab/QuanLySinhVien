@@ -74,6 +74,7 @@
             background: transparent;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
         }
         
         .card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 32px; width: 100%; max-width: 600px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); }
@@ -125,12 +126,18 @@
             <div class="emblem"><i data-lucide="book-open"></i></div>
             <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
         </a>
-        <div class="user-profile" onclick="window.location.href='MH-05-1-HoSoCanBoQuanNhiem.html'">
+        <div class="header-right" style="display: flex; align-items: center; gap: 16px;">
+<div class="user-profile" onclick="window.location.href='MH-05-1-HoSoCanBoQuanNhiem.html'">
             <div class="user-info">
                 <span class="name">Nguyễn Văn A</span>
                 <span class="role">Cán bộ quản nhiệm</span>
             </div>
             <div class="avatar">A</div>
+        </div>
+                        <button class="logout-btn" onclick="window.location.href='../MH_Chung_Mockup/MH-00-6-DangNhapGiangVien.html'" style="background: transparent; border: 1px solid #E2E8F0; color: #64748B; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.background='#FEF2F2'; this.style.borderColor='#FECACA'; this.style.color='#DC2626'" onmouseout="this.style.background='transparent'; this.style.borderColor='#E2E8F0'; this.style.color='#64748B'">
+                <i data-lucide="log-out" size="14"></i>
+                Đăng xuất
+            </button>
         </div>
     </header>
 
@@ -216,6 +223,15 @@
                     </div>
                 </div>
 
+                <!-- Alert for Invalid Transition -->
+                <div id="transitionAlert" class="alert">
+                    <i data-lucide="x-octagon" size="20" style="margin-top: 2px;"></i>
+                    <div>
+                        <strong>Chuyển đổi trạng thái không hợp lệ!</strong><br>
+                        <span id="transitionAlertText"></span>
+                    </div>
+                </div>
+
                 <!-- Alert for Debt (Luồng ngoại lệ) -->
                 <div id="debtAlert" class="alert">
                     <i data-lucide="alert-triangle" size="20" style="margin-top: 2px;"></i>
@@ -262,21 +278,30 @@
                         <textarea id="reason" rows="3" placeholder="Nhập lý do thay đổi hoặc mã số quyết định đi kèm..."></textarea>
                     </div>
 
-                    <div style="display: flex; gap: 12px; margin-top: 32px;">
-                        <button class="btn btn-outline" style="flex: 1; justify-content: center;" onclick="resetForm()">Làm mới</button>
-                        <button class="btn btn-primary" id="submitBtn" style="flex: 2; justify-content: center;" onclick="submitUpdate()">Xác nhận cập nhật hệ thống</button>
+                    <div style="display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap;">
+                        <button class="btn btn-outline" style="flex: 1; min-width: 140px; justify-content: center;" onclick="resetForm()">Làm mới</button>
+                        <button class="btn btn-primary" id="submitBtn" style="flex: 2; min-width: 250px; justify-content: center; text-align: center;" onclick="submitUpdate()">Xác nhận cập nhật hệ thống</button>
                     </div>
                 </div>
 
                 <!-- Simulate Exception Trigger -->
                 <div style="margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--border); text-align: center;">
-                    <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 8px;">Dành cho Test: Click nút dưới đây để giả lập Luồng ngoại lệ</p>
-                    <div style="display: flex; gap: 8px; justify-content: center;">
+                    <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 8px;">Dành cho Test: Click nút dưới đây để giả lập Luồng ngoại lệ và các trạng thái</p>
+                    <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                         <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;" onclick="simulateDebt()">
                             Giả lập SV nợ phí
                         </button>
                         <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;" onclick="simulateNotGraduated()">
                             Giả lập SV chưa đủ ĐK tốt nghiệp
+                        </button>
+                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;" onclick="simulateBaoLuu()">
+                            Giả lập SV Bảo lưu
+                        </button>
+                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;" onclick="simulateDinhChi()">
+                            Giả lập SV Đình chỉ
+                        </button>
+                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;" onclick="simulateThoiHoc()">
+                            Giả lập SV Thôi học
                         </button>
                     </div>
                 </div>
@@ -313,6 +338,7 @@
         lucide.createIcons();
         let isDebt = false;
         let isEligibleForGraduation = true;
+        let currentStatus = 'danghoc';
 
         function searchStudent() {
             const id = document.getElementById('searchId').value;
@@ -320,6 +346,7 @@
             
             isDebt = false;
             isEligibleForGraduation = true;
+            currentStatus = 'danghoc';
             hideAllAlerts();
             
             // Show Normal Profile
@@ -348,6 +375,7 @@
             document.getElementById('searchId').value = 'HE19999';
             isDebt = true;
             isEligibleForGraduation = true;
+            currentStatus = 'danghoc';
             
             // Show Debt Profile
             const profile = document.getElementById('profileSummary');
@@ -374,6 +402,7 @@
             document.getElementById('searchId').value = 'HE19005';
             isDebt = false;
             isEligibleForGraduation = false;
+            currentStatus = 'danghoc';
             
             // Show Normal Profile
             const profile = document.getElementById('profileSummary');
@@ -396,7 +425,77 @@
             checkRules();
         }
 
+        function simulateBaoLuu() {
+            document.getElementById('searchId').value = 'HE19001';
+            isDebt = false;
+            isEligibleForGraduation = false;
+            currentStatus = 'baoluu';
+            
+            const profile = document.getElementById('profileSummary');
+            profile.innerHTML = `
+                <div class="profile-header">
+                    <div>
+                        <div class="profile-name">Nguyễn Văn Bảo Lưu</div>
+                        <div class="profile-id">HE19001</div>
+                    </div>
+                    <span class="status-badge" style="background: #FEF3C7; color: #D97706;">Trạng thái hiện tại: Bảo lưu</span>
+                </div>
+            `;
+            profile.classList.add('active');
+            lucide.createIcons();
+            
+            enableForm();
+            checkRules();
+        }
+
+        function simulateDinhChi() {
+            document.getElementById('searchId').value = 'HE19002';
+            isDebt = false;
+            isEligibleForGraduation = false;
+            currentStatus = 'dinhchi';
+            
+            const profile = document.getElementById('profileSummary');
+            profile.innerHTML = `
+                <div class="profile-header">
+                    <div>
+                        <div class="profile-name">Lê Đình Chỉ</div>
+                        <div class="profile-id">HE19002</div>
+                    </div>
+                    <span class="status-badge" style="background: #FEE2E2; color: #DC2626;">Trạng thái hiện tại: Đình chỉ</span>
+                </div>
+            `;
+            profile.classList.add('active');
+            lucide.createIcons();
+            
+            enableForm();
+            checkRules();
+        }
+
+        function simulateThoiHoc() {
+            document.getElementById('searchId').value = 'HE19003';
+            isDebt = false;
+            isEligibleForGraduation = false;
+            currentStatus = 'thoihoc';
+            
+            const profile = document.getElementById('profileSummary');
+            profile.innerHTML = `
+                <div class="profile-header">
+                    <div>
+                        <div class="profile-name">Phạm Thôi Học</div>
+                        <div class="profile-id">HE19003</div>
+                    </div>
+                    <span class="status-badge" style="background: #F3F4F6; color: #4B5563;">Trạng thái hiện tại: Thôi học</span>
+                </div>
+            `;
+            profile.classList.add('active');
+            lucide.createIcons();
+            
+            enableForm();
+            checkRules();
+        }
+
         function hideAllAlerts() {
+            document.getElementById('transitionAlert').classList.remove('active');
             document.getElementById('debtAlert').classList.remove('active');
             document.getElementById('gradAlert').classList.remove('active');
             document.getElementById('suspendAlert').classList.remove('active');
@@ -415,6 +514,42 @@
             const submitBtn = document.getElementById('submitBtn');
             hideAllAlerts();
             submitBtn.disabled = false;
+
+            if (!status) return;
+
+            // Validate Transitions
+            let isValidTransition = false;
+            let invalidReason = '';
+
+            if (currentStatus === 'danghoc') {
+                if (['baoluu', 'thoihoc', 'totnghiep', 'dinhchi'].includes(status)) {
+                    isValidTransition = true;
+                } else {
+                    invalidReason = 'Từ trạng thái "Đang học" không thể chuyển sang trạng thái này.';
+                }
+            } else if (currentStatus === 'baoluu') {
+                if (['tainhaphoc', 'thoihoc'].includes(status)) {
+                    isValidTransition = true;
+                } else {
+                    invalidReason = 'Từ trạng thái "Bảo lưu" chỉ có thể "Tái nhập học" hoặc "Thôi học".';
+                }
+            } else if (currentStatus === 'dinhchi') {
+                if (['hetdinhchi', 'thoihoc'].includes(status)) {
+                    isValidTransition = true;
+                } else {
+                    invalidReason = 'Từ trạng thái "Đình chỉ" chỉ có thể "Hết hạn đình chỉ" hoặc "Thôi học".';
+                }
+            } else if (currentStatus === 'thoihoc' || currentStatus === 'totnghiep') {
+                isValidTransition = false;
+                invalidReason = 'Không thể thay đổi trạng thái khi sinh viên đã "Thôi học" hoặc "Tốt nghiệp".';
+            }
+
+            if (!isValidTransition) {
+                document.getElementById('transitionAlertText').innerText = invalidReason;
+                document.getElementById('transitionAlert').classList.add('active');
+                submitBtn.disabled = true;
+                return;
+            }
 
             if (isDebt && (status === 'baoluu' || status === 'thoihoc')) {
                 document.getElementById('debtAlert').classList.add('active');
@@ -457,5 +592,3 @@
     </script>
 </body>
 </html>
-
-
