@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Điểm danh QR - Đại Học ONENET</title>
+    <title>Lịch học & Điểm danh QR - Đại Học ONENET</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -12,471 +13,1044 @@
             --primary: #2563EB;
             --primary-light: #EFF6FF;
             --primary-hover: #1D4ED8;
-            --text-dark: #1E293B;
-            --text-gray: #64748B;
-            --bg-light: #F1F5F9;
+            --text: #1E293B;
+            --gray: #64748B;
+            --bg: #F1F5F9;
             --border: #E2E8F0;
-            --danger: #EF4444;
-            --success: #10B981;
-            --warning: #F59E0B;
+            --danger: #DC2626;
+            --success: #16A34A;
+            --warning: #D97706;
+            --surface: #fff;
+            --success-bg: #E6F4EA;
+            --danger-bg: #FEE2E2;
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root {
+                --primary: #60A5FA;
+                --primary-light: #1E293B;
+                --primary-hover: #93C5FD;
+                --text: #E2E8F0;
+                --gray: #94A3B8;
+                --bg: #0F172A;
+                --border: #334155;
+                --danger: #F87171;
+                --success: #4ADE80;
+                --warning: #FBBF24;
+                --surface: #1E293B;
+                --success-bg: #12331F;
+                --danger-bg: #3B1A1A;
+            }
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, sans-serif
         }
 
         body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+            background: var(--bg);
+            color: var(--text);
             height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow: hidden
         }
 
-        /* HEADER */
+        button {
+            cursor: pointer;
+            border: 0;
+            background: none;
+            color: inherit
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px
+        }
+
         .header {
             height: 64px;
-            background: white;
+            background: var(--surface);
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 32px;
+            padding: 0 24px;
             z-index: 100;
+            flex-shrink: 0
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center
+        }
+
+        .menu-btn:hover {
+            background: var(--primary-light)
         }
 
         .sys-identity {
             display: flex;
             align-items: center;
             gap: 12px;
-            cursor: pointer;
+            cursor: pointer
         }
 
         .emblem {
-            width: 40px; height: 40px;
+            width: 40px;
+            height: 40px;
             background: var(--primary-light);
             color: var(--primary);
             border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center
         }
 
         .brand-copy {
-            display: flex; flex-direction: column;
+            display: flex;
+            flex-direction: column
         }
 
-        .uni { font-size: 11px; font-weight: 700; color: var(--text-gray); letter-spacing: 0.5px; }
-        .sys-name { font-size: 16px; font-weight: 700; color: var(--primary); }
+        .uni {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gray);
+            letter-spacing: .5px
+        }
 
-        .user-profile { display: flex; align-items: center; gap: 16px; cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; }
-        .user-profile:hover { background: var(--primary-light); }
+        .sys-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary)
+        }
 
-        .user-info { display: flex; flex-direction: column; text-align: right; }
-        .user-info .name { font-size: 14px; font-weight: 600; }
-        .user-info .role { font-size: 12px; color: var(--text-gray); }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: background .2s
+        }
+
+        .user-profile:hover {
+            background: var(--primary-light)
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            text-align: right
+        }
+
+        .user-info .name {
+            font-size: 14px;
+            font-weight: 600
+        }
+
+        .user-info .role {
+            font-size: 12px;
+            color: var(--gray)
+        }
 
         .avatar {
-            width: 40px; height: 40px;
-            background: #F3E8FD; color: #8E24AA;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700
         }
 
-        /* DASHBOARD LAYOUT */
-        .dashboard-container {
+        .dashboard {
             display: flex;
             flex: 1;
             overflow: hidden;
+            position: relative
         }
 
         .sidebar {
             width: 260px;
-            background: white;
+            background: var(--surface);
             border-right: 1px solid var(--border);
             padding: 24px 16px;
-            display: flex; flex-direction: column; gap: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
             overflow-y: auto;
+            flex-shrink: 0
         }
 
-        .menu-group { display: flex; flex-direction: column; gap: 8px; }
+        .menu-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
         .menu-title {
-            font-size: 11px; font-weight: 700; color: var(--text-gray);
-            letter-spacing: 0.5px; margin-left: 12px; margin-bottom: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gray);
+            letter-spacing: .5px;
+            margin: 0 12px 4px
         }
 
         .menu-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px 12px; border-radius: 8px;
-            color: var(--text-gray); font-size: 14px; font-weight: 500;
-            cursor: pointer; transition: all 0.2s; text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--gray);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background .2s, color .2s
         }
 
-        .menu-item:hover { background: var(--bg-light); color: var(--primary); }
-        .menu-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+        .menu-item:hover {
+            background: var(--bg);
+            color: var(--primary)
+        }
 
-        .main-content {
-            flex: 1; padding: 32px 40px; overflow-y: auto;
+        .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600
+        }
+
+        .scrim {
+            display: none
+        }
+
+        .main {
+            flex: 1;
+            padding: 28px 36px;
+            overflow-y: auto;
+            min-width: 0
+        }
+
+        .wrap {
+            max-width: 100%;
+            margin: 0 auto
         }
 
         .page-title {
-            font-size: 24px; font-weight: 700; margin-bottom: 8px;
-        }
-        
-        .page-subtitle {
-            font-size: 14px; color: var(--text-gray); margin-bottom: 24px;
+            font-size: 24px;
+            font-weight: 700
         }
 
-        .content-section {
-            animation: fadeIn 0.3s;
+        .page-sub {
+            font-size: 14px;
+            color: var(--gray);
+            margin: 4px 0 20px
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* SCHEDULE CARDS */
-        .schedule-list {
+        /* SUMMARY */
+        .summary {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 16px
+        }
+
+        .sum-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px
+        }
+
+        .sum-top b {
+            font-size: 15px
+        }
+
+        .sum-top span {
+            font-size: 13px;
+            color: var(--gray)
+        }
+
+        .bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 99px;
+            overflow: hidden
+        }
+
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--success);
+            border-radius: 99px;
+            transition: width .4s
+        }
+
+        .demo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: var(--gray);
+            margin: 0 0 16px
+        }
+
+        .select {
+            padding: 6px 8px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 12px;
+            background: var(--surface);
+            color: var(--text)
+        }
+
+        .link {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: underline
+        }
+
+        /* CARDS */
+        .list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px
         }
-        
-        .schedule-card {
-            background: white; border: 1px solid var(--border);
-            border-radius: 12px; padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-            display: flex; align-items: center; justify-content: space-between;
-            transition: border-color 0.2s;
-        }
-        
-        .schedule-card:hover {
-            border-color: var(--primary);
-        }
-        
-        .schedule-time {
-            display: flex; flex-direction: column; gap: 4px;
-            min-width: 120px; border-right: 1px solid var(--border);
-            padding-right: 20px;
-        }
-        .schedule-time .slot { font-size: 14px; font-weight: 600; color: var(--primary); }
-        .schedule-time .hours { font-size: 13px; color: var(--text-gray); }
-        
-        .schedule-info {
-            flex: 1; padding: 0 24px;
-            display: flex; flex-direction: column; gap: 6px;
-        }
-        .schedule-info .course-name { font-size: 16px; font-weight: 700; color: var(--text-dark); }
-        .schedule-info .course-meta-row { display: flex; gap: 16px; font-size: 14px; color: var(--text-gray); }
-        .schedule-info .course-meta-item { display: flex; align-items: center; gap: 6px; }
-        
-        .schedule-action {
-            min-width: 160px;
-            text-align: right;
-        }
-        
-        .btn {
-            padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
-            cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 8px;
-            transition: all 0.2s; outline: none;
-        }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
-        .btn-disabled { background: var(--border); color: var(--text-gray); cursor: not-allowed; }
-        
-        .status-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 600;
-        }
-        .status-success { background: #E6F4EA; color: #1E8E3E; border: 1px solid #CEEAD6; }
 
-        /* MODAL QR SCANNER */
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: border-color .2s
+        }
+
+        .card.open {
+            border-color: var(--primary);
+            border-left-color: var(--primary);
+            background: var(--primary-light)
+        }
+
+        .card.done {
+            border-left-color: var(--success)
+        }
+
+        .card.missed {
+            border-left-color: var(--danger)
+        }
+
+        .time {
+            min-width: 112px;
+            padding-right: 20px;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .time .slot {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary)
+        }
+
+        .time .hrs {
+            font-size: 13px;
+            color: var(--gray)
+        }
+
+        .card.upcoming .time .slot {
+            color: var(--gray)
+        }
+
+        .info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .name {
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .live {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--surface);
+            border: 1px solid var(--primary);
+            border-radius: 99px;
+            padding: 2px 8px
+        }
+
+        .live i {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: pulse 1.4s infinite
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: .25
+            }
+        }
+
+        .meta {
+            display: flex;
+            gap: 6px 16px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: var(--gray)
+        }
+
+        .meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .meta svg {
+            width: 15px;
+            height: 15px
+        }
+
+        .action {
+            min-width: 170px;
+            text-align: right
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background .2s, transform .2s
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px
+        }
+
+        .btn.primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, .25)
+        }
+
+        .btn.primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px)
+        }
+
+        .btn.off {
+            background: var(--border);
+            color: var(--gray);
+            cursor: not-allowed
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600
+        }
+
+        .badge.ok {
+            background: var(--success-bg);
+            color: var(--success)
+        }
+
+        .badge.no {
+            background: var(--danger-bg);
+            color: var(--danger)
+        }
+
+        .badge svg {
+            width: 18px;
+            height: 18px
+        }
+
+        .sub {
+            display: block;
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 4px
+        }
+
+        /* MODAL */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .6);
             backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 300;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s
         }
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        
-        .modal-content {
-            background: white; border-radius: 16px; width: 400px; max-width: 90vw;
-            padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transform: scale(0.95); transition: transform 0.3s;
-            display: flex; flex-direction: column; align-items: center; position: relative;
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: auto
         }
-        .modal-overlay.active .modal-content { transform: scale(1); }
-        
-        .modal-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .modal-title { font-size: 18px; font-weight: 700; }
-        .close-btn { cursor: pointer; color: var(--text-gray); transition: color 0.2s; }
-        .close-btn:hover { color: var(--danger); }
-        
-        .scanner-container {
-            width: 100%; aspect-ratio: 1; background: #000; border-radius: 12px;
-            position: relative; overflow: hidden; margin-bottom: 24px;
+
+        .modal {
+            background: var(--surface);
+            border-radius: 16px;
+            width: 420px;
+            max-width: 100%;
+            max-height: 100%;
+            overflow-y: auto;
+            padding: 22px;
+            transform: scale(.96);
+            transition: transform .25s
+        }
+
+        .overlay.active .modal {
+            transform: none
+        }
+
+        .m-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px
+        }
+
+        .m-head h2 {
+            font-size: 18px
+        }
+
+        .m-head p {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 2px
+        }
+
+        .x {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .x:hover {
+            background: var(--bg)
+        }
+
+        .scanner {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            background: #0B1220;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 14px
         }
 
         #reader {
-            width: 100%; height: 100%; background: white;
+            width: 100%;
+            height: 100%
         }
 
-        /* Success overlay within modal */
-        .success-overlay {
-            position: absolute; inset: 0; background: rgba(16, 185, 129, 0.9);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: white; opacity: 0; pointer-events: none; transition: opacity 0.3s;
-            z-index: 10; border-radius: 12px;
+        #reader video {
+            object-fit: cover
         }
-        .success-overlay.active { opacity: 1; pointer-events: auto; }
-        
-        .scanner-info {
-            text-align: center; color: var(--text-gray); font-size: 14px; margin-bottom: 16px; line-height: 1.5;
+
+        .cam-msg {
+            position: absolute;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 24px;
+            text-align: center;
+            color: #CBD5E1;
+            font-size: 13px;
+            line-height: 1.5
+        }
+
+        .cam-msg.show {
+            display: flex
+        }
+
+        .cam-msg svg {
+            width: 32px;
+            height: 32px
+        }
+
+        .success {
+            position: absolute;
+            inset: 0;
+            background: rgba(22, 163, 74, .94);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s;
+            z-index: 5
+        }
+
+        .success.active {
+            opacity: 1
+        }
+
+        .success svg {
+            width: 48px;
+            height: 48px
+        }
+
+        .success b {
+            font-size: 18px
+        }
+
+        .success small {
+            font-size: 12px;
+            opacity: .85;
+            max-width: 80%;
+            overflow-wrap: anywhere;
+            text-align: center
+        }
+
+        .hint {
+            font-size: 13px;
+            color: var(--gray);
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 14px
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 12px
+        }
+
+        .divider:before,
+        .divider:after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border)
+        }
+
+        .manual {
+            display: flex;
+            gap: 8px
+        }
+
+        .manual input {
+            flex: 1;
+            min-width: 0;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            background: var(--surface);
+            color: var(--text)
+        }
+
+        .err {
+            font-size: 12px;
+            color: var(--danger);
+            margin-top: 8px;
+            min-height: 16px
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text);
+            color: var(--surface);
+            padding: 10px 18px;
+            border-radius: 99px;
+            font-size: 13px;
+            font-weight: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s;
+            z-index: 400
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%)
+        }
+
+        @media (max-width:900px) {
+            .menu-btn {
+                display: flex
+            }
+
+            .header {
+                padding: 0 12px
+            }
+
+            .user-info {
+                display: none
+            }
+
+            .sidebar {
+                position: absolute;
+                inset: 0 auto 0 0;
+                z-index: 200;
+                transform: translateX(-100%);
+                transition: transform .25s;
+                box-shadow: 4px 0 20px rgba(0, 0, 0, .15)
+            }
+
+            .dashboard.nav-open .sidebar {
+                transform: none
+            }
+
+            .dashboard.nav-open .scrim {
+                display: block;
+                position: absolute;
+                inset: 0;
+                background: rgba(15, 23, 42, .4);
+                z-index: 150
+            }
+
+            .main {
+                padding: 20px 16px
+            }
+        }
+
+        @media (max-width:640px) {
+            .card {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px
+            }
+
+            .time {
+                border-right: 0;
+                padding-right: 0;
+                flex-direction: row;
+                gap: 10px;
+                align-items: baseline
+            }
+
+            .action {
+                text-align: left;
+                min-width: 0
+            }
+
+            .btn {
+                width: 100%
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
         }
     </style>
 </head>
+
 <body>
 
     <header class="header">
-        <a href="MH-00-9-TongQuanHocTap.html" class="sys-identity" style="text-decoration: none;">
-            <div class="emblem">
-                <i data-lucide="book-open" size="20"></i>
+        <div class="left">
+            <button class="menu-btn" id="menuBtn" aria-label="Mở menu"><i data-lucide="menu"></i></button>
+            <div class="sys-identity" onclick="window.location.href='../MH_Chung_Mockup/MH-00-5-DangNhapAdmin.html'">
+                <div class="emblem"><i data-lucide="book-open"></i></div>
+                <div class="brand-copy"><span class="uni">TRƯỜNG</span><span class="sys-name">Đại Học ONENET</span>
+                </div>
             </div>
-            <div class="brand-copy">
-                <span class="uni">TRƯỜNG</span>
-                <span class="sys-name">Đại Học ONENET</span>
-            </div>
-        </a>
+        </div>
         <div class="user-profile" onclick="window.location.href='MH-05-4-QuanLyHoSoCaNhan.html'">
-            <div class="user-info">
-                <span class="name">Nguyễn Hồng Long Khánh</span>
-                <span class="role">Sinh viên (K19)</span>
-            </div>
-            <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
-                K
-            </div>
+            <div class="user-info"><span class="name">Nguyễn Hồng Long Khánh</span><span class="role">Sinh viên
+                    (K19)</span></div>
+            <div class="avatar">K</div>
         </div>
     </header>
 
-    <div class="dashboard-container">
-        <!-- SIDEBAR -->
-        <div class="sidebar">
+    <div class="dashboard" id="dash">
+        <nav class="sidebar">
             <div class="menu-group">
                 <div class="menu-title">HỌC TẬP</div>
-                <div class="menu-item " onclick="window.location.href='MH-00-9-TongQuanHocTap.html'">
-                    <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
-                </div>
-                <div class="menu-item active" onclick="window.location.href='MH-03-3-QRDiemDanh.html'">
-                    <i data-lucide="scan-line" size="18"></i> Lịch học & Điểm danh QR
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-02-6-ThoiKhoaBieu.html'">
-                    <i data-lucide="calendar" size="18"></i> Thời khóa biểu
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
-                    <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'">
-                    <i data-lucide="book" size="18"></i> Chương trình đào tạo
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
-                    <i data-lucide="clock" size="18"></i> Lịch thi
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-04-2-KetQuaHocTap.html'">
-                    <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
-                </div>
+                <div class="menu-item" onclick="window.location.href='MH-00-9-TongQuanHocTap.html'"><i
+                        data-lucide="layout-dashboard"></i> Tổng quan</div>
+                <div class="menu-item active" onclick="window.location.href='MH-03-3-QRDiemDanh.html'"><i
+                        data-lucide="scan-line"></i> Lịch học & Điểm danh QR</div>
+                <div class="menu-item" onclick="window.location.href='MH-02-6-ThoiKhoaBieu.html'"><i
+                        data-lucide="calendar"></i> Thời khóa biểu</div>
+                <div class="menu-item" onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'"><i
+                        data-lucide="check-circle"></i> Báo cáo điểm danh</div>
+                <div class="menu-item" onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'"><i
+                        data-lucide="book"></i> Chương trình đào tạo</div>
+                <div class="menu-item" onclick="window.location.href='MH-04-3-LichThi.html'"><i data-lucide="clock"></i>
+                    Lịch thi</div>
+                <div class="menu-item" onclick="window.location.href='MH-04-2-KetQuaHocTap.html'"><i
+                        data-lucide="bar-chart-2"></i> Bảng điểm cá nhân</div>
             </div>
-
             <div class="menu-group">
                 <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
-                <div class="menu-item " onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'">
-                    <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'">
-                    <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
-                </div>
+                <div class="menu-item" onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'"><i
+                        data-lucide="file-text"></i> Nộp đơn từ trực tuyến</div>
+                <div class="menu-item" onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'"><i
+                        data-lucide="credit-card"></i> Hóa đơn & Thanh toán</div>
             </div>
-        </div>
+        </nav>
+        <div class="scrim" id="scrim"></div>
 
-        <!-- MAIN CONTENT -->
-        <div class="main-content">
-            <h1 class="page-title">Lịch học trong ngày</h1>
-            <p class="page-subtitle">Hôm nay, Thứ Hai ngày 28/09/2026</p>
-            
-            <div class="content-section">
-                
-                <div class="schedule-list">
-                    <!-- Class 1: Completed -->
-                    <div class="schedule-card">
-                        <div class="schedule-time">
-                            <span class="slot">Slot 1</span>
-                            <span class="hours">07:30 - 09:50</span>
-                        </div>
-                        <div class="schedule-info">
-                            <div class="course-name">SWT301 - Software Testing</div>
-                            <div class="course-meta-row">
-                                <span class="course-meta-item"><i data-lucide="map-pin" size="16"></i> Phòng P.202</span>
-                                <span class="course-meta-item"><i data-lucide="user" size="16"></i> GV: Nguyễn Văn A</span>
-                                <span class="course-meta-item"><i data-lucide="users" size="16"></i> Lớp: SE2003-NET</span>
-                            </div>
-                        </div>
-                        <div class="schedule-action" id="action-slot1">
-                            <div class="status-badge status-success">
-                                <i data-lucide="check-circle" size="18"></i> Đã điểm danh
-                            </div>
-                        </div>
-                    </div>
+        <main class="main">
+            <div class="wrap">
+                <h1 class="page-title">Lịch học trong ngày</h1>
+                <p class="page-sub" id="dateText"></p>
 
-                    <!-- Class 2: Active for Attendance -->
-                    <div class="schedule-card" style="border-color: var(--primary); background: var(--primary-light);">
-                        <div class="schedule-time">
-                            <span class="slot">Slot 2</span>
-                            <span class="hours">10:00 - 12:20</span>
-                        </div>
-                        <div class="schedule-info">
-                            <div class="course-name">WDU203c - UI/UX Design</div>
-                            <div class="course-meta-row">
-                                <span class="course-meta-item"><i data-lucide="map-pin" size="16"></i> Phòng P.204</span>
-                                <span class="course-meta-item"><i data-lucide="user" size="16"></i> GV: Trần Thị B</span>
-                                <span class="course-meta-item"><i data-lucide="users" size="16"></i> Lớp: SE2014-NJ</span>
-                            </div>
-                        </div>
-                        <div class="schedule-action" id="action-slot2">
-                            <button class="btn btn-primary" onclick="openScanner('slot2')">
-                                <i data-lucide="scan-line" size="18"></i> Quét mã QR
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Class 3: Upcoming -->
-                    <div class="schedule-card">
-                        <div class="schedule-time">
-                            <span class="slot" style="color: var(--text-gray);">Slot 4</span>
-                            <span class="hours">15:10 - 17:30</span>
-                        </div>
-                        <div class="schedule-info">
-                            <div class="course-name">SWR302 - Software Requirement</div>
-                            <div class="course-meta-row">
-                                <span class="course-meta-item"><i data-lucide="map-pin" size="16"></i> Phòng P.305</span>
-                                <span class="course-meta-item"><i data-lucide="user" size="16"></i> GV: Lê Hoàng C</span>
-                                <span class="course-meta-item"><i data-lucide="users" size="16"></i> Lớp: SE2003-NET</span>
-                            </div>
-                        </div>
-                        <div class="schedule-action">
-                            <button class="btn btn-disabled" disabled>
-                                Chưa đến giờ
-                            </button>
-                        </div>
-                    </div>
+                <div class="summary">
+                    <div class="sum-top"><b id="sumMain"></b><span id="sumNext"></span></div>
+                    <div class="bar"><i id="barFill" style="width:0"></i></div>
                 </div>
 
+                <div class="demo">
+                    <label for="demoTime">Giờ hiển thị (để thử):</label>
+                    <select class="select" id="demoTime">
+                        <option value="real">Giờ thực của máy</option>
+                        <option value="08:30">08:30 - đang học Slot 1</option>
+                        <option value="10:30">10:30 - đang học Slot 2</option>
+                        <option value="16:00">16:00 - đang học Slot 4</option>
+                        <option value="19:00">19:00 - hết giờ học</option>
+                    </select>
+                    <button class="link" id="resetBtn">Đặt lại điểm danh</button>
+                </div>
+
+                <div class="list" id="list"></div>
             </div>
-        </div>
+        </main>
     </div>
 
-    <!-- QR Scanner Modal -->
-    <div class="modal-overlay" id="scannerModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title">Quét QR Điểm danh</span>
-                <i data-lucide="x" size="24" class="close-btn" onclick="closeScanner()"></i>
+    <div class="overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+        <div class="modal">
+            <div class="m-head">
+                <div>
+                    <h2 id="mTitle">Quét QR điểm danh</h2>
+                    <p id="mSub"></p>
+                </div>
+                <button class="x" id="mClose" aria-label="Đóng"><i data-lucide="x"></i></button>
             </div>
-            
-            <div class="scanner-container">
-                <!-- Vùng chứa camera thật -->
+            <div class="scanner">
                 <div id="reader"></div>
-                
-                <div class="success-overlay" id="successOverlay">
-                    <i data-lucide="check-circle" size="48"></i>
-                    <span style="font-weight: 600; font-size: 18px; margin-top: 12px;">Điểm danh thành công!</span>
-                    <span id="scannedDataText" style="font-size: 12px; margin-top: 8px; opacity: 0.8;"></span>
-                </div>
+                <div class="cam-msg" id="camMsg"><i data-lucide="camera-off"></i><span id="camText"></span></div>
+                <div class="success" id="success"><i data-lucide="check-circle-2"></i><b>Điểm danh thành công</b><small
+                        id="okText"></small></div>
             </div>
-            
-            <p class="scanner-info">
-                Đưa mã QR trên màn hình của giảng viên vào vùng nhận diện để điểm danh.<br/>
-                <strong style="color: var(--primary);">Hãy mở trang Teacher_QR_Display.html trên máy tính để lấy QR quét thử!</strong>
-            </p>
+            <p class="hint">Đưa mã QR trên màn hình của giảng viên vào khung hình để điểm danh.</p>
+            <div class="divider">hoặc nhập mã thủ công</div>
+            <form class="manual" id="manual">
+                <input id="code" type="text" placeholder="Mã điểm danh do giảng viên đọc" autocomplete="off"
+                    aria-label="Mã điểm danh">
+                <button type="submit" class="btn primary">Xác nhận</button>
+            </form>
+            <div class="err" id="err" role="alert"></div>
         </div>
     </div>
+    <div class="toast" id="toast" role="status"></div>
 
     <script>
-        lucide.createIcons();
-        
-        let currentSlotId = '';
-        let html5QrcodeScanner = null;
+        const CLASSES = [
+            { id: 'slot1', slot: 'Slot 1', s: '07:30', e: '09:50', code: 'SWT301', name: 'Software Testing', room: 'P.202', gv: 'Nguyễn Văn A', cls: 'SE2003-NET' },
+            { id: 'slot2', slot: 'Slot 2', s: '10:00', e: '12:20', code: 'WDU203c', name: 'UI/UX Design', room: 'P.204', gv: 'Trần Thị B', cls: 'SE2014-NJ' },
+            { id: 'slot4', slot: 'Slot 4', s: '15:10', e: '17:30', code: 'SWR302', name: 'Software Requirement', room: 'P.305', gv: 'Lê Hoàng C', cls: 'SE2003-NET' }
+        ];
+        const DAYNAMES = ['Chủ nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+        const $ = id => document.getElementById(id);
+        const pad = n => String(n).padStart(2, '0');
+        const toMin = t => { const [h, m] = t.split(':').map(Number); return h * 60 + m };
+        const todayKey = (() => { const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) })();
+        const STORE = 'onenet-attendance-' + todayKey;
 
-        function openScanner(slotId) {
-            currentSlotId = slotId;
-            document.getElementById('scannerModal').classList.add('active');
-            document.getElementById('successOverlay').classList.remove('active');
-            
-            // Khởi tạo camera khi mở modal
-            if (!html5QrcodeScanner) {
-                html5QrcodeScanner = new Html5QrcodeScanner(
-                    "reader", { fps: 10, qrbox: 250 }, /* verbose= */ false
-                );
+        /* Lưu điểm danh: {slotId: 'HH:MM'} */
+        function load() {
+            try { const v = JSON.parse(localStorage.getItem(STORE)); if (v) return v } catch (e) { }
+            return { slot1: '07:42' };            // dữ liệu mẫu: Slot 1 đã điểm danh
+        }
+        let att = load();
+        function save() { try { localStorage.setItem(STORE, JSON.stringify(att)) } catch (e) { } }
+
+        function nowMin() {
+            const v = $('demoTime').value;
+            if (v !== 'real') return toMin(v);
+            const d = new Date(); return d.getHours() * 60 + d.getMinutes();
+        }
+        function statusOf(c) {
+            if (att[c.id]) return 'done';
+            const n = nowMin();
+            if (n < toMin(c.s)) return 'upcoming';
+            if (n <= toMin(c.e)) return 'open';
+            return 'missed';
+        }
+
+        function render() {
+            const d = new Date();
+            $('dateText').textContent = `Hôm nay, ${DAYNAMES[d.getDay()]} ngày ${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+
+            let html = ''; let done = 0; let next = null;
+            CLASSES.forEach(c => {
+                const st = statusOf(c);
+                if (st === 'done') done++;
+                if (!next && (st === 'open' || st === 'upcoming')) next = { c, st };
+                let action = '';
+                if (st === 'done') action = `<span class="badge ok"><i data-lucide="check-circle"></i>Đã điểm danh</span><span class="sub">Lúc ${att[c.id]}</span>`;
+                else if (st === 'open') action = `<button class="btn primary" data-scan="${c.id}"><i data-lucide="scan-line"></i>Quét mã QR</button>`;
+                else if (st === 'upcoming') action = `<button class="btn off" disabled>Mở lúc ${c.s}</button>`;
+                else action = `<span class="badge no"><i data-lucide="x-circle"></i>Chưa điểm danh</span><span class="sub">Buổi học đã kết thúc</span>`;
+                html += `<article class="card ${st}">
+      <div class="time"><span class="slot">${c.slot}</span><span class="hrs">${c.s} - ${c.e}</span></div>
+      <div class="info">
+        <div class="name">${c.code} - ${c.name}${st === 'open' ? '<span class="live"><i></i>Đang diễn ra</span>' : ''}</div>
+        <div class="meta">
+          <span><i data-lucide="map-pin"></i>Phòng ${c.room}</span>
+          <span><i data-lucide="user"></i>GV: ${c.gv}</span>
+          <span><i data-lucide="users"></i>Lớp: ${c.cls}</span>
+        </div>
+      </div>
+      <div class="action">${action}</div></article>`;
+            });
+            $('list').innerHTML = html;
+
+            $('sumMain').textContent = `Đã điểm danh ${done}/${CLASSES.length} buổi`;
+            $('barFill').style.width = (done / CLASSES.length * 100) + '%';
+            if (next) {
+                const diff = toMin(next.c.s) - nowMin();
+                $('sumNext').textContent = next.st === 'open' ? `${next.c.code} đang diễn ra, hãy quét mã QR` : `Buổi tiếp theo: ${next.c.code} lúc ${next.c.s}${diff <= 90 ? ` (còn ${diff} phút)` : ''}`;
+            } else $('sumNext').textContent = 'Hôm nay không còn buổi học nào';
+            lucide.createIcons();
+        }
+
+        /* ---- Quét QR ---- */
+        let cur = null, qr = null, busy = false;
+        async function startCam() {
+            $('camMsg').classList.remove('show');
+            if (typeof Html5Qrcode === 'undefined') { return camFail('Không tải được thư viện quét QR. Kiểm tra kết nối mạng hoặc nhập mã thủ công.') }
+            try {
+                qr = new Html5Qrcode('reader');
+                await qr.start({ facingMode: 'environment' }, { fps: 10, qrbox: { width: 220, height: 220 } }, txt => confirmAttend(txt), () => { });
+            } catch (e) {
+                camFail('Không mở được camera. Hãy cho phép truy cập camera (trang cần chạy trên HTTPS hoặc localhost) hoặc nhập mã thủ công.');
             }
-            
-            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
         }
-        
-        function onScanSuccess(decodedText, decodedResult) {
-            console.log("Scanned:", decodedText);
-            
-            // Hiển thị nội dung quét được
-            document.getElementById('scannedDataText').innerText = "Mã: " + decodedText;
-            
-            // Dừng camera
-            if (html5QrcodeScanner) {
-                html5QrcodeScanner.clear().then(() => {
-                    simulateSuccess();
-                }).catch(err => {
-                    console.error("Failed to clear html5QrcodeScanner. ", err);
-                    simulateSuccess();
-                });
-            } else {
-                simulateSuccess();
-            }
+        function camFail(msg) { $('camText').textContent = msg; $('camMsg').classList.add('show'); lucide.createIcons() }
+        async function stopCam() {
+            if (!qr) return;
+            try { if (qr.isScanning) await qr.stop(); qr.clear() } catch (e) { }
+            qr = null;
         }
-        
-        function onScanFailure(error) {
-            // Liên tục gọi khi chưa thấy QR
+        function openScanner(id) {
+            cur = CLASSES.find(c => c.id === id); busy = false;
+            $('mSub').textContent = `${cur.code} - ${cur.name} · ${cur.slot}`;
+            $('err').textContent = ''; $('code').value = '';
+            $('success').classList.remove('active');
+            $('modal').classList.add('active');
+            startCam();
         }
-        
-        function closeScanner() {
-            document.getElementById('scannerModal').classList.remove('active');
-            if (html5QrcodeScanner) {
-                html5QrcodeScanner.clear();
-            }
+        async function closeScanner() {
+            $('modal').classList.remove('active');
+            await stopCam();
+            cur = null;
         }
-        
-        function simulateSuccess() {
-            // Show success overlay
-            document.getElementById('successOverlay').classList.add('active');
-            
-            // Wait a bit, then close modal and update UI
-            setTimeout(() => {
-                closeScanner();
-                
-                // Update the slot UI to show success state
-                if (currentSlotId) {
-                    const actionContainer = document.getElementById('action-' + currentSlotId);
-                    if(actionContainer) {
-                        actionContainer.innerHTML = `
-                            <div class="status-badge status-success">
-                                <i data-lucide="check-circle" size="18"></i> Đã điểm danh
-                            </div>
-                        `;
-                        lucide.createIcons();
-                        
-                        // Update card styling
-                        const card = actionContainer.closest('.schedule-card');
-                        card.style.borderColor = 'var(--border)';
-                        card.style.background = 'white';
-                    }
-                }
-            }, 2000);
+        async function confirmAttend(text) {
+            if (busy || !cur) return;
+            text = String(text || '').trim();
+            if (text.length < 4) { $('err').textContent = 'Mã quá ngắn. Hãy nhập đúng mã giảng viên cung cấp.'; return }
+            busy = true;
+            await stopCam();
+            const d = new Date();
+            const t = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            att[cur.id] = $('demoTime').value === 'real' ? t : $('demoTime').value;
+            save();
+            $('okText').textContent = `${cur.code} · mã: ${text.length > 40 ? text.slice(0, 40) + '…' : text}`;
+            $('success').classList.add('active');
+            const name = cur.code;
+            setTimeout(async () => { await closeScanner(); render(); toast(`Đã điểm danh ${name}`) }, 1600);
         }
+
+        $('list').addEventListener('click', e => { const b = e.target.closest('[data-scan]'); if (b) openScanner(b.dataset.scan) });
+        $('mClose').onclick = closeScanner;
+        $('modal').onclick = e => { if (e.target.id === 'modal') closeScanner() };
+        $('manual').onsubmit = e => { e.preventDefault(); confirmAttend($('code').value) };
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { if ($('modal').classList.contains('active')) closeScanner(); $('dash').classList.remove('nav-open') } });
+        $('demoTime').onchange = render;
+        $('resetBtn').onclick = () => { att = { slot1: '07:42' }; save(); render(); toast('Đã đặt lại điểm danh') };
+
+        let tt;
+        function toast(m) { $('toast').textContent = m; $('toast').classList.add('show'); clearTimeout(tt); tt = setTimeout(() => $('toast').classList.remove('show'), 2000) }
+
+        $('menuBtn').onclick = () => $('dash').classList.toggle('nav-open');
+        $('scrim').onclick = () => $('dash').classList.remove('nav-open');
+
+        render();
+        setInterval(() => { if ($('demoTime').value === 'real' && !$('modal').classList.contains('active')) render() }, 30000);
     </script>
 </body>
+
 </html>
-
-

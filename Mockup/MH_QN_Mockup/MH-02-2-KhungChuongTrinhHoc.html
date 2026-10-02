@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -11,12 +11,21 @@
             --primary: #0757A6;
             --primary-dark: #063B75;
             --primary-light: #CFE6FF;
+            --primary-50: #EAF4FF;
             --text-dark: #102A43;
             --text-gray: #5E7184;
-            --text-light: #E7F2FE;
+            --text-light: #8FA4B8;
             --bg-light: #F5F8FC;
             --bg-white: #FFFFFF;
             --border: #DCE8F3;
+            --border-light: #EDF2F7;
+            --success: #059669;
+            --success-light: #ECFDF5;
+            --danger: #DC2626;
+            --danger-light: #FEF2F2;
+            --warning: #D97706;
+            --warning-light: #FFFBEB;
+            --info: #2563EB;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -38,13 +47,37 @@
 
         /* Layout */
         .dashboard-layout { display: flex; height: calc(100vh - 64px); }
-        .sidebar { width: 260px; background: white; border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
-        .menu-group-title { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; padding: 12px 24px 4px; letter-spacing: 0.5px; }
-        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: var(--text-gray); font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; text-decoration: none; }
+                                /* ─── Sidebar ─── */
+        .sidebar {
+            width: 256px; background: white; border-right: 1px solid var(--border-light, #EDF2F7);
+            padding: 20px 0; display: flex; flex-direction: column; gap: 2px;
+            flex-shrink: 0; overflow-y: auto;
+        }
+        .sidebar::-webkit-scrollbar { width: 3px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .menu-group-title {
+            font-size: 10px; font-weight: 700; color: var(--text-light, #8FA4B8);
+            text-transform: uppercase; padding: 16px 24px 6px; letter-spacing: 0.8px;
+        }
+        .sidebar-item {
+            display: flex; align-items: center; gap: 12px; padding: 10px 24px;
+            color: var(--text-gray); font-weight: 500; font-size: 13.5px; cursor: pointer;
+            text-decoration: none; border-left: 3px solid transparent;
+            transition: all 0.15s ease;
+        }
         .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
-        .sidebar-item.active { background: #EAF4FF; color: var(--primary); border-left: 3px solid var(--primary); font-weight: 600; }
-        
-        .dashboard-content { flex: 1; padding: 32px; overflow-y: auto; }
+        .sidebar-item.active {
+            background: var(--primary-50, #EAF4FF); color: var(--primary);
+            border-left-color: var(--primary); font-weight: 600;
+        }
+
+        /* ─── Main Content ─── */
+        .dashboard-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+            background: transparent;
+        }
         .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
         .page-title { font-size: 24px; font-weight: 700; color: var(--text-dark); }
 
@@ -102,10 +135,7 @@
         .user-info { display: flex !important; flex-direction: column !important; text-align: right !important; }
         .user-info .name { font-size: 14px !important; font-weight: 600 !important; color: var(--text-dark) !important; }
         .user-info .role { font-size: 12px !important; color: var(--text-gray) !important; }
-            .sidebar { flex-shrink: 0 !important; overflow-y: auto !important; }
-        .sidebar::-webkit-scrollbar { width: 4px; }
-        .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
-        .sidebar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+            
     </style>
 </head>
 <body>
@@ -125,49 +155,53 @@
 
     <div class="dashboard-layout">
         <!-- Sidebar -->
-        <aside class="sidebar">
+                                <aside class="sidebar">
             <div class="menu-group-title">Menu Chính</div>
             <a href="MH-00-7-DashboardBaoCao.html" class="sidebar-item">
-                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+                <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
             </a>
             <div class="menu-group-title">Tuyển Sinh</div>
             <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
-                <i data-lucide="users" size="20"></i> Danh sách trúng tuyển
+                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
             <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item">
-                <i data-lucide="folder-plus" size="20"></i> Tiếp nhận hồ sơ
+                <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
             <div class="menu-group-title">Sinh Viên</div>
             <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
                 <i data-lucide="list" size="20"></i> Danh sách lớp
             </a>
+            <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
+                <i data-lucide="contact-2" size="20"></i> Hồ sơ sinh viên
+            </a>
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
-                <i data-lucide="network" size="20"></i> Phân bổ lớp
+                <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
             <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
-                <i data-lucide="user-cog" size="20"></i> Cập nhật trạng thái
+                <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
             </a>
             <div class="menu-group-title">Đào Tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item">
-                <i data-lucide="server" size="20"></i> Quản lý danh mục
+                <i data-lucide="server" size="18"></i> Quản lý danh mục
             </a>
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item active">
-                <i data-lucide="book-open-check" size="20"></i> Chương trình học
+                <i data-lucide="book-open-check" size="18"></i> Chương trình học
             </a>
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item">
-                <i data-lucide="calendar-range" size="20"></i> Xếp Thời khóa biểu
+                <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
-                        <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
-                <i data-lucide="calendar-clock" size="20"></i> Lịch báo nghỉ/bù
+            <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
+                <i data-lucide="calendar-clock" size="18"></i> Lịch báo nghỉ/bù
             </a>
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
-                <i data-lucide="file-check-2" size="20"></i> Phê duyệt đơn từ
+                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
-                <i data-lucide="receipt" size="20"></i> Lịch sử giao dịch
+                <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
             </a>
         </aside>
+
 
         <!-- Main Content -->
         <main class="dashboard-content">

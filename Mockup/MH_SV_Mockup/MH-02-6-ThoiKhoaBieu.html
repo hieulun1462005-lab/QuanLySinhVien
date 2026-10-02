@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cổng Thông Tin Sinh Viên - Đại Học ONENET</title>
+    <title>Thời khóa biểu - Đại Học ONENET</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -11,363 +12,954 @@
             --primary: #2563EB;
             --primary-light: #EFF6FF;
             --primary-hover: #1D4ED8;
-            --text-dark: #1E293B;
-            --text-gray: #64748B;
-            --bg-light: #F1F5F9;
+            --text: #1E293B;
+            --gray: #64748B;
+            --bg: #F1F5F9;
             --border: #E2E8F0;
-            --danger: #EF4444;
-            --success: #10B981;
-            --warning: #F59E0B;
+            --danger: #DC2626;
+            --success: #16A34A;
+            --warning: #D97706;
+            --surface: #fff;
+            --slot-bg: #F8FAFC;
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --primary: #60A5FA;
+                --primary-light: #1E293B;
+                --primary-hover: #93C5FD;
+                --text: #E2E8F0;
+                --gray: #94A3B8;
+                --bg: #0F172A;
+                --border: #334155;
+                --danger: #F87171;
+                --success: #4ADE80;
+                --warning: #FBBF24;
+                --surface: #1E293B;
+                --slot-bg: #172033;
+            }
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, sans-serif
         }
 
         body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+            background: var(--bg);
+            color: var(--text);
             height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow: hidden
+        }
+
+        button {
+            cursor: pointer;
+            border: 0;
+            background: none;
+            color: inherit
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px
         }
 
         /* HEADER */
         .header {
             height: 64px;
-            background: white;
+            background: var(--surface);
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 32px;
+            padding: 0 24px;
             z-index: 100;
+            flex-shrink: 0
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center
+        }
+
+        .menu-btn:hover {
+            background: var(--primary-light)
         }
 
         .sys-identity {
             display: flex;
             align-items: center;
             gap: 12px;
-            cursor: pointer;
+            cursor: pointer
         }
 
         .emblem {
-            width: 40px; height: 40px;
+            width: 40px;
+            height: 40px;
             background: var(--primary-light);
             color: var(--primary);
             border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center
         }
 
         .brand-copy {
-            display: flex; flex-direction: column;
+            display: flex;
+            flex-direction: column
         }
 
-        .uni { font-size: 11px; font-weight: 700; color: var(--text-gray); letter-spacing: 0.5px; }
-        .sys-name { font-size: 16px; font-weight: 700; color: var(--primary); }
+        .uni {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gray);
+            letter-spacing: .5px
+        }
 
-        .user-profile { display: flex; align-items: center; gap: 16px; cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; }
-        .user-profile:hover { background: var(--primary-light); }
+        .sys-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary)
+        }
 
-        .user-info { display: flex; flex-direction: column; text-align: right; }
-        .user-info .name { font-size: 14px; font-weight: 600; }
-        .user-info .role { font-size: 12px; color: var(--text-gray); }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: background .2s
+        }
+
+        .user-profile:hover {
+            background: var(--primary-light)
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            text-align: right
+        }
+
+        .user-info .name {
+            font-size: 14px;
+            font-weight: 600
+        }
+
+        .user-info .role {
+            font-size: 12px;
+            color: var(--gray)
+        }
 
         .avatar {
-            width: 40px; height: 40px;
-            background: #F3E8FD; color: #8E24AA;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
             border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700
         }
 
-        /* DASHBOARD LAYOUT */
-        .dashboard-container {
+        /* LAYOUT */
+        .dashboard {
             display: flex;
             flex: 1;
             overflow: hidden;
+            position: relative
         }
 
         .sidebar {
             width: 260px;
-            background: white;
+            background: var(--surface);
             border-right: 1px solid var(--border);
             padding: 24px 16px;
-            display: flex; flex-direction: column; gap: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
             overflow-y: auto;
+            flex-shrink: 0
         }
 
-        .menu-group { display: flex; flex-direction: column; gap: 8px; }
+        .menu-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
         .menu-title {
-            font-size: 11px; font-weight: 700; color: var(--text-gray);
-            letter-spacing: 0.5px; margin-left: 12px; margin-bottom: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gray);
+            letter-spacing: .5px;
+            margin: 0 12px 4px
         }
 
         .menu-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px 12px; border-radius: 8px;
-            color: var(--text-gray); font-size: 14px; font-weight: 500;
-            cursor: pointer; transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--gray);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background .2s, color .2s
         }
 
-        .menu-item:hover { background: var(--bg-light); color: var(--primary); }
-        .menu-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+        .menu-item:hover {
+            background: var(--bg);
+            color: var(--primary)
+        }
 
-        .main-content {
-            flex: 1; padding: 32px 40px; overflow-y: auto;
+        .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600
+        }
+
+        .scrim {
+            display: none
+        }
+
+        .main {
+            flex: 1;
+            padding: 28px 36px;
+            overflow-y: auto;
+            min-width: 0
+        }
+
+        /* PAGE HEAD */
+        .page-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 20px
         }
 
         .page-title {
-            font-size: 24px; font-weight: 700; margin-bottom: 24px;
+            font-size: 24px;
+            font-weight: 700
         }
 
-        /* TIMETABLE SPECIFIC */
-        .controls-bar {
-            display: flex; gap: 16px; margin-bottom: 24px;
-            background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border);
-        }
-        .form-select {
-            padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; outline: none;
+        .page-sub {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 4px
         }
 
-        .tt-table {
-            width: 100%; border-collapse: collapse; background: white; font-size: 13px;
-        }
-        .tt-table th {
-            background: #5A83D2; color: white; padding: 10px; font-weight: 600; text-align: center; border: 1px solid white;
-        }
-        .tt-table td {
-            border: 1px solid var(--border); padding: 8px; vertical-align: top; width: 12.5%; height: 100px;
-        }
-        .tt-table td.slot-col {
-            background: #F8FAFC; width: 80px; text-align: center; font-weight: 600; color: var(--text-gray); vertical-align: middle;
+        .stats {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
         }
 
-        .tt-block {
-            display: flex; flex-direction: column; gap: 4px;
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 13px;
+            color: var(--gray)
         }
-        .tt-course { color: #1E4E8C; font-weight: 600; font-size: 14px; }
-        .tt-btn {
-            background: #F59E0B; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; display: inline-block;
-        }
-        .tt-btn-blue { background: #2563EB; }
-        .tt-room { color: var(--text-dark); }
-        .tt-attended { color: #16A34A; font-weight: 600; }
-        .tt-absent { color: #DC2626; font-weight: 600; }
-        .tt-notyet { color: #DC2626; font-weight: 600; }
-        .tt-time { background: #16A34A; color: white; font-size: 11px; padding: 2px 4px; border-radius: 4px; display: inline-block; width: fit-content;}
 
+        .stat b {
+            font-size: 18px;
+            color: var(--text)
+        }
+
+        .stat i {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%
+        }
+
+        /* CONTROLS */
+        .controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 16px
+        }
+
+        .field {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray)
+        }
+
+        .select {
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            background: var(--surface);
+            color: var(--text)
+        }
+
+        .spacer {
+            flex: 1
+        }
+
+        .nav {
+            display: flex;
+            gap: 6px
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--surface);
+            transition: background .15s, border-color .15s
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary)
+        }
+
+        .btn.primary {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff
+        }
+
+        .btn.primary:hover {
+            background: var(--primary-hover);
+            color: #fff
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px
+        }
+
+        /* TABLE */
+        .table-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow-x: auto
+        }
+
+        .tt {
+            width: 100%;
+            min-width: 960px;
+            border-collapse: collapse;
+            table-layout: fixed
+        }
+
+        .tt th {
+            padding: 12px 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            background: var(--slot-bg);
+            border-bottom: 1px solid var(--border);
+            border-left: 1px solid var(--border)
+        }
+
+        .tt th small {
+            display: block;
+            font-weight: 400;
+            color: var(--gray);
+            margin-top: 2px
+        }
+
+        .tt th.today {
+            background: var(--primary);
+            color: #fff
+        }
+
+        .tt th.today small {
+            color: #DBEAFE
+        }
+
+        .tt th:first-child,
+        .tt td.slot {
+            width: 96px;
+            border-left: 0
+        }
+
+        .tt td {
+            border-top: 1px solid var(--border);
+            border-left: 1px solid var(--border);
+            padding: 6px;
+            vertical-align: top;
+            height: 112px
+        }
+
+        .tt td.today {
+            background: color-mix(in srgb, var(--primary) 4%, var(--surface))
+        }
+
+        .tt td.slot {
+            background: var(--slot-bg);
+            text-align: center;
+            vertical-align: middle;
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .tt td.slot span {
+            display: block;
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--gray);
+            margin-top: 3px
+        }
+
+        .empty {
+            display: block;
+            text-align: center;
+            color: var(--border);
+            padding-top: 36px;
+            user-select: none
+        }
+
+        .cls {
+            --c: var(--primary);
+            width: 100%;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border-left: 4px solid var(--c);
+            background: color-mix(in srgb, var(--c) 10%, var(--surface));
+            transition: transform .15s, box-shadow .15s;
+            height: 100%
+        }
+
+        .cls:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, .12)
+        }
+
+        .cls .code {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--c)
+        }
+
+        .cls .room {
+            font-size: 12px;
+            color: var(--gray)
+        }
+
+        .cls .time {
+            font-size: 12px;
+            font-weight: 500
+        }
+
+        .st {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: auto
+        }
+
+        .st.attended {
+            color: var(--success)
+        }
+
+        .st.absent {
+            color: var(--danger)
+        }
+
+        .st.notyet {
+            color: var(--warning)
+        }
+
+        .st svg {
+            width: 13px;
+            height: 13px
+        }
+
+        .tag {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 1px 6px;
+            border-radius: 99px;
+            background: var(--success);
+            color: #fff;
+            width: fit-content
+        }
+
+        .dim {
+            opacity: .25
+        }
+
+        .legend {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            font-size: 12px;
+            color: var(--gray)
+        }
+
+        .legend span {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .legend i {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, .5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 300;
+            padding: 16px
+        }
+
+        .modal.open {
+            display: flex
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 420px;
+            padding: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+            animation: pop .18s ease-out
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(.96);
+                opacity: 0
+            }
+
+            to {
+                transform: none;
+                opacity: 1
+            }
+        }
+
+        .card-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px
+        }
+
+        .card-head h2 {
+            font-size: 18px
+        }
+
+        .card-head p {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 2px
+        }
+
+        .x {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            flex-shrink: 0
+        }
+
+        .x:hover {
+            background: var(--bg)
+        }
+
+        .rows {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px 16px;
+            font-size: 14px;
+            margin-bottom: 20px
+        }
+
+        .rows dt {
+            color: var(--gray)
+        }
+
+        .rows dd {
+            font-weight: 500
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text);
+            color: var(--surface);
+            padding: 10px 18px;
+            border-radius: 99px;
+            font-size: 13px;
+            font-weight: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s;
+            z-index: 400
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%)
+        }
+
+        @media (max-width:900px) {
+            .menu-btn {
+                display: flex
+            }
+
+            .header {
+                padding: 0 12px
+            }
+
+            .user-info {
+                display: none
+            }
+
+            .sidebar {
+                position: absolute;
+                inset: 0 auto 0 0;
+                z-index: 200;
+                transform: translateX(-100%);
+                transition: transform .25s;
+                box-shadow: 4px 0 20px rgba(0, 0, 0, .15)
+            }
+
+            .dashboard.nav-open .sidebar {
+                transform: none
+            }
+
+            .dashboard.nav-open .scrim {
+                display: block;
+                position: absolute;
+                inset: 0;
+                background: rgba(15, 23, 42, .4);
+                z-index: 150
+            }
+
+            .main {
+                padding: 20px 16px
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            * {
+                transition: none !important;
+                animation: none !important
+            }
+        }
     </style>
 </head>
+
 <body>
 
-        <header class="header">
-        <div class="sys-identity" onclick="window.location.href='../MH_Chung_Mockup/MH-00-5-DangNhapAdmin.html'">
-            <div class="emblem">
-                <i data-lucide="book-open" size="20"></i>
-            </div>
-            <div class="brand-copy">
-                <span class="uni">TRƯỜNG</span>
-                <span class="sys-name">Đại Học ONENET</span>
+    <header class="header">
+        <div class="left">
+            <button class="menu-btn" id="menuBtn" aria-label="Mở menu"><i data-lucide="menu"></i></button>
+            <div class="sys-identity" onclick="window.location.href='../MH_Chung_Mockup/MH-00-5-DangNhapAdmin.html'">
+                <div class="emblem"><i data-lucide="book-open"></i></div>
+                <div class="brand-copy"><span class="uni">TRƯỜNG</span><span class="sys-name">Đại Học ONENET</span>
+                </div>
             </div>
         </div>
         <div class="user-profile" onclick="window.location.href='MH-05-4-QuanLyHoSoCaNhan.html'">
-            <div class="user-info">
-                <span class="name">Nguyễn Hồng Long Khánh</span>
-                <span class="role">Sinh viên (K19)</span>
-            </div>
-            <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
-                K
-            </div>
+            <div class="user-info"><span class="name">Nguyễn Hồng Long Khánh</span><span class="role">Sinh viên
+                    (K19)</span></div>
+            <div class="avatar">K</div>
         </div>
     </header>
 
-
-    <div class="dashboard-container">
-                                        <!-- SIDEBAR -->
-        <div class="sidebar">
+    <div class="dashboard" id="dash">
+        <nav class="sidebar">
             <div class="menu-group">
                 <div class="menu-title">HỌC TẬP</div>
-                <div class="menu-item " onclick="window.location.href='MH-00-9-TongQuanHocTap.html'">
-                    <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-03-3-QRDiemDanh.html'">
-                    <i data-lucide="scan-line" size="18"></i> Lịch học & Điểm danh QR
-                </div>
-                <div class="menu-item active" onclick="window.location.href='MH-02-6-ThoiKhoaBieu.html'">
-                    <i data-lucide="calendar" size="18"></i> Thời khóa biểu
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
-                    <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'">
-                    <i data-lucide="book" size="18"></i> Chương trình đào tạo
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
-                    <i data-lucide="clock" size="18"></i> Lịch thi
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-04-2-KetQuaHocTap.html'">
-                    <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
-                </div>
+                <div class="menu-item" onclick="window.location.href='MH-00-9-TongQuanHocTap.html'"><i
+                        data-lucide="layout-dashboard"></i> Tổng quan</div>
+                <div class="menu-item" onclick="window.location.href='MH-03-3-QRDiemDanh.html'"><i
+                        data-lucide="scan-line"></i> Lịch học & Điểm danh QR</div>
+                <div class="menu-item active" onclick="window.location.href='MH-02-6-ThoiKhoaBieu.html'"><i
+                        data-lucide="calendar"></i> Thời khóa biểu</div>
+                <div class="menu-item" onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'"><i
+                        data-lucide="check-circle"></i> Báo cáo điểm danh</div>
+                <div class="menu-item" onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'"><i
+                        data-lucide="book"></i> Chương trình đào tạo</div>
+                <div class="menu-item" onclick="window.location.href='MH-04-3-LichThi.html'"><i data-lucide="clock"></i>
+                    Lịch thi</div>
+                <div class="menu-item" onclick="window.location.href='MH-04-2-KetQuaHocTap.html'"><i
+                        data-lucide="bar-chart-2"></i> Bảng điểm cá nhân</div>
             </div>
-
             <div class="menu-group">
                 <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
-                <div class="menu-item " onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'">
-                    <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
-                </div>
-                <div class="menu-item " onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'">
-                    <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
-                </div>
+                <div class="menu-item" onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'"><i
+                        data-lucide="file-text"></i> Nộp đơn từ trực tuyến</div>
+                <div class="menu-item" onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'"><i
+                        data-lucide="credit-card"></i> Hóa đơn & Thanh toán</div>
             </div>
-        </div>
+        </nav>
+        <div class="scrim" id="scrim"></div>
 
-
-        <!-- MAIN CONTENT -->
-        <div class="main-content">
-            <h1 class="page-title">Thời khóa biểu (Timetable)</h1>
-            
-            <div class="controls-bar">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="font-weight: 600; font-size: 14px;">YEAR</span>
-                    <select class="form-select">
-                        <option selected>2026</option>
-                        <option>2025</option>
-                        <option>2024</option>
-                    </select>
+        <main class="main">
+            <div class="page-head">
+                <div>
+                    <h1 class="page-title">Thời khóa biểu</h1>
+                    <p class="page-sub" id="rangeText"></p>
                 </div>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="font-weight: 600; font-size: 14px;">WEEK</span>
-                    <select class="form-select">
-                        <option>08/06 To 14/06</option>
-                    </select>
-                </div>
+                <div class="stats" id="stats"></div>
             </div>
 
-            <div style="background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
-                <table class="tt-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 80px; background: transparent;"></th>
-                            <th>MON<br><span style="font-size: 11px; font-weight: 400;">08/06</span></th>
-                            <th>TUE<br><span style="font-size: 11px; font-weight: 400;">09/06</span></th>
-                            <th>WED<br><span style="font-size: 11px; font-weight: 400;">10/06</span></th>
-                            <th>THU<br><span style="font-size: 11px; font-weight: 400;">11/06</span></th>
-                            <th>FRI<br><span style="font-size: 11px; font-weight: 400;">12/06</span></th>
-                            <th>SAT<br><span style="font-size: 11px; font-weight: 400;">13/06</span></th>
-                            <th>SUN<br><span style="font-size: 11px; font-weight: 400;">14/06</span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="slot-col">Slot 1</td>
-                            <td align="center">-</td>
-                            <td align="center">-</td>
-                            <td>
-                                <div class="tt-block">
-                                    <div><span class="tt-course">SWT301</span>- <span class="tt-btn">View Materials</span></div>
-                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
-                                    <div class="tt-attended">(attended)</div>
-                                    <div class="tt-time">(7:30-9:50)</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="tt-block">
-                                    <div><span class="tt-course">PRN212</span>- <span class="tt-btn">View Materials</span></div>
-                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
-                                    <div class="tt-attended">(attended)</div>
-                                    <div class="tt-time">(7:30-9:50)</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="tt-block">
-                                    <div><span class="tt-course">SWR302</span>- <span class="tt-btn">View Materials</span></div>
-                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
-                                    <div class="tt-absent">(absent)</div>
-                                    <div class="tt-time">(7:30-9:50)</div>
-                                </div>
-                            </td>
-                            <td align="center">-</td>
-                            <td align="center">-</td>
-                        </tr>
-                        <tr>
-                            <td class="slot-col">Slot 2</td>
-                            <td>
-                                <div class="tt-block">
-                                    <div><span class="tt-course">PRN212</span>- <span class="tt-btn">View Materials</span></div>
-                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
-                                    <div class="tt-attended">(attended)</div>
-                                    <div class="tt-time">(10:00-12:20)</div>
-                                </div>
-                            </td>
-                            <td align="center">-</td>
-                            <td>
-                                <div class="tt-block">
-                                    <div><span class="tt-course">SWR302</span>- <span class="tt-btn">View Materials</span></div>
-                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
-                                    <div class="tt-attended">(attended)</div>
-                                    <div class="tt-time">(10:00-12:20)</div>
-                                </div>
-                            </td>
-                            <td align="center">-</td>
-                            <td>
-                                <div class="tt-block">
-                                    <div><span class="tt-course">SWT301</span>- <span class="tt-btn">View Materials</span></div>
-                                    <div class="tt-room">at BE-117 <span class="tt-btn tt-btn-blue">EduNext</span></div>
-                                    <div class="tt-attended">(attended)</div>
-                                    <div class="tt-time">(10:00-12:20)</div>
-                                </div>
-                            </td>
-                            <td align="center">-</td>
-                            <td align="center">-</td>
-                        </tr>
-                        <tr>
-                            <td class="slot-col">Slot 3</td>
-                            <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
-                        </tr>
-                        <tr>
-                            <td class="slot-col">Slot 4</td>
-                            <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
-                        </tr>
-                        <tr>
-                            <td class="slot-col">Slot 5</td>
-                            <td>
-                                <div class="tt-block">
-                                    <div><span class="tt-course">ORT101</span>- <span class="tt-btn">View Materials</span></div>
-                                    <div class="tt-room">at Phòng OR_OJT <span class="tt-btn tt-btn-blue">EduNext</span></div>
-                                    <div class="tt-notyet">(Not yet)</div>
-                                    <div class="tt-time">(18:00-20:20)</div>
-                                    <div style="display: flex; align-items: center; gap: 4px; font-size: 16px; margin-top: 4px;"><div style="width: 12px; height: 12px; border-radius: 50%; background: #16A34A;"></div> Online</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="tt-block">
-                                    <div><span class="tt-course">ORT101</span>- <span class="tt-btn">View Materials</span></div>
-                                    <div class="tt-room">at Phòng OR_OJT <span class="tt-btn tt-btn-blue">EduNext</span></div>
-                                    <div class="tt-notyet">(Not yet)</div>
-                                    <div class="tt-time">(18:00-20:20)</div>
-                                    <div style="display: flex; align-items: center; gap: 4px; font-size: 16px; margin-top: 4px;"><div style="width: 12px; height: 12px; border-radius: 50%; background: #16A34A;"></div> Online</div>
-                                </div>
-                            </td>
-                            <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
-                        </tr>
-                        <tr>
-                            <td class="slot-col">Slot 6</td>
-                            <td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td align="center">-</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="controls">
+                <label class="field">Năm <select class="select" id="year"></select></label>
+                <label class="field">Tuần <select class="select" id="week"></select></label>
+                <label class="field">Môn <select class="select" id="course"></select></label>
+                <span class="spacer"></span>
+                <div class="nav">
+                    <button class="btn" id="prev" aria-label="Tuần trước"><i
+                            data-lucide="chevron-left"></i>Trước</button>
+                    <button class="btn primary" id="today">Tuần này</button>
+                    <button class="btn" id="next" aria-label="Tuần sau">Sau<i data-lucide="chevron-right"></i></button>
+                </div>
             </div>
-            
-        </div>
+
+            <div class="table-wrap">
+                <table class="tt" id="tt"></table>
+            </div>
+
+            <div class="legend">
+                <span style="color:var(--success)"><i style="background:var(--success)"></i>Đã điểm danh</span>
+                <span style="color:var(--danger)"><i style="background:var(--danger)"></i>Vắng</span>
+                <span style="color:var(--warning)"><i style="background:var(--warning)"></i>Chưa diễn ra</span>
+                <span><i style="background:var(--primary)"></i>Cột được tô đậm là hôm nay</span>
+            </div>
+        </main>
     </div>
 
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+        <div class="card">
+            <div class="card-head">
+                <div>
+                    <h2 id="mTitle"></h2>
+                    <p id="mSub"></p>
+                </div>
+                <button class="x" id="mClose" aria-label="Đóng"><i data-lucide="x"></i></button>
+            </div>
+            <dl class="rows" id="mRows"></dl>
+            <div class="actions">
+                <button class="btn" data-act="Đang mở tài liệu môn học…"><i data-lucide="folder-open"></i>Tài
+                    liệu</button>
+                <button class="btn primary" data-act="Đang chuyển đến EduNext…"><i
+                        data-lucide="external-link"></i>EduNext</button>
+            </div>
+        </div>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+
     <script>
-        lucide.createIcons();
+        const SLOTS = [
+            { n: 'Slot 1', s: '07:30', e: '09:50' }, { n: 'Slot 2', s: '10:00', e: '12:20' },
+            { n: 'Slot 3', s: '12:50', e: '15:10' }, { n: 'Slot 4', s: '15:20', e: '17:40' },
+            { n: 'Slot 5', s: '18:00', e: '20:20' }, { n: 'Slot 6', s: '20:30', e: '22:50' }
+        ];
+        const DAYS = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'];
+        const COURSES = {
+            SWT301: { name: 'Kiểm thử phần mềm', color: '#2563EB' },
+            PRN212: { name: 'Lập trình ứng dụng .NET', color: '#7C3AED' },
+            SWR302: { name: 'Yêu cầu phần mềm', color: '#0D9488' },
+            ORT101: { name: 'Định hướng nghề nghiệp', color: '#D97706' }
+        };
+        /* day: 0=Thứ 2 … 6=CN, slot: 0..5 */
+        const TEMPLATE = [
+            { c: 'PRN212', d: 0, s: 1, room: 'BE-117' }, { c: 'ORT101', d: 0, s: 4, room: 'Phòng OR_OJT', online: 1 },
+            { c: 'ORT101', d: 1, s: 4, room: 'Phòng OR_OJT', online: 1 },
+            { c: 'SWT301', d: 2, s: 0, room: 'BE-117' }, { c: 'SWR302', d: 2, s: 1, room: 'BE-117' },
+            { c: 'PRN212', d: 3, s: 0, room: 'BE-117' },
+            { c: 'SWR302', d: 4, s: 0, room: 'BE-117' }, { c: 'SWT301', d: 4, s: 1, room: 'BE-117' }
+        ];
+        /* Tuần 08/06/2026: giữ nguyên dữ liệu mẫu ban đầu */
+        const SAMPLE_WEEK = '2026-06-08';
+        const SAMPLE = { '4-0': 'absent', '0-4': 'notyet', '1-4': 'notyet' };
+
+        const ST = {
+            attended: { t: 'Đã điểm danh', i: 'check-circle-2' },
+            absent: { t: 'Vắng', i: 'x-circle' },
+            notyet: { t: 'Chưa diễn ra', i: 'clock' }
+        };
+        const $ = id => document.getElementById(id);
+        const pad = n => String(n).padStart(2, '0');
+        const fmt = d => pad(d.getDate()) + '/' + pad(d.getMonth() + 1);
+        const key = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+        const mondayOf = d => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x };
+        const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x };
+        const yearOfWeek = m => addDays(m, 3).getFullYear();
+
+        let monday = mondayOf(new Date());
+        let filter = 'all';
+
+        function weeksOf(year) {
+            let m = mondayOf(new Date(year, 0, 1));
+            while (yearOfWeek(m) < year) m = addDays(m, 7);
+            const list = [];
+            while (yearOfWeek(m) === year) { list.push(m); m = addDays(m, 7) }
+            return list;
+        }
+        function statusOf(item, date, wkKey) {
+            if (wkKey === SAMPLE_WEEK) return SAMPLE[item.d + '-' + item.s] || 'attended';
+            const [h, m] = SLOTS[item.s].e.split(':').map(Number);
+            const end = new Date(date.getFullYear(), date.getMonth(), date.getDate(), h, m);
+            if (end > new Date()) return 'notyet';
+            return (date.getDate() * 7 + date.getMonth() * 3 + item.s) % 11 === 0 ? 'absent' : 'attended';
+        }
+
+        function buildYears() {
+            const cy = new Date().getFullYear();
+            $('year').innerHTML = [cy + 1, cy, cy - 1, cy - 2].map(y => `<option>${y}</option>`).join('');
+            $('course').innerHTML = '<option value="all">Tất cả môn</option>' + Object.keys(COURSES).map(c => `<option value="${c}">${c} - ${COURSES[c].name}</option>`).join('');
+        }
+        function syncSelects() {
+            const y = yearOfWeek(monday);
+            if (![...$('year').options].some(o => +o.value === y)) { $('year').add(new Option(y, y)) }
+            $('year').value = y;
+            const ws = weeksOf(y);
+            $('week').innerHTML = ws.map((w, i) => `<option value="${i}">${fmt(w)} - ${fmt(addDays(w, 6))}</option>`).join('');
+            $('week').value = ws.findIndex(w => key(w) === key(monday));
+        }
+
+        function render() {
+            syncSelects();
+            const todayKey = key(new Date());
+            const wk = key(monday);
+            const dates = DAYS.map((_, i) => addDays(monday, i));
+            const counts = { attended: 0, absent: 0, notyet: 0 };
+
+            let html = '<thead><tr><th></th>' + dates.map((d, i) => `<th class="${key(d) === todayKey ? 'today' : ''}">${DAYS[i]}<small>${fmt(d)}</small></th>`).join('') + '</tr></thead><tbody>';
+            SLOTS.forEach((sl, si) => {
+                html += `<tr><td class="slot">${sl.n}<span>${sl.s}-${sl.e}</span></td>`;
+                dates.forEach((d, di) => {
+                    const it = TEMPLATE.find(x => x.d === di && x.s === si);
+                    const isToday = key(d) === todayKey ? ' today' : '';
+                    if (!it) { html += `<td class="${isToday}"><span class="empty">-</span></td>`; return }
+                    const st = statusOf(it, d, wk);
+                    counts[st]++;
+                    const dim = filter !== 'all' && filter !== it.c ? ' dim' : '';
+                    html += `<td class="${isToday}"><button class="cls${dim}" style="--c:${COURSES[it.c].color}" data-d="${di}" data-s="${si}" aria-label="${it.c}, ${SLOTS[si].n}, ${ST[st].t}">
+        <span class="code">${it.c}</span>
+        <span class="room">${it.online ? 'Trực tuyến · ' : ''}${it.room}</span>
+        <span class="time">${SLOTS[si].s}-${SLOTS[si].e}</span>
+        <span class="st ${st}"><i data-lucide="${ST[st].i}"></i>${ST[st].t}</span>
+      </button></td>`;
+                });
+                html += '</tr>';
+            });
+            $('tt').innerHTML = html + '</tbody>';
+
+            $('rangeText').textContent = `Tuần ${fmt(monday)} đến ${fmt(addDays(monday, 6))}/${addDays(monday, 6).getFullYear()}`;
+            $('stats').innerHTML =
+                `<div class="stat"><i style="background:var(--success)"></i><b>${counts.attended}</b> đã học</div>` +
+                `<div class="stat"><i style="background:var(--danger)"></i><b>${counts.absent}</b> vắng</div>` +
+                `<div class="stat"><i style="background:var(--warning)"></i><b>${counts.notyet}</b> sắp tới</div>`;
+            lucide.createIcons();
+        }
+
+        function go(d) { monday = mondayOf(d); render() }
+        $('prev').onclick = () => go(addDays(monday, -7));
+        $('next').onclick = () => go(addDays(monday, 7));
+        $('today').onclick = () => go(new Date());
+        $('year').onchange = e => { const ws = weeksOf(+e.target.value); const cur = mondayOf(new Date()); go(ws.find(w => key(w) === key(cur)) || ws[0]) };
+        $('week').onchange = e => go(weeksOf(+$('year').value)[+e.target.value]);
+        $('course').onchange = e => { filter = e.target.value; render() };
+
+        /* Chi tiết buổi học */
+        let lastBtn = null;
+        $('tt').addEventListener('click', e => {
+            const b = e.target.closest('.cls'); if (!b) return;
+            const it = TEMPLATE.find(x => x.d == b.dataset.d && x.s == b.dataset.s);
+            const date = addDays(monday, it.d), sl = SLOTS[it.s], st = statusOf(it, date, key(monday));
+            $('mTitle').textContent = it.c;
+            $('mSub').textContent = COURSES[it.c].name;
+            $('mRows').innerHTML =
+                `<dt>Ngày học</dt><dd>${DAYS[it.d]}, ${fmt(date)}/${date.getFullYear()}</dd>` +
+                `<dt>Ca học</dt><dd>${sl.n} (${sl.s}-${sl.e})</dd>` +
+                `<dt>Phòng</dt><dd>${it.room}</dd>` +
+                `<dt>Hình thức</dt><dd>${it.online ? 'Trực tuyến' : 'Trực tiếp'}</dd>` +
+                `<dt>Điểm danh</dt><dd class="st ${st}" style="margin:0">${ST[st].t}</dd>`;
+            lastBtn = b; $('modal').classList.add('open'); $('mClose').focus();
+        });
+        const closeModal = () => { $('modal').classList.remove('open'); lastBtn && lastBtn.focus() };
+        $('mClose').onclick = closeModal;
+        $('modal').onclick = e => { if (e.target.id === 'modal') closeModal() };
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); $('dash').classList.remove('nav-open') } });
+
+        /* Toast cho nút tài liệu / EduNext (chưa có liên kết thật) */
+        let tt;
+        $('modal').querySelectorAll('[data-act]').forEach(b => b.onclick = () => {
+            $('toast').textContent = b.dataset.act; $('toast').classList.add('show');
+            clearTimeout(tt); tt = setTimeout(() => $('toast').classList.remove('show'), 1800);
+        });
+
+        /* Menu di động */
+        $('menuBtn').onclick = () => $('dash').classList.toggle('nav-open');
+        $('scrim').onclick = () => $('dash').classList.remove('nav-open');
+
+        buildYears(); render();
     </script>
 </body>
+
 </html>
-
-

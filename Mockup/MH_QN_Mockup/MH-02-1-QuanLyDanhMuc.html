@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -26,13 +26,7 @@
             --danger-light: #FEF2F2;
             --warning: #D97706;
             --warning-light: #FFFBEB;
-            --shadow-sm: 0 1px 3px rgba(7, 87, 166, 0.04);
-            --shadow-md: 0 4px 16px rgba(7, 87, 166, 0.06);
-            --shadow-lg: 0 8px 32px rgba(7, 87, 166, 0.10);
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
+            --info: #2563EB;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -74,16 +68,16 @@
         /* ─── Layout ─── */
         .dashboard-layout { display: flex; height: calc(100vh - 64px); }
 
-        /* ─── Sidebar ─── */
+                /* ─── Sidebar ─── */
         .sidebar {
-            width: 256px; background: white; border-right: 1px solid var(--border-light);
+            width: 256px; background: white; border-right: 1px solid var(--border-light, #EDF2F7);
             padding: 20px 0; display: flex; flex-direction: column; gap: 2px;
             flex-shrink: 0; overflow-y: auto;
         }
         .sidebar::-webkit-scrollbar { width: 3px; }
         .sidebar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
         .menu-group-title {
-            font-size: 10px; font-weight: 700; color: var(--text-light);
+            font-size: 10px; font-weight: 700; color: var(--text-light, #8FA4B8);
             text-transform: uppercase; padding: 16px 24px 6px; letter-spacing: 0.8px;
         }
         .sidebar-item {
@@ -94,12 +88,17 @@
         }
         .sidebar-item:hover { background: #F8FAFC; color: var(--primary); }
         .sidebar-item.active {
-            background: var(--primary-50); color: var(--primary);
+            background: var(--primary-50, #EAF4FF); color: var(--primary);
             border-left-color: var(--primary); font-weight: 600;
         }
 
         /* ─── Main Content ─── */
-        .dashboard-content { flex: 1; padding: 28px 32px; overflow-y: auto; }
+        .dashboard-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+            background: transparent;
+        }
 
         .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
         .page-header-left { display: flex; flex-direction: column; gap: 6px; }
@@ -436,7 +435,7 @@
 
     <div class="dashboard-layout">
         <!-- Sidebar -->
-        <aside class="sidebar">
+                                <aside class="sidebar">
             <div class="menu-group-title">Menu Chính</div>
             <a href="MH-00-7-DashboardBaoCao.html" class="sidebar-item">
                 <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
@@ -451,6 +450,9 @@
             <div class="menu-group-title">Sinh Viên</div>
             <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
                 <i data-lucide="list" size="20"></i> Danh sách lớp
+            </a>
+            <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
+                <i data-lucide="contact-2" size="20"></i> Hồ sơ sinh viên
             </a>
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
@@ -495,659 +497,31 @@
 
             <!-- Category Selection Cards -->
             <div class="category-cards">
-                <div class="category-card card-lecturer active" onclick="switchCategory('lecturer')" id="cardLecturer">
-                    <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
+                <div class="category-card card-lecturer" onclick="window.location.href='MH-02-1-1-QuanLyGiangVien.html'">
+
                     <div class="category-icon"><i data-lucide="graduation-cap" size="28"></i></div>
                     <div class="category-label">Giảng viên</div>
                     <div class="category-count" id="countLecturer">2 giảng viên</div>
                 </div>
-                <div class="category-card card-major" onclick="switchCategory('major')" id="cardMajor">
-                    <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
+                <div class="category-card card-major" onclick="window.location.href='MH-02-1-2-QuanLyChuyenNganh.html'">
+
                     <div class="category-icon"><i data-lucide="git-branch" size="28"></i></div>
                     <div class="category-label">Chuyên ngành</div>
                     <div class="category-count" id="countMajor">2 chuyên ngành</div>
                 </div>
-                <div class="category-card card-subject" onclick="switchCategory('subject')" id="cardSubject">
-                    <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
+                <div class="category-card card-subject" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html'">
+
                     <div class="category-icon"><i data-lucide="book-text" size="28"></i></div>
                     <div class="category-label">Môn học</div>
                     <div class="category-count" id="countSubject">2 môn học</div>
                 </div>
             </div>
 
-            <!-- ========== LECTURER PANEL ========== -->
-            <div class="tab-content-area active" id="panel-lecturer">
-                <div class="data-panel">
-                    <div class="panel-header">
-                        <div class="panel-header-left">
-                            <div class="panel-icon" style="background: #DBEAFE; color: #1D4ED8;">
-                                <i data-lucide="graduation-cap" size="18"></i>
-                            </div>
-                            <span class="panel-title">Danh sách Giảng viên</span>
-                        </div>
-                        <div class="panel-header-right">
-                            <button class="btn btn-primary" onclick="openModal('lecturerModal')">
-                                <i data-lucide="plus" size="15"></i> Thêm giảng viên
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="alert-inline" id="fkAlert">
-                        <div class="alert-icon"><i data-lucide="alert-triangle" size="14"></i></div>
-                        <span class="alert-text">Không thể xóa! Dữ liệu giảng viên đang được sử dụng trong Thời khóa biểu.</span>
-                    </div>
-
-                    <div class="table-toolbar">
-                        <div class="toolbar-left">
-                            <div class="search-box">
-                                <i data-lucide="search" size="16"></i>
-                                <input type="text" placeholder="Tìm kiếm giảng viên..." id="searchLecturer" oninput="filterLecturer()">
-                            </div>
-                            <select class="filter-select" id="filterLecturerDept" onchange="filterLecturer()">
-                                <option value="">Tất cả Khoa</option>
-                                <option value="Công nghệ thông tin">Công nghệ thông tin</option>
-                                <option value="Kinh tế">Kinh tế</option>
-                                <option value="Ngôn ngữ Anh">Ngôn ngữ Anh</option>
-                            </select>
-                        </div>
-                        <div class="toolbar-right">
-                            <button class="btn btn-outline" onclick="filterLecturerReset()">
-                                <i data-lucide="rotate-ccw" size="14"></i> Đặt lại
-                            </button>
-                        </div>
-                    </div>
-
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Mã GV</th>
-                                <th>Họ và Tên</th>
-                                <th>Khoa/Bộ môn</th>
-                                <th>Email</th>
-                                <th>SĐT</th>
-                                <th style="text-align: right;">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody id="lecturerTableBody">
-                            <tr>
-                                <td><span class="code-badge">GV001</span></td>
-                                <td style="font-weight: 600;">TS. Nguyễn Văn Hùng</td>
-                                <td>Công nghệ thông tin</td>
-                                <td>hungnv@onenet.edu.vn</td>
-                                <td>0988123456</td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i data-lucide="trash-2" size="16"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="code-badge">GV002</span></td>
-                                <td style="font-weight: 600;">ThS. Trần Thị Mai</td>
-                                <td>Kinh tế</td>
-                                <td>maitt@onenet.edu.vn</td>
-                                <td>0909123456</td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i data-lucide="trash-2" size="16"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- ========== MAJOR PANEL ========== -->
-            <div class="tab-content-area" id="panel-major">
-                <div class="data-panel">
-                    <div class="panel-header">
-                        <div class="panel-header-left">
-                            <div class="panel-icon" style="background: #D1FAE5; color: #047857;">
-                                <i data-lucide="git-branch" size="18"></i>
-                            </div>
-                            <span class="panel-title">Danh sách Chuyên ngành</span>
-                        </div>
-                        <div class="panel-header-right">
-                            <button class="btn btn-success" onclick="openModal('majorModal')">
-                                <i data-lucide="plus" size="15"></i> Thêm chuyên ngành
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="table-toolbar">
-                        <div class="toolbar-left">
-                            <div class="search-box">
-                                <i data-lucide="search" size="16"></i>
-                                <input type="text" placeholder="Tìm kiếm chuyên ngành..." id="searchMajor" oninput="filterMajor()">
-                            </div>
-                        </div>
-                        <div class="toolbar-right">
-                            <button class="btn btn-outline" onclick="document.getElementById('searchMajor').value=''; filterMajor();">
-                                <i data-lucide="rotate-ccw" size="14"></i> Đặt lại
-                            </button>
-                        </div>
-                    </div>
-
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Mã CN</th>
-                                <th>Tên chuyên ngành</th>
-                                <th>Mô tả</th>
-                                <th style="text-align: right;">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody id="majorTableBody">
-                            <tr>
-                                <td><span class="code-badge">SE</span></td>
-                                <td style="font-weight: 600;">Kỹ thuật phần mềm (Software Engineering)</td>
-                                <td>Đào tạo kỹ sư phát triển phần mềm chuyên nghiệp</td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span class="code-badge">AI</span></td>
-                                <td style="font-weight: 600;">Trí tuệ nhân tạo (Artificial Intelligence)</td>
-                                <td>Nghiên cứu ứng dụng AI, Machine Learning</td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- ========== SUBJECT PANEL ========== -->
-            <div class="tab-content-area" id="panel-subject">
-                <div class="data-panel">
-                    <div class="panel-header">
-                        <div class="panel-header-left">
-                            <div class="panel-icon" style="background: #EDE9FE; color: #6D28D9;">
-                                <i data-lucide="book-text" size="18"></i>
-                            </div>
-                            <span class="panel-title">Danh sách Môn học</span>
-                        </div>
-                        <div class="panel-header-right">
-                            <button class="btn" style="background: linear-gradient(135deg, #7C3AED, #8B5CF6); color: white; box-shadow: 0 2px 8px rgba(124,58,237,0.2);" onclick="openModal('subjectModal')">
-                                <i data-lucide="plus" size="15"></i> Tạo môn học
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="table-toolbar">
-                        <div class="toolbar-left">
-                            <div class="search-box">
-                                <i data-lucide="search" size="16"></i>
-                                <input type="text" placeholder="Tìm kiếm môn học..." id="searchSubject" oninput="filterSubject()">
-                            </div>
-                            <select class="filter-select" id="filterSubjectMajor" onchange="filterSubject()">
-                                <option value="">Tất cả chuyên ngành</option>
-                                <option value="SE">Kỹ thuật phần mềm (SE)</option>
-                                <option value="AI">Trí tuệ nhân tạo (AI)</option>
-                                <option value="IB">Kinh doanh quốc tế (IB)</option>
-                            </select>
-                            <select class="filter-select" id="filterSubjectCredits" onchange="filterSubject()">
-                                <option value="">Tất cả tín chỉ</option>
-                                <option value="2">2 tín chỉ</option>
-                                <option value="3">3 tín chỉ</option>
-                                <option value="4">4 tín chỉ</option>
-                            </select>
-                        </div>
-                        <div class="toolbar-right">
-                            <button class="btn btn-outline" onclick="filterSubjectReset()">
-                                <i data-lucide="rotate-ccw" size="14"></i> Đặt lại
-                            </button>
-                        </div>
-                    </div>
-
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Mã môn</th>
-                                <th>Tên môn học</th>
-                                <th>Tín chỉ</th>
-                                <th>Thuộc ngành</th>
-                                <th style="text-align: right;">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody id="subjectTableBody">
-                            <tr data-major="SE,AI" data-credits="3">
-                                <td><span class="code-badge">PRF192</span></td>
-                                <td style="font-weight: 600;">Programming Fundamentals</td>
-                                <td>3</td>
-                                <td>
-                                    <span class="major-badge se">SE</span>
-                                    <span class="major-badge ai">AI</span>
-                                </td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-major="SE,AI" data-credits="3">
-                                <td><span class="code-badge">PRO192</span></td>
-                                <td style="font-weight: 600;">Object-Oriented Programming</td>
-                                <td>3</td>
-                                <td>
-                                    <span class="major-badge se">SE</span>
-                                    <span class="major-badge ai">AI</span>
-                                </td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </main>
     </div>
 
-    <!-- ═══════════ MODALS ═══════════ -->
-
-    <!-- Modal LECTURER -->
-    <div class="modal-overlay" id="lecturerModal">
-        <div class="modal-panel">
-            <div class="modal-header">
-                <h3>
-                    <div style="width:28px;height:28px;border-radius:8px;background:#DBEAFE;color:#1D4ED8;display:flex;align-items:center;justify-content:center;">
-                        <i data-lucide="user-plus" size="14"></i>
-                    </div>
-                    Thêm mới Giảng viên
-                </h3>
-                <button class="btn-ghost" onclick="closeModal('lecturerModal')"><i data-lucide="x" size="18"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Mã Giảng viên <span class="req">*</span></label>
-                    <input type="text" id="gvCode" class="form-control" placeholder="VD: GV003">
-                </div>
-                <div class="form-group">
-                    <label>Họ và Tên <span class="req">*</span></label>
-                    <input type="text" id="gvName" class="form-control" placeholder="Nguyễn Văn A">
-                </div>
-                <div class="form-group">
-                    <label>Khoa / Bộ môn <span class="req">*</span></label>
-                    <select id="gvDept" class="form-control">
-                        <option>Công nghệ thông tin</option>
-                        <option>Kinh tế</option>
-                        <option>Ngôn ngữ Anh</option>
-                    </select>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="gvEmail" class="form-control" placeholder="email@onenet.edu.vn">
-                    </div>
-                    <div class="form-group">
-                        <label>Số điện thoại</label>
-                        <input type="text" id="gvPhone" class="form-control" placeholder="09xxxxxxxxx">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal('lecturerModal')">Hủy</button>
-                <button class="btn btn-primary" onclick="saveLecturer()"><i data-lucide="save" size="15"></i> Lưu giảng viên</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal MAJOR -->
-    <div class="modal-overlay" id="majorModal">
-        <div class="modal-panel">
-            <div class="modal-header">
-                <h3>
-                    <div style="width:28px;height:28px;border-radius:8px;background:#D1FAE5;color:#047857;display:flex;align-items:center;justify-content:center;">
-                        <i data-lucide="plus-circle" size="14"></i>
-                    </div>
-                    Thêm chuyên ngành mới
-                </h3>
-                <button class="btn-ghost" onclick="closeModal('majorModal')"><i data-lucide="x" size="18"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Mã chuyên ngành <span class="req">*</span></label>
-                    <input type="text" id="majorCode" class="form-control" placeholder="Ví dụ: SE, AI, IB...">
-                </div>
-                <div class="form-group">
-                    <label>Tên chuyên ngành <span class="req">*</span></label>
-                    <input type="text" id="majorName" class="form-control" placeholder="Ví dụ: Kỹ thuật phần mềm">
-                </div>
-                <div class="form-group">
-                    <label>Mô tả thêm</label>
-                    <input type="text" id="majorDesc" class="form-control" placeholder="...">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal('majorModal')">Hủy bỏ</button>
-                <button class="btn btn-success" onclick="saveMajor()"><i data-lucide="save" size="15"></i> Lưu chuyên ngành</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal SUBJECT -->
-    <div class="modal-overlay" id="subjectModal">
-        <div class="modal-panel" style="width: 680px;">
-            <div class="modal-header">
-                <h3>
-                    <div style="width:28px;height:28px;border-radius:8px;background:#EDE9FE;color:#6D28D9;display:flex;align-items:center;justify-content:center;">
-                        <i data-lucide="book-plus" size="14"></i>
-                    </div>
-                    Thêm môn học mới
-                </h3>
-                <button class="btn-ghost" onclick="closeModal('subjectModal')"><i data-lucide="x" size="18"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="alert-inline" id="deadlockAlert">
-                    <div class="alert-icon"><i data-lucide="alert-triangle" size="14"></i></div>
-                    <span class="alert-text">
-                        <strong>Phát hiện Deadlock tiên quyết!</strong><br>
-                        Môn <span id="alertSubjCode1"></span> không thể lấy <span id="alertPreCode1"></span> làm môn tiên quyết vì <span id="alertPreCode2"></span> đang yêu cầu <span id="alertSubjCode2"></span>.
-                    </span>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Thuộc chuyên ngành <span class="req">*</span></label>
-                        <select class="form-control" id="formMajor">
-                            <option value="SE">Kỹ thuật phần mềm (Software Engineering)</option>
-                            <option value="AI">Trí tuệ nhân tạo (Artificial Intelligence)</option>
-                            <option value="IB">Kinh doanh quốc tế (International Business)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Học kỳ <span class="req">*</span></label>
-                        <select class="form-control" id="formSemester">
-                            <option value="1">Học kỳ 1</option>
-                            <option value="2">Học kỳ 2</option>
-                            <option value="3">Học kỳ 3</option>
-                            <option value="4">Học kỳ 4</option>
-                            <option value="5">Học kỳ 5</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Mã môn học <span class="req">*</span></label>
-                        <input type="text" class="form-control" id="formSubjCode" placeholder="VD: PRO192">
-                    </div>
-                    <div class="form-group">
-                        <label>Tên môn học <span class="req">*</span></label>
-                        <input type="text" class="form-control" id="formSubjName" placeholder="Tên môn học...">
-                    </div>
-                    <div class="form-group">
-                        <label>Số tín chỉ <span class="req">*</span></label>
-                        <input type="number" class="form-control" id="formCredits" value="3">
-                    </div>
-                    <div class="form-group">
-                        <label>Tổng số Slot <span class="req">*</span></label>
-                        <input type="number" class="form-control" id="formSlots" value="30">
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Môn tiên quyết (Prerequisites)</label>
-                        <div class="tags-input" id="formPreTags">
-                            <div class="tag" id="demoTag" style="display: none;"><span>PRF192</span> <i data-lucide="x" size="14"></i></div>
-                            <input type="text" id="preInput" placeholder="Gõ mã môn và nhấn Enter..." style="border: none; outline: none; flex: 1; min-width: 150px; background: transparent; font-size: 13px;">
-                        </div>
-                        <p style="font-size: 11px; color: var(--text-light); margin-top: 4px;">Hệ thống tự động kiểm tra vòng lặp tiên quyết (Deadlock).</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal('subjectModal')">Hủy bỏ</button>
-                <button class="btn" style="background: linear-gradient(135deg, #7C3AED, #8B5CF6); color: white;" onclick="saveSubject()"><i data-lucide="save" size="15"></i> Lưu môn học</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
-
     <script>
         lucide.createIcons();
-
-        // === Category Switching ===
-        function switchCategory(category) {
-            // Update cards
-            document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
-            document.getElementById('card' + category.charAt(0).toUpperCase() + category.slice(1)).classList.add('active');
-
-            // Update panels
-            document.querySelectorAll('.tab-content-area').forEach(p => p.classList.remove('active'));
-            const panel = document.getElementById('panel-' + category);
-            panel.classList.remove('active');
-            // Force re-trigger animation
-            void panel.offsetWidth;
-            panel.classList.add('active');
-        }
-
-        // === Modal ===
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-            lucide.createIcons();
-        }
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-
-        // Close modal on backdrop
-        document.querySelectorAll('.modal-overlay').forEach(modal => {
-            modal.addEventListener('click', e => {
-                if (e.target === modal) modal.classList.remove('active');
-            });
-        });
-
-        // === Alerts ===
-        function showError(id) {
-            const alertBox = document.getElementById(id);
-            alertBox.classList.add('active');
-            setTimeout(() => alertBox.classList.remove('active'), 4000);
-        }
-
-        // === Filter: Lecturer ===
-        function filterLecturer() {
-            const search = document.getElementById('searchLecturer').value.toLowerCase();
-            const dept = document.getElementById('filterLecturerDept').value;
-            const rows = document.querySelectorAll('#lecturerTableBody tr');
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                const deptMatch = !dept || row.children[2].textContent.includes(dept);
-                row.style.display = (text.includes(search) && deptMatch) ? '' : 'none';
-            });
-        }
-        function filterLecturerReset() {
-            document.getElementById('searchLecturer').value = '';
-            document.getElementById('filterLecturerDept').value = '';
-            filterLecturer();
-        }
-
-        // === Filter: Major ===
-        function filterMajor() {
-            const search = document.getElementById('searchMajor').value.toLowerCase();
-            const rows = document.querySelectorAll('#majorTableBody tr');
-            rows.forEach(row => {
-                row.style.display = row.textContent.toLowerCase().includes(search) ? '' : 'none';
-            });
-        }
-
-        // === Filter: Subject ===
-        function filterSubject() {
-            const search = document.getElementById('searchSubject').value.toLowerCase();
-            const major = document.getElementById('filterSubjectMajor').value;
-            const credits = document.getElementById('filterSubjectCredits').value;
-            const rows = document.querySelectorAll('#subjectTableBody tr');
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                const majorData = row.getAttribute('data-major') || '';
-                const creditsData = row.getAttribute('data-credits') || '';
-                const matchSearch = text.includes(search);
-                const matchMajor = !major || majorData.includes(major);
-                const matchCredits = !credits || creditsData === credits;
-                row.style.display = (matchSearch && matchMajor && matchCredits) ? '' : 'none';
-            });
-        }
-        function filterSubjectReset() {
-            document.getElementById('searchSubject').value = '';
-            document.getElementById('filterSubjectMajor').value = '';
-            document.getElementById('filterSubjectCredits').value = '';
-            filterSubject();
-        }
-
-        // === Tags Input ===
-        document.getElementById('preInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && this.value.trim() !== '') {
-                e.preventDefault();
-                const demoTag = document.getElementById('demoTag');
-                demoTag.style.display = 'flex';
-                demoTag.querySelector('span').innerText = this.value.trim().toUpperCase();
-                this.value = '';
-                lucide.createIcons();
-            }
-        });
-
-        // === Save Functions ===
-        function saveLecturer() {
-            const code = document.getElementById('gvCode').value || 'GV999';
-            const name = document.getElementById('gvName').value || 'Giảng viên mới';
-            const dept = document.getElementById('gvDept').value || 'Khoa Mới';
-            const email = document.getElementById('gvEmail').value || 'new@onenet.edu.vn';
-            const phone = document.getElementById('gvPhone').value || '09xxxxxxxx';
-
-            const tbody = document.getElementById('lecturerTableBody');
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><span class="code-badge">${code}</span></td>
-                <td style="font-weight: 600;">${name}</td>
-                <td>${dept}</td>
-                <td>${email}</td>
-                <td>${phone}</td>
-                <td>
-                    <div class="action-btns">
-                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
-                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
-                    </div>
-                </td>
-            `;
-            tbody.appendChild(tr);
-            updateCounts();
-            lucide.createIcons();
-            closeModal('lecturerModal');
-            showToast('Đã thêm giảng viên ' + name + ' thành công!', 'success');
-        }
-
-        function saveMajor() {
-            const code = document.getElementById('majorCode').value || 'NEW';
-            const name = document.getElementById('majorName').value || 'Chuyên ngành mới';
-            const desc = document.getElementById('majorDesc').value || '...';
-
-            const tbody = document.getElementById('majorTableBody');
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><span class="code-badge">${code}</span></td>
-                <td style="font-weight: 600;">${name}</td>
-                <td>${desc}</td>
-                <td>
-                    <div class="action-btns">
-                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
-                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
-                    </div>
-                </td>
-            `;
-            tbody.appendChild(tr);
-            updateCounts();
-            lucide.createIcons();
-            closeModal('majorModal');
-            showToast('Đã thêm chuyên ngành ' + name + ' thành công!', 'success');
-        }
-
-        function saveSubject() {
-            const code = document.getElementById('formSubjCode').value || 'NEW101';
-            const name = document.getElementById('formSubjName').value || 'Môn học mới';
-            const credits = document.getElementById('formCredits').value || '3';
-            const major = document.getElementById('formMajor').value || 'SE';
-
-            const demoTag = document.getElementById('demoTag');
-            if (demoTag.style.display !== 'none') {
-                const preCode = demoTag.querySelector('span').innerText;
-                if (code === 'PRF192' && preCode === 'PRO192') {
-                    document.getElementById('alertSubjCode1').innerText = code;
-                    document.getElementById('alertPreCode1').innerText = preCode;
-                    document.getElementById('alertPreCode2').innerText = preCode;
-                    document.getElementById('alertSubjCode2').innerText = code;
-                    document.getElementById('deadlockAlert').classList.add('active');
-                    return;
-                }
-            }
-
-            const majorClass = major.toLowerCase();
-            const tbody = document.getElementById('subjectTableBody');
-            const tr = document.createElement('tr');
-            tr.setAttribute('data-major', major);
-            tr.setAttribute('data-credits', credits);
-            tr.innerHTML = `
-                <td><span class="code-badge">${code}</span></td>
-                <td style="font-weight: 600;">${name}</td>
-                <td>${credits}</td>
-                <td><span class="major-badge ${majorClass}">${major}</span></td>
-                <td>
-                    <div class="action-btns">
-                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil" size="16"></i></button>
-                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2" size="16"></i></button>
-                    </div>
-                </td>
-            `;
-            tbody.appendChild(tr);
-            updateCounts();
-            lucide.createIcons();
-            closeModal('subjectModal');
-            showToast('Đã thêm môn học ' + name + ' thành công!', 'success');
-        }
-
-        // === Update Counts ===
-        function updateCounts() {
-            const lecturerCount = document.querySelectorAll('#lecturerTableBody tr').length;
-            const majorCount = document.querySelectorAll('#majorTableBody tr').length;
-            const subjectCount = document.querySelectorAll('#subjectTableBody tr').length;
-            document.getElementById('countLecturer').textContent = lecturerCount + ' giảng viên';
-            document.getElementById('countMajor').textContent = majorCount + ' chuyên ngành';
-            document.getElementById('countSubject').textContent = subjectCount + ' môn học';
-        }
-
-        // === Toast ===
-        function showToast(msg, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.innerHTML = `
-                <div class="toast-icon"><i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}" size="16"></i></div>
-                <span>${msg}</span>
-            `;
-            container.appendChild(toast);
-            lucide.createIcons();
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => toast.classList.add('show'));
-            });
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 350);
-            }, 3500);
-        }
     </script>
 </body>
 </html>
