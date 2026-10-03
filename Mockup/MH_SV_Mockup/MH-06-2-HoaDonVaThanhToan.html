@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -775,6 +775,14 @@
             color: color-mix(in srgb, #7F1D1D 38%, #fff) !important
         }
     </style>
+    <style id="menu-style-fix">
+        /* Kích thước và cách thiết kế giống MH-01-4 */
+        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
+        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
+        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; border-radius: 8px !important; margin: 0 !important; }
+        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
+        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; box-shadow: none !important; }
+    </style>
 </head>
 
 <body>
@@ -853,10 +861,10 @@
 
         <!-- MAIN CONTENT -->
         <div class="main-content">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+            <div class="page-header" style="display: flex; justify-content: space-between; margin-bottom: 24px;">
                 <div>
                     <h1 class="page-title" style="margin-bottom: 8px;">Quản lý Tài chính</h1>
-                    <div style="color: var(--text-gray); font-size: 14px;">Theo dõi công nợ, hóa đơn và thực hiện thanh
+                    <div class="page-subtitle" style="font-size: 14px;">Theo dõi công nợ, hóa đơn và thực hiện thanh
                         toán trực tuyến</div>
                 </div>
                 <button class="btn btn-outline" onclick="showToast('Đang tải dữ liệu mới nhất...')"><i
@@ -1102,3 +1110,4 @@
 </body>
 
 </html>
+

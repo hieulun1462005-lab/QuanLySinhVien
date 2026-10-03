@@ -1,0 +1,12 @@
+TÀI LIỆU HỌC TẬP
+
+Đây là file tài liệu mẫu (mockup) được đính kèm vào các bài học trong chi tiết chương trình đào tạo.
+Sinh viên có thể sử dụng tài liệu này để tham khảo và nghiên cứu.
+
+Nội dung:
+- Chương 1: Giới thiệu chung
+- Chương 2: Phân tích yêu cầu
+- Chương 3: Thiết kế hệ thống
+- Chương 4: Triển khai và Kiểm thử
+
+(File này được tạo để mô phỏng chức năng tải xuống tài liệu từ hệ thống Đại học ONENET)

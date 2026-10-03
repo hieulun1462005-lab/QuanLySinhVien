@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -1212,6 +1212,14 @@
             margin-bottom: 24px
         }
     </style>
+    <style id="menu-style-fix">
+        /* Kích thước và cách thiết kế giống MH-01-4 */
+        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
+        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
+        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; border-radius: 8px !important; margin: 0 !important; }
+        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
+        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; box-shadow: none !important; }
+    </style>
 </head>
 
 <body>
@@ -1316,12 +1324,6 @@
                 <button class="x" id="mClose" aria-label="Đóng"><i data-lucide="x"></i></button>
             </div>
             <dl class="rows" id="mRows"></dl>
-            <div class="actions">
-                <button class="btn" data-act="Đang mở tài liệu môn học…"><i data-lucide="folder-open"></i>Tài
-                    liệu</button>
-                <button class="btn primary" data-act="Đang chuyển đến EduNext…"><i
-                        data-lucide="external-link"></i>EduNext</button>
-            </div>
         </div>
     </div>
     <div class="toast" id="toast" role="status"></div>
@@ -1461,13 +1463,6 @@
         $('modal').onclick = e => { if (e.target.id === 'modal') closeModal() };
         document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); $('dash').classList.remove('nav-open') } });
 
-        /* Toast cho nút tài liệu / EduNext (chưa có liên kết thật) */
-        let tt;
-        $('modal').querySelectorAll('[data-act]').forEach(b => b.onclick = () => {
-            $('toast').textContent = b.dataset.act; $('toast').classList.add('show');
-            clearTimeout(tt); tt = setTimeout(() => $('toast').classList.remove('show'), 1800);
-        });
-
         /* Menu di động */
         $('menuBtn').onclick = () => $('dash').classList.toggle('nav-open');
         $('scrim').onclick = () => $('dash').classList.remove('nav-open');
@@ -1525,3 +1520,4 @@
 </body>
 
 </html>
+

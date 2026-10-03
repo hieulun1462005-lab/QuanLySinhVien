@@ -252,186 +252,251 @@
             background: #F8FAFC;
         }
 
-        /* Filter Section */
-        .filter-section {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-        }
-
-        .majors-tabs {
+        /* ─── Breadcrumb Navigation ─── */
+        .nav-breadcrumbs {
             display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 16px;
-        }
-
-        .major-tab {
-            padding: 8px 16px;
-            border-radius: 20px;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
             font-size: 14px;
             font-weight: 500;
-            cursor: pointer;
-            border: 1px solid var(--border);
-            background: white;
-            color: var(--text-gray);
-            transition: all 0.2s;
         }
-
-        .major-tab:hover {
-            border-color: var(--primary);
+        .nav-breadcrumbs .bc-item {
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .nav-breadcrumbs .bc-item:hover {
             color: var(--primary);
         }
-
-        .major-tab.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .controls-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: #F8FAFC;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 0 12px;
-            width: 320px;
-        }
-
-        .search-box input {
-            border: none;
-            background: transparent;
-            padding: 10px;
-            width: 100%;
-            outline: none;
-            font-size: 14px;
-        }
-
-        .search-box i {
-            color: var(--text-gray);
-        }
-
-        .filter-controls {
-            display: flex;
-            gap: 12px;
-        }
-
-        .select-filter {
-            padding: 10px 36px 10px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 14px;
+        .nav-breadcrumbs .bc-item.active {
             color: var(--text-dark);
-            background-color: white;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%235E7184%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px auto;
-            cursor: pointer;
-            outline: none;
+            font-weight: 600;
+            pointer-events: none;
+        }
+        .nav-breadcrumbs .bc-sep {
+            color: var(--border);
         }
 
-        /* Student Grid */
-        .student-grid {
+        /* ─── Aesthetic Cards Grid ─── */
+        .grid-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            animation: fadeUp 0.4s ease-out forwards;
         }
 
-        .student-card {
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .aes-card {
             background: white;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex;
             flex-direction: column;
             gap: 16px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            z-index: 1;
+        }
+
+        .aes-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+
+        .aes-card::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--card-color, var(--primary-light));
+            opacity: 0.15;
+            z-index: -1;
+            transition: transform 0.5s ease;
+        }
+
+        .aes-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(7, 87, 166, 0.12);
+            border-color: var(--card-border, var(--primary));
+        }
+
+        .aes-card:hover::after {
+            transform: scale(1.5);
+        }
+
+        .aes-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--card-bg, #F0F7FF);
+            color: var(--card-color, var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .aes-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .aes-card-desc {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        .aes-card-meta {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Specific Card Colors */
+        .card-se { --card-color: #2563EB; --card-bg: #DBEAFE; --card-border: #93C5FD; }
+        .card-ba { --card-color: #059669; --card-bg: #D1FAE5; --card-border: #6EE7B7; }
+        .card-gd { --card-color: #D97706; --card-bg: #FEF3C7; --card-border: #FCD34D; }
+        .card-k19 { --card-color: #7C3AED; --card-bg: #EDE9FE; --card-border: #C4B5FD; }
+        .card-k18 { --card-color: #0891B2; --card-bg: #CFFAFE; --card-border: #67E8F9; }
+        .card-k17 { --card-color: #BE123C; --card-bg: #FFE4E6; --card-border: #FDA4AF; }
+
+        /* ─── Modern List View ─── */
+        .student-list-container {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            overflow: hidden;
+            animation: fadeUp 0.4s ease-out forwards;
+        }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            background: #FAFBFD;
+        }
+
+        .list-search {
+            position: relative;
+            width: 320px;
+        }
+        .list-search i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+        .list-search input {
+            width: 100%;
+            padding: 10px 12px 10px 38px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .list-search input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-50);
+        }
+
+        .list-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .list-table th {
+            text-align: left;
+            padding: 16px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .list-table td {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: middle;
+        }
+
+        .list-table tr:hover td {
+            background: #F8FAFC;
             cursor: pointer;
         }
 
-        .student-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-            border-color: var(--primary-light);
+        .list-table tr:last-child td {
+            border-bottom: none;
         }
 
-        .student-card-header {
+        .sv-profile {
             display: flex;
-            gap: 16px;
             align-items: center;
+            gap: 12px;
         }
 
-        .student-avatar {
-            width: 60px;
-            height: 60px;
+        .sv-avatar {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: #EAF4FF;
+            background: var(--primary-50);
             color: var(--primary);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: 700;
-            font-size: 20px;
-            flex-shrink: 0;
-            border: 2px solid white;
-            box-shadow: 0 0 0 2px var(--primary-light);
+            font-weight: 600;
         }
 
-        .student-basic-info {
+        .sv-info {
             display: flex;
             flex-direction: column;
-            gap: 4px;
         }
 
-        .student-name {
-            font-size: 16px;
+        .sv-name {
+            font-size: 14px;
             font-weight: 600;
             color: var(--text-dark);
         }
 
-        .student-id {
-            font-size: 13px;
-            color: var(--text-gray);
-            font-weight: 500;
-        }
-
-        .student-details {
-            border-top: 1px dashed var(--border);
-            padding-top: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            font-size: 13px;
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .detail-label {
+        .sv-id {
+            font-size: 12px;
             color: var(--text-gray);
         }
 
-        .detail-value {
-            font-weight: 500;
-            color: var(--text-dark);
-            text-align: right;
+        .view-section {
+            display: none;
+        }
+        .view-section.active {
+            display: block;
         }
 
         .status-badge {
@@ -997,11 +1062,11 @@
         }
 
         html[data-theme="dark"] .btn-outline {
-            background: var(--bg-white) !important
+            background-color: var(--bg-white) !important
         }
 
         html[data-theme="dark"] .btn-outline:hover {
-            background: var(--bg-soft) !important
+            background-color: var(--bg-soft) !important
         }
 
         html[data-theme="dark"] .filter-section {
@@ -1063,6 +1128,35 @@
         html[data-theme="dark"] [style*="background: #FEF5E7"] {
             background: color-mix(in srgb, #FEF5E7 17%, #0F1B2A) !important
         }
+
+        html[data-theme="dark"] .aes-card {
+            background: var(--bg-white) !important
+        }
+
+        html[data-theme="dark"] .aes-card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3) !important
+        }
+
+        html[data-theme="dark"] .student-list-container {
+            background: var(--bg-white) !important
+        }
+
+        html[data-theme="dark"] .list-header {
+            background: var(--bg-soft) !important;
+            border-bottom-color: var(--border) !important
+        }
+
+        html[data-theme="dark"] .list-table tr:hover td {
+            background: var(--bg-soft) !important
+        }
+    </style>
+    <style id="menu-style-fix">
+        /* Kích thước và cách thiết kế giống MH-01-4 */
+        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
+        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
+        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
+        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
+        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
     </style>
 </head>
 
@@ -1119,6 +1213,9 @@
             <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
                 <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
             </a>
+            <a href="MH-01-7-ChuyenNganh.html" class="sidebar-item">
+                <i data-lucide="arrow-right-left" size="18"></i> Chuyển ngành
+            </a>
             <div class="menu-group-title">Đào Tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item">
                 <i data-lucide="server" size="18"></i> Quản lý danh mục
@@ -1145,7 +1242,7 @@
         <!-- Main Content -->
         <main class="dashboard-content">
             <div class="page-header">
-                <h1 class="page-title">Hồ sơ sinh viên toàn trường</h1>
+                <h1 class="page-title">Hồ sơ sinh viên</h1>
                 <div class="header-actions">
                     <button class="btn btn-outline">
                         <i data-lucide="download" size="18"></i>
@@ -1158,195 +1255,181 @@
                 </div>
             </div>
 
-            <div class="filter-section">
-                <div class="majors-tabs" id="majorTabs">
-                    <div class="major-tab active">Tất cả ngành</div>
-                    <div class="major-tab">Kỹ thuật phần mềm</div>
-                    <div class="major-tab">Quản trị kinh doanh</div>
-                    <div class="major-tab">Thiết kế đồ họa</div>
-                    <div class="major-tab">Ngôn ngữ Anh</div>
-                    <div class="major-tab">Trí tuệ nhân tạo</div>
+            <!-- View 1: Chọn Ngành -->
+            <div id="view-majors" class="view-section active">
+                <div class="nav-breadcrumbs">
+                    <span class="bc-item active">Chọn Ngành</span>
                 </div>
-
-                <div class="controls-row">
-                    <div class="search-box">
-                        <i data-lucide="search" size="18"></i>
-                        <input type="text" placeholder="Tìm kiếm theo mã SV, tên, email...">
+                
+                <div class="grid-cards">
+                    <div class="aes-card card-se" onclick="showCohorts('Kỹ thuật phần mềm')">
+                        <div class="aes-card-icon"><i data-lucide="code" size="28"></i></div>
+                        <div>
+                            <div class="aes-card-title">Kỹ thuật phần mềm</div>
+                            <div class="aes-card-desc">Chuyên ngành đào tạo Kỹ sư KTPM</div>
+                        </div>
+                        <div class="aes-card-meta">
+                            <span style="color: var(--card-color)">8 Khóa đang học</span>
+                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
+                        </div>
                     </div>
-                    <div class="filter-controls">
-                        <select class="select-filter">
-                            <option value="">Sắp xếp: Mặc định</option>
-                            <option value="az">Tên: A - Z</option>
-                            <option value="za">Tên: Z - A</option>
-                            <option value="id_asc">Mã SV: Tăng dần</option>
-                        </select>
-                        <select class="select-filter">
-                            <option value="">Lọc khóa</option>
-                            <option value="newest">Khóa mới nhất (K19)</option>
-                            <option value="oldest">Khóa cũ nhất (K16)</option>
-                            <option value="k18">Khóa 18</option>
-                            <option value="k17">Khóa 17</option>
-                        </select>
-                        <select class="select-filter">
-                            <option value="">Trạng thái</option>
-                            <option value="studying">Đang học</option>
-                            <option value="graduated">Đã tốt nghiệp</option>
-                            <option value="dropout">Thôi học</option>
-                        </select>
+                    
+                    <div class="aes-card card-ba" onclick="showCohorts('Quản trị kinh doanh')">
+                        <div class="aes-card-icon"><i data-lucide="briefcase" size="28"></i></div>
+                        <div>
+                            <div class="aes-card-title">Quản trị kinh doanh</div>
+                            <div class="aes-card-desc">Chuyên ngành đào tạo Cử nhân QTKD</div>
+                        </div>
+                        <div class="aes-card-meta">
+                            <span style="color: var(--card-color)">5 Khóa đang học</span>
+                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
+                        </div>
+                    </div>
+
+                    <div class="aes-card card-gd" onclick="showCohorts('Thiết kế đồ họa')">
+                        <div class="aes-card-icon"><i data-lucide="palette" size="28"></i></div>
+                        <div>
+                            <div class="aes-card-title">Thiết kế đồ họa</div>
+                            <div class="aes-card-desc">Chuyên ngành Mỹ thuật số & Thiết kế</div>
+                        </div>
+                        <div class="aes-card-meta">
+                            <span style="color: var(--card-color)">4 Khóa đang học</span>
+                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Students Grid -->
-            <div class="student-grid">
-                <!-- Card 1 -->
-                <div class="student-card" onclick="openStudentModal()">
-                    <div class="student-card-header">
-                        <div class="student-avatar">M</div>
-                        <div class="student-basic-info">
-                            <span class="student-name">Nguyễn Văn Minh</span>
-                            <span class="student-id">HE190001</span>
+            <!-- View 2: Chọn Khóa -->
+            <div id="view-cohorts" class="view-section">
+                <div class="nav-breadcrumbs">
+                    <span class="bc-item" onclick="showMajors()">Chọn Ngành</span>
+                    <i data-lucide="chevron-right" size="16" class="bc-sep"></i>
+                    <span class="bc-item active" id="bc-major-name">Kỹ thuật phần mềm</span>
+                </div>
+                
+                <div class="grid-cards">
+                    <div class="aes-card card-k19" onclick="showStudents('Khóa 19 (2024-2028)')">
+                        <div class="aes-card-icon"><i data-lucide="graduation-cap" size="28"></i></div>
+                        <div>
+                            <div class="aes-card-title">Khóa 19</div>
+                            <div class="aes-card-desc">Niên khóa 2024 - 2028</div>
+                        </div>
+                        <div class="aes-card-meta">
+                            <span style="color: var(--card-color)">450 Sinh viên</span>
+                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
                         </div>
                     </div>
-                    <div class="student-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Ngành học</span>
-                            <span class="detail-value">Kỹ thuật phần mềm</span>
+                    
+                    <div class="aes-card card-k18" onclick="showStudents('Khóa 18 (2023-2027)')">
+                        <div class="aes-card-icon"><i data-lucide="graduation-cap" size="28"></i></div>
+                        <div>
+                            <div class="aes-card-title">Khóa 18</div>
+                            <div class="aes-card-desc">Niên khóa 2023 - 2027</div>
                         </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Khóa</span>
-                            <span class="detail-value">Khóa 19 (2024 - 2028)</span>
+                        <div class="aes-card-meta">
+                            <span style="color: var(--card-color)">380 Sinh viên</span>
+                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
                         </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Lớp hiện tại</span>
-                            <span class="detail-value">SE1901</span>
+                    </div>
+                    
+                    <div class="aes-card card-k17" onclick="showStudents('Khóa 17 (2022-2026)')">
+                        <div class="aes-card-icon"><i data-lucide="graduation-cap" size="28"></i></div>
+                        <div>
+                            <div class="aes-card-title">Khóa 17</div>
+                            <div class="aes-card-desc">Niên khóa 2022 - 2026</div>
                         </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Trạng thái</span>
-                            <span class="detail-value"><span class="status-badge"
-                                    style="background: #D1FAE5; color: #059669;">Đang học</span></span>
+                        <div class="aes-card-meta">
+                            <span style="color: var(--card-color)">410 Sinh viên</span>
+                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Card 2 -->
-                <div class="student-card" onclick="openStudentModal()">
-                    <div class="student-card-header">
-                        <div class="student-avatar" style="background: #FFF0F0; color: #E74C3C;">H</div>
-                        <div class="student-basic-info">
-                            <span class="student-name">Lê Thị Hoa</span>
-                            <span class="student-id">HE190002</span>
-                        </div>
-                    </div>
-                    <div class="student-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Ngành học</span>
-                            <span class="detail-value">Kỹ thuật phần mềm</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Khóa</span>
-                            <span class="detail-value">Khóa 19 (2024 - 2028)</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Lớp hiện tại</span>
-                            <span class="detail-value">SE1901</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Trạng thái</span>
-                            <span class="detail-value"><span class="status-badge"
-                                    style="background: #D1FAE5; color: #059669;">Đang học</span></span>
-                        </div>
-                    </div>
+            <!-- View 3: Danh sách Sinh viên -->
+            <div id="view-students" class="view-section">
+                <div class="nav-breadcrumbs">
+                    <span class="bc-item" onclick="showMajors()">Chọn Ngành</span>
+                    <i data-lucide="chevron-right" size="16" class="bc-sep"></i>
+                    <span class="bc-item" onclick="showCohorts(currentMajor)" id="bc-major-back">Kỹ thuật phần mềm</span>
+                    <i data-lucide="chevron-right" size="16" class="bc-sep"></i>
+                    <span class="bc-item active" id="bc-cohort-name">Khóa 19</span>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="student-card" onclick="openStudentModal()">
-                    <div class="student-card-header">
-                        <div class="student-avatar" style="background: #F4F0FF; color: #8E44AD;">T</div>
-                        <div class="student-basic-info">
-                            <span class="student-name">Trần Đức Toàn</span>
-                            <span class="student-id">HE190003</span>
+                <div class="student-list-container">
+                    <div class="list-header">
+                        <div class="list-search">
+                            <i data-lucide="search" size="16"></i>
+                            <input type="text" placeholder="Tìm kiếm theo Tên, Mã SV...">
+                        </div>
+                        <div style="display: flex; gap: 12px;">
+                            <select class="btn btn-outline" style="appearance: none; padding-right: 32px; background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%235E7184%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E') no-repeat right 12px center;">
+                                <option>Trạng thái: Tất cả</option>
+                                <option>Đang học</option>
+                                <option>Bảo lưu</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="student-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Ngành học</span>
-                            <span class="detail-value">Kỹ thuật phần mềm</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Khóa</span>
-                            <span class="detail-value">Khóa 19 (2024 - 2028)</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Lớp hiện tại</span>
-                            <span class="detail-value">SE1901</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Trạng thái</span>
-                            <span class="detail-value"><span class="status-badge"
-                                    style="background: #FEF3C7; color: #D97706;">Bảo lưu</span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="student-card" onclick="openStudentModal()">
-                    <div class="student-card-header">
-                        <div class="student-avatar" style="background: #E8F8F5; color: #16A085;">L</div>
-                        <div class="student-basic-info">
-                            <span class="student-name">Phạm Hải Linh</span>
-                            <span class="student-id">BA180056</span>
-                        </div>
-                    </div>
-                    <div class="student-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Ngành học</span>
-                            <span class="detail-value">Quản trị kinh doanh</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Khóa</span>
-                            <span class="detail-value">Khóa 18 (2023 - 2027)</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Lớp hiện tại</span>
-                            <span class="detail-value">BA1802</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Trạng thái</span>
-                            <span class="detail-value"><span class="status-badge"
-                                    style="background: #D1FAE5; color: #059669;">Đang học</span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="student-card" onclick="openStudentModal()">
-                    <div class="student-card-header">
-                        <div class="student-avatar" style="background: #FEF5E7; color: #E67E22;">K</div>
-                        <div class="student-basic-info">
-                            <span class="student-name">Hoàng Anh Khoa</span>
-                            <span class="student-id">GD170112</span>
-                        </div>
-                    </div>
-                    <div class="student-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Ngành học</span>
-                            <span class="detail-value">Thiết kế đồ họa</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Khóa</span>
-                            <span class="detail-value">Khóa 17 (2022 - 2026)</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Lớp hiện tại</span>
-                            <span class="detail-value">GD1705</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Trạng thái</span>
-                            <span class="detail-value"><span class="status-badge"
-                                    style="background: #D1FAE5; color: #059669;">Đang học</span></span>
-                        </div>
-                    </div>
+                    
+                    <table class="list-table">
+                        <thead>
+                            <tr>
+                                <th>Sinh viên</th>
+                                <th>Lớp</th>
+                                <th>Email trường</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr onclick="openStudentModal()">
+                                <td>
+                                    <div class="sv-profile">
+                                        <div class="sv-avatar">M</div>
+                                        <div class="sv-info">
+                                            <span class="sv-name">Nguyễn Văn Minh</span>
+                                            <span class="sv-id">HE190001</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span style="font-weight: 500;">SE1901</span></td>
+                                <td>minhnvhe190001@fpt.edu.vn</td>
+                                <td><span class="status-badge" style="background: #D1FAE5; color: #059669;">Đang học</span></td>
+                                <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">Xem hồ sơ</button></td>
+                            </tr>
+                            <tr onclick="openStudentModal()">
+                                <td>
+                                    <div class="sv-profile">
+                                        <div class="sv-avatar" style="background: #FFF0F0; color: #E74C3C;">H</div>
+                                        <div class="sv-info">
+                                            <span class="sv-name">Lê Thị Hoa</span>
+                                            <span class="sv-id">HE190002</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span style="font-weight: 500;">SE1901</span></td>
+                                <td>hoalthe190002@fpt.edu.vn</td>
+                                <td><span class="status-badge" style="background: #D1FAE5; color: #059669;">Đang học</span></td>
+                                <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">Xem hồ sơ</button></td>
+                            </tr>
+                            <tr onclick="openStudentModal()">
+                                <td>
+                                    <div class="sv-profile">
+                                        <div class="sv-avatar" style="background: #F4F0FF; color: #8E44AD;">T</div>
+                                        <div class="sv-info">
+                                            <span class="sv-name">Trần Đức Toàn</span>
+                                            <span class="sv-id">HE190003</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span style="font-weight: 500;">SE1902</span></td>
+                                <td>toantdhe190003@fpt.edu.vn</td>
+                                <td><span class="status-badge" style="background: #FEF3C7; color: #D97706;">Bảo lưu</span></td>
+                                <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">Xem hồ sơ</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
@@ -1376,6 +1459,56 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Thông tin cá nhân -->
+                <div class="section-title">
+                    <i data-lucide="user" size="20"></i> Thông tin cá nhân & Liên hệ
+                </div>
+                <div class="info-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 24px;">
+                    <div class="info-item">
+                        <div class="info-label">Ngày sinh</div>
+                        <div class="info-value">15/08/2005</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Giới tính</div>
+                        <div class="info-value">Nam</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">CCCD/CMND</div>
+                        <div class="info-value">001205012345</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Số điện thoại</div>
+                        <div class="info-value">0901234567</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Email cá nhân</div>
+                        <div class="info-value">minhnv.2005@gmail.com</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Dân tộc / Tôn giáo</div>
+                        <div class="info-value">Kinh / Không</div>
+                    </div>
+                    <div class="info-item" style="grid-column: span 3;">
+                        <div class="info-label">Địa chỉ thường trú</div>
+                        <div class="info-value">Số 12, Đường Láng, Phường Láng Thượng, Quận Đống Đa, TP Hà Nội</div>
+                    </div>
+                </div>
+
+                <!-- Thông tin gia đình -->
+                <div class="section-title">
+                    <i data-lucide="users-2" size="20"></i> Thông tin gia đình
+                </div>
+                <div class="info-grid" style="margin-bottom: 24px;">
+                    <div class="info-item">
+                        <div class="info-label">Họ tên Bố</div>
+                        <div class="info-value">Nguyễn Văn Bình (0912345678)</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Họ tên Mẹ</div>
+                        <div class="info-value">Trần Thị Lan (0987654321)</div>
+                    </div>
+                </div>
+
                 <!-- Điều kiện & Trạng thái -->
                 <div class="section-title">
                     <i data-lucide="shield-check" size="20"></i> Điều kiện & Trạng thái
@@ -1485,14 +1618,32 @@
     <script>
         lucide.createIcons();
 
-        // Xử lý active state cho tabs chuyên ngành
-        const tabs = document.querySelectorAll('.major-tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-            });
-        });
+        // View Navigation Logic
+        let currentMajor = '';
+        
+        function showMajors() {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-majors').classList.add('active');
+        }
+        
+        function showCohorts(majorName) {
+            currentMajor = majorName;
+            
+            // Update breadcrumbs
+            document.getElementById('bc-major-name').textContent = majorName;
+            document.getElementById('bc-major-back').textContent = majorName;
+            
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-cohorts').classList.add('active');
+        }
+        
+        function showStudents(cohortName) {
+            document.getElementById('bc-cohort-name').textContent = cohortName;
+            
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-students').classList.add('active');
+        }
+
         // Modal Functions
         function openStudentModal() {
             document.getElementById('studentModal').classList.add('active');

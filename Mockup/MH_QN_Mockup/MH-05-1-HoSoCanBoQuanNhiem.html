@@ -927,6 +927,14 @@
             background: color-mix(in srgb, #EAF4FF 17%, #0F1B2A) !important
         }
     </style>
+    <style id="menu-style-fix">
+        /* Kích thước và cách thiết kế giống MH-01-4 */
+        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
+        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
+        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
+        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
+        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+    </style>
 </head>
 
 <body>
@@ -981,6 +989,9 @@
             </a>
             <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
                 <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
+            </a>
+            <a href="MH-01-7-ChuyenNganh.html" class="sidebar-item">
+                <i data-lucide="arrow-right-left" size="18"></i> Chuyển ngành
             </a>
             <div class="menu-group-title">Đào Tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item">

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -682,6 +682,14 @@
             background: var(--bg-soft) !important
         }
     </style>
+    <style id="menu-style-fix">
+        /* Kích thước và cách thiết kế giống MH-01-4 */
+        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
+        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
+        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; border-radius: 8px !important; margin: 0 !important; }
+        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
+        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; box-shadow: none !important; }
+    </style>
 </head>
 
 <body>
@@ -1065,6 +1073,408 @@
         })();
 
     </script>
+    <!-- Modal MÔN HỌC: xem chi tiết -->
+    <style>
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(16, 42, 67, 0.45);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-panel {
+            background: white;
+            border-radius: 20px;
+            width: 860px;
+            max-width: 94vw;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 16px 48px rgba(7, 87, 166, 0.14);
+            animation: modalSlideUp 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .modal-body {
+            overflow-y: auto;
+            flex: 1;
+            padding: 24px 28px;
+        }
+
+        .modal-footer {
+            padding: 18px 28px;
+            border-top: 1px solid #EDF2F7;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            background: #FAFBFD;
+        }
+
+        .sv-head {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 22px 28px;
+            background: linear-gradient(120deg, #4C1D95, #7C3AED 60%, #A78BFA);
+            color: #fff;
+        }
+
+        .sv-head h3 {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .sv-head p {
+            font-size: 13px;
+            opacity: .85;
+        }
+
+        .sv-code {
+            font-size: 14px;
+            font-weight: 800;
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .18);
+            border: 1px solid rgba(255, 255, 255, .3);
+        }
+
+        .sv-sec {
+            margin-bottom: 22px;
+        }
+
+        .sv-sec h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #102A43;
+        }
+
+        .sv-sec h4::before {
+            content: '';
+            width: 4px;
+            height: 14px;
+            border-radius: 2px;
+            background: #7C3AED;
+        }
+
+        .sv-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .sv-kv {
+            padding: 12px 14px;
+            border: 1px solid #EDF2F7;
+            border-radius: 12px;
+            background: #F9FBFD;
+        }
+
+        .sv-kv span {
+            display: block;
+            font-size: 11.5px;
+            color: #8FA4B8;
+            margin-bottom: 3px;
+        }
+
+        .sv-kv b {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .sv-text {
+            font-size: 13.5px;
+            line-height: 1.65;
+            color: #5E7184;
+            white-space: pre-line;
+        }
+
+        .sv-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .sv-table th {
+            text-align: left;
+            font-size: 11.5px;
+            text-transform: uppercase;
+            color: #8FA4B8;
+            padding: 8px 10px;
+            border-bottom: 1px solid #DCE8F3;
+            background: transparent;
+        }
+
+        .sv-table td {
+            padding: 9px 10px;
+            border-bottom: 1px solid #EDF2F7;
+            vertical-align: top;
+        }
+
+        .sv-empty {
+            font-size: 13px;
+            color: #8FA4B8;
+            font-style: italic;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: #5E7184;
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-ghost:hover {
+            background: #F5F8FC;
+            color: #0757A6;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        html[data-theme="dark"] .modal-panel {
+            background: #0F172A;
+            color: #E2E8F0;
+        }
+        html[data-theme="dark"] .modal-footer {
+            background: #1E293B;
+            border-color: #334155;
+        }
+        html[data-theme="dark"] .sv-sec h4 {
+            color: #F8FAFC;
+        }
+        html[data-theme="dark"] .sv-kv {
+            background: #1E293B;
+            border-color: #334155;
+        }
+        html[data-theme="dark"] .sv-kv b {
+            color: #F8FAFC;
+        }
+        html[data-theme="dark"] .sv-text {
+            color: #CBD5E1;
+        }
+        html[data-theme="dark"] .sv-table th {
+            color: #94A3B8;
+            border-bottom-color: #334155;
+        }
+        html[data-theme="dark"] .sv-table td {
+            border-bottom-color: #334155;
+            color: #E2E8F0;
+        }
+        html[data-theme="dark"] .btn-ghost {
+            color: #E2E8F0;
+        }
+        html[data-theme="dark"] .btn-ghost:hover {
+            background: #334155;
+            color: #F8FAFC;
+        }
+        html[data-theme="dark"] .btn-outline {
+            color: #E2E8F0;
+            border-color: #475569;
+        }
+        html[data-theme="dark"] .btn-outline:hover {
+            background: #334155;
+        }
+    </style>
+
+    <div class="modal-overlay" id="subjectViewModal">
+        <div class="modal-panel">
+            <div class="sv-head">
+                <span class="sv-code" id="svCode"></span>
+                <div style="flex:1">
+                    <h3 id="svName"></h3>
+                    <p id="svNameEn"></p>
+                </div>
+                <button class="btn-ghost" style="color:#fff" onclick="closeModal('subjectViewModal')"><i data-lucide="x" size="18"></i></button>
+            </div>
+            <div class="modal-body" id="svBody"></div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('subjectViewModal')">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const MAJOR_NAME = { SE: 'Kỹ thuật phần mềm', AI: 'Trí tuệ nhân tạo', IB: 'Kinh doanh quốc tế' };
+        const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const fmtDate = d => d ? d.split('-').reverse().join('/') : '—';
+        const base = o => Object.assign({ nameEn: '', majors: ['SE'], semester: 1, credits: 3, slots: 30, level: 'Cử nhân', scale: 10, minPass: 5, prereq: [], status: 'on', decision: '', approved: '', hours: '', contact: '', self: '', method: '', desc: '', tasks: '', tools: '', clos: [], materials: [], plan: [], assess: [] }, o);
+
+        let mockSubjects = [
+            base({
+                code: 'PRN212', name: 'Lập trình ứng dụng đa nền tảng cơ bản với .NET', nameEn: 'Basis Cross-Platform Application Programming With .NET',
+                majors: ['SE'], semester: 4, credits: 3, slots: 30, prereq: ['PRO192', 'DBI202'], status: 'on',
+                decision: '1402/QĐ-ĐHFPT', approved: '2025-12-12', hours: 150, contact: 49.5, self: 98.1, minPass: 5,
+                method: 'Học tập kiến tạo xã hội, giảng dạy trên lớp, học qua tìm hiểu',
+                desc: 'Sau khi hoàn thành môn học, sinh viên có thể:\n• Hiểu ngôn ngữ C# để phát triển ứng dụng .NET, các khái niệm nền tảng của .NET và kiến thức cơ bản về Windows Presentation Foundation (WPF).\n• Phát triển ứng dụng desktop đa nền tảng, chú trọng trải nghiệm người dùng (UI & UX).\n• Làm việc nhóm và trình bày kết quả của nhóm.',
+                tasks: '- Tham dự tối thiểu 80% số buổi học để đủ điều kiện dự thi cuối kỳ.\n- Hoàn thành và nộp đúng hạn các bài tập do giảng viên giao.\n- Chỉ sử dụng laptop trên lớp cho mục đích học tập.',
+                tools: 'Visual Studio 2022 trở lên, SQL Server 2019 trở lên, .NET 8.0 trở lên, GitHub Copilot, GitHub Workflow',
+                clos: [
+                    'Mô tả nền tảng .NET Core và các tính năng mới của ngôn ngữ C#.',
+                    'Thực hành OOP, Generic, Delegate & Event, LINQ và Design Pattern trong C#.',
+                    'Xây dựng giao diện với Windows Presentation Foundation (WPF).',
+                    'Truy cập cơ sở dữ liệu bằng Entity Framework (ORM).',
+                    'Giải thích lập trình đồng thời (Concurrency) và xử lý Stream I/O.',
+                    'Ứng dụng công cụ AI tạo sinh (Generative AI) hỗ trợ phát triển phần mềm .NET.'
+                ],
+                plan: [
+                    { topic: 'Giới thiệu môn học, môi trường làm việc, giới thiệu dự án', sessions: 1, clo: 'CLO1' },
+                    { topic: 'Chương 1: Nền tảng .NET & Visual Studio', sessions: 5, clo: 'CLO1' },
+                    { topic: 'Chương 2: Lập trình C#', sessions: 3, clo: 'CLO1' },
+                    { topic: 'Chương 3: Lập trình hướng đối tượng với C#', sessions: 3, clo: 'CLO2' }
+                ],
+                assess: [
+                    { name: 'Bài tập (Assignment)', type: 'proc', weight: 15, duration: '12 slot' },
+                    { name: 'Đồ án nhóm (Group Project)', type: 'proc', weight: 20, duration: '20 slot' },
+                    { name: 'Kiểm tra tiến độ (Progress test)', type: 'proc', weight: 10, duration: '30 phút' },
+                    { name: 'Thi thực hành cuối kỳ', type: 'final', weight: 25, duration: '85 phút' },
+                    { name: 'Thi lý thuyết cuối kỳ', type: 'final', weight: 30, duration: '60 phút' }
+                ]
+            }),
+            base({
+                code: 'SWP490', name: 'Đồ án tốt nghiệp chuyên ngành Kỹ thuật phần mềm', nameEn: 'Capstone Project',
+                majors: ['SE'], semester: 9, credits: 10, slots: 60, prereq: ['SWP391', 'OJT202'], status: 'on',
+                decision: '1405/QĐ-ĐHFPT', approved: '2026-01-10', hours: 450, contact: 60, self: 390, minPass: 5,
+                method: 'Làm việc nhóm, hướng dẫn trực tiếp bởi Mentor (Giảng viên hướng dẫn)',
+                desc: 'Đồ án tốt nghiệp là học phần cuối cùng và quan trọng nhất, nơi sinh viên áp dụng toàn bộ kiến thức đã học vào một dự án thực tế có quy mô lớn.\nSinh viên làm việc theo nhóm để tự lên ý tưởng hoặc thực hiện dự án do doanh nghiệp đặt hàng. Sản phẩm cuối cùng phải là một phần mềm hoàn chỉnh, có giá trị ứng dụng và vượt qua hội đồng bảo vệ.',
+                tasks: '- Tham gia đầy đủ các buổi họp nhóm và báo cáo tiến độ với Mentor.\n- Hoàn thành tài liệu SRS, SDD và Test Case chuẩn mực.\n- Viết mã nguồn tuân thủ coding convention, quản lý mã nguồn bằng Git.\n- Bảo vệ trước hội đồng tối thiểu 3 thành viên.',
+                tools: 'Tuỳ chọn theo công nghệ nhóm chọn (Java, .NET, Node.js, React, Cloud Services, CI/CD...)',
+                clos: [
+                    'Áp dụng kiến thức nền tảng và chuyên sâu về quy trình phát triển phần mềm.',
+                    'Giao tiếp, làm việc nhóm và giải quyết xung đột hiệu quả.',
+                    'Nghiên cứu, lựa chọn và ứng dụng công nghệ mới phù hợp với bài toán.',
+                    'Thiết kế, lập trình, kiểm thử và triển khai ứng dụng phần mềm hoàn chỉnh.',
+                    'Viết tài liệu kỹ thuật chuyên nghiệp và thuyết trình dự án mạch lạc.'
+                ],
+                plan: [
+                    { topic: 'Giai đoạn 1: Lập nhóm, chọn đề tài & Viết đề cương (Proposal)', sessions: 5, clo: 'CLO1, CLO2' },
+                    { topic: 'Giai đoạn 2: Phân tích yêu cầu & Thiết kế hệ thống (SRS, SDD)', sessions: 15, clo: 'CLO1, CLO4' },
+                    { topic: 'Giai đoạn 3: Phát triển phần mềm (Coding) - Sprint 1, 2, 3', sessions: 25, clo: 'CLO3, CLO4' },
+                    { topic: 'Giai đoạn 4: Kiểm thử (Testing) & Triển khai (Deployment)', sessions: 10, clo: 'CLO4' },
+                    { topic: 'Giai đoạn 5: Viết báo cáo & Chuẩn bị Slide bảo vệ', sessions: 5, clo: 'CLO5' }
+                ],
+                assess: [
+                    { name: 'Bảo vệ Đề cương (Proposal Defense)', type: 'proc', weight: 10, duration: '30 phút' },
+                    { name: 'Bảo vệ Giai đoạn 1 (Progress 1)', type: 'proc', weight: 20, duration: '45 phút' },
+                    { name: 'Bảo vệ Giai đoạn 2 (Progress 2)', type: 'proc', weight: 20, duration: '45 phút' },
+                    { name: 'Bảo vệ Đồ án tốt nghiệp (Final Defense)', type: 'final', weight: 50, duration: '90 phút' }
+                ]
+            }),
+            base({
+                code: 'SWP391', name: 'Dự án phát triển ứng dụng', nameEn: 'Application Development Project',
+                majors: ['SE'], semester: 5, credits: 3, slots: 30, prereq: ['PRJ301', 'DBI202'], status: 'on',
+                decision: '1200/QĐ-ĐHFPT', approved: '2024-08-15', hours: 150, contact: 45, self: 105, minPass: 5,
+                method: 'Project-based Learning, Scrum/Agile Framework',
+                desc: 'Môn học rèn luyện kỹ năng làm việc nhóm theo mô hình Agile/Scrum. Sinh viên sẽ phát triển một ứng dụng Web từ bước thu thập yêu cầu đến triển khai thực tế. Môn học giả lập môi trường làm việc tại các công ty phần mềm.',
+                tasks: '- Bắt buộc tuân thủ quy trình Scrum (Daily Standup, Sprint Planning, Review, Retrospective).\n- Sử dụng GitHub, Jira/Trello để quản lý dự án.',
+                tools: 'Java/C#, HTML/CSS/JS, MySQL/SQL Server, Git, Jira',
+                clos: [
+                    'Hiểu và vận dụng quy trình phát triển phần mềm Agile/Scrum.',
+                    'Làm việc nhóm và phân chia công việc hiệu quả.',
+                    'Tích hợp các kiến thức từ các môn học trước để xây dựng phần mềm.'
+                ],
+                plan: [
+                    { topic: 'Giới thiệu môn học & Agile/Scrum Framework', sessions: 3, clo: 'CLO1' },
+                    { topic: 'Sprint 1: Phân tích & Thiết kế', sessions: 7, clo: 'CLO2, CLO3' },
+                    { topic: 'Sprint 2: Phát triển tính năng cốt lõi', sessions: 10, clo: 'CLO3' },
+                    { topic: 'Sprint 3: Hoàn thiện & Kiểm thử', sessions: 10, clo: 'CLO3' }
+                ],
+                assess: [
+                    { name: 'Iteration 1 Review', type: 'proc', weight: 15, duration: '30 phút' },
+                    { name: 'Iteration 2 Review', type: 'proc', weight: 25, duration: '45 phút' },
+                    { name: 'Iteration 3 Review', type: 'proc', weight: 25, duration: '45 phút' },
+                    { name: 'Final Presentation', type: 'final', weight: 35, duration: '60 phút' }
+                ]
+            })
+        ];
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            if(window.lucide) window.lucide.createIcons();
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        function viewSubject(code, nameVi, nameEn) {
+            let s = mockSubjects.find(x => x.code === code);
+            if (!s) {
+                s = base({ code: code, name: nameVi, nameEn: nameEn, majors: ['SE'], credits: 3, semester: 1 });
+            }
+            const kv = (k, v) => `<div class="sv-kv"><span>${k}</span><b>${v === '' || v == null ? '—' : esc(v)}</b></div>`;
+            const total = s.assess.reduce((a, b) => a + b.weight, 0);
+            const typeName = t => t === 'final' ? 'Cuối kỳ' : 'Quá trình';
+            
+            document.getElementById('svCode').textContent = s.code;
+            document.getElementById('svName').textContent = s.name;
+            document.getElementById('svNameEn').textContent = s.nameEn || '';
+            document.getElementById('svBody').innerHTML = `
+                <div class="sv-sec"><h4>Thông tin chung</h4><div class="sv-grid">
+                    ${kv('Số tín chỉ', s.credits)}${kv('Học kỳ', 'Học kỳ ' + s.semester)}${kv('Tổng số Slot', s.slots)}
+                    ${kv('Chuyên ngành', s.majors.map(m => MAJOR_NAME[m] + ' (' + m + ')').join(', '))}${kv('Môn tiên quyết', s.prereq.join(', '))}${kv('Trạng thái', s.status === 'on' ? 'Đang hoạt động' : 'Ngừng hoạt động')}
+                    ${kv('Trình độ', s.level)}${kv('Thang điểm / Điểm qua môn', s.scale + ' / ' + s.minPass)}${kv('Phân bổ thời gian (giờ)', s.hours ? `${s.hours}h = ${s.contact || 0}h lên lớp + ${s.self || 0}h tự học` : '')}
+                    ${kv('Quyết định ban hành', s.decision)}${kv('Ngày phê duyệt', fmtDate(s.approved))}${kv('Phương pháp giảng dạy', s.method)}
+                </div></div>
+                <div class="sv-sec"><h4>Mô tả môn học</h4>${s.desc ? `<div class="sv-text">${esc(s.desc)}</div>` : '<div class="sv-empty">Chưa có mô tả.</div>'}</div>
+                ${s.tasks ? `<div class="sv-sec"><h4>Yêu cầu đối với sinh viên</h4><div class="sv-text">${esc(s.tasks)}</div></div>` : ''}
+                ${s.tools ? `<div class="sv-sec"><h4>Công cụ sử dụng</h4><div class="sv-text">${esc(s.tools)}</div></div>` : ''}
+                <div class="sv-sec"><h4>Chuẩn đầu ra (${s.clos.length})</h4>${s.clos.length ? `<table class="sv-table"><tbody>${s.clos.map((c, i) => `<tr><td style="width:70px"><b style="color:#6D28D9">CLO${i + 1}</b></td><td>${esc(c)}</td></tr>`).join('')}</tbody></table>` : '<div class="sv-empty">Chưa có chuẩn đầu ra.</div>'}</div>
+                <div class="sv-sec"><h4>Nội dung giảng dạy (${s.plan.reduce((a, b) => a + b.sessions, 0)} buổi)</h4>${s.plan.length ? `<table class="sv-table"><thead><tr><th>Chương / Chủ đề</th><th style="width:80px">Số buổi</th><th style="width:80px">CLO</th><th style="width:120px">Tài liệu</th></tr></thead><tbody>${s.plan.map(p => `<tr><td>${esc(p.topic)}</td><td>${p.sessions}</td><td>${esc(p.clo)}</td><td><a href="TaiLieu_HocTap.txt" download="TaiLieu_${s.code}.txt" style="color:#2563EB; text-decoration:none; display:flex; align-items:center; gap:4px; font-weight: 500;"><i data-lucide="download" size="14"></i> Tải tài liệu</a></td></tr>`).join('')}</tbody></table>` : '<div class="sv-empty">Chưa có nội dung giảng dạy.</div>'}</div>
+                <div class="sv-sec"><h4>Đánh giá</h4>${s.assess.length ? `<table class="sv-table"><thead><tr><th>Hạng mục</th><th>Loại</th><th>Trọng số</th><th>Thời lượng</th></tr></thead><tbody>${s.assess.map(a => `<tr><td>${esc(a.name)}</td><td>${typeName(a.type)}</td><td><b>${a.weight}%</b></td><td>${esc(a.duration) || '—'}</td></tr>`).join('')}<tr><td colspan="2"><b>Tổng cộng</b></td><td colspan="2"><b>${total}%</b></td></tr></tbody></table>` : '<div class="sv-empty">Chưa có cơ cấu đánh giá.</div>'}</div>`;
+            
+            openModal('subjectViewModal');
+        }
+
+        // Attach events to buttons
+        document.querySelectorAll('button.btn-outline').forEach(btn => {
+            if (btn.textContent.trim() === 'Chi tiết') {
+                btn.onclick = function() {
+                    const tr = this.closest('tr');
+                    const code = tr.querySelector('td:nth-child(2)').textContent.trim();
+                    const nameEn = tr.querySelector('td:nth-child(3) div:nth-child(1)').textContent.trim();
+                    const nameVi = tr.querySelector('td:nth-child(3) div:nth-child(2)').textContent.trim();
+                    viewSubject(code, nameVi, nameEn);
+                };
+            }
+        });
+
+        // Close on backdrop
+        document.getElementById('subjectViewModal').addEventListener('click', e => {
+            if (e.target.id === 'subjectViewModal') closeModal('subjectViewModal');
+        });
+    </script>
 </body>
 
 </html>
+

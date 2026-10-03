@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cập nhật trạng thái học tập - Hệ Thống Quản Lý Sinh Viên</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* Base styles */
@@ -34,7 +34,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Outfit', sans-serif;
         }
 
         body {
@@ -160,8 +160,8 @@
             overflow-y: auto;
             background: transparent;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 24px;
         }
 
         .card {
@@ -170,7 +170,6 @@
             border-radius: 12px;
             padding: 32px;
             width: 100%;
-            max-width: 600px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
 
@@ -805,6 +804,14 @@
             color: var(--text-gray) !important
         }
     </style>
+    <style id="menu-style-fix">
+        /* Kích thước và cách thiết kế giống MH-01-4 */
+        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
+        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
+        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
+        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
+        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+    </style>
 </head>
 
 <body>
@@ -858,6 +865,9 @@
             <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item active">
                 <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
             </a>
+            <a href="MH-01-7-ChuyenNganh.html" class="sidebar-item">
+                <i data-lucide="arrow-right-left" size="18"></i> Chuyển ngành
+            </a>
             <div class="menu-group-title">Đào Tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item">
                 <i data-lucide="server" size="18"></i> Quản lý danh mục
@@ -881,140 +891,156 @@
         </aside>
 
 
-        <main class="dashboard-content">
-            <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h1 class="page-title" style="margin-bottom: 0;"><i data-lucide="user-cog"
-                            color="var(--primary)"></i> Cập nhật trạng thái học tập</h1>
-                    <button class="btn btn-outline" onclick="openAuditLog()"><i data-lucide="history" size="18"></i>
-                        Lịch sử (Audit Log)</button>
-                </div>
+        <main class="dashboard-content" style="padding: 20px 32px; gap: 16px;">
+            <!-- Header -->
+            <div class="page-header" style="margin-bottom: 16px; width: 100%; min-height: 80px; padding: 40px 32px 20px 32px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start !important;">
+                <h1 class="page-title" style="margin: 0;">
+                    <i data-lucide="user-cog" size="24"></i>
+                    Cập nhật trạng thái học tập
+                </h1>
+            </div>
 
-                <div class="form-group" style="display: flex; gap: 12px; align-items: flex-end;">
-                    <div style="flex: 1;">
-                        <label>Tìm kiếm sinh viên (Nhập Mã SV)</label>
-                        <input type="text" id="searchId" placeholder="VD: HE19201...">
-                    </div>
-                    <button class="btn btn-outline" onclick="searchStudent()" style="height: 43px;">
-                        <i data-lucide="search" size="18"></i> Tìm
-                    </button>
-                </div>
-
-                <!-- Profile Found -->
-                <div id="profileSummary" class="profile-summary">
-                    <div class="profile-header">
-                        <div>
-                            <div class="profile-name">Trần Thị Bích</div>
-                            <div class="profile-id">HE19201 • Lớp SE1901</div>
+            <div class="layout-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%;">
+                
+                <!-- Left Panel: Search & Student Info -->
+                <div class="card" style="margin: 0; max-width: 100%; height: fit-content; padding: 24px;">
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                        <div style="background: var(--primary-50); color: var(--primary); padding: 6px; border-radius: 8px;">
+                            <i data-lucide="search" size="16"></i>
                         </div>
-                        <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại:
-                            Đang học</span>
-                    </div>
-
-                    <div
-                        style="font-size: 13px; color: var(--text-gray); display: flex; align-items: center; gap: 24px; margin-top: 8px;">
-                        <span><i data-lucide="credit-card" size="14"
-                                style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Đã đóng đủ</span>
-                        <span><i data-lucide="library" size="14"
-                                style="vertical-align: text-bottom; margin-right: 4px;"></i> Sách: Đã mượn (0)</span>
-                    </div>
-                </div>
-
-                <!-- Alert for Invalid Transition -->
-                <div id="transitionAlert" class="alert">
-                    <i data-lucide="x-octagon" size="20" style="margin-top: 2px;"></i>
-                    <div>
-                        <strong>Chuyển đổi trạng thái không hợp lệ!</strong><br>
-                        <span id="transitionAlertText"></span>
-                    </div>
-                </div>
-
-                <!-- Alert for Debt (Luồng ngoại lệ) -->
-                <div id="debtAlert" class="alert">
-                    <i data-lucide="alert-triangle" size="20" style="margin-top: 2px;"></i>
-                    <div>
-                        <strong>Cảnh báo: Sinh viên đang nợ phí!</strong><br>
-                        Hệ thống chặn cập nhật trạng thái "Bảo lưu" hoặc "Thôi học" cho đến khi hoàn tất nghĩa vụ tài
-                        chính.
-                    </div>
-                </div>
-
-                <!-- Alert for Graduation rules -->
-                <div id="gradAlert" class="alert">
-                    <i data-lucide="alert-circle" size="20" style="margin-top: 2px;"></i>
-                    <div>
-                        <strong>Không đủ điều kiện tốt nghiệp!</strong><br>
-                        Sinh viên chưa hoàn thành chương trình đào tạo (nợ môn/chưa qua môn). Chặn trạng thái "Tốt
-                        nghiệp".
-                    </div>
-                </div>
-
-                <!-- Warning for Suspension -->
-                <div id="suspendAlert" class="alert"
-                    style="background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309;">
-                    <i data-lucide="info" size="20" style="margin-top: 2px;"></i>
-                    <div>
-                        <strong>Lưu ý:</strong> Chuyển sang "Đình chỉ" sẽ tự động gỡ sinh viên khỏi lớp và <b>chặn quyền
-                            đăng ký học kỳ tiếp theo (BR-038)</b>.
-                    </div>
-                </div>
-
-                <!-- Update Form -->
-                <div id="updateForm" style="opacity: 0.5; pointer-events: none;">
-                    <div class="form-group">
-                        <label>Trạng thái mới</label>
-                        <select id="newStatus" onchange="checkRules()">
-                            <option value="">-- Chọn trạng thái --</option>
-                            <option value="baoluu">Bảo lưu</option>
-                            <option value="thoihoc">Thôi học</option>
-                            <option value="totnghiep">Tốt nghiệp</option>
-                            <option value="dinhchi">Đình chỉ</option>
-                            <option value="tainhaphoc">Tái nhập học (Từ Bảo lưu)</option>
-                            <option value="hetdinhchi">Hết hạn đình chỉ</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Lý do / Số Quyết định</label>
-                        <textarea id="reason" rows="3"
-                            placeholder="Nhập lý do thay đổi hoặc mã số quyết định đi kèm..."></textarea>
-                    </div>
-
-                    <div style="display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap;">
-                        <button class="btn btn-outline" style="flex: 1; min-width: 140px; justify-content: center;"
-                            onclick="resetForm()">Làm mới</button>
-                        <button class="btn btn-primary" id="submitBtn"
-                            style="flex: 2; min-width: 250px; justify-content: center; text-align: center;"
-                            onclick="submitUpdate()">Xác nhận cập nhật hệ thống</button>
-                    </div>
-                </div>
-
-                <!-- Simulate Exception Trigger -->
-                <div
-                    style="margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--border); text-align: center;">
-                    <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 8px;">Dành cho Test: Click nút
-                        dưới đây để giả lập Luồng ngoại lệ và các trạng thái</p>
-                    <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateDebt()">
-                            Giả lập SV nợ phí
+                        Tra cứu thông tin sinh viên
+                    </h3>
+                    
+                    <div class="form-group" style="display: flex; gap: 12px; align-items: flex-end; margin-bottom: 0;">
+                        <div style="flex: 1;">
+                            <label style="font-size: 13px; margin-bottom: 4px;">Mã Sinh Viên / Họ Tên</label>
+                            <input type="text" id="searchId" placeholder="Nhập VD: HE19201..." style="height: 38px; font-size: 14px; padding: 8px 12px;">
+                        </div>
+                        <button class="btn btn-primary" onclick="searchStudent()" style="height: 38px; padding: 0 20px; font-size: 14px;">
+                            Tìm kiếm
                         </button>
-                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateNotGraduated()">
-                            Giả lập SV chưa đủ ĐK tốt nghiệp
-                        </button>
-                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateBaoLuu()">
-                            Giả lập SV Bảo lưu
-                        </button>
-                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateDinhChi()">
-                            Giả lập SV Đình chỉ
-                        </button>
-                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateThoiHoc()">
-                            Giả lập SV Thôi học
-                        </button>
+                    </div>
+
+                    <!-- Profile Found -->
+                    <div id="profileSummary" class="profile-summary" style="margin-top: 20px; padding: 16px;">
+                        <div class="profile-header" style="align-items: center; margin-bottom: 0;">
+                            <div style="display: flex; gap: 12px; align-items: center;">
+                                <div class="avatar" style="width: 48px !important; height: 48px !important; font-size: 16px !important;">TB</div>
+                                <div>
+                                    <div class="profile-name" style="font-size: 16px;">Trần Thị Bích</div>
+                                    <div class="profile-id" style="font-size: 13px; margin-top: 2px;">HE19201 • Lớp SE1901</div>
+                                </div>
+                            </div>
+                            <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E; padding: 4px 10px; font-size: 12px;">Đang học</span>
+                        </div>
+
+                        <div style="background: var(--bg-white); border-radius: 8px; padding: 12px 16px; margin-top: 16px; border: 1px solid var(--border);">
+                            <div style="font-size: 13px; color: var(--text-gray); display: flex; flex-direction: column; gap: 10px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="credit-card" size="14"></i> Học phí:</span>
+                                    <span style="font-weight: 600; color: var(--text-dark);">Đã đóng đủ</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="library" size="14"></i> Thư viện:</span>
+                                    <span style="font-weight: 600; color: var(--text-dark);">Sách đã mượn (0)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="award" size="14"></i> Điểm rèn luyện:</span>
+                                    <span style="font-weight: 600; color: var(--text-dark);">85 (Tốt)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Simulators at the bottom of left card -->
+                    <div style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border);">
+                        <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 10px; font-weight: 500;">Dữ liệu Test (Giả lập ngoại lệ):</p>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;" onclick="simulateDebt()">SV Nợ phí</button>
+                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;" onclick="simulateNotGraduated()">SV Nợ môn</button>
+                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;" onclick="simulateBaoLuu()">SV Bảo lưu</button>
+                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;" onclick="simulateDinhChi()">SV Đình chỉ</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Actions -->
+                <div class="card" style="margin: 0; max-width: 100%; height: fit-content; padding: 24px;">
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div style="background: var(--warning-light); color: var(--warning); padding: 6px; border-radius: 8px;">
+                                <i data-lucide="edit-3" size="16"></i>
+                            </div>
+                            Xử lý Trạng thái
+                        </div>
+                    </h3>
+
+                    <!-- Alerts Container -->
+                    <div id="alertsContainer" style="margin-bottom: 16px;">
+                        <div id="transitionAlert" class="alert" style="margin-bottom: 12px; padding: 10px 14px;">
+                            <i data-lucide="x-octagon" size="18" style="margin-top: 1px;"></i>
+                            <div>
+                                <strong>Chuyển đổi không hợp lệ!</strong><br>
+                                <span id="transitionAlertText"></span>
+                            </div>
+                        </div>
+
+                        <div id="debtAlert" class="alert" style="margin-bottom: 12px; padding: 10px 14px;">
+                            <i data-lucide="alert-triangle" size="18" style="margin-top: 1px;"></i>
+                            <div>
+                                <strong>Sinh viên đang nợ phí!</strong><br>
+                                Hệ thống chặn trạng thái "Bảo lưu" hoặc "Thôi học".
+                            </div>
+                        </div>
+
+                        <div id="gradAlert" class="alert" style="margin-bottom: 12px; padding: 10px 14px;">
+                            <i data-lucide="alert-circle" size="18" style="margin-top: 1px;"></i>
+                            <div>
+                                <strong>Không đủ điều kiện tốt nghiệp!</strong><br>
+                                Sinh viên chưa hoàn thành chương trình đào tạo.
+                            </div>
+                        </div>
+
+                        <div id="suspendAlert" class="alert" style="background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309; margin-bottom: 12px; padding: 10px 14px;">
+                            <i data-lucide="info" size="18" style="margin-top: 1px;"></i>
+                            <div>
+                                <strong>Lưu ý:</strong> Sẽ gỡ SV khỏi lớp và chặn đăng ký học kỳ sau.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Update Form -->
+                    <div id="updateForm" style="opacity: 0.5; pointer-events: none;">
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label style="font-size: 13px; margin-bottom: 4px;">Chọn trạng thái mới</label>
+                            <select id="newStatus" onchange="checkRules()" style="height: 38px; font-size: 14px; padding: 8px 12px;">
+                                <option value="">-- Lựa chọn --</option>
+                                <option value="baoluu">Bảo lưu</option>
+                                <option value="thoihoc">Thôi học</option>
+                                <option value="totnghiep">Tốt nghiệp</option>
+                                <option value="dinhchi">Đình chỉ</option>
+                                <option value="tainhaphoc">Tái nhập học (Từ Bảo lưu)</option>
+                                <option value="hetdinhchi">Hết hạn đình chỉ</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label style="font-size: 13px; margin-bottom: 4px;">Lý do thay đổi / Mã Quyết định</label>
+                            <textarea id="reason" rows="2" style="font-size: 14px; padding: 8px 12px;" placeholder="Ghi rõ lý do và đính kèm số quyết định xử lý (nếu có)..."></textarea>
+                        </div>
+
+                        <div style="display: flex; gap: 12px; margin-top: 24px;">
+                            <button class="btn btn-outline" style="padding: 10px 20px; font-size: 14px;" onclick="resetForm()">Làm lại</button>
+                            <button class="btn btn-primary" id="submitBtn" style="flex: 1; padding: 10px 20px; font-size: 14px; justify-content: center;" onclick="submitUpdate()">
+                                <i data-lucide="check-circle" size="16"></i> Xác nhận lưu hệ thống
+                            </button>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 16px;">
+                            <button class="btn" onclick="openAuditLog()" style="background: transparent; border: none; color: var(--text-light); font-size: 13px; display: inline-flex; margin: 0 auto; padding: 6px;">
+                                <i data-lucide="history" size="14"></i> Xem lịch sử thay đổi (Audit Log)
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -160,8 +160,7 @@
             overflow-y: auto;
             background: transparent;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
         }
 
         .card {
@@ -446,6 +445,405 @@
         .user-info .role {
             font-size: 12px !important;
             color: var(--text-gray) !important;
+        }
+
+        /* REDESIGN STYLES */
+        .chuyen-nganh-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin: 0 auto;
+            flex: 1;
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .search-section.compact {
+            padding: 20px 32px;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            flex: 0 0 auto;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            gap: 12px;
+        }
+        .search-section.compact .search-box {
+            max-width: 500px;
+            margin: 0;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            font-size: 15px;
+            transition: all 0.2s;
+            background: var(--bg-light);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px var(--primary-light);
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+
+        .search-box .btn {
+            padding: 0 24px;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        .test-triggers {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+        
+        .test-triggers button {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--text-dark);
+            transition: 0.2s;
+        }
+        .test-triggers button:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 24px;
+            animation: slideUpFade 0.5s ease;
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .student-profile-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .student-profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 100px;
+            background: linear-gradient(135deg, var(--primary), #1B7FD6);
+            z-index: 0;
+        }
+
+        .student-profile-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 24px 24px;
+            margin-top: 50px;
+        }
+
+        .sp-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid white;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .sp-name { font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+        .sp-id { font-size: 14px; color: var(--text-gray); margin-bottom: 16px; font-weight: 500; }
+        .sp-status { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 20px;}
+
+        .sp-stats {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .sp-stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .sp-stat-label { font-size: 12px; color: var(--text-gray); }
+        .sp-stat-value { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+
+        .transition-form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-light);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .transition-form-card h3 {
+            font-size: 18px;
+            margin-bottom: 24px;
+            color: var(--text-dark);
+        }
+
+        .major-transition-visual {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .major-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .major-box .label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-gray);
+            text-transform: uppercase;
+        }
+
+        .major-box.current strong {
+            font-size: 15px;
+            color: var(--text-dark);
+            padding: 14px 16px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: block;
+            min-height: 50px;
+        }
+
+        .major-box.new select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            background: white;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+        }
+        .major-box.new select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(7, 87, 166, 0.1);
+        }
+
+        .transition-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .transition-arrow::before, .transition-arrow::after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            background: var(--border);
+            top: 50%;
+            z-index: -1;
+            width: 30px;
+        }
+        .transition-arrow::before { right: 100%; }
+        .transition-arrow::after { left: 100%; }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+        .action-buttons .btn {
+            flex: 1;
+            padding: 14px;
+            font-size: 15px;
+            justify-content: center;
+        }
+
+        .alert-item {
+            display: flex !important;
+            animation: slideInRight 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        /* Dark mode enhancements for new classes */
+        html[data-theme="dark"] .search-section,
+        html[data-theme="dark"] .student-profile-card,
+        html[data-theme="dark"] .transition-form-card {
+            background: var(--bg-white);
+            border-color: var(--border);
+        }
+
+        html[data-theme="dark"] .search-box input {
+            background: var(--bg-soft);
+            border-color: var(--border);
+            color: var(--text-dark);
+        }
+
+        html[data-theme="dark"] .major-transition-visual {
+            background: var(--bg-soft);
+            border-color: var(--border);
+        }
+
+        html[data-theme="dark"] .major-box.current strong,
+        html[data-theme="dark"] .transition-arrow,
+        html[data-theme="dark"] .major-box.new select {
+            background: var(--bg-white);
+            border-color: var(--border);
+            color: var(--text-dark);
+        }
+        
+        html[data-theme="dark"] .sp-avatar {
+            background: var(--bg-white);
+            border-color: var(--bg-white);
+        }
+        html[data-theme="dark"] .test-triggers button {
+            background: var(--bg-white);
+            border-color: var(--border);
+            color: var(--text-dark);
+        }
+        html[data-theme="dark"] .test-triggers button:hover {
+            background: var(--bg-soft);
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toast {
+            min-width: 300px;
+            max-width: 400px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+            opacity: 0;
+            border: 1px solid var(--border);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.hiding {
+            transform: translateX(120%);
+            opacity: 0;
+        }
+
+        .toast-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast-success .toast-icon { background: #ECFDF5; color: #10B981; }
+        .toast-error .toast-icon { background: #FEF2F2; color: #EF4444; }
+
+        .toast-content { flex: 1; }
+        .toast-title { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+        .toast-message { font-size: 13px; color: var(--text-gray); line-height: 1.4; }
+
+        html[data-theme="dark"] .toast {
+            background: var(--bg-white);
+            border-color: var(--border);
         }
     </style>
     <!--theme-enhance-->
@@ -833,6 +1231,14 @@
             color: var(--text-gray) !important
         }
     </style>
+    <style id="menu-style-fix">
+        /* Kích thước và cách thiết kế giống MH-01-4 */
+        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
+        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
+        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
+        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
+        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+    </style>
 </head>
 
 <body>
@@ -913,122 +1319,108 @@
 
 
         <main class="dashboard-content">
-            <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h1 class="page-title" style="margin-bottom: 0;"><i data-lucide="arrow-right-left"
-                            color="var(--primary)"></i> Chuyển ngành sinh viên</h1>
-                    <button class="btn btn-outline" onclick="openAuditLog()"><i data-lucide="history" size="18"></i>
-                        Lịch sử (Audit Log)</button>
+            <div class="chuyen-nganh-container">
+                <div class="page-header" style="width: 100%; min-height: 110px; padding: 40px 32px 24px 32px; display: flex; justify-content: space-between; align-items: center; border-radius: 20px;">
+                    <h1 class="page-title" style="margin: 0; position: relative; z-index: 1;">
+                        <i data-lucide="arrow-right-left" size="24"></i>
+                        <span>Chuyển ngành sinh viên</span>
+                    </h1>
+                    <button class="btn btn-outline" onclick="openAuditLog()" style="position: relative; z-index: 1;"><i data-lucide="history" size="18"></i> Lịch sử (Audit Log)</button>
                 </div>
 
-                <div class="form-group" style="display: flex; gap: 12px; align-items: flex-end;">
-                    <div style="flex: 1;">
-                        <label>Tìm kiếm sinh viên (Nhập Mã SV)</label>
+                <!-- State 1: Search -->
+                <div class="search-section" id="searchSection">
+                    <div style="text-align: center; margin-bottom: 8px;" id="searchTitle">
+                        <h2 style="font-size: 22px; margin-bottom: 8px;">Tra cứu thông tin sinh viên</h2>
+                        <p style="color: var(--text-gray); font-size: 14px;">Nhập mã sinh viên để kiểm tra điều kiện và thực hiện chuyển ngành</p>
+                    </div>
+                    <div class="search-box">
+                        <i data-lucide="search" class="search-icon"></i>
                         <input type="text" id="searchId" placeholder="VD: HE19201...">
+                        <button class="btn btn-primary" onclick="searchStudent()">Tìm kiếm</button>
                     </div>
-                    <button class="btn btn-outline" onclick="searchStudent()" style="height: 43px;">
-                        <i data-lucide="search" size="18"></i> Tìm
-                    </button>
+                    
+                    <div class="test-triggers">
+                        <span style="font-weight: 600;">Dành cho Test:</span>
+                        <button onclick="simulateDebt()">SV Nợ phí</button>
+                        <button onclick="simulateNotActive()">SV Bảo lưu</button>
+                        <button onclick="simulateLowCredits()">SV Thiếu tín chỉ</button>
+                    </div>
                 </div>
 
-                <!-- Profile Found -->
-                <div id="profileSummary" class="profile-summary">
-                    <div class="profile-header">
-                        <div>
-                            <div class="profile-name">Trần Thị Bích</div>
-                            <div class="profile-id">HE19201 • Lớp SE1901</div>
+                <!-- State 2: Content (Hidden initially) -->
+                <div class="content-grid" id="contentGrid" style="display: none;">
+                    <!-- Left Column: Student Info & Validation -->
+                    <div class="left-panel">
+                        <div class="student-profile-card">
+                            <div class="student-profile-content">
+                                <div class="sp-avatar" id="spAvatar">T</div>
+                                <div class="sp-name" id="spName">Trần Thị Bích</div>
+                                <div class="sp-id" id="spId">HE19201 • Lớp SE1901</div>
+                                <div class="sp-status" id="spStatus">Đang học</div>
+                                
+                                <div class="sp-stats">
+                                    <div class="sp-stat-item">
+                                        <span class="sp-stat-label">Số tín chỉ tích lũy</span>
+                                        <span class="sp-stat-value" id="spCredits">45 tín chỉ</span>
+                                    </div>
+                                    <div class="sp-stat-item">
+                                        <span class="sp-stat-label">Ngày nhập học</span>
+                                        <span class="sp-stat-value">05/09/2025</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Ngành hiện tại: Kỹ thuật phần mềm (SE)</span>
+                        
+                        <div class="validation-status">
+                            <div id="alertContainer"></div>
+                        </div>
                     </div>
 
-                    <div
-                        style="font-size: 13px; color: var(--text-gray); display: flex; align-items: center; gap: 24px; margin-top: 8px;">
-                        <span><i data-lucide="book-check" size="14"
-                                style="vertical-align: text-bottom; margin-right: 4px;"></i> Số tín chỉ đã tích lũy: 45</span>
-                        <span><i data-lucide="activity" size="14"
-                                style="vertical-align: text-bottom; margin-right: 4px;"></i> Trạng thái học tập: Đang học</span>
-                    </div>
-                </div>
+                    <!-- Right Column: Transition Form -->
+                    <div class="right-panel">
+                        <div class="transition-form-card" id="updateForm">
+                            <h3>Đăng ký chuyển ngành</h3>
+                            
+                            <div class="major-transition-visual">
+                                <div class="major-box current">
+                                    <span class="label">Ngành hiện tại</span>
+                                    <strong id="lblCurrentMajor">Kỹ thuật phần mềm (SE)</strong>
+                                </div>
+                                <div class="transition-arrow">
+                                    <i data-lucide="arrow-right"></i>
+                                </div>
+                                <div class="major-box new">
+                                    <span class="label">Ngành mới</span>
+                                    <select id="newMajor" onchange="checkRules()">
+                                        <option value="">-- Chọn ngành --</option>
+                                        <option value="IA">An toàn thông tin (IA)</option>
+                                        <option value="AI">Trí tuệ nhân tạo (AI)</option>
+                                        <option value="GD">Thiết kế đồ họa (GD)</option>
+                                        <option value="MK">Marketing số (MK)</option>
+                                        <option value="IB">Kinh doanh quốc tế (IB)</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                <!-- Alert for Invalid Transition -->
-                <div id="transitionAlert" class="alert alert-danger">
-                    <i data-lucide="x-octagon" size="22"></i>
-                    <div>
-                        <strong style="font-size: 15px;">Không đủ điều kiện chuyển ngành!</strong><br>
-                        <span id="transitionAlertText" style="opacity: 0.9; display: inline-block; margin-top: 4px;"></span>
-                    </div>
-                </div>
-
-                <!-- Alert for Debt (Luồng ngoại lệ) -->
-                <div id="debtAlert" class="alert alert-warning">
-                    <i data-lucide="alert-triangle" size="22"></i>
-                    <div>
-                        <strong style="font-size: 15px;">Cảnh báo: Sinh viên đang nợ phí!</strong><br>
-                        <span style="opacity: 0.9; display: inline-block; margin-top: 4px;">Hệ thống chặn chức năng chuyển ngành cho đến khi hoàn tất nghĩa vụ tài chính.</span>
-                    </div>
-                </div>
-
-                <!-- Warning for Credit Transfer -->
-                <div id="creditAlert" class="alert alert-info">
-                    <i data-lucide="info" size="22"></i>
-                    <div>
-                        <strong style="font-size: 15px;">Lưu ý về tín chỉ:</strong><br>
-                        <span style="opacity: 0.9; display: inline-block; margin-top: 4px;">Sau khi chuyển ngành, các môn học tương đương sẽ được xét duyệt chuyển đổi. Một số môn có thể không được tính vào chương trình mới.</span>
-                    </div>
-                </div>
-
-                <!-- Update Form -->
-                <div id="updateForm" style="opacity: 0.5; pointer-events: none;">
-                    <div class="form-group">
-                        <label>Ngành mới muốn chuyển sang</label>
-                        <select id="newMajor" onchange="checkRules()">
-                            <option value="">-- Chọn ngành --</option>
-                            <option value="IA">An toàn thông tin (IA)</option>
-                            <option value="AI">Trí tuệ nhân tạo (AI)</option>
-                            <option value="GD">Thiết kế đồ họa (GD)</option>
-                            <option value="MK">Marketing số (MK)</option>
-                            <option value="IB">Kinh doanh quốc tế (IB)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Lý do / Số Quyết định</label>
-                        <textarea id="reason" rows="3"
-                            placeholder="Nhập lý do chuyển ngành hoặc mã số quyết định đi kèm..."></textarea>
-                    </div>
-
-                    <div style="display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap;">
-                        <button class="btn btn-outline" style="flex: 1; min-width: 140px; justify-content: center;"
-                            onclick="resetForm()">Làm mới</button>
-                        <button class="btn btn-primary" id="submitBtn"
-                            style="flex: 2; min-width: 250px; justify-content: center; text-align: center;"
-                            onclick="submitUpdate()">Xác nhận chuyển ngành</button>
-                    </div>
-                </div>
-
-                <!-- Simulate Exception Trigger -->
-                <div
-                    style="margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--border); text-align: center;">
-                    <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 8px;">Dành cho Test: Click nút
-                        dưới đây để giả lập Luồng ngoại lệ</p>
-                    <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateDebt()">
-                            Giả lập SV nợ phí
-                        </button>
-                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateNotActive()">
-                            Giả lập SV không ở trạng thái "Đang học"
-                        </button>
-                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateLowCredits()">
-                            Giả lập SV không đủ tín chỉ
-                        </button>
+                            <div class="form-group">
+                                <label>Lý do / Số Quyết định</label>
+                                <textarea id="reason" rows="4" placeholder="Nhập lý do chuyển ngành hoặc mã số quyết định đi kèm..."></textarea>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="btn btn-outline" onclick="resetForm()">Làm mới</button>
+                                <button class="btn btn-primary" id="submitBtn" onclick="submitUpdate()">Xác nhận chuyển ngành</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
 
     <!-- Audit Log Modal -->
     <div id="auditLogModal"
@@ -1059,182 +1451,168 @@
 
     <script>
         lucide.createIcons();
+        
+        function showToast(title, message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            
+            let iconName = type === 'success' ? 'check' : 'alert-circle';
+            
+            toast.innerHTML = `
+                <div class="toast-icon"><i data-lucide="${iconName}" size="16"></i></div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            lucide.createIcons();
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Auto remove
+            setTimeout(() => {
+                toast.classList.remove('show');
+                toast.classList.add('hiding');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
         let isDebt = false;
         let isEligibleMajorChange = true;
         let currentStatus = 'danghoc';
 
         function searchStudent() {
             const id = document.getElementById('searchId').value;
-            if (!id) { alert("Vui lòng nhập mã SV!"); return; }
+            if (!id) { showToast('Lỗi', 'Vui lòng nhập mã sinh viên!', 'error'); return; }
 
+            // Change UI state
+            document.getElementById('searchSection').classList.add('compact');
+            document.getElementById('searchTitle').style.display = 'none';
+            document.getElementById('contentGrid').style.display = 'grid';
+            
+            // Default normal user
             isDebt = false;
             isEligibleMajorChange = true;
             currentStatus = 'danghoc';
-            hideAllAlerts();
+            
+            updateProfileUI('Trần Thị Bích', 'HE19201', 'SE1901', 'Kỹ thuật phần mềm (SE)', 45, 'Đang học');
+            checkRules();
+        }
 
-            // Show Normal Profile
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Trần Thị Bích</div>
-                        <div class="profile-id">HE19201 • Lớp SE1901</div>
-                    </div>
-                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Ngành hiện tại: Kỹ thuật phần mềm (SE)</span>
-                </div>
-                <div style="font-size: 13px; color: var(--text-gray); display: flex; align-items: center; gap: 24px; margin-top: 8px;">
-                    <span><i data-lucide="book-check" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Số tín chỉ đã tích lũy: 45</span>
-                    <span><i data-lucide="activity" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Trạng thái học tập: Đang học</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            // Enable Form
-            enableForm();
-            document.getElementById('creditAlert').classList.add('active');
+        function updateProfileUI(name, id, className, major, credits, status) {
+            document.getElementById('spName').innerText = name;
+            document.getElementById('spId').innerText = `${id} • Lớp ${className}`;
+            document.getElementById('spAvatar').innerText = name.charAt(0);
+            document.getElementById('lblCurrentMajor').innerText = major;
+            document.getElementById('spCredits').innerText = `${credits} tín chỉ`;
+            
+            const statusBadge = document.getElementById('spStatus');
+            statusBadge.innerText = status;
+            if(status === 'Đang học') {
+                statusBadge.style.color = '#1E8E3E';
+                statusBadge.style.background = '#E6F4EA';
+                statusBadge.style.border = '1px solid #1E8E3E33';
+            } else if (status === 'Bảo lưu') {
+                statusBadge.style.color = '#D97706';
+                statusBadge.style.background = '#FEF3C7';
+                statusBadge.style.border = '1px solid #D9770633';
+            }
         }
 
         function simulateDebt() {
             document.getElementById('searchId').value = 'HE19999';
+            searchStudent();
             isDebt = true;
-            isEligibleMajorChange = true;
-            currentStatus = 'danghoc';
-
-            // Show Debt Profile
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Vương Đình Nợ</div>
-                        <div class="profile-id">HE19999 • Lớp SE1903</div>
-                    </div>
-                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Ngành hiện tại: Kỹ thuật phần mềm (SE)</span>
-                </div>
-                <div style="font-size: 13px; color: #DC2626; display: flex; align-items: center; gap: 24px; margin-top: 8px; font-weight: 600;">
-                    <span><i data-lucide="credit-card" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Nợ 5.000.000 VNĐ</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            enableForm();
+            updateProfileUI('Vương Đình Nợ', 'HE19999', 'SE1903', 'Kỹ thuật phần mềm (SE)', 50, 'Đang học');
             checkRules();
         }
 
         function simulateNotActive() {
             document.getElementById('searchId').value = 'HE19001';
-            isDebt = false;
+            searchStudent();
             isEligibleMajorChange = false;
             currentStatus = 'baoluu';
-
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Nguyễn Văn Bảo Lưu</div>
-                        <div class="profile-id">HE19001</div>
-                    </div>
-                    <span class="status-badge" style="background: #FEF3C7; color: #D97706;">Trạng thái hiện tại: Bảo lưu</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            enableForm();
+            updateProfileUI('Nguyễn Văn Bảo Lưu', 'HE19001', 'SE1900', 'Kỹ thuật phần mềm (SE)', 30, 'Bảo lưu');
             checkRules();
         }
 
         function simulateLowCredits() {
             document.getElementById('searchId').value = 'HE19002';
-            isDebt = false;
+            searchStudent();
             isEligibleMajorChange = false;
-            currentStatus = 'danghoc';
-
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Lê Đình Nhỏ</div>
-                        <div class="profile-id">HE19002 • Lớp SE1902</div>
-                    </div>
-                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Ngành hiện tại: Kỹ thuật phần mềm (SE)</span>
-                </div>
-                <div style="font-size: 13px; color: #B45309; display: flex; align-items: center; gap: 24px; margin-top: 8px; font-weight: 600;">
-                    <span><i data-lucide="alert-circle" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Tiến độ: Không đủ số tín chỉ tối thiểu để chuyển ngành</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            enableForm();
+            updateProfileUI('Lê Đình Nhỏ', 'HE19002', 'SE1902', 'Kỹ thuật phần mềm (SE)', 12, 'Đang học');
             checkRules();
-        }
-
-        function hideAllAlerts() {
-            document.getElementById('transitionAlert').classList.remove('active');
-            document.getElementById('debtAlert').classList.remove('active');
-            if (document.getElementById('creditAlert')) document.getElementById('creditAlert').classList.remove('active');
-        }
-
-        function enableForm() {
-            document.getElementById('updateForm').style.opacity = '1';
-            document.getElementById('updateForm').style.pointerEvents = 'auto';
-            document.getElementById('newMajor').value = '';
-            document.getElementById('reason').value = '';
-            document.getElementById('submitBtn').disabled = false;
         }
 
         function checkRules() {
             const major = document.getElementById('newMajor').value;
             const submitBtn = document.getElementById('submitBtn');
-            hideAllAlerts();
-            submitBtn.disabled = false;
+            const alertContainer = document.getElementById('alertContainer');
             
-            if (document.getElementById('creditAlert')) {
-                document.getElementById('creditAlert').classList.add('active');
-            }
+            alertContainer.innerHTML = ''; // clear previous alerts
+            submitBtn.disabled = false;
+            let hasError = false;
 
-            if (!major) return;
-
-            let isValidTransition = true;
-            let invalidReason = '';
+            // Info alert always shows when searching
+            addAlert('info', 'Lưu ý về tín chỉ', 'Sau khi chuyển ngành, các môn học tương đương sẽ được xét duyệt chuyển đổi. Một số môn có thể không được tính vào chương trình mới.');
 
             if (currentStatus !== 'danghoc') {
-                isValidTransition = false;
-                invalidReason = 'Sinh viên phải ở trạng thái "Đang học" để có thể chuyển ngành.';
+                addAlert('danger', 'Không đủ điều kiện', 'Sinh viên phải ở trạng thái "Đang học" để có thể chuyển ngành.');
+                hasError = true;
             } else if (!isEligibleMajorChange) {
-                isValidTransition = false;
-                invalidReason = 'Sinh viên chưa tích lũy đủ số tín chỉ tối thiểu quy định để chuyển ngành.';
-            }
-
-            if (!isValidTransition) {
-                document.getElementById('transitionAlertText').innerText = invalidReason;
-                document.getElementById('transitionAlert').classList.add('active');
-                submitBtn.disabled = true;
-                return;
+                addAlert('danger', 'Không đủ điều kiện', 'Sinh viên chưa tích lũy đủ số tín chỉ tối thiểu quy định để chuyển ngành.');
+                hasError = true;
             }
 
             if (isDebt) {
-                document.getElementById('debtAlert').classList.add('active');
+                addAlert('warning', 'Cảnh báo nợ phí', 'Hệ thống chặn chức năng chuyển ngành cho đến khi sinh viên hoàn tất nghĩa vụ tài chính.');
+                hasError = true;
+            }
+            
+            if (hasError || !major) {
                 submitBtn.disabled = true;
             }
+            
+            lucide.createIcons();
+        }
+
+        function addAlert(type, title, message) {
+            const container = document.getElementById('alertContainer');
+            const icons = {
+                'danger': 'x-octagon',
+                'warning': 'alert-triangle',
+                'info': 'info'
+            };
+            
+            const html = `
+                <div class="alert alert-${type} alert-item active">
+                    <i data-lucide="${icons[type]}" size="22" style="margin-top: 2px;"></i>
+                    <div>
+                        <strong style="font-size: 15px; display: block; margin-bottom: 4px;">${title}</strong>
+                        <span style="opacity: 0.9; font-size: 13.5px; line-height: 1.4; display: block;">${message}</span>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += html;
         }
 
         function resetForm() {
             document.getElementById('searchId').value = '';
             document.getElementById('newMajor').value = '';
             document.getElementById('reason').value = '';
-            document.getElementById('profileSummary').classList.remove('active');
-            hideAllAlerts();
-            document.getElementById('updateForm').style.opacity = '0.5';
-            document.getElementById('updateForm').style.pointerEvents = 'none';
+            document.getElementById('searchSection').classList.remove('compact');
+            document.getElementById('searchTitle').style.display = 'block';
+            document.getElementById('contentGrid').style.display = 'none';
         }
 
         function submitUpdate() {
             const major = document.getElementById('newMajor').value;
-            if (!major) { alert('Vui lòng chọn ngành mới muốn chuyển!'); return; }
-            alert('Cập nhật thành công! Yêu cầu chuyển ngành đã được ghi nhận. Sinh viên sẽ được chuyển sang ngành mới sau khi hoàn tất xét duyệt.');
+            if (!major) { showToast('Lỗi', 'Vui lòng chọn ngành mới muốn chuyển!', 'error'); return; }
+            showToast('Thành công', 'Yêu cầu chuyển ngành đã được ghi nhận. Sinh viên sẽ được chuyển sang ngành mới sau khi hoàn tất xét duyệt.', 'success');
             resetForm();
         }
 
