@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Quản Lý Sinh Viên - Đăng Nhập</title>
+    <title>Hệ Thống Quản Lý Sinh Viên</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -31,7 +31,7 @@
         body {
             background-color: var(--bg-light);
             color: var(--text-dark);
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         /* Screen Management */
@@ -62,16 +62,71 @@
         #login-screen {
             background: var(--bg-light);
             position: relative;
+            overflow: hidden;
         }
 
-        .login-header {
+        /* Animations */
+        @keyframes bgZoomOut {
+            0% {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideRight {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 64px;
             height: 96px;
-            background: var(--primary);
-            color: white;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            animation: slideDown 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s both;
         }
 
         .sys-identity {
@@ -107,11 +162,14 @@
             font-size: 12px;
             text-transform: uppercase;
             color: var(--primary-light);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .brand-copy .sys-name {
             font-weight: 700;
             font-size: 21px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .support {
@@ -123,25 +181,95 @@
         }
 
         .login-main {
-            min-height: calc(100vh - 70px - 50px);
-            background: linear-gradient(180deg, rgba(6, 59, 117, 0.08) 0%, rgba(8, 46, 87, 0.72) 100%), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80') center/cover no-repeat;
+            min-height: 100vh;
+            width: 100vw;
+            background: url('https://i.pinimg.com/1200x/ab/53/ca/ab53cab7e9784f2f5794f96cee7d5f1d.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 160px;
+            padding: 0;
+            position: relative;
+            margin: 0;
+            animation: bgZoomOut 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        .login-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            color: white;
+            background: transparent;
+            margin-top: -234px;
+            margin-left: 114px;
+            animation: slideRight 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s both;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-left-title {
+            font-size: 38px;
+            white-space: nowrap;
+            font-weight: 700;
+            line-height: 1;
+            margin: 0;
+            margin-bottom: 8px;
+            color: transparent;
+            -webkit-text-stroke: 2px white;
+            text-shadow:
+                2px 2px 0px rgba(0, 0, 0, 0.3),
+                4px 4px 0px rgba(0, 0, 0, 0.15),
+                6px 6px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .login-left-desc {
+            font-size: 18px;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .login-logo {
+            width: 240px;
+            height: 240px;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 24px;
+            margin-bottom: -32px;
+        }
+
+        .login-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .login-right {
+            width: 520px;
+            background: transparent;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px;
+            box-shadow: none;
+            margin-left: -57px;
+            animation: slideLeft 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s both;
+            position: relative;
+            z-index: 2;
         }
 
         .login-card {
             display: flex;
             flex-direction: column;
-            padding: 24px 28px;
-            gap: 16px;
-            width: 420px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0px 18px 48px rgba(22, 58, 101, 0.15);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
+            gap: 24px;
+            width: 100%;
         }
 
         .login-intro {
@@ -166,19 +294,20 @@
         }
 
         .login-title {
-            font-size: 30px;
-
-            color: white;
-            line-height: 1.2;
-            text-align: center;
-        }
-
-        .login-title-h5 {
-            font-size: 16px;
+            font-size: 32px;
             font-weight: 700;
             color: white;
             line-height: 1.2;
-            text-align: center;
+            text-align: left;
+        }
+
+        .login-title-h4 {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.2;
+            text-align: left;
+            margin-bottom: 24px;
         }
 
         .login-desc {
@@ -190,7 +319,7 @@
         .login-form {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 20px;
         }
 
         .form-field {
@@ -202,25 +331,25 @@
         .form-label {
             font-size: 13px;
             font-weight: 600;
-            color: white;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .form-input {
             display: flex;
             align-items: center;
-            padding: 0 12px;
-            gap: 8px;
-            height: 42px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
+            justify-content: space-between;
+            padding: 8px 0;
+            gap: 12px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 0;
             color: white;
-            transition: border-color 0.2s, background 0.2s;
+            transition: border-color 0.2s;
         }
 
-        .form-input:focus-within {
-            border-color: #64B5FF;
-            background: rgba(255, 255, 255, 0.12);
+        .form-input i {
+            order: 2;
         }
 
         .form-input input,
@@ -229,10 +358,12 @@
             border: none;
             outline: none;
             color: white;
-            font-size: 14px;
+            font-weight: 700;
+            font-size: 15px;
             flex: 1;
             min-width: 0;
             width: 100%;
+            order: 1;
         }
 
         .form-input select {
@@ -247,7 +378,7 @@
         }
 
         .form-input input::placeholder {
-            color: var(--primary-light);
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .login-options {
@@ -281,21 +412,22 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
-            height: 42px;
-            background: var(--primary);
+            height: 46px;
+            background: transparent;
             color: white;
-            border: none;
-            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
+            margin-top: 16px;
         }
 
         .login-btn:hover {
-            background: #0968c5;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(7, 87, 166, 0.3);
         }
 
         /* Header reused across home and dashboard */
@@ -304,9 +436,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 64px;
-            height: 70px;
-            background: rgba(7, 87, 166, 0.91);
-            backdrop-filter: blur(9px);
+            height: 80px;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             z-index: 100;
         }
 
@@ -352,48 +487,326 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* Footer */
-        footer {
-            background: #042448;
-            color: var(--text-light);
-            padding: 16px 64px;
+
+
+        /* ----- DASHBOARD SCREEN ----- */
+        #dashboard-screen {
+            background: var(--bg-light);
+        }
+
+        .dashboard-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            padding: 12px 24px 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-item:hover {
+            background: #F8FAFC;
+            color: var(--primary);
+        }
+
+        .sidebar-item.active {
+            background: #EAF4FF;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            font-weight: 600;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-outline {
+            padding: 10px 16px;
+            background: white;
+            border: 1px solid var(--border);
+            color: var(--text-dark);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: #F8FAFC;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stat-icon.blue {
+            background: #EAF4FF;
+            color: var(--primary);
+        }
+
+        .stat-icon.green {
+            background: #E6F4EA;
+            color: #1E8E3E;
+        }
+
+        .stat-icon.orange {
+            background: #FFF3E0;
+            color: #F57C00;
+        }
+
+        .stat-icon.purple {
+            background: #F3E8FD;
+            color: #8E24AA;
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-info .label {
+            font-size: 13px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .stat-info .val {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .recent-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .footer-bottom {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
+        .section-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th {
+            text-align: left;
+            padding: 16px 24px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+            background: #F8FAFC;
+        }
+
+        .table td {
+            padding: 16px 24px;
+            font-size: 14px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table tbody tr:hover {
+            background: #F8FAFC;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+        }
+
+        .status-active {
+            background: #E6F4EA;
+            color: #1E8E3E;
+        }
+
+        .status-pending {
+            background: #FFF3E0;
+            color: #F57C00;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #EAF4FF;
+            color: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-info .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .user-info .role {
+            font-size: 12px;
+            color: var(--text-gray);
         }
 
         /* ----- FLASHLIGHT EFFECT ----- */
         body {
             transition: background-color 0.5s ease;
         }
-        
-        .login-main, .header, .login-card, footer, .sys-identity {
+
+        .login-main,
+        .header,
+        .login-card,
+        footer,
+        .sys-identity {
             transition: all 0.5s ease;
         }
 
-        /* Khi bật đèn pin, toàn bộ xung quanh tối lại để tương phản */
-        body.flashlight-mode .login-main {
-            background: linear-gradient(180deg, rgba(2, 10, 20, 0.92) 0%, rgba(1, 6, 12, 0.98) 100%), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80') center/cover no-repeat;
+        /* Lớp phủ làm tối màn hình nền */
+        .login-main::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(2, 10, 20, 0.92) 0%, rgba(1, 6, 12, 0.98) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        body.flashlight-mode .login-card {
-            background: rgba(0, 0, 0, 0.65);
-            border-color: rgba(255, 255, 255, 0.08);
-            box-shadow: 0px 18px 48px rgba(0, 0, 0, 0.8);
+        body.flashlight-mode .login-main::before {
+            opacity: 1;
+        }
+
+        body.flashlight-mode .login-right {
+            background: transparent;
+            border: none;
+        }
+
+        body.flashlight-mode .login-left {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.2);
         }
 
         body.flashlight-mode .header {
             background: rgba(2, 10, 20, 0.95);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        body.flashlight-mode footer {
-            background: #01060c;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* Tia sáng đèn pin */
@@ -406,24 +819,26 @@
         .beam-overlay {
             position: absolute;
             /* Mở rộng vùng hiển thị để phễu tỏa ra phủ rộng khắp khu vực */
-            top: -1000px; bottom: -1000px; left: -2000px; right: 0;
+            top: -1000px;
+            bottom: -1000px;
+            left: -2000px;
+            right: 0;
             pointer-events: none;
             z-index: 4;
-            
+
             /* Dùng conic-gradient để tia sáng tỏa ra thành hình nón rộng dần (diverging cone) */
-            background: conic-gradient(from calc(var(--angle, 270deg) - 25deg) at calc(100% - 27px) 50%, 
-                transparent 0deg, 
-                rgba(255, 245, 180, 0.1) 10deg, 
-                rgba(255, 245, 180, 0.75) 25deg, 
-                rgba(255, 245, 180, 0.1) 40deg, 
-                transparent 50deg, 
-                transparent 360deg
-            );
-            
+            background: conic-gradient(from calc(var(--angle, 270deg) - 25deg) at calc(100% - 27px) 50%,
+                    transparent 0deg,
+                    rgba(255, 245, 180, 0.1) 10deg,
+                    rgba(255, 245, 180, 0.75) 25deg,
+                    rgba(255, 245, 180, 0.1) 40deg,
+                    transparent 50deg,
+                    transparent 360deg);
+
             /* Dùng mặt nạ radial-gradient để fade mờ dần ở đuôi cực êm */
-            -webkit-mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0,0,0,0.8) 40%, transparent 100%);
-            mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0,0,0,0.8) 40%, transparent 100%);
-            
+            -webkit-mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0, 0, 0, 0.8) 40%, transparent 100%);
+            mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0, 0, 0, 0.8) 40%, transparent 100%);
+
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -434,25 +849,37 @@
 
         .reveal-wrapper {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             z-index: 5;
             /* Mask 1: Chữ cũng fade mờ dần phần đuôi y hệt tia sáng */
-            -webkit-mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0,0,0,0.8) 40%, transparent 100%);
-            mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0,0,0,0.8) 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0, 0, 0, 0.8) 40%, transparent 100%);
+            mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0, 0, 0, 0.8) 40%, transparent 100%);
         }
 
         .reveal-input {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            padding-left: 44px; padding-right: 44px;
-            background: transparent; border: none; outline: none;
-            color: #ffffff; font-size: 14px; font-weight: 600;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding-left: 44px;
+            padding-right: 44px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
             text-shadow: 0 0 6px rgba(255, 245, 180, 0.9), 0 0 18px rgba(255, 245, 180, 0.6);
-            pointer-events: none; opacity: 0;
+            pointer-events: none;
+            opacity: 0;
             /* Mask 2: Chữ giới hạn theo hình nón tỏa ra */
-            -webkit-mask-image: conic-gradient(from calc(var(--angle, 270deg) - 25deg) at calc(100% - 27px) 50%, transparent 0deg, rgba(0,0,0,0.5) 10deg, rgba(0,0,0,1) 25deg, rgba(0,0,0,0.5) 40deg, transparent 50deg, transparent 360deg);
-            mask-image: conic-gradient(from calc(var(--angle, 270deg) - 25deg) at calc(100% - 27px) 50%, transparent 0deg, rgba(0,0,0,0.5) 10deg, rgba(0,0,0,1) 25deg, rgba(0,0,0,0.5) 40deg, transparent 50deg, transparent 360deg);
+            -webkit-mask-image: conic-gradient(from calc(var(--angle, 270deg) - 25deg) at calc(100% - 27px) 50%, transparent 0deg, rgba(0, 0, 0, 0.5) 10deg, rgba(0, 0, 0, 1) 25deg, rgba(0, 0, 0, 0.5) 40deg, transparent 50deg, transparent 360deg);
+            mask-image: conic-gradient(from calc(var(--angle, 270deg) - 25deg) at calc(100% - 27px) 50%, transparent 0deg, rgba(0, 0, 0, 0.5) 10deg, rgba(0, 0, 0, 1) 25deg, rgba(0, 0, 0, 0.5) 40deg, transparent 50deg, transparent 360deg);
             transition: opacity 0.3s ease;
         }
 
@@ -460,6 +887,7 @@
         body.flashlight-mode .real-input {
             color: transparent !important;
         }
+
         body.flashlight-mode .real-input::placeholder {
             color: transparent;
         }
@@ -467,7 +895,7 @@
         body.flashlight-mode .reveal-input {
             opacity: 1;
         }
-        
+
         #eyeIcon {
             z-index: 10;
         }
@@ -539,112 +967,89 @@
 
     <!-- ======================= LOGIN SCREEN ======================= -->
     <div id="login-screen" class="screen active">
-        <header class="header">
-            <div class="sys-identity" style="cursor: pointer;" onclick="navigateTo('login')">
-                <div class="emblem">
-                    <i data-lucide="book-open"></i>
-                </div>
-                <div class="brand-copy">
-                    <span class="uni">Trường</span>
-                    <span class="sys-name">Đại Học ONENET</span>
-                </div>
-            </div>
-        </header>
-
         <div class="login-main">
-            <div class="login-card">
-                <div class="login-intro">
-
-                    <h2 class="login-title">Đăng nhập<br></h2>
-                    <h5 class="login-title-h5"><i>Hệ thống quản lý sinh viên</i><br></h5>
-
-                        <p class="login-desc"></p>
+            <div class="login-left">
+                <div class="login-logo">
+                    <img src="../../Template/5d39d9c0-3b66-4133-81f7-fea5b1060dc4.png" alt="Logo Đại Học ONENET">
                 </div>
+                <h1 class="login-left-title">ONENET UNIVERSITY</h1>
+                <p class="login-left-desc">QUẢN LÝ SINH VIÊN</p>
+            </div>
 
-                <form class="login-form" id="gvLoginForm">
-                    <div class="form-field" style="margin-bottom: 8px;">
+            <div class="login-right">
+                <div class="login-card">
+                    <div class="login-intro">
+                        <h2 class="login-title">Đăng nhập</h2>
+                        <h4 class="login-title-h4">Quản lý sinh viên</h4>
                     </div>
 
-                    <div class="form-field">
-                        <label class="form-label">Tên đăng nhập</label>
-                        <div class="form-input">
-                            <i data-lucide="user" color="#8794A8"></i>
-                            <input type="text" id="usernameInput" placeholder="Nhập mã số sinh viên / giảng viên" required>
-                        </div>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="form-label">Mật khẩu</label>
-                        <div class="form-input password-wrapper" id="pwdWrapper">
-                            <i data-lucide="lock" color="#8794A8" style="z-index: 10;"></i>
-                            <input type="password" placeholder="Nhập mật khẩu" required id="pwdInput" class="real-input">
-                            
-                            <!-- Luồng sáng hình phễu -->
-                            <div class="beam-overlay" id="beamOverlay"></div>
-
-                            <!-- Lớp phát sáng ảo được bọc trong wrapper để áp dụng 2 lớp mặt nạ ánh sáng -->
-                            <div class="reveal-wrapper" id="revealWrapper">
-                                <input type="text" id="revealInput" class="reveal-input" readonly tabindex="-1">
+                    <form class="login-form" id="adminLoginForm">
+                        <div class="form-field">
+                            <label class="form-label">Tên đăng nhập</label>
+                            <div class="form-input">
+                                <input type="text" id="usernameInput" placeholder="Nhập mã số sinh viên / giảng viên"
+                                    required>
+                                <i data-lucide="user" color="#8794A8"></i>
                             </div>
-                            
-                            <span id="toggleBtn" onclick="togglePassword()" style="cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="eye-off" color="#8794A8" id="eyeIcon"></i>
-                            </span>
                         </div>
-                    </div>
 
-                    <div class="login-options">
-                        <label class="remember">
-                            <input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--primary);">
-                            Ghi nhớ đăng nhập
-                        </label>
-                    </div>
+                        <div class="form-field">
+                            <label class="form-label">Mật khẩu</label>
+                            <div class="form-input password-wrapper" id="pwdWrapper">
+                                <input type="password" placeholder="Nhập mật khẩu" required id="pwdInput"
+                                    class="real-input">
+                                <i data-lucide="lock" color="#8794A8" style="z-index: 10;"></i>
 
-                    <button type="submit" class="login-btn">
-                        Đăng nhập
-                        <i data-lucide="arrow-right" size="18"></i>
-                    </button>
+                                <!-- Luồng sáng hình phễu -->
+                                <div class="beam-overlay" id="beamOverlay"></div>
 
-                    <div style="display: flex; align-items: center; text-align: center; margin: 8px 0;">
-                        <hr style="flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.15);">
-                        <span style="padding: 0 10px; color: var(--text-light); font-size: 13px;">hoặc</span>
-                        <hr style="flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.15);">
-                    </div>
+                                <!-- Lớp phát sáng ảo được bọc trong wrapper để áp dụng 2 lớp mặt nạ ánh sáng -->
+                                <div class="reveal-wrapper" id="revealWrapper">
+                                    <input type="text" id="revealInput" class="reveal-input" readonly tabindex="-1">
+                                </div>
 
-                    <button type="button" class="login-btn"
-                        style="background: white; color: var(--text-dark); display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--border);"
-                        onclick="window.location.href='../MH_GV_Mockup/MH-00-8-TongQuanGiangVien.html';">
-                        <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                                fill="#4285F4" />
-                            <path
-                                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                                fill="#34A853" />
-                            <path
-                                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                                fill="#FBBC05" />
-                            <path
-                                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                                fill="#EA4335" />
-                        </svg>
-                        Đăng nhập bằng Google
-                    </button>
-                </form>
+                                <span id="toggleBtn"
+                                    style="cursor: grab; z-index: 10; display: flex; align-items: center; justify-content: center; position: absolute; right: 0;">
+                                    <i data-lucide="eye-off" color="#8794A8" id="eyeIcon"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="login-options">
+                            <label class="remember">
+                                <input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--primary);">
+                                Ghi nhớ đăng nhập
+                            </label>
+                            <a class="forgot">Quên mật khẩu?</a>
+                        </div>
+
+                        <button type="submit" class="login-btn">
+                            Đăng nhập &nbsp; &gt;
+                        </button>
+
+                        <div
+                            style="display: flex; align-items: center; justify-content: center; margin: 16px 0; gap: 12px;">
+                            <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.2);"></div>
+                            <span style="color: rgba(255,255,255,0.6); font-size: 13px;">Hoặc</span>
+                            <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.2);"></div>
+                        </div>
+
+                        <style>
+                            .google-btn:hover {
+                                background: #f8f9fa !important;
+                                transform: translateY(-2px);
+                            }
+                        </style>
+                        <button type="button" class="login-btn google-btn"
+                            style="margin-top: 0; background: white; color: #102A43; border: none; font-weight: 600;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                                alt="Google Logo" style="width: 20px; height: 20px;">
+                            Đăng nhập bằng Google
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-        <footer>
-            <div class="sys-identity">
-                <div>
-                </div>
-                <div class="brand-copy">
-
-                </div>
-            </div>
-            <div class="footer-bottom">
-                &copy; 2026 Đại Học ONENET. Đã đăng ký bản quyền.
-            </div>
-        </footer>
     </div>
 
     <!-- Toast Notification Container -->
@@ -667,7 +1072,7 @@
             `;
             container.appendChild(toast);
             lucide.createIcons();
-            
+
             requestAnimationFrame(() => {
                 toast.classList.add('show');
             });
@@ -689,61 +1094,84 @@
             document.getElementById(screenId + '-screen').classList.add('active');
         }
 
-        function togglePassword() {
+        function turnOnFlashlight(e) {
             const body = document.body;
             const pwdInput = document.getElementById('pwdInput');
             const toggleBtn = document.getElementById('toggleBtn');
-            
-            body.classList.toggle('flashlight-mode');
-            
-            if (body.classList.contains('flashlight-mode')) {
-                pwdInput.type = 'text';
-                
-                // Dùng SVG custom để vẽ cái đèn pin giống hệt ảnh của anh, mũi đèn pin chỉ sang trái
-                toggleBtn.innerHTML = `
-                <svg id="eyeIcon" width="24" height="24" viewBox="0 0 24 24" fill="#FFE699" xmlns="http://www.w3.org/2000/svg" style="transition: transform 0.1s ease-out; transform-origin: center center;">
-                  <path d="M6 5 L11 9 L11 15 L6 19 Z" />
-                  <rect x="11" y="9.5" width="11" height="5" rx="1" />
-                  <rect x="15" y="8" width="3" height="1.5" rx="0.5" />
-                </svg>`;
-                
-                let currentEyeIcon = document.getElementById('eyeIcon');
-                
-                const pwdWrapper = document.getElementById('pwdWrapper');
-                if (!pwdWrapper.style.getPropertyValue('--distance') || pwdWrapper.style.getPropertyValue('--distance') === '0px') {
-                    pwdWrapper.style.setProperty('--distance', '200px'); 
-                    pwdWrapper.style.setProperty('--angle', '270deg');
-                    currentEyeIcon.style.transform = 'rotate(0deg)';
-                }
-            } else {
-                pwdInput.type = 'password';
-                
-                // Trả lại icon con mắt
-                toggleBtn.innerHTML = `<i data-lucide="eye-off" id="eyeIcon" color="#8794A8"></i>`;
-                lucide.createIcons();
+
+            body.classList.add('flashlight-mode');
+            pwdInput.type = 'text';
+            toggleBtn.style.cursor = 'grabbing';
+
+            // Dùng SVG custom để vẽ cái đèn pin giống hệt ảnh của anh, mũi đèn pin chỉ sang trái
+            toggleBtn.innerHTML = `
+            <svg id="eyeIcon" width="24" height="24" viewBox="0 0 24 24" fill="#FFE699" xmlns="http://www.w3.org/2000/svg" style="transition: transform 0.1s ease-out; transform-origin: center center;">
+              <path d="M6 5 L11 9 L11 15 L6 19 Z" />
+              <rect x="11" y="9.5" width="11" height="5" rx="1" />
+              <rect x="15" y="8" width="3" height="1.5" rx="0.5" />
+            </svg>`;
+
+            updateFlashlightPosition(e);
+        }
+
+        function turnOffFlashlight() {
+            const body = document.body;
+            if (!body.classList.contains('flashlight-mode')) return;
+
+            const pwdInput = document.getElementById('pwdInput');
+            const toggleBtn = document.getElementById('toggleBtn');
+
+            body.classList.remove('flashlight-mode');
+            pwdInput.type = 'password';
+            toggleBtn.style.cursor = 'grab';
+
+            // Trả lại icon con mắt
+            toggleBtn.innerHTML = `<i data-lucide="eye-off" id="eyeIcon" color="#8794A8"></i>`;
+            lucide.createIcons();
+        }
+
+        function updateFlashlightPosition(e) {
+            const currentEyeIcon = document.getElementById('eyeIcon');
+            if (!currentEyeIcon) return;
+
+            const iconRect = currentEyeIcon.getBoundingClientRect();
+            const originX = iconRect.left + iconRect.width / 2;
+            const originY = iconRect.top + iconRect.height / 2;
+
+            const dx = e.clientX - originX;
+            const dy = e.clientY - originY;
+
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+            currentEyeIcon.style.transform = `rotate(${angle - 180}deg)`;
+
+            const pwdWrapper = document.getElementById('pwdWrapper');
+            if (pwdWrapper) {
+                pwdWrapper.style.setProperty('--distance', `${distance}px`);
+                pwdWrapper.style.setProperty('--angle', `${angle + 90}deg`);
             }
         }
 
         // Form Submit Logic
         document.addEventListener('DOMContentLoaded', () => {
-            const gvLoginForm = document.getElementById('gvLoginForm');
-            if (gvLoginForm) {
-                gvLoginForm.addEventListener('submit', (e) => {
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            if (adminLoginForm) {
+                adminLoginForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     const username = document.getElementById('usernameInput').value.trim();
                     const password = document.getElementById('pwdInput').value;
-                    
-                    if (password !== '1') {
-                        showToast('Tài khoản hoặc mật khẩu không đúng!');
-                        return;
-                    }
 
-                    if (username === 'qn') {
-                        window.location.href = '../MH_QN_Mockup/MH-00-7-DashboardBaoCao.html';
-                    } else if (username === 'gv') {
-                        window.location.href = '../MH_GV_Mockup/MH-00-8-TongQuanGiangVien.html';
-                    } else if (username === 'sv') {
-                        window.location.href = '../MH_SV_Mockup/MH-00-9-TongQuanHocTap.html';
+                    if (password === '1') {
+                        if (username === 'qn') {
+                            window.location.href = '../MH_QN_Mockup/MH-00-7-DashboardBaoCao.html';
+                        } else if (username === 'gv') {
+                            window.location.href = '../MH_GV_Mockup/MH-00-8-TongQuanGiangVien.html';
+                        } else if (username === 'sv') {
+                            window.location.href = '../MH_SV_Mockup/MH-00-9-TongQuanHocTap.html';
+                        } else {
+                            showToast('Tài khoản hoặc mật khẩu không đúng!');
+                        }
                     } else {
                         showToast('Tài khoản hoặc mật khẩu không đúng!');
                     }
@@ -755,8 +1183,15 @@
         document.addEventListener('DOMContentLoaded', () => {
             const pwdInput = document.getElementById('pwdInput');
             const revealInput = document.getElementById('revealInput');
-            const pwdWrapper = document.getElementById('pwdWrapper');
-            const beamOverlay = document.getElementById('beamOverlay');
+            const toggleBtn = document.getElementById('toggleBtn');
+
+            if (toggleBtn) {
+                toggleBtn.style.cursor = 'grab';
+                toggleBtn.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    turnOnFlashlight(e);
+                });
+            }
 
             pwdInput.addEventListener('input', (e) => {
                 revealInput.value = e.target.value;
@@ -765,39 +1200,16 @@
             // Sự kiện theo dõi chuột trên toàn bộ màn hình khi bật đèn pin
             document.addEventListener('mousemove', (e) => {
                 if (!document.body.classList.contains('flashlight-mode')) return;
-
-                // Phải getElementById lại vì thư viện lucide đã thay đổi thẻ SVG cũ thành thẻ mới
-                const currentEyeIcon = document.getElementById('eyeIcon');
-                if (!currentEyeIcon) return;
-
-                // 1. Căng và xoay tia sáng tới chính xác con chuột
-                const iconRect = currentEyeIcon.getBoundingClientRect();
-                // Tâm xoay đồng bộ cho cả tia sáng và icon là chính giữa icon
-                const originX = iconRect.left + iconRect.width / 2;
-                const originY = iconRect.top + iconRect.height / 2;
-
-                const dx = e.clientX - originX;
-                const dy = e.clientY - originY;
-                
-                // Tính khoảng cách (độ dài tia sáng)
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-                
-                // Xoay cả icon đèn pin theo hướng chuột!
-                currentEyeIcon.style.transform = `rotate(${angle - 180}deg)`;
-
-                // Chiếu sáng bằng cách thiết lập Variables ở thẻ cha (pwdWrapper)
-                // Các lớp con (tia sáng, text) sẽ tự động kế thừa và vẽ hình phễu
-                const pwdWrapper = document.getElementById('pwdWrapper');
-                pwdWrapper.style.setProperty('--distance', `${distance}px`);
-                // conic-gradient chuẩn ở 12h, cộng 90 độ để khớp trục tọa độ CSS
-                pwdWrapper.style.setProperty('--angle', `${angle + 90}deg`);
+                updateFlashlightPosition(e);
             });
-            
-            // Tắt ánh sáng khi chuột ra khỏi màn hình
+
+            // Tắt ánh sáng khi nhả chuột hoặc chuột ra khỏi màn hình
+            document.addEventListener('mouseup', () => {
+                turnOffFlashlight();
+            });
+
             document.addEventListener('mouseleave', () => {
-                const pwdWrapper = document.getElementById('pwdWrapper');
-                if(pwdWrapper) pwdWrapper.style.setProperty('--distance', `0px`);
+                turnOffFlashlight();
             });
         });
     </script>

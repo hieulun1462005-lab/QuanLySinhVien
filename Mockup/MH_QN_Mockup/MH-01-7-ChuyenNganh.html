@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cập nhật trạng thái học tập - Hệ Thống Quản Lý Sinh Viên</title>
+    <title>Chuyển ngành - Hệ Thống Quản Lý Sinh Viên</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -294,22 +294,63 @@
 
         /* Alert Message */
         .alert {
-            background: #FEF2F2;
-            border: 1px solid #FCA5A5;
-            color: #DC2626;
-            padding: 12px 16px;
-            border-radius: 8px;
+            padding: 16px 20px;
+            border-radius: 12px;
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            font-size: 14px;
-            margin-bottom: 20px;
+            gap: 16px;
+            font-size: 14.5px;
+            margin-bottom: 24px;
             display: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes alertFadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .alert.active {
             display: flex;
+            animation: alertFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
+        .alert::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .alert-danger {
+            background: linear-gradient(to right, #FEF2F2, #ffffff);
+            border: 1px solid #FECACA;
+            color: #991B1B;
+        }
+        .alert-danger::before { background: #EF4444; }
+        .alert-danger i { color: #DC2626; }
+
+        .alert-warning {
+            background: linear-gradient(to right, #FFFBEB, #ffffff);
+            border: 1px solid #FDE68A;
+            color: #92400E;
+        }
+        .alert-warning::before { background: #F59E0B; }
+        .alert-warning i { color: #D97706; }
+
+        .alert-info {
+            background: linear-gradient(to right, #EFF6FF, #ffffff);
+            border: 1px solid #BFDBFE;
+            color: #1E40AF;
+        }
+        .alert-info::before { background: #3B82F6; }
+        .alert-info i { color: #2563EB; }
 
         .user-profile {
             display: flex;
@@ -455,24 +496,24 @@
             color: var(--text-dark)
         }
 
-        .dashboard-content,
-        .main-content {
+        .dashboard-content {
             background: radial-gradient(900px 320px at 100% 0, rgba(7, 87, 166, .07), transparent 65%), var(--bg-light)
         }
 
-        .dashboard-content>*,
-        .main-content>* {
+        .dashboard-content>* {
             animation: te-rise .45s ease both
         }
 
-        .dashboard-content>*:nth-child(2),
-        .main-content>*:nth-child(2) {
+        .dashboard-content>*:nth-child(2) {
             animation-delay: .06s
         }
 
-        .dashboard-content>*:nth-child(n+3),
-        .main-content>*:nth-child(n+3) {
+        .dashboard-content>*:nth-child(3) {
             animation-delay: .12s
+        }
+
+        .dashboard-content>*:nth-child(n+4) {
+            animation-delay: .18s
         }
 
         @keyframes te-rise {
@@ -487,8 +528,7 @@
             }
         }
 
-        .dashboard-content::after,
-        .main-content::after {
+        .dashboard-content::after {
             content: "Đại Học ONENET · Hệ thống quản lý sinh viên";
             display: block;
             text-align: center;
@@ -498,14 +538,12 @@
             letter-spacing: .2px
         }
 
-        .sidebar-item,
-        .menu-item {
+        .sidebar-item {
             border-radius: 0 999px 999px 0;
             margin-right: 14px
         }
 
-        .sidebar-item.active,
-        .menu-item.active {
+        .sidebar-item.active {
             box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
         }
 
@@ -542,8 +580,7 @@
             color: var(--text-light)
         }
 
-        html[data-theme="dark"] .dashboard-content,
-        .main-content {
+        html[data-theme="dark"] .dashboard-content {
             background: radial-gradient(900px 320px at 100% 0, rgba(61, 147, 230, .1), transparent 65%), var(--bg-light)
         }
 
@@ -697,17 +734,8 @@
         }
 
         html[data-theme="dark"] .dashboard-content::-webkit-scrollbar-thumb,
-        html[data-theme="dark"] .main-content::-webkit-scrollbar-thumb,
         html[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb {
             background: #2D4258
-        }
-
-        .main-content>.page-header .page-title {
-            margin: 0 !important
-        }
-
-        .main-content>.page-header {
-            margin-bottom: 24px
         }
 
         /* dark overrides generated from this page */
@@ -753,9 +781,9 @@
             background: var(--bg-soft) !important
         }
 
-        html[data-theme="dark"] .alert {
-            background: var(--bg-soft) !important
-        }
+        html[data-theme="dark"] .alert-danger { background: rgba(220, 38, 38, 0.1) !important; border-color: rgba(220, 38, 38, 0.2) !important; color: #FCA5A5 !important; }
+        html[data-theme="dark"] .alert-warning { background: rgba(217, 119, 6, 0.1) !important; border-color: rgba(217, 119, 6, 0.2) !important; color: #FCD34D !important; }
+        html[data-theme="dark"] .alert-info { background: rgba(37, 99, 235, 0.1) !important; border-color: rgba(37, 99, 235, 0.2) !important; color: #93C5FD !important; }
 
         html[data-theme="dark"] .user-profile:hover {
             background: var(--bg-soft) !important
@@ -855,8 +883,11 @@
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item active">
+            <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
                 <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
+            </a>
+            <a href="MH-01-7-ChuyenNganh.html" class="sidebar-item active">
+                <i data-lucide="arrow-right-left" size="18"></i> Chuyển ngành
             </a>
             <div class="menu-group-title">Đào Tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item">
@@ -884,8 +915,8 @@
         <main class="dashboard-content">
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h1 class="page-title" style="margin-bottom: 0;"><i data-lucide="user-cog"
-                            color="var(--primary)"></i> Cập nhật trạng thái học tập</h1>
+                    <h1 class="page-title" style="margin-bottom: 0;"><i data-lucide="arrow-right-left"
+                            color="var(--primary)"></i> Chuyển ngành sinh viên</h1>
                     <button class="btn btn-outline" onclick="openAuditLog()"><i data-lucide="history" size="18"></i>
                         Lịch sử (Audit Log)</button>
                 </div>
@@ -907,77 +938,63 @@
                             <div class="profile-name">Trần Thị Bích</div>
                             <div class="profile-id">HE19201 • Lớp SE1901</div>
                         </div>
-                        <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại:
-                            Đang học</span>
+                        <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Ngành hiện tại: Kỹ thuật phần mềm (SE)</span>
                     </div>
 
                     <div
                         style="font-size: 13px; color: var(--text-gray); display: flex; align-items: center; gap: 24px; margin-top: 8px;">
-                        <span><i data-lucide="credit-card" size="14"
-                                style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Đã đóng đủ</span>
-                        <span><i data-lucide="library" size="14"
-                                style="vertical-align: text-bottom; margin-right: 4px;"></i> Sách: Đã mượn (0)</span>
+                        <span><i data-lucide="book-check" size="14"
+                                style="vertical-align: text-bottom; margin-right: 4px;"></i> Số tín chỉ đã tích lũy: 45</span>
+                        <span><i data-lucide="activity" size="14"
+                                style="vertical-align: text-bottom; margin-right: 4px;"></i> Trạng thái học tập: Đang học</span>
                     </div>
                 </div>
 
                 <!-- Alert for Invalid Transition -->
-                <div id="transitionAlert" class="alert">
-                    <i data-lucide="x-octagon" size="20" style="margin-top: 2px;"></i>
+                <div id="transitionAlert" class="alert alert-danger">
+                    <i data-lucide="x-octagon" size="22"></i>
                     <div>
-                        <strong>Chuyển đổi trạng thái không hợp lệ!</strong><br>
-                        <span id="transitionAlertText"></span>
+                        <strong style="font-size: 15px;">Không đủ điều kiện chuyển ngành!</strong><br>
+                        <span id="transitionAlertText" style="opacity: 0.9; display: inline-block; margin-top: 4px;"></span>
                     </div>
                 </div>
 
                 <!-- Alert for Debt (Luồng ngoại lệ) -->
-                <div id="debtAlert" class="alert">
-                    <i data-lucide="alert-triangle" size="20" style="margin-top: 2px;"></i>
+                <div id="debtAlert" class="alert alert-warning">
+                    <i data-lucide="alert-triangle" size="22"></i>
                     <div>
-                        <strong>Cảnh báo: Sinh viên đang nợ phí!</strong><br>
-                        Hệ thống chặn cập nhật trạng thái "Bảo lưu" hoặc "Thôi học" cho đến khi hoàn tất nghĩa vụ tài
-                        chính.
+                        <strong style="font-size: 15px;">Cảnh báo: Sinh viên đang nợ phí!</strong><br>
+                        <span style="opacity: 0.9; display: inline-block; margin-top: 4px;">Hệ thống chặn chức năng chuyển ngành cho đến khi hoàn tất nghĩa vụ tài chính.</span>
                     </div>
                 </div>
 
-                <!-- Alert for Graduation rules -->
-                <div id="gradAlert" class="alert">
-                    <i data-lucide="alert-circle" size="20" style="margin-top: 2px;"></i>
+                <!-- Warning for Credit Transfer -->
+                <div id="creditAlert" class="alert alert-info">
+                    <i data-lucide="info" size="22"></i>
                     <div>
-                        <strong>Không đủ điều kiện tốt nghiệp!</strong><br>
-                        Sinh viên chưa hoàn thành chương trình đào tạo (nợ môn/chưa qua môn). Chặn trạng thái "Tốt
-                        nghiệp".
-                    </div>
-                </div>
-
-                <!-- Warning for Suspension -->
-                <div id="suspendAlert" class="alert"
-                    style="background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309;">
-                    <i data-lucide="info" size="20" style="margin-top: 2px;"></i>
-                    <div>
-                        <strong>Lưu ý:</strong> Chuyển sang "Đình chỉ" sẽ tự động gỡ sinh viên khỏi lớp và <b>chặn quyền
-                            đăng ký học kỳ tiếp theo (BR-038)</b>.
+                        <strong style="font-size: 15px;">Lưu ý về tín chỉ:</strong><br>
+                        <span style="opacity: 0.9; display: inline-block; margin-top: 4px;">Sau khi chuyển ngành, các môn học tương đương sẽ được xét duyệt chuyển đổi. Một số môn có thể không được tính vào chương trình mới.</span>
                     </div>
                 </div>
 
                 <!-- Update Form -->
                 <div id="updateForm" style="opacity: 0.5; pointer-events: none;">
                     <div class="form-group">
-                        <label>Trạng thái mới</label>
-                        <select id="newStatus" onchange="checkRules()">
-                            <option value="">-- Chọn trạng thái --</option>
-                            <option value="baoluu">Bảo lưu</option>
-                            <option value="thoihoc">Thôi học</option>
-                            <option value="totnghiep">Tốt nghiệp</option>
-                            <option value="dinhchi">Đình chỉ</option>
-                            <option value="tainhaphoc">Tái nhập học (Từ Bảo lưu)</option>
-                            <option value="hetdinhchi">Hết hạn đình chỉ</option>
+                        <label>Ngành mới muốn chuyển sang</label>
+                        <select id="newMajor" onchange="checkRules()">
+                            <option value="">-- Chọn ngành --</option>
+                            <option value="IA">An toàn thông tin (IA)</option>
+                            <option value="AI">Trí tuệ nhân tạo (AI)</option>
+                            <option value="GD">Thiết kế đồ họa (GD)</option>
+                            <option value="MK">Marketing số (MK)</option>
+                            <option value="IB">Kinh doanh quốc tế (IB)</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>Lý do / Số Quyết định</label>
                         <textarea id="reason" rows="3"
-                            placeholder="Nhập lý do thay đổi hoặc mã số quyết định đi kèm..."></textarea>
+                            placeholder="Nhập lý do chuyển ngành hoặc mã số quyết định đi kèm..."></textarea>
                     </div>
 
                     <div style="display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap;">
@@ -985,7 +1002,7 @@
                             onclick="resetForm()">Làm mới</button>
                         <button class="btn btn-primary" id="submitBtn"
                             style="flex: 2; min-width: 250px; justify-content: center; text-align: center;"
-                            onclick="submitUpdate()">Xác nhận cập nhật hệ thống</button>
+                            onclick="submitUpdate()">Xác nhận chuyển ngành</button>
                     </div>
                 </div>
 
@@ -993,27 +1010,19 @@
                 <div
                     style="margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--border); text-align: center;">
                     <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 8px;">Dành cho Test: Click nút
-                        dưới đây để giả lập Luồng ngoại lệ và các trạng thái</p>
+                        dưới đây để giả lập Luồng ngoại lệ</p>
                     <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
                         <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
                             onclick="simulateDebt()">
                             Giả lập SV nợ phí
                         </button>
                         <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateNotGraduated()">
-                            Giả lập SV chưa đủ ĐK tốt nghiệp
+                            onclick="simulateNotActive()">
+                            Giả lập SV không ở trạng thái "Đang học"
                         </button>
                         <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateBaoLuu()">
-                            Giả lập SV Bảo lưu
-                        </button>
-                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateDinhChi()">
-                            Giả lập SV Đình chỉ
-                        </button>
-                        <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;"
-                            onclick="simulateThoiHoc()">
-                            Giả lập SV Thôi học
+                            onclick="simulateLowCredits()">
+                            Giả lập SV không đủ tín chỉ
                         </button>
                     </div>
                 </div>
@@ -1026,7 +1035,7 @@
         style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); justify-content: center; align-items: center; z-index: 1000;">
         <div style="background: white; padding: 32px; border-radius: 16px; width: 600px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 style="font-size: 18px; font-weight: 700;">Lịch sử thay đổi hệ thống (Audit Log)</h3>
+                <h3 style="font-size: 18px; font-weight: 700;">Lịch sử chuyển ngành (Audit Log)</h3>
                 <i data-lucide="x" size="20" style="cursor: pointer; color: var(--text-gray);"
                     onclick="closeAuditLog()"></i>
             </div>
@@ -1037,24 +1046,12 @@
                     <div
                         style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; position: absolute; left: -6px; top: 4px;">
                     </div>
-                    <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">25/09/2026 08:30:15 -
+                    <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">15/09/2026 10:15:22 -
                         CBQN Nguyễn Văn A</div>
-                    <div style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Cập nhật trạng thái SV
-                        HE19201</div>
-                    <div style="font-size: 14px; color: var(--text-gray); margin-top: 4px;">Từ "Đang học" -> "Bảo lưu".
-                        Lý do: QĐ số 123/QĐ-BGD.</div>
-                </div>
-                <div
-                    style="border-left: 2px solid var(--border); padding-left: 16px; margin-bottom: 20px; position: relative;">
-                    <div
-                        style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; position: absolute; left: -6px; top: 4px;">
-                    </div>
-                    <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">24/09/2026 14:20:00 - Hệ
-                        thống (System)</div>
-                    <div style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Cấp phát tài khoản tự động
-                    </div>
-                    <div style="font-size: 14px; color: var(--text-gray); margin-top: 4px;">Tạo tài khoản HE19999 (S0 ->
-                        S1).</div>
+                    <div style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Chuyển ngành SV
+                        HE18001</div>
+                    <div style="font-size: 14px; color: var(--text-gray); margin-top: 4px;">Từ "Quản trị kinh doanh" -> "Marketing".
+                        Lý do: QĐ số 456/QĐ-CN.</div>
                 </div>
             </div>
         </div>
@@ -1063,7 +1060,7 @@
     <script>
         lucide.createIcons();
         let isDebt = false;
-        let isEligibleForGraduation = true;
+        let isEligibleMajorChange = true;
         let currentStatus = 'danghoc';
 
         function searchStudent() {
@@ -1071,7 +1068,7 @@
             if (!id) { alert("Vui lòng nhập mã SV!"); return; }
 
             isDebt = false;
-            isEligibleForGraduation = true;
+            isEligibleMajorChange = true;
             currentStatus = 'danghoc';
             hideAllAlerts();
 
@@ -1083,11 +1080,11 @@
                         <div class="profile-name">Trần Thị Bích</div>
                         <div class="profile-id">HE19201 • Lớp SE1901</div>
                     </div>
-                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại: Đang học (S1)</span>
+                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Ngành hiện tại: Kỹ thuật phần mềm (SE)</span>
                 </div>
                 <div style="font-size: 13px; color: var(--text-gray); display: flex; align-items: center; gap: 24px; margin-top: 8px;">
-                    <span><i data-lucide="credit-card" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Đã đóng đủ</span>
-                    <span><i data-lucide="book-check" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Tiến độ: Hoàn thành 100%</span>
+                    <span><i data-lucide="book-check" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Số tín chỉ đã tích lũy: 45</span>
+                    <span><i data-lucide="activity" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Trạng thái học tập: Đang học</span>
                 </div>
             `;
             profile.classList.add('active');
@@ -1095,12 +1092,13 @@
 
             // Enable Form
             enableForm();
+            document.getElementById('creditAlert').classList.add('active');
         }
 
         function simulateDebt() {
             document.getElementById('searchId').value = 'HE19999';
             isDebt = true;
-            isEligibleForGraduation = true;
+            isEligibleMajorChange = true;
             currentStatus = 'danghoc';
 
             // Show Debt Profile
@@ -1111,7 +1109,7 @@
                         <div class="profile-name">Vương Đình Nợ</div>
                         <div class="profile-id">HE19999 • Lớp SE1903</div>
                     </div>
-                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại: Đang học</span>
+                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Ngành hiện tại: Kỹ thuật phần mềm (SE)</span>
                 </div>
                 <div style="font-size: 13px; color: #DC2626; display: flex; align-items: center; gap: 24px; margin-top: 8px; font-weight: 600;">
                     <span><i data-lucide="credit-card" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Nợ 5.000.000 VNĐ</span>
@@ -1124,37 +1122,10 @@
             checkRules();
         }
 
-        function simulateNotGraduated() {
-            document.getElementById('searchId').value = 'HE19005';
-            isDebt = false;
-            isEligibleForGraduation = false;
-            currentStatus = 'danghoc';
-
-            // Show Normal Profile
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Đặng Trọng Thi</div>
-                        <div class="profile-id">HE19005 • Lớp SE1905</div>
-                    </div>
-                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại: Đang học</span>
-                </div>
-                <div style="font-size: 13px; color: #B45309; display: flex; align-items: center; gap: 24px; margin-top: 8px; font-weight: 600;">
-                    <span><i data-lucide="x-circle" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Tiến độ: Nợ môn MAD101</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            enableForm();
-            checkRules();
-        }
-
-        function simulateBaoLuu() {
+        function simulateNotActive() {
             document.getElementById('searchId').value = 'HE19001';
             isDebt = false;
-            isEligibleForGraduation = false;
+            isEligibleMajorChange = false;
             currentStatus = 'baoluu';
 
             const profile = document.getElementById('profileSummary');
@@ -1174,43 +1145,23 @@
             checkRules();
         }
 
-        function simulateDinhChi() {
+        function simulateLowCredits() {
             document.getElementById('searchId').value = 'HE19002';
             isDebt = false;
-            isEligibleForGraduation = false;
-            currentStatus = 'dinhchi';
+            isEligibleMajorChange = false;
+            currentStatus = 'danghoc';
 
             const profile = document.getElementById('profileSummary');
             profile.innerHTML = `
                 <div class="profile-header">
                     <div>
-                        <div class="profile-name">Lê Đình Chỉ</div>
-                        <div class="profile-id">HE19002</div>
+                        <div class="profile-name">Lê Đình Nhỏ</div>
+                        <div class="profile-id">HE19002 • Lớp SE1902</div>
                     </div>
-                    <span class="status-badge" style="background: #FEE2E2; color: #DC2626;">Trạng thái hiện tại: Đình chỉ</span>
+                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Ngành hiện tại: Kỹ thuật phần mềm (SE)</span>
                 </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            enableForm();
-            checkRules();
-        }
-
-        function simulateThoiHoc() {
-            document.getElementById('searchId').value = 'HE19003';
-            isDebt = false;
-            isEligibleForGraduation = false;
-            currentStatus = 'thoihoc';
-
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Phạm Thôi Học</div>
-                        <div class="profile-id">HE19003</div>
-                    </div>
-                    <span class="status-badge" style="background: #F3F4F6; color: #4B5563;">Trạng thái hiện tại: Thôi học</span>
+                <div style="font-size: 13px; color: #B45309; display: flex; align-items: center; gap: 24px; margin-top: 8px; font-weight: 600;">
+                    <span><i data-lucide="alert-circle" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Tiến độ: Không đủ số tín chỉ tối thiểu để chuyển ngành</span>
                 </div>
             `;
             profile.classList.add('active');
@@ -1223,51 +1174,38 @@
         function hideAllAlerts() {
             document.getElementById('transitionAlert').classList.remove('active');
             document.getElementById('debtAlert').classList.remove('active');
-            document.getElementById('gradAlert').classList.remove('active');
-            document.getElementById('suspendAlert').classList.remove('active');
+            if (document.getElementById('creditAlert')) document.getElementById('creditAlert').classList.remove('active');
         }
 
         function enableForm() {
             document.getElementById('updateForm').style.opacity = '1';
             document.getElementById('updateForm').style.pointerEvents = 'auto';
-            document.getElementById('newStatus').value = '';
+            document.getElementById('newMajor').value = '';
             document.getElementById('reason').value = '';
             document.getElementById('submitBtn').disabled = false;
         }
 
         function checkRules() {
-            const status = document.getElementById('newStatus').value;
+            const major = document.getElementById('newMajor').value;
             const submitBtn = document.getElementById('submitBtn');
             hideAllAlerts();
             submitBtn.disabled = false;
+            
+            if (document.getElementById('creditAlert')) {
+                document.getElementById('creditAlert').classList.add('active');
+            }
 
-            if (!status) return;
+            if (!major) return;
 
-            // Validate Transitions
-            let isValidTransition = false;
+            let isValidTransition = true;
             let invalidReason = '';
 
-            if (currentStatus === 'danghoc') {
-                if (['baoluu', 'thoihoc', 'totnghiep', 'dinhchi'].includes(status)) {
-                    isValidTransition = true;
-                } else {
-                    invalidReason = 'Từ trạng thái "Đang học" không thể chuyển sang trạng thái này.';
-                }
-            } else if (currentStatus === 'baoluu') {
-                if (['tainhaphoc', 'thoihoc'].includes(status)) {
-                    isValidTransition = true;
-                } else {
-                    invalidReason = 'Từ trạng thái "Bảo lưu" chỉ có thể "Tái nhập học" hoặc "Thôi học".';
-                }
-            } else if (currentStatus === 'dinhchi') {
-                if (['hetdinhchi', 'thoihoc'].includes(status)) {
-                    isValidTransition = true;
-                } else {
-                    invalidReason = 'Từ trạng thái "Đình chỉ" chỉ có thể "Hết hạn đình chỉ" hoặc "Thôi học".';
-                }
-            } else if (currentStatus === 'thoihoc' || currentStatus === 'totnghiep') {
+            if (currentStatus !== 'danghoc') {
                 isValidTransition = false;
-                invalidReason = 'Không thể thay đổi trạng thái khi sinh viên đã "Thôi học" hoặc "Tốt nghiệp".';
+                invalidReason = 'Sinh viên phải ở trạng thái "Đang học" để có thể chuyển ngành.';
+            } else if (!isEligibleMajorChange) {
+                isValidTransition = false;
+                invalidReason = 'Sinh viên chưa tích lũy đủ số tín chỉ tối thiểu quy định để chuyển ngành.';
             }
 
             if (!isValidTransition) {
@@ -1277,24 +1215,15 @@
                 return;
             }
 
-            if (isDebt && (status === 'baoluu' || status === 'thoihoc')) {
+            if (isDebt) {
                 document.getElementById('debtAlert').classList.add('active');
                 submitBtn.disabled = true;
-            }
-
-            if (!isEligibleForGraduation && status === 'totnghiep') {
-                document.getElementById('gradAlert').classList.add('active');
-                submitBtn.disabled = true;
-            }
-
-            if (status === 'dinhchi') {
-                document.getElementById('suspendAlert').classList.add('active');
             }
         }
 
         function resetForm() {
             document.getElementById('searchId').value = '';
-            document.getElementById('newStatus').value = '';
+            document.getElementById('newMajor').value = '';
             document.getElementById('reason').value = '';
             document.getElementById('profileSummary').classList.remove('active');
             hideAllAlerts();
@@ -1303,9 +1232,9 @@
         }
 
         function submitUpdate() {
-            const status = document.getElementById('newStatus').value;
-            if (!status) { alert('Vui lòng chọn trạng thái mới!'); return; }
-            alert('Cập nhật thành công! Trạng thái sinh viên đã được thay đổi, quyền truy cập hệ thống đã được đồng bộ, và sinh viên đã được gỡ khỏi lớp hiện tại (BR-003).');
+            const major = document.getElementById('newMajor').value;
+            if (!major) { alert('Vui lòng chọn ngành mới muốn chuyển!'); return; }
+            alert('Cập nhật thành công! Yêu cầu chuyển ngành đã được ghi nhận. Sinh viên sẽ được chuyển sang ngành mới sau khi hoàn tất xét duyệt.');
             resetForm();
         }
 
@@ -1338,28 +1267,13 @@
                 b.onclick = function () { h.classList.add('te-anim'); apply(h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true); setTimeout(function () { h.classList.remove('te-anim') }, 400) };
                 hr.insertBefore(b, hr.firstChild);
             }
-            var ph = document.querySelector('.page-header,.page-head'), pt = document.getElementById('pageTitle') || document.querySelector('.page-title');
-            if (!ph && pt && pt.parentNode) {
-                ph = document.createElement('div'); ph.className = 'page-header'; ph.style.marginBottom = '24px';
-                pt.parentNode.insertBefore(ph, pt); ph.appendChild(pt);
-                var nx = ph.nextElementSibling;
-                if (nx && (nx.classList.contains('page-sub') || nx.classList.contains('page-subtitle'))) { var w = document.createElement('div'); ph.insertBefore(w, pt); w.appendChild(pt); w.appendChild(nx) }
+            var ph = document.querySelector('.page-header'), act = document.querySelector('.sidebar-item.active');
+            if (ph && act) {
+                var g = act, gt = ''; while ((g = g.previousElementSibling)) { if (g.classList.contains('menu-group-title')) { gt = g.textContent.trim(); break } }
+                var c = document.createElement('div'); c.className = 'hero-crumb';
+                c.innerHTML = '<span>' + gt + '</span><i></i><span>' + act.textContent.trim() + '</span>';
+                ph.insertBefore(c, ph.firstChild);
             }
-            var crumb = null;
-            function crumbUpdate() {
-                if (!ph) return;
-                var items = document.querySelectorAll('.sidebar-item,.menu-item,.side-item'), act = document.querySelector('.sidebar-item.active,.menu-item.active,.side-item.active');
-                if (!act && pt) { var t = pt.textContent.trim().replace(/\s+/g, ' '); items.forEach(function (i) { var x = i.textContent.trim().replace(/\s+/g, ' '); if (!act && x && (x === t || t.indexOf(x) === 0 || (i.getAttribute('onclick') || '').indexOf("'" + t + "'") > -1)) act = i }) }
-                if (!act) return;
-                if (act.classList.contains('menu-item') && !document.querySelector('.menu-item.active')) act.classList.add('active');
-                var gt = '', g = act;
-                while ((g = g.previousElementSibling)) { if (g.classList.contains('menu-group-title') || g.classList.contains('menu-title') || g.classList.contains('group-title')) { gt = g.textContent.trim(); break } }
-                if (!gt && act.parentNode) { var mt = act.parentNode.querySelector('.menu-title'); if (mt) gt = mt.textContent.trim() }
-                if (!crumb) { crumb = document.createElement('div'); crumb.className = 'hero-crumb'; ph.insertBefore(crumb, ph.firstChild) }
-                crumb.innerHTML = '<span>' + gt + '</span><i></i><span>' + act.textContent.trim().replace(/\s+/g, ' ') + '</span>';
-            }
-            crumbUpdate();
-            document.querySelectorAll('.menu-item').forEach(function (i) { i.addEventListener('click', function () { setTimeout(crumbUpdate, 0) }) });
             apply(h.getAttribute('data-theme') || 'light', false);
         })();
 

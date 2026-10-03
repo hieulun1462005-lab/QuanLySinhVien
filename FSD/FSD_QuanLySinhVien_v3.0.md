@@ -260,7 +260,7 @@ Dựa trên BRD-QLSV-v5.0 và hệ thống giao diện Mockup (36+ file HTML), t
 | --- | --- | --- | --- | --- |
 | FLD-ACC-USERNAME | String(50) | ✱   | Unique, Not blank, 4-50 ký tự | Mã số SV/GV hoặc username Admin |
 | FLD-ACC-PASSWORD | String | ✱   | VLD-QLSV-06 (Min 8 ký tự, 1 hoa, 1 số, 1 đặc biệt) | Lưu trữ dạng hash, không bao giờ lưu bản rõ |
-| FLD-ACC-ROLE | Enum | ✱   | Admin / QuanNhiem / GiangVien / SinhVien / KeToan | —   |
+| FLD-ACC-ROLE | Enum | ✱   | Admin / QuanNhiem / GiangVien / SinhVien | —   |
 | FLD-ACC-STATUS | Enum | ✱   | Active / Locked / Disabled | —   |
 | FLD-ACC-FAILED-ATTEMPTS | Int | —   | 0-5 | Reset về 0 khi login thành công |
 | FLD-ACC-LOCKED-UNTIL | DateTime | —   | Nullable | Set khi bị khóa do spam login |

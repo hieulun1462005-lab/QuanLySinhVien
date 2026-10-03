@@ -31,7 +31,7 @@
         body {
             background-color: var(--bg-light);
             color: var(--text-dark);
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         /* Screen Management */
@@ -65,14 +65,37 @@
             overflow: hidden;
         }
 
-        .login-header {
+        /* Animations */
+        @keyframes bgZoomOut {
+            0% { opacity: 0; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideRight {
+            0% { opacity: 0; transform: translateX(-50px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideLeft {
+            0% { opacity: 0; transform: translateX(50px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 64px;
             height: 96px;
-            background: var(--primary);
-            color: white;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            animation: slideDown 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s both;
         }
 
         .sys-identity {
@@ -108,11 +131,14 @@
             font-size: 12px;
             text-transform: uppercase;
             color: var(--primary-light);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .brand-copy .sys-name {
             font-weight: 700;
             font-size: 21px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .support {
@@ -124,25 +150,95 @@
         }
 
         .login-main {
-            min-height: calc(100vh - 70px - 50px);
-            background: linear-gradient(180deg, rgba(6, 59, 117, 0.08) 0%, rgba(8, 46, 87, 0.72) 100%), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80') center/cover no-repeat;
+            min-height: 100vh;
+            width: 100vw;
+            background: url('https://i.pinimg.com/1200x/ab/53/ca/ab53cab7e9784f2f5794f96cee7d5f1d.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 160px;
+            padding: 0;
+            position: relative;
+            margin: 0;
+            animation: bgZoomOut 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        .login-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            color: white;
+            background: transparent;
+            margin-top: -234px;
+            margin-left: 114px;
+            animation: slideRight 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s both;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-left-title {
+            font-size: 38px;
+            white-space: nowrap;
+            font-weight: 700;
+            line-height: 1;
+            margin: 0;
+            margin-bottom: 8px;
+            color: transparent;
+            -webkit-text-stroke: 2px white;
+            text-shadow: 
+                2px 2px 0px rgba(0, 0, 0, 0.3),
+                4px 4px 0px rgba(0, 0, 0, 0.15),
+                6px 6px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .login-left-desc {
+            font-size: 18px;
+            font-style: italic;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .login-logo {
+            width: 240px;
+            height: 240px;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 24px;
+            margin-bottom: -32px;
+        }
+
+        .login-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+
+        .login-right {
+            width: 520px;
+            background: transparent;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px;
+            box-shadow: none;
+            margin-left: -57px;
+            animation: slideLeft 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s both;
+            position: relative;
+            z-index: 2;
         }
 
         .login-card {
             display: flex;
             flex-direction: column;
-            padding: 24px 28px;
-            gap: 16px;
-            width: 420px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0px 18px 48px rgba(22, 58, 101, 0.15);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
+            gap: 24px;
+            width: 100%;
         }
 
         .login-intro {
@@ -167,20 +263,20 @@
         }
 
         .login-title {
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 700;
             color: white;
             line-height: 1.2;
-            text-align: center;
+            text-align: left;
         }
 
         .login-title-h4 {
             font-size: 16px;
-            font-weight: 700;
-            font-style: italic;
-            color: white;
+            font-weight: 400;
+            color: rgba(255,255,255,0.8);
             line-height: 1.2;
-            text-align: center;
+            text-align: left;
+            margin-bottom: 24px;
         }
 
         .login-desc {
@@ -192,7 +288,7 @@
         .login-form {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 20px;
         }
 
         .form-field {
@@ -204,25 +300,25 @@
         .form-label {
             font-size: 13px;
             font-weight: 600;
-            color: white;
+            color: rgba(255,255,255,0.8);
         }
 
         .form-input {
             display: flex;
             align-items: center;
-            padding: 0 12px;
-            gap: 8px;
-            height: 42px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
+            justify-content: space-between;
+            padding: 8px 0;
+            gap: 12px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 0;
             color: white;
-            transition: border-color 0.2s, background 0.2s;
+            transition: border-color 0.2s;
         }
 
-        .form-input:focus-within {
-            border-color: #64B5FF;
-            background: rgba(255, 255, 255, 0.12);
+        .form-input i {
+            order: 2;
         }
 
         .form-input input,
@@ -231,10 +327,12 @@
             border: none;
             outline: none;
             color: white;
-            font-size: 14px;
+            font-weight: 700;
+            font-size: 15px;
             flex: 1;
             min-width: 0;
             width: 100%;
+            order: 1;
         }
 
         .form-input select {
@@ -249,7 +347,7 @@
         }
 
         .form-input input::placeholder {
-            color: var(--primary-light);
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .login-options {
@@ -283,21 +381,22 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
-            height: 42px;
-            background: var(--primary);
+            height: 46px;
+            background: transparent;
             color: white;
-            border: none;
-            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 24px;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
+            margin-top: 16px;
         }
 
         .login-btn:hover {
-            background: #0968c5;
+            background: rgba(255,255,255,0.1);
+            border-color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(7, 87, 166, 0.3);
         }
 
         /* Header reused across home and dashboard */
@@ -306,9 +405,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 64px;
-            height: 70px;
-            background: rgba(7, 87, 166, 0.91);
-            backdrop-filter: blur(9px);
+            height: 80px;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             z-index: 100;
         }
 
@@ -354,20 +456,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* Footer */
-        footer {
-            background: #042448;
-            color: var(--text-light);
-            padding: 16px 64px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
 
-        .footer-bottom {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-        }
 
         /* ----- DASHBOARD SCREEN ----- */
         #dashboard-screen {
@@ -651,24 +740,35 @@
             transition: all 0.5s ease;
         }
 
-        /* Khi bật đèn pin, toàn bộ xung quanh tối lại để tương phản */
-        body.flashlight-mode .login-main {
-            background: linear-gradient(180deg, rgba(2, 10, 20, 0.92) 0%, rgba(1, 6, 12, 0.98) 100%), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80') center/cover no-repeat;
+        /* Lớp phủ làm tối màn hình nền */
+        .login-main::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(2, 10, 20, 0.92) 0%, rgba(1, 6, 12, 0.98) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        body.flashlight-mode .login-card {
-            background: rgba(0, 0, 0, 0.65);
-            border-color: rgba(255, 255, 255, 0.08);
-            box-shadow: 0px 18px 48px rgba(0, 0, 0, 0.8);
+        body.flashlight-mode .login-main::before {
+            opacity: 1;
+        }
+
+        body.flashlight-mode .login-right {
+            background: transparent;
+            border: none;
+        }
+        
+        body.flashlight-mode .login-left {
+            background: transparent;
+            color: rgba(255,255,255,0.2);
         }
 
         body.flashlight-mode .header {
             background: rgba(2, 10, 20, 0.95);
             border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        body.flashlight-mode footer {
-            background: #01060c;
         }
 
         /* Tia sáng đèn pin */
@@ -814,90 +914,71 @@
 
     <!-- ======================= LOGIN SCREEN ======================= -->
     <div id="login-screen" class="screen active">
-        <header class="header">
-            <div class="sys-identity" style="cursor: pointer;" onclick="navigateTo('login')">
-                <div class="emblem">
-                    <i data-lucide="book-open"></i>
-                </div>
-                <div class="brand-copy">
-                    <span class="uni">Trường</span>
-                    <span class="sys-name">Đại Học ONENET</span>
-                </div>
-            </div>
-        </header>
-
         <div class="login-main">
-            <div class="login-card">
-                <div class="login-intro">
-
-                    <h2 class="login-title">Đăng nhập<br></h2>
-                    <h4 class="login-title-h4">Quản trị hệ thống<br></h4>
-                    <p class="login-desc"></p>
+            <div class="login-left">
+                <div class="login-logo">
+                    <img src="../../Template/5d39d9c0-3b66-4133-81f7-fea5b1060dc4.png" alt="Logo Đại Học ONENET">
                 </div>
+                <h1 class="login-left-title">ONENET UNIVERSITY</h1>
+                <p class="login-left-desc">QUẢN LÝ SINH VIÊN</p>
+            </div>
 
-                <form class="login-form" id="adminLoginForm">
-                    <div class="form-field" style="margin-bottom: 8px;">
+            <div class="login-right">
+                <div class="login-card">
+                    <div class="login-intro">
+                        <h2 class="login-title">Đăng nhập</h2>
+                        <h4 class="login-title-h4">Dành cho Quản trị hệ thống</h4>
                     </div>
 
-                    <div class="form-field">
-                        <label class="form-label">Tên đăng nhập</label>
-                        <div class="form-input">
-                            <i data-lucide="user" color="#8794A8"></i>
-                            <input type="text" id="usernameInput" placeholder="Nhập mã số sinh viên / giảng viên" required>
-                        </div>
-                    </div>
-
-                    <div class="form-field">
-                        <label class="form-label">Mật khẩu</label>
-                        <div class="form-input password-wrapper" id="pwdWrapper">
-                            <i data-lucide="lock" color="#8794A8" style="z-index: 10;"></i>
-                            <input type="password" placeholder="Nhập mật khẩu" required id="pwdInput" class="real-input">
-                            
-                            <!-- Luồng sáng hình phễu -->
-                            <div class="beam-overlay" id="beamOverlay"></div>
-
-                            <!-- Lớp phát sáng ảo được bọc trong wrapper để áp dụng 2 lớp mặt nạ ánh sáng -->
-                            <div class="reveal-wrapper" id="revealWrapper">
-                                <input type="text" id="revealInput" class="reveal-input" readonly tabindex="-1">
+                    <form class="login-form" id="adminLoginForm">
+                        <div class="form-field">
+                            <label class="form-label">Tên đăng nhập</label>
+                            <div class="form-input">
+                                <input type="text" id="usernameInput" placeholder="Nhập mã số sinh viên / giảng viên" required>
+                                <i data-lucide="user" color="#8794A8"></i>
                             </div>
-                            
-                            <span id="toggleBtn" onclick="togglePassword()" style="cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="eye-off" color="#8794A8" id="eyeIcon"></i>
-                            </span>
                         </div>
-                    </div>
 
-                    <div class="login-options">
-                        <label class="remember">
-                            <input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--primary);">
-                            Ghi nhớ đăng nhập
-                        </label>
-                    </div>
+                        <div class="form-field">
+                            <label class="form-label">Mật khẩu</label>
+                            <div class="form-input password-wrapper" id="pwdWrapper">
+                                <input type="password" placeholder="Nhập mật khẩu" required id="pwdInput" class="real-input">
+                                <i data-lucide="lock" color="#8794A8" style="z-index: 10;"></i>
+                                
+                                <!-- Luồng sáng hình phễu -->
+                                <div class="beam-overlay" id="beamOverlay"></div>
 
-                    <button type="submit" class="login-btn">
-                        Đăng nhập
-                        <i data-lucide="arrow-right" size="18"></i>
-                    </button>
+                                <!-- Lớp phát sáng ảo được bọc trong wrapper để áp dụng 2 lớp mặt nạ ánh sáng -->
+                                <div class="reveal-wrapper" id="revealWrapper">
+                                    <input type="text" id="revealInput" class="reveal-input" readonly tabindex="-1">
+                                </div>
+                                
+                                <span id="toggleBtn" style="cursor: grab; z-index: 10; display: flex; align-items: center; justify-content: center; position: absolute; right: 0;">
+                                    <i data-lucide="eye-off" color="#8794A8" id="eyeIcon"></i>
+                                </span>
+                            </div>
+                        </div>
 
-                    <a href="MH-00-6-DangNhapGiangVien.html"
-                        style="display: block; text-align: center; margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 13px; text-decoration: none; transition: color 0.2s;"
-                        onmouseover="this.style.color='#fff'"
-                        onmouseout="this.style.color='rgba(255,255,255,0.7)'">&larr; Quay lại Đăng nhập chung</a>
-                </form>
+                        <div class="login-options">
+                            <label class="remember">
+                                <input type="checkbox" style="width: 16px; height: 16px; accent-color: var(--primary);">
+                                Ghi nhớ đăng nhập
+                            </label>
+                            <a class="forgot">Quên mật khẩu?</a>
+                        </div>
+
+                        <button type="submit" class="login-btn">
+                            Đăng nhập &nbsp; &gt;
+                        </button>
+
+                        <a href="MH-00-6-DangNhapGiangVien.html"
+                            style="display: block; text-align: center; margin-top: 12px; color: rgba(255,255,255,0.7); font-size: 13px; text-decoration: none; transition: color 0.2s;"
+                            onmouseover="this.style.color='#fff'"
+                            onmouseout="this.style.color='rgba(255,255,255,0.7)'">Bạn là Giảng viên / Sinh viên?</a>
+                    </form>
+                </div>
             </div>
         </div>
-        <footer>
-            <div class="sys-identity">
-                <div>
-                </div>
-                <div class="brand-copy">
-
-                </div>
-            </div>
-            <div class="footer-bottom">
-                &copy; 2026 Đại Học ONENET. Đã đăng ký bản quyền.
-            </div>
-        </footer>
     </div>
 
     <!-- Toast Notification Container -->
@@ -942,38 +1023,62 @@
             document.getElementById(screenId + '-screen').classList.add('active');
         }
 
-        function togglePassword() {
+        function turnOnFlashlight(e) {
             const body = document.body;
             const pwdInput = document.getElementById('pwdInput');
             const toggleBtn = document.getElementById('toggleBtn');
             
-            body.classList.toggle('flashlight-mode');
+            body.classList.add('flashlight-mode');
+            pwdInput.type = 'text';
+            toggleBtn.style.cursor = 'grabbing';
             
-            if (body.classList.contains('flashlight-mode')) {
-                pwdInput.type = 'text';
-                
-                // Dùng SVG custom để vẽ cái đèn pin giống hệt ảnh của anh, mũi đèn pin chỉ sang trái
-                toggleBtn.innerHTML = `
-                <svg id="eyeIcon" width="24" height="24" viewBox="0 0 24 24" fill="#FFE699" xmlns="http://www.w3.org/2000/svg" style="transition: transform 0.1s ease-out; transform-origin: center center;">
-                  <path d="M6 5 L11 9 L11 15 L6 19 Z" />
-                  <rect x="11" y="9.5" width="11" height="5" rx="1" />
-                  <rect x="15" y="8" width="3" height="1.5" rx="0.5" />
-                </svg>`;
-                
-                let currentEyeIcon = document.getElementById('eyeIcon');
-                
-                const pwdWrapper = document.getElementById('pwdWrapper');
-                if (!pwdWrapper.style.getPropertyValue('--distance') || pwdWrapper.style.getPropertyValue('--distance') === '0px') {
-                    pwdWrapper.style.setProperty('--distance', '200px'); 
-                    pwdWrapper.style.setProperty('--angle', '270deg');
-                    currentEyeIcon.style.transform = 'rotate(0deg)';
-                }
-            } else {
-                pwdInput.type = 'password';
-                
-                // Trả lại icon con mắt
-                toggleBtn.innerHTML = `<i data-lucide="eye-off" id="eyeIcon" color="#8794A8"></i>`;
-                lucide.createIcons();
+            // Dùng SVG custom để vẽ cái đèn pin giống hệt ảnh của anh, mũi đèn pin chỉ sang trái
+            toggleBtn.innerHTML = `
+            <svg id="eyeIcon" width="24" height="24" viewBox="0 0 24 24" fill="#FFE699" xmlns="http://www.w3.org/2000/svg" style="transition: transform 0.1s ease-out; transform-origin: center center;">
+              <path d="M6 5 L11 9 L11 15 L6 19 Z" />
+              <rect x="11" y="9.5" width="11" height="5" rx="1" />
+              <rect x="15" y="8" width="3" height="1.5" rx="0.5" />
+            </svg>`;
+            
+            updateFlashlightPosition(e);
+        }
+
+        function turnOffFlashlight() {
+            const body = document.body;
+            if (!body.classList.contains('flashlight-mode')) return;
+            
+            const pwdInput = document.getElementById('pwdInput');
+            const toggleBtn = document.getElementById('toggleBtn');
+            
+            body.classList.remove('flashlight-mode');
+            pwdInput.type = 'password';
+            toggleBtn.style.cursor = 'grab';
+            
+            // Trả lại icon con mắt
+            toggleBtn.innerHTML = `<i data-lucide="eye-off" id="eyeIcon" color="#8794A8"></i>`;
+            lucide.createIcons();
+        }
+
+        function updateFlashlightPosition(e) {
+            const currentEyeIcon = document.getElementById('eyeIcon');
+            if (!currentEyeIcon) return;
+
+            const iconRect = currentEyeIcon.getBoundingClientRect();
+            const originX = iconRect.left + iconRect.width / 2;
+            const originY = iconRect.top + iconRect.height / 2;
+
+            const dx = e.clientX - originX;
+            const dy = e.clientY - originY;
+            
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+            
+            currentEyeIcon.style.transform = `rotate(${angle - 180}deg)`;
+
+            const pwdWrapper = document.getElementById('pwdWrapper');
+            if (pwdWrapper) {
+                pwdWrapper.style.setProperty('--distance', `${distance}px`);
+                pwdWrapper.style.setProperty('--angle', `${angle + 90}deg`);
             }
         }
 
@@ -999,8 +1104,15 @@
         document.addEventListener('DOMContentLoaded', () => {
             const pwdInput = document.getElementById('pwdInput');
             const revealInput = document.getElementById('revealInput');
-            const pwdWrapper = document.getElementById('pwdWrapper');
-            const beamOverlay = document.getElementById('beamOverlay');
+            const toggleBtn = document.getElementById('toggleBtn');
+            
+            if (toggleBtn) {
+                toggleBtn.style.cursor = 'grab';
+                toggleBtn.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    turnOnFlashlight(e);
+                });
+            }
 
             pwdInput.addEventListener('input', (e) => {
                 revealInput.value = e.target.value;
@@ -1009,39 +1121,16 @@
             // Sự kiện theo dõi chuột trên toàn bộ màn hình khi bật đèn pin
             document.addEventListener('mousemove', (e) => {
                 if (!document.body.classList.contains('flashlight-mode')) return;
-
-                // Phải getElementById lại vì thư viện lucide đã thay đổi thẻ SVG cũ thành thẻ mới
-                const currentEyeIcon = document.getElementById('eyeIcon');
-                if (!currentEyeIcon) return;
-
-                // 1. Căng và xoay tia sáng tới chính xác con chuột
-                const iconRect = currentEyeIcon.getBoundingClientRect();
-                // Tâm xoay đồng bộ cho cả tia sáng và icon là chính giữa icon
-                const originX = iconRect.left + iconRect.width / 2;
-                const originY = iconRect.top + iconRect.height / 2;
-
-                const dx = e.clientX - originX;
-                const dy = e.clientY - originY;
-                
-                // Tính khoảng cách (độ dài tia sáng)
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-                
-                // Xoay cả icon đèn pin theo hướng chuột!
-                currentEyeIcon.style.transform = `rotate(${angle - 180}deg)`;
-
-                // Chiếu sáng bằng cách thiết lập Variables ở thẻ cha (pwdWrapper)
-                // Các lớp con (tia sáng, text) sẽ tự động kế thừa và vẽ hình phễu
-                const pwdWrapper = document.getElementById('pwdWrapper');
-                pwdWrapper.style.setProperty('--distance', `${distance}px`);
-                // conic-gradient chuẩn ở 12h, cộng 90 độ để khớp trục tọa độ CSS
-                pwdWrapper.style.setProperty('--angle', `${angle + 90}deg`);
+                updateFlashlightPosition(e);
             });
             
-            // Tắt ánh sáng khi chuột ra khỏi màn hình
+            // Tắt ánh sáng khi nhả chuột hoặc chuột ra khỏi màn hình
+            document.addEventListener('mouseup', () => {
+                turnOffFlashlight();
+            });
+            
             document.addEventListener('mouseleave', () => {
-                const pwdWrapper = document.getElementById('pwdWrapper');
-                if(pwdWrapper) pwdWrapper.style.setProperty('--distance', `0px`);
+                turnOffFlashlight();
             });
         });
     </script>

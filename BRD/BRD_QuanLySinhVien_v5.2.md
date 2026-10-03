@@ -276,7 +276,7 @@ Tài liệu Yêu cầu nghiệp vụ (BRD) mô tả toàn bộ nhu cầu nghiệ
 - **Module Điểm danh (QLSV-03):** Quét QR động (real-time) qua trình duyệt mobile (PWA) cho sinh viên và hệ thống tự động gửi Email cảnh báo vắng học.
 - **Module Quản lý Điểm & Khảo thí (QLSV-04):** Nhập/tính điểm tổng kết, tự động xét điều kiện thi/PASS/FAIL/RETAKE theo Quy chế FPT.
 - **Module Dịch vụ Sinh viên — Hành chính (QLSV-05):** Cổng nộp đơn từ trực tuyến, duyệt đơn và theo dõi trạng thái dành cho Quản nhiệm.
-- **Module Thanh toán — Payment Gateway (QLSV-06):** Tích hợp Payment Gateway, tự động gạch nợ học phí và hỗ trợ kế toán đối soát.
+- **Module Thanh toán — Payment Gateway (QLSV-06):** Tích hợp Payment Gateway, tự động gạch nợ học phí và hỗ trợ Quản nhiệm đối soát.
 
 **Ngoài phạm vi (Out-of-scope)**
 
@@ -292,7 +292,7 @@ Tài liệu Yêu cầu nghiệp vụ (BRD) mô tả toàn bộ nhu cầu nghiệ
 | Ban lãnh đạo / Người phê duyệt dự án | Xác nhận phạm vi, mục tiêu và tiêu chí nghiệm thu nghiệp vụ. |
 | Quản nhiệm (Academic Staff) / Giảng viên | Rà soát tính đúng đắn của quy trình và thao tác nghiệp vụ. |
 | Đội ngũ phát triển (Developer, Tester, DevOps) | Cơ sở xây dựng FRD/SRS, thiết kế kiến trúc, API, dữ liệu, phân quyền. |
-| Kế toán / Bộ phận hành chính | Rà soát quy trình thanh toán, đối soát và báo cáo tài chính. |
+| Bộ phận hành chính | Rà soát quy trình thanh toán, đối soát và báo cáo tài chính. |
 | QA/QC & UAT | Cơ sở xây dựng test case và kịch bản nghiệm thu. |
 
 ## 1.4. Tài liệu tham chiếu
@@ -341,7 +341,7 @@ _Lưu ý: Danh mục tham chiếu mang tính định hướng; khi triển khai 
 | Quản lý | Quản nhiệm (Academic Staff) | Quản lý hồ sơ SV, phân lớp, xếp TKB, duyệt đơn từ |
 | Chuyên môn | Giảng viên | Điểm danh, nhập điểm, báo nghỉ/xếp lịch bù |
 | Người dùng | Sinh viên | Xem TKB, quét QR điểm danh, xem điểm, nộp đơn, thanh toán |
-| Tài chính | Kế toán | Đối soát giao dịch, tra soát, xuất báo cáo |
+| Tài chính | Quản nhiệm | Đối soát giao dịch, tra soát, xuất báo cáo |
 | Hệ thống | Admin | Quản trị hệ thống, cấp quyền, sửa điểm ngoại lệ |
 
 ## 2.2. Mục tiêu & KPI
@@ -353,7 +353,7 @@ _Lưu ý: Danh mục tham chiếu mang tính định hướng; khi triển khai 
 | G-03 | Hiện đại hóa Điểm danh & Cảnh báo chủ động: Tự động hóa điểm danh bằng QR Động, cảnh báo Email ngay khi SV chạm ngưỡng vắng 20%. | Xác thực QR ≤ 2 giây; Email cảnh báo gửi đi ≤ 2 phút sau chốt phiên. |
 | G-04 | Minh bạch hóa Quản lý Điểm số & Xét điều kiện: Tự động tính điểm tổng kết theo tỷ trọng và ràng buộc điều kiện thi/đạt môn theo Quy chế FPT. | Tính điểm toàn bộ 200 SV ≤ 30 giây; Độ chính xác 100% theo công thức. |
 | G-05 | Tối ưu hóa & Số hóa hành chính: Hỗ trợ SV nộp đơn từ trực tuyến, giảm thời gian xử lý giấy tờ. | 100% đơn từ được nộp trực tuyến; Email kết quả duyệt đơn ≤ 1 phút. |
-| G-06 | Tích hợp Payment Gateway: Tự động gạch nợ và hỗ trợ kế toán đối soát. | Giao dịch mã hóa SSL/TLS; Export báo cáo 5.000 dòng ≤ 15 giây. |
+| G-06 | Tích hợp Payment Gateway: Tự động gạch nợ và hỗ trợ Quản nhiệm đối soát. | Giao dịch mã hóa SSL/TLS; Export báo cáo 5.000 dòng ≤ 15 giây. |
 
 ## 2.3. Quy mô triển khai
 
@@ -488,9 +488,9 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 | --- | --- | --- |
 | BR-030 | Mã giao dịch (Payment Session) chỉ có hiệu lực trong 15 phút. Quá hạn mã vô hiệu hóa. | UC-16 |
 | BR-031 | Số tiền gửi sang Payment Gateway phải khớp chính xác 100% với số tiền trong Database. | UC-16 |
-| BR-032 | Chỉ Kế toán/Admin mới được quyền xem dòng tiền và xuất báo cáo đối soát. | UC-15, UC-16 |
+| BR-032 | Chỉ Quản nhiệm/Admin mới được quyền xem dòng tiền và xuất báo cáo đối soát. | UC-15, UC-16 |
 | BR-033 | Giao dịch thất bại (Failed) vẫn phải được lưu Database để tra soát khiếu nại. | UC-16 |
-| BR-034 | Tính năng Query Transaction và gạch nợ thủ công chỉ dành cho Kế toán/Admin. | UC-16 |
+| BR-034 | Tính năng Query Transaction và gạch nợ thủ công chỉ dành cho Quản nhiệm/Admin. | UC-16 |
 | BR-035 | Mọi thao tác gạch nợ thủ công (Manual Sync) phải được ghi Log (ai thao tác, thời gian). | UC-16 |
 
 ## 5.7. Quy tắc — Học lại & Đình chỉ
@@ -525,13 +525,12 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 
 | **Mã** | **Vai trò** | **Vị trí tác nghiệp** | **Trách nhiệm chính** |
 | --- | --- | --- | --- |
-| VT-01 | Quản nhiệm (Academic Staff) | Back-office | Quản trị hồ sơ SV, phân lớp, xếp TKB, thiết lập CTĐT, duyệt đơn từ, duyệt lịch bù, chốt sổ điểm. |
+| VT-01 | Quản nhiệm (Academic Staff) | Back-office | Quản trị hồ sơ SV, phân lớp, xếp TKB, thiết lập CTĐT, duyệt đơn từ, duyệt lịch bù, chốt sổ điểm, xem dòng tiền, xuất báo cáo đối soát, tra soát giao dịch lỗi, gạch nợ thủ công. |
 | VT-02 | Giảng viên (Lecturer) | Phòng học/Online | Mở phiên điểm danh, nhập điểm, báo nghỉ/đề xuất lịch bù, sửa điểm danh thủ công. |
 | VT-03 | Sinh viên (Student) | Mobile/Desktop | Quét QR điểm danh, xem TKB, xem điểm, nộp đơn từ, thanh toán lệ phí, theo dõi trạng thái đơn. |
-| VT-04 | Kế toán (Accountant) | Back-office | Xem dòng tiền, xuất báo cáo đối soát, tra soát giao dịch lỗi, gạch nợ thủ công. |
-| VT-05 | Admin hệ thống | Back-office | Toàn quyền hệ thống: sửa điểm sau chốt sổ (có Log), quản lý cấu hình, CRUD Giảng viên & Phòng học, tạo tài khoản thủ công. |
-| VT-06 | Hệ thống (System) | Tự động | Tự động: tính điểm, gạch nợ, gửi Email cảnh báo, chốt phiên điểm danh, chuyển Overdue. |
-| VT-07 | Payment Gateway | Bên ngoài | Bên thứ 3 (VNPay/MoMo) xử lý thanh toán, gửi Webhook/IPN. |
+| VT-04 | Admin hệ thống | Back-office | Toàn quyền hệ thống: sửa điểm sau chốt sổ (có Log), quản lý cấu hình, CRUD Giảng viên & Phòng học, tạo tài khoản thủ công. |
+| VT-05 | Hệ thống (System) | Tự động | Tự động: tính điểm, gạch nợ, gửi Email cảnh báo, chốt phiên điểm danh, chuyển Overdue. |
+| VT-06 | Payment Gateway | Bên ngoài | Bên thứ 3 (VNPay/MoMo) xử lý thanh toán, gửi Webhook/IPN. |
 
 ## 6.2. Danh mục Thực thể Nghiệp vụ
 
@@ -609,7 +608,7 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 | **Mã quy trình** | UC-01 |
 | **Tên quy trình** | Xác thực & Quản lý tài khoản (Đăng nhập) |
 | **Phân hệ liên quan** | QLSV-01 |
-| **Tác nhân** | Tất cả Người dùng (VT-01 → VT-05) |
+| **Tác nhân** | Tất cả Người dùng (VT-01 → VT-04) |
 | **Điều kiện bắt đầu** | Tài khoản đã được tạo và kích hoạt (IsActive = True). |
 | **Dữ liệu đầu vào** | Username/Email, Password (hoặc SSO Token). |
 | **Luồng chính** | 1\. Người dùng nhập Username/Email và Password. 2. Hệ thống xác thực thông tin tài khoản. 3. Hệ thống tạo và trả về JWT Token. 4. Chuyển hướng người dùng vào Dashboard tương ứng với Role. |
@@ -737,7 +736,7 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 | **Mã quy trình** | UC-09 |
 | **Tên quy trình** | Mở phiên & Điểm danh bằng QR động |
 | **Phân hệ liên quan** | QLSV-03 |
-| **Tác nhân** | VT-02 Giảng viên, VT-03 Sinh viên, VT-06 Hệ thống |
+| **Tác nhân** | VT-02 Giảng viên, VT-03 Sinh viên, VT-05 Hệ thống |
 | **Điều kiện bắt đầu** | Bắt đầu giờ học, GV ở lớp có kết nối màn hình chiếu. SV có PWA. |
 | **Dữ liệu đầu vào** | Slot, Lớp, QR Token. |
 | **Luồng chính** | 1\. GV chọn “Mở điểm danh”. 2. Hệ thống sinh QR động (Token mã hóa), refresh mỗi 10 giây. 3. SV quét QR bằng PWA. 4. App gửi Token lên Server → ghi “Present”. 5. GV đóng phiên → Hệ thống đánh “Absent” cho SV chưa quét. 6. Hệ thống kiểm tra tỷ lệ vắng tổng cộng, nếu ≥ 20% → G3. |
@@ -769,7 +768,7 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 | **Mã quy trình** | UC-11 |
 | **Tên quy trình** | Xét điều kiện dự thi & Tổng kết Pass/Fail/Retake/Re-study |
 | **Phân hệ liên quan** | QLSV-04 |
-| **Tác nhân** | VT-06 Hệ thống (tự động), VT-01 Quản nhiệm, VT-05 Admin |
+| **Tác nhân** | VT-05 Hệ thống (tự động), VT-01 Quản nhiệm, VT-04 Admin |
 | **Điều kiện bắt đầu** | Điểm FE đã nhập hoàn tất, QN nhấn “Chốt sổ”. |
 | **Dữ liệu đầu vào** | Bảng điểm TP + FE, % vắng, cấu hình tỷ trọng (TT-20). |
 | **Luồng chính** | 1\. Hệ thống quét % vắng: > 20% → G3 (Fail/Cấm thi). 2. Tính Tổng điểm theo tỷ trọng (TT-20). 3. FE < 4.0 HOẶC Tổng < 5.0 → G4 (Retake); nếu đã ở G4 → G5 (Re-study). 4. Thỏa mãn tất cả → G1 (Passed). 5. Cập nhật Transcript. |
@@ -785,7 +784,7 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 | **Mã quy trình** | UC-12 |
 | **Tên quy trình** | Đăng ký Học lại & Xếp lớp Môn trượt |
 | **Phân hệ liên quan** | QLSV-04 |
-| **Tác nhân** | VT-03 Sinh viên, VT-01 Quản nhiệm, VT-06 Hệ thống |
+| **Tác nhân** | VT-03 Sinh viên, VT-01 Quản nhiệm, VT-05 Hệ thống |
 | **Điều kiện bắt đầu** | Kỳ mới mở đăng ký, SV trạng thái S1 hoặc vừa hết đình chỉ, có ≥ 1 môn G3/G4/G5. |
 | **Dữ liệu đầu vào** | Danh sách môn trượt, số kỳ trôi qua, hồ sơ kỷ luật. |
 | **Luồng chính** | **Luồng A — Thi lại (G4):** 1. SV xem danh sách môn G4. 2. Đăng ký thi lại FE. 3. Hệ thống sinh hóa đơn thi lại (10% đơn giá — BR-042). 4. SV thanh toán (UC-16). 5. Xếp lịch thi lại. **Luồng B — Học lại (G3/G5):** 1. SV xem danh sách môn G3/G5. 2. Chọn môn đăng ký học lại. 3. Tính phí: 50% (kỳ liền kề) / 100% (cách ≥ 1 kỳ) — BR-037. 4. Sinh hóa đơn → SV thanh toán (UC-16). 5. Xếp SV vào lớp khả dụng. |
@@ -801,7 +800,7 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 | **Mã quy trình** | UC-13 |
 | **Tên quy trình** | Quản lý Profile & Đổi mật khẩu |
 | **Phân hệ liên quan** | QLSV-05 |
-| **Tác nhân** | Tất cả Người dùng, VT-05 Admin |
+| **Tác nhân** | Tất cả Người dùng, VT-04 Admin |
 | **Điều kiện bắt đầu** | Tài khoản đã đăng nhập. |
 | **Dữ liệu đầu vào** | SĐT, ảnh đại diện, mật khẩu cũ/mới. |
 | **Luồng chính** | 1\. Truy cập Profile. 2. Chỉnh sửa SĐT/ảnh hoặc nhấn “Đổi mật khẩu”. 3. Nhập MK cũ + MK mới (2 lần). 4. Hệ thống validate và lưu. |
@@ -833,13 +832,13 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 | **Mã quy trình** | UC-15 |
 | **Tên quy trình** | Xem Báo cáo & Thống kê |
 | **Phân hệ liên quan** | QLSV-05 |
-| **Tác nhân** | VT-01 Quản nhiệm, VT-04 Kế toán, VT-05 Admin |
+| **Tác nhân** | VT-01 Quản nhiệm, VT-04 Admin |
 | **Điều kiện bắt đầu** | Tài khoản đăng nhập có quyền xem báo cáo. |
 | **Dữ liệu đầu vào** | Loại báo cáo, bộ lọc (Học kỳ, Lớp, Môn). |
 | **Luồng chính** | 1\. Truy cập Dashboard Báo cáo. 2. Chọn loại (Học tập / Tài chính / Điểm danh) + bộ lọc. 3. Hệ thống truy xuất và hiển thị. 4. Xuất Excel/PDF nếu cần. |
 | **Luồng ngoại lệ** | 3a. Không có dữ liệu: Hiển thị “Không có dữ liệu cho bộ lọc đã chọn”. |
 | **Dữ liệu đầu ra** | Báo cáo trên Dashboard, file Excel/PDF. |
-| **Quy tắc nghiệp vụ** | BR-032 (Chỉ Kế toán/Admin xem dòng tiền). |
+| **Quy tắc nghiệp vụ** | BR-032 (Chỉ Quản nhiệm/Admin xem dòng tiền). |
 | **Tiêu chí nghiệm thu** | UC-15.NT01: Tải báo cáo ≤ 5 giây. Xuất Excel 5.000 dòng ≤ 15 giây. |
 
 ### UC-16 — Thanh toán trực tuyến (Payment Gateway)
@@ -849,11 +848,11 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 | **Mã quy trình** | UC-16 |
 | **Tên quy trình** | Thanh toán trực tuyến (Payment Gateway) |
 | **Phân hệ liên quan** | QLSV-06 |
-| **Tác nhân** | VT-03 Sinh viên, VT-04 Kế toán, VT-07 Payment Gateway |
+| **Tác nhân** | VT-01 Quản nhiệm, VT-03 Sinh viên, VT-06 Payment Gateway |
 | **Điều kiện bắt đầu** | Hóa đơn trạng thái “Unpaid” hoặc “Overdue”. Payment Gateway hoạt động. |
 | **Dữ liệu đầu vào** | Hóa đơn, phương thức thanh toán. |
 | **Luồng chính** | 1\. SV mở danh sách hóa đơn, chọn phương thức. 2. Hệ thống sinh URL + mã phiên giao dịch → chuyển hướng sang Gateway. 3. SV thanh toán thành công. 4. Gateway gửi IPN/Webhook về Server. 5. Server xác thực Checksum (HMAC SHA512), gạch nợ → “Paid”. |
-| **Luồng ngoại lệ** | 4a. Mất Webhook: Kế toán “Query Transaction” thủ công → Gạch nợ bổ sung. 3a. Giao dịch thất bại/Quá hạn: Hóa đơn giữ “Unpaid”, Transaction → “Failed”. 5a. Checksum sai/Số tiền không khớp: Từ chối gạch nợ, cảnh báo Admin. |
+| **Luồng ngoại lệ** | 4a. Mất Webhook: Quản nhiệm “Query Transaction” thủ công → Gạch nợ bổ sung. 3a. Giao dịch thất bại/Quá hạn: Hóa đơn giữ “Unpaid”, Transaction → “Failed”. 5a. Checksum sai/Số tiền không khớp: Từ chối gạch nợ, cảnh báo Admin. |
 | **Dữ liệu đầu ra** | Hóa đơn “Paid” (TT-11), Giao dịch (TT-12), Activity Log (TT-14). |
 | **Quy tắc nghiệp vụ** | BR-030, BR-031, BR-032, BR-033, BR-034, BR-035, BR-045. |
 | **Tiêu chí nghiệm thu** | UC-16.NT01: VNPay/MoMo thành công → Paid + Success. UC-16.NT02: Webhook bị mất → Query Transaction thủ công → gạch nợ bổ sung. |
@@ -960,30 +959,30 @@ _Ghi chú: Trạng thái G2 (Reserved) đã được loại bỏ từ v4.0 vì k
 
 # CHƯƠNG 9. MA TRẬN PHÂN QUYỀN (RBAC)
 
-| **Chức năng \\ Vai trò** | **VT-01 (QN)** | **VT-02 (GV)** | **VT-03 (SV)** | **VT-04 (Kế toán)** | **VT-05 (Admin)** |
-| --- | --- | --- | --- | --- | --- |
-| Quản lý GV & Phòng | —   | —   | —   | —   | C/R/U/D |
-| Import hồ sơ SV | C/R/U/D | —   | —   | —   | R   |
-| Cập nhật trạng thái SV | R/U | —   | —   | —   | R/U |
-| Phân lớp chuyên ngành | C/R/U | —   | R   | —   | R   |
-| Thiết lập môn học & CTĐT | C/R/U/D | R   | R   | —   | R   |
-| Xếp Thời khóa biểu | C/R/U/D | R   | R   | —   | R   |
-| Báo nghỉ & Xếp lịch bù | C/R/U (duyệt) | C/R (đề xuất) | R   | —   | R   |
-| Mở phiên điểm danh | —   | C/R/U | —   | —   | R   |
-| Quét QR điểm danh | —   | —   | X   | —   | —   |
-| Sửa điểm danh thủ công | U   | U   | —   | —   | R   |
-| Nhập điểm quá trình | —   | C/R/U | R   | —   | R   |
-| Chốt sổ điểm | R/U | —   | —   | —   | R   |
-| Sửa điểm sau chốt sổ | —   | —   | —   | —   | U (Log) |
-| Duyệt/Từ chối đơn từ | R/U | —   | R (của mình) | —   | R   |
-| Thanh toán trực tuyến | —   | —   | X   | —   | —   |
-| Đối soát & Tra soát | —   | —   | —   | R/U | R   |
-| Quản lý Hóa đơn | R   | —   | R (của mình) | C/R/U | C/R/U/D |
-| Đăng ký học lại | R/U (xếp lớp) | —   | C/R/U (của mình) | —   | R   |
-| Quản lý kỷ luật / Đình chỉ | C/R/U | —   | R (của mình) | —   | C/R/U/D |
-| Xem Activity Log | —   | —   | —   | R (tài chính) | R   |
-| Xem Báo cáo thống kê | R (học tập) | R (của mình) | —   | R (tài chính) | R   |
-| Đổi mật khẩu / Profile | U (của mình) | U (của mình) | U (của mình) | U (của mình) | U (tất cả) |
+| **Chức năng \\ Vai trò** | **VT-01 (QN)** | **VT-02 (GV)** | **VT-03 (SV)** | **VT-04 (Admin)** |
+| --- | --- | --- | --- | --- |
+| Quản lý GV & Phòng | —   | —   | —   | C/R/U/D |
+| Import hồ sơ SV | C/R/U/D | —   | —   | R   |
+| Cập nhật trạng thái SV | R/U | —   | —   | R/U |
+| Phân lớp chuyên ngành | C/R/U | —   | R   | R   |
+| Thiết lập môn học & CTĐT | C/R/U/D | R   | R   | R   |
+| Xếp Thời khóa biểu | C/R/U/D | R   | R   | R   |
+| Báo nghỉ & Xếp lịch bù | C/R/U (duyệt) | C/R (đề xuất) | R   | R   |
+| Mở phiên điểm danh | —   | C/R/U | —   | R   |
+| Quét QR điểm danh | —   | —   | X   | —   |
+| Sửa điểm danh thủ công | U   | U   | —   | R   |
+| Nhập điểm quá trình | —   | C/R/U | R   | R   |
+| Chốt sổ điểm | R/U | —   | —   | R   |
+| Sửa điểm sau chốt sổ | —   | —   | —   | U (Log) |
+| Duyệt/Từ chối đơn từ | R/U | —   | R (của mình) | R   |
+| Thanh toán trực tuyến | —   | —   | X   | —   |
+| Đối soát & Tra soát | R/U | —   | —   | R   |
+| Quản lý Hóa đơn | C/R/U | —   | R (của mình) | C/R/U/D |
+| Đăng ký học lại | R/U (xếp lớp) | —   | C/R/U (của mình) | R   |
+| Quản lý kỷ luật / Đình chỉ | C/R/U | —   | R (của mình) | C/R/U/D |
+| Xem Activity Log | R (tài chính) | —   | —   | R   |
+| Xem Báo cáo thống kê | R (tất cả) | R (của mình) | —   | R   |
+| Đổi mật khẩu / Profile | U (của mình) | U (của mình) | U (của mình) | U (tất cả) |
 
 _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Không có quyền._
 
@@ -993,13 +992,13 @@ _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Khô
 
 | **Mã MH (Tên File)** | **Màn hình** | **Vai trò** | **Chức năng chính** | **UC** |
 | --- | --- | --- | --- | --- |
-| MH-00-1-TongQuanHeThong | Tổng quan hệ thống | VT-05 | Quản trị chung hệ thống | Tất cả |
-| MH-00-2-QuanLyTaiKhoan | Quản lý tài khoản | VT-05 | Cấp/sửa tài khoản | Tất cả |
-| MH-00-3-NhatKyHeThong | Nhật ký hệ thống | VT-05 | Xem log hệ thống | Tất cả |
-| MH-00-4-BackupRestoreDB | Backup & Restore Database | VT-05 | Quản trị DB | Tất cả |
-| MH-00-5-DangNhapAdmin | Đăng nhập Admin | VT-01, VT-05 | Đăng nhập hệ thống (QN/Admin) | UC-01 |
+| MH-00-1-TongQuanHeThong | Tổng quan hệ thống | VT-04 | Quản trị chung hệ thống | Tất cả |
+| MH-00-2-QuanLyTaiKhoan | Quản lý tài khoản | VT-04 | Cấp/sửa tài khoản | Tất cả |
+| MH-00-3-NhatKyHeThong | Nhật ký hệ thống | VT-04 | Xem log hệ thống | Tất cả |
+| MH-00-4-BackupRestoreDB | Backup & Restore Database | VT-04 | Quản trị DB | Tất cả |
+| MH-00-5-DangNhapAdmin | Đăng nhập Admin | VT-01, VT-04 | Đăng nhập hệ thống (QN/Admin) | UC-01 |
 | MH-00-6-DangNhapGiangVien | Đăng nhập Giảng viên | VT-02 | Đăng nhập hệ thống (GV) | UC-01 |
-| MH-00-7-DashboardBaoCao | Dashboard & Báo cáo | VT-01, VT-05 | Thống kê tổng số SV, đơn chờ duyệt | Tất cả |
+| MH-00-7-DashboardBaoCao | Dashboard & Báo cáo | VT-01, VT-04 | Thống kê tổng số SV, đơn chờ duyệt | Tất cả |
 | MH-00-8-TongQuanGiangVien | Tổng quan Giảng viên | VT-02 | Lịch dạy trong ngày/tuần, thông báo | Tất cả |
 | MH-00-9-TongQuanHocTap | Tổng quan học tập | VT-03 | TKB hôm nay, thông báo khẩn | Tất cả |
 
@@ -1060,7 +1059,7 @@ _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Khô
 
 | **Mã MH (Tên File)** | **Màn hình** | **Vai trò** | **Chức năng chính** | **UC** |
 | --- | --- | --- | --- | --- |
-| MH-06-1-LichSuGiaoDich | Lịch sử giao dịch | VT-01, VT-04 | Xem, tra soát thanh toán | UC-16 |
+| MH-06-1-LichSuGiaoDich | Lịch sử giao dịch | VT-01 | Xem, tra soát thanh toán | UC-16 |
 | MH-06-2-HoaDonVaThanhToan | Hóa đơn & Thanh toán | VT-03 | Xem hóa đơn, thanh toán | UC-16 |
 
 # CHƯƠNG 11. TIÊU CHÍ NGHIỆM THU NGHIỆP VỤ
@@ -1083,7 +1082,7 @@ _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Khô
 | UC-12.NT01 | SV đăng ký học lại G3: phí đúng 50%/100% theo BR-037 | UC-12 | Automated Test |
 | UC-12.NT02 | SV đang đình chỉ (S5) → chặn đăng ký, hiển thị thông báo đúng | UC-12 | Test thủ công |
 | UC-16.NT01 | Thanh toán VNPay/MoMo thành công → hóa đơn Paid, giao dịch Success | UC-16 | Test thủ công trên Sandbox |
-| UC-16.NT02 | Webhook bị mất → Kế toán Query Transaction thủ công → gạch nợ bổ sung | UC-16 | Test thủ công |
+| UC-16.NT02 | Webhook bị mất → Quản nhiệm Query Transaction thủ công → gạch nợ bổ sung | UC-16 | Test thủ công |
 
 ## 11.2. Điều kiện hoàn thành (Definition of Done) & UAT
 
@@ -1158,7 +1157,7 @@ Danh mục dùng chung (Master Data) bao gồm dữ liệu tham chiếu ít bi�
 | Tổ chức & Đào tạo | Ngành học (Major), Khoa/Bộ môn (Department), Học kỳ (Semester: Spring/Summer/Fall + năm). |
 | Hành chính & Cơ sở vật chất | Địa giới hành chính (Tỉnh/Huyện/Xã), Loại phòng học (Theory/Lab/Hội trường). |
 | Trạng thái & Phân loại | Trạng thái học tập (S0–S5), Trạng thái môn học (G0–G5), Loại đơn từ (Phúc khảo, Chuyển lớp, Xin nghỉ, Cấp bảng điểm…). |
-| Hệ thống | Vai trò (VT-01 → VT-07), nhóm quyền, mẫu Email. |
+| Hệ thống | Vai trò (VT-01 → VT-06), nhóm quyền, mẫu Email. |
 
 # CHƯƠNG 16. MA TRẬN TRUY VẾT & LỘ TRÌNH BRD
 
