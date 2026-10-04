@@ -1192,11 +1192,119 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+        }
+
+        .pick {
+            margin-bottom: 16px;
+            padding: 16px
+        }
+
+        .pk-h {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 12px
+        }
+
+        .pk-h .search {
+            max-width: 300px
+        }
+
+        .facs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap
+        }
+
+        .fchip {
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 99px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray)
+        }
+
+        .fchip small {
+            font-size: 11px;
+            padding: 1px 6px;
+            border-radius: 99px;
+            background: var(--w-bg);
+            color: var(--warning)
+        }
+
+        .fchip:hover {
+            border-color: var(--primary)
+        }
+
+        .fchip.on {
+            background: var(--p50);
+            border-color: var(--primary);
+            color: var(--primary)
+        }
+
+        .pick .mtabs {
+            max-height: 232px;
+            overflow: auto
+        }
+
+        .mtab small.pn {
+            background: var(--w-bg);
+            color: var(--warning)
+        }
+
+        .mtab small.ok {
+            background: var(--s-bg);
+            color: var(--success)
+        }
+
+        .mtab.on small {
+            background: rgba(255, 255, 255, .22);
+            color: #fff
+        }
     </style>
 </head>
 
@@ -1262,7 +1370,8 @@
                 <div class="hero-content">
                     <div class="crumb">Sinh Viên › Phân bổ lớp</div>
                     <h1>Phân bổ sinh viên vào lớp chuyên ngành</h1>
-                    <p>Học kỳ 2 - 2026 · tối đa <b>20 lớp</b> mỗi chuyên ngành, sĩ số mặc định <b id="capText">30</b>
+                    <p>Khóa 20 (tuyển sinh 2026) · tối đa <b>20 lớp</b> mỗi chuyên ngành, sĩ số mặc định <b
+                            id="capText">30</b>
                         sinh viên/lớp. Hết chỗ sẽ vào danh sách chờ.</p>
                 </div>
                 <div class="hero-actions">
@@ -1272,7 +1381,14 @@
             </section>
 
             <section class="stats" id="stats"></section>
-            <nav class="mtabs" id="mtabs" aria-label="Chuyên ngành"></nav>
+            <section class="panel pick">
+                <div class="pk-h">
+                    <div class="search"><i data-lucide="search"></i><input type="search" id="mq"
+                            placeholder="Tìm chuyên ngành (tên hoặc mã)" aria-label="Tìm chuyên ngành"></div>
+                    <div class="facs" id="facs"></div>
+                </div>
+                <nav class="mtabs" id="mtabs" aria-label="Chuyên ngành"></nav>
+            </section>
 
             <section class="panel">
                 <div class="p-head">
@@ -1339,7 +1455,9 @@
                     <div class="opts">
                         <label class="opt"><input type="radio" name="scope" value="one" checked><span>Chỉ chuyên ngành
                                 đang chọn<small id="scopeOne"></small></span></label>
-                        <label class="opt"><input type="radio" name="scope" value="all"><span>Tất cả 5 chuyên
+                        <label class="opt"><input type="radio" name="scope" value="fac"><span>Cả khoa của ngành đang
+                                chọn<small id="scopeFac"></small></span></label>
+                        <label class="opt"><input type="radio" name="scope" value="all"><span>Tất cả 30 chuyên
                                 ngành<small>Chạy lần lượt từng ngành, mỗi ngành tối đa 20 lớp</small></span></label>
                     </div>
                 </div>
@@ -1375,13 +1493,14 @@
             style="display:none">Hoàn tác</button></div>
 
     <script>
-        const MAJORS = [
-            { c: 'KTPM', n: 'Kỹ thuật phần mềm', p: 'SE', total: 640, nc: 20 },
-            { c: 'QTKD', n: 'Quản trị kinh doanh', p: 'BA', total: 520, nc: 18 },
-            { c: 'TKDH', n: 'Thiết kế đồ họa', p: 'GD', total: 250, nc: 9 },
-            { c: 'HTTT', n: 'Hệ thống thông tin', p: 'IS', total: 330, nc: 11 },
-            { c: 'CNTT', n: 'Công nghệ thông tin', p: 'IT', total: 360, nc: 12 }
-        ];
+        const FAC = [['Công nghệ thông tin', [['KTPM', 'Kỹ thuật phần mềm', 'SE'], ['CNTT', 'Công nghệ thông tin', 'IT'], ['KHMT', 'Khoa học máy tính', 'CS'], ['HTTT', 'Hệ thống thông tin', 'IS'], ['TTNT', 'Trí tuệ nhân tạo', 'AI'], ['ATTT', 'An toàn thông tin', 'SC']]],
+        ['Kinh tế - Quản trị', [['QTKD', 'Quản trị kinh doanh', 'BA'], ['KT', 'Kế toán', 'AC'], ['TCNH', 'Tài chính - Ngân hàng', 'FN'], ['KDQT', 'Kinh doanh quốc tế', 'IB'], ['LOG', 'Logistics & Chuỗi cung ứng', 'LG'], ['DMK', 'Digital Marketing', 'DM'], ['LKT', 'Luật kinh tế', 'LW']]],
+        ['Ngoại ngữ - Truyền thông', [['NNA', 'Ngôn ngữ Anh', 'EN'], ['NNN', 'Ngôn ngữ Nhật', 'JP'], ['NNH', 'Ngôn ngữ Hàn Quốc', 'KR'], ['NNT', 'Ngôn ngữ Trung Quốc', 'CN'], ['TTDPT', 'Truyền thông ĐPT', 'MC'], ['QHCC', 'Quan hệ công chúng', 'PR'], ['TKDH', 'Thiết kế đồ họa', 'GD']]],
+        ['Kỹ thuật - Công nghệ', [['DDT', 'Kỹ thuật điện - điện tử', 'EE'], ['CKCT', 'Cơ khí chế tạo máy', 'ME'], ['CNOT', 'Công nghệ ô tô', 'AU'], ['KTXD', 'Kỹ thuật xây dựng', 'CE'], ['KTR', 'Kiến trúc', 'AR']]],
+        ['Du lịch - Dịch vụ', [['QTKS', 'Quản trị khách sạn', 'HM'], ['DLLH', 'Du lịch & Lữ hành', 'TM']]],
+        ['Sức khỏe - Xã hội', [['TLH', 'Tâm lý học', 'PS'], ['DH', 'Dược học', 'PH'], ['DD', 'Điều dưỡng', 'NU']]]];
+        const MAJORS = []; FAC.forEach((F, fi) => F[1].forEach(m => { const i = MAJORS.length, nc = 6 + (i * 7) % 15; MAJORS.push({ c: m[0], n: m[1], p: m[2], f: fi, nc, total: nc * 30 + (i * 13) % 50 - 15 }) }));
+        const norm = x => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').toLowerCase();
         const MAXCLASS = 20, STT = { 'hoc-di': 'Học đi', 'hoc-lai': 'Học lại', 'hoc-vuot': 'Học vượt', 'cai-thien': 'Cải thiện' };
         const $ = id => document.getElementById(id), pad = n => String(n).padStart(2, '0'), fmt = n => n.toLocaleString('vi-VN');
         const mj = c => MAJORS.find(m => m.c === c);
@@ -1394,7 +1513,7 @@
         const DEM = ['Văn', 'Thị', 'Minh', 'Hữu', 'Ngọc', 'Quang', 'Đức', 'Hoàng', 'Thanh', 'Xuân', 'Phương', 'Bảo', 'Anh', 'Hải', 'Tuấn'];
         const TEN = ['An', 'Bình', 'Chi', 'Dũng', 'Giang', 'Hà', 'Hương', 'Khoa', 'Lan', 'Linh', 'Long', 'Mai', 'Nam', 'Phúc', 'Quân', 'Sơn', 'Tâm', 'Thảo', 'Trinh', 'Trung', 'Uyên', 'Vy', 'Yến', 'Đạt', 'Hiếu', 'Khánh'];
         const STW = ['hoc-di', 'hoc-di', 'hoc-di', 'hoc-di', 'hoc-di', 'hoc-lai', 'cai-thien', 'cai-thien', 'hoc-vuot'];
-        function buildClasses() { MAJORS.forEach(m => { classes[m.c] = Array.from({ length: m.nc }, (_, i) => ({ code: m.p + '19' + pad(i + 1), cap: CAP })) }) }
+        function buildClasses() { MAJORS.forEach(m => { classes[m.c] = Array.from({ length: m.nc }, (_, i) => ({ code: m.p + '20' + pad(i + 1), cap: CAP })) }) }
         function recalc() {
             cmap = {}; C = { cls: {}, maj: {} };
             MAJORS.forEach(m => { C.maj[m.c] = { pending: 0, assigned: 0, wait: 0 }; classes[m.c].forEach(k => { cmap[k.code] = k; C.cls[k.code] = 0 }) });
@@ -1460,7 +1579,7 @@
         }
 
         /* ---------- Giao diện ---------- */
-        const ui = { major: 'KTPM', tab: 'pending', q: '', stt: '', page: 1, per: 25, sel: new Set(), viewCls: null };
+        const ui = { fac: '0', mq: '', major: 'KTPM', tab: 'pending', q: '', stt: '', page: 1, per: 25, sel: new Set(), viewCls: null };
         const TABS = [['pending', 'Chưa phân bổ'], ['assigned', 'Đã xếp lớp'], ['wait', 'Danh sách chờ']];
         const rowState = s => s.st === 'assigned' ? 'assigned' : s.st;
 
@@ -1472,16 +1591,19 @@
             return r;
         }
         function render() {
-            const M = mj(ui.major), cm = C.maj[ui.major], tot = S.length;
-            const A = Object.values(C.maj).reduce((x, y) => x + y.assigned, 0), W = Object.values(C.maj).reduce((x, y) => x + y.wait, 0), P = tot - A - W;
+            const M = mj(ui.major), cm = C.maj[ui.major], tot = cm.assigned + cm.pending + cm.wait;
+            const A = cm.assigned, W = cm.wait, P = cm.pending, GP = Object.values(C.maj).reduce((x, y) => x + y.pending, 0);
             $('capText').textContent = CAP;
             $('stats').innerHTML = [
-                ['blue', 'users', 'Tổng sinh viên', fmt(tot), 'Học kỳ 2 - 2026'],
+                ['blue', 'users', 'Sinh viên ngành ' + M.c, fmt(tot), 'Khóa 20 · ' + M.n],
                 ['green', 'check-circle', "Đã xếp lớp", fmt(A), (A / tot * 100).toFixed(1) + '% hoàn thành'],
-                ['orange', 'clock', 'Chưa phân bổ', fmt(P), 'Cần xử lý'],
+                ['orange', 'clock', 'Chưa phân bổ', fmt(P), 'Toàn trường còn ' + fmt(GP) + ' SV'],
                 ['purple', 'hourglass', 'Danh sách chờ', fmt(W), 'Lớp đầy, chờ chỗ trống']
             ].map(s => `<div class="stat"><div class="stat-ic ${s[0]}"><i data-lucide="${s[1]}"></i></div><div><div class="stat-l">${s[2]}</div><div class="stat-v">${s[3]}</div><div class="stat-s">${s[4]}</div></div></div>`).join('');
-            $('mtabs').innerHTML = MAJORS.map(m => { const c = C.maj[m.c]; return `<button class="mtab ${m.c === ui.major ? 'on' : ''}" data-m="${m.c}">${m.n}<small>${c.assigned + c.pending + c.wait}</small>${c.wait ? `<small class="wl" title="Đang chờ">${c.wait} chờ</small>` : ''}</button>` }).join('');
+            const fp = {}; MAJORS.forEach(m => { fp[m.f] = (fp[m.f] || 0) + C.maj[m.c].pending });
+            $('facs').innerHTML = `<button class="fchip ${ui.fac === '' ? 'on' : ''}" data-f="">Tất cả khoa<small>${fmt(GP)}</small></button>` + FAC.map((F, i) => `<button class="fchip ${ui.fac === String(i) ? 'on' : ''}" data-f="${i}">${F[0]}<small>${fmt(fp[i])}</small></button>`).join('');
+            const mq = norm(ui.mq.trim()), ML = MAJORS.filter(m => (ui.fac === '' || String(m.f) === ui.fac) && (!mq || norm(m.n + ' ' + m.c).includes(mq)));
+            $('mtabs').innerHTML = ML.map(m => { const c = C.maj[m.c]; return `<button class="mtab ${m.c === ui.major ? 'on' : ''}" data-m="${m.c}">${m.n}<small class="${c.pending ? 'pn' : 'ok'}">${c.pending ? fmt(c.pending) + ' chưa xếp' : 'đủ'}</small>${c.wait ? `<small class="wl" title="Đang chờ">${c.wait} chờ</small>` : ''}</button>` }).join('') || '<div class="empty">Không có chuyên ngành phù hợp.</div>';
 
             const cl = classes[ui.major], seats = cl.reduce((s, k) => s + k.cap, 0);
             $('clsSub').textContent = `${cl.length}/${MAXCLASS} lớp · ${fmt(cm.assigned)}/${fmt(seats)} chỗ đã dùng`;
@@ -1526,6 +1648,8 @@
 
         /* ---------- Sự kiện ---------- */
         $('mtabs').onclick = e => { const b = e.target.closest('[data-m]'); if (!b) return; ui.major = b.dataset.m; ui.sel.clear(); ui.viewCls = null; ui.page = 1; render() };
+        $('facs').onclick = e => { const b = e.target.closest('[data-f]'); if (!b) return; ui.fac = b.dataset.f; const l = MAJORS.filter(m => ui.fac === '' || String(m.f) === ui.fac); if (l.length && !l.some(m => m.c === ui.major)) { ui.major = l[0].c; ui.sel.clear(); ui.viewCls = null; ui.page = 1 } render() };
+        $('mq').oninput = e => { ui.mq = e.target.value; render() };
         $('tabs').onclick = e => { const b = e.target.closest('[data-t]'); if (!b) return; ui.tab = b.dataset.t; ui.sel.clear(); ui.page = 1; if (ui.tab !== 'assigned') ui.viewCls = null; render() };
         $('cgrid').onclick = e => { const b = e.target.closest('[data-c]'); if (!b) return; const c = b.dataset.c; ui.viewCls = ui.viewCls === c ? null : c; if (ui.viewCls) { ui.tab = 'assigned'; ui.sel.clear(); ui.page = 1 } render(); if (ui.viewCls) $('tgt').value = c };
         $('viewChip').onclick = e => { if (e.target.closest('[data-clear]')) { ui.viewCls = null; ui.page = 1; render() } };
@@ -1549,18 +1673,18 @@
             if (id === 'doRemove') { snap(); ids.forEach(i => setSt(S[i], 'pending')); const up = promote(ui.major); ui.sel.clear(); render(); toast(`Đã bỏ phân bổ ${fmt(ids.length)} SV` + (up ? ` · ${up} SV từ DS chờ vào chỗ trống` : ''), false, true) }
             if (id === 'doPromote') { snap(); const n = promote(ui.major); render(); toast(`Đã xếp ${n} SV từ danh sách chờ vào lớp`, false, true) }
             if (id === 'doCreateClassWait') {
-                snap(); const cl = classes[ui.major]; const m = mj(ui.major), code = m.p + '19' + pad(cl.length + 1); cl.push({ code, cap: CAP }); recalc(); const up = promote(ui.major); render(); toast(`Đã tạo lớp mới ${code}` + (up ? ` · ${up} SV từ DS chờ được xếp vào` : ''), false, true);
+                snap(); const cl = classes[ui.major]; const m = mj(ui.major), code = m.p + '20' + pad(cl.length + 1); cl.push({ code, cap: CAP }); recalc(); const up = promote(ui.major); render(); toast(`Đã tạo lớp mới ${code}` + (up ? ` · ${up} SV từ DS chờ được xếp vào` : ''), false, true);
             }
         };
         $('addCls').onclick = () => {
             const cl = classes[ui.major]; if (cl.length >= MAXCLASS && ui.tab !== 'wait') return;
-            snap(); const m = mj(ui.major), code = m.p + '19' + pad(cl.length + 1); cl.push({ code, cap: CAP }); recalc(); const up = promote(ui.major);
+            snap(); const m = mj(ui.major), code = m.p + '20' + pad(cl.length + 1); cl.push({ code, cap: CAP }); recalc(); const up = promote(ui.major);
             render(); toast(`Đã thêm lớp ${code}` + (up ? ` · ${up} SV từ DS chờ được xếp vào` : ''), false, true);
         };
 
         /* ---------- Phân bổ tự động ---------- */
         const opt = n => document.querySelector(`input[name="${n}"]:checked`).value;
-        function scopeMajors() { return opt('scope') === 'all' ? MAJORS.map(m => m.c) : [ui.major] }
+        function scopeMajors() { const v = opt('scope'); return v === 'all' ? MAJORS.map(m => m.c) : v === 'fac' ? MAJORS.filter(m => m.f === mj(ui.major).f).map(m => m.c) : [ui.major] }
         function preview() {
             const cap = Math.min(40, Math.max(20, +$('capIn').value || 30)), mode = opt('mode');
             let html = '', tA = 0, tW = 0;
@@ -1570,10 +1694,11 @@
                 const a = Math.min(pool, seats), w = pool - a; tA += a; tW += w;
                 html += `<div class="row"><span>${mj(mc).n} (${classes[mc].length} lớp)</span><span>${fmt(a)} vào lớp${w ? ` · <b class="w">${fmt(w)} vào DS chờ</b>` : ''}</span></div>`;
             });
+            if (scopeMajors().length > 8) html = `<div class="row"><span>${scopeMajors().length} chuyên ngành</span><span></span></div>`;
             $('preview').innerHTML = `<b>Dự kiến kết quả</b>${html}<div class="row"><b>Tổng</b><b>${fmt(tA)} xếp lớp · ${fmt(tW)} chờ</b></div>`;
         }
         function openModal() {
-            $('scopeOne').textContent = mj(ui.major).n + ` · tối đa ${MAXCLASS} lớp`; $('capIn').value = CAP;
+            $('scopeFac').textContent = FAC[mj(ui.major).f][0] + ' · ' + MAJORS.filter(m => m.f === mj(ui.major).f).length + ' ngành'; $('scopeOne').textContent = mj(ui.major).n + ` · tối đa ${MAXCLASS} lớp`; $('capIn').value = CAP;
             $('progress').style.display = 'none'; $('run').disabled = false; preview(); $('modal').classList.add('open');
         }
         const closeModal = () => $('modal').classList.remove('open');
@@ -1587,7 +1712,7 @@
             const bar = $('progress').firstElementChild; bar.style.width = '0';
             let i = 0; const out = [];
             (function step() {
-                if (i < majors.length) { out.push(...runAuto([majors[i]], cap, strat, mode)); i++; bar.style.width = (i / majors.length * 100) + '%'; setTimeout(step, 350) }
+                if (i < majors.length) { out.push(...runAuto([majors[i]], cap, strat, mode)); i++; bar.style.width = (i / majors.length * 100) + '%'; setTimeout(step, 60) }
                 else {
                     const a = out.reduce((s, r) => s + r.a, 0), w = out.reduce((s, r) => s + r.w, 0);
                     ui.sel.clear(); ui.viewCls = null; ui.page = 1;

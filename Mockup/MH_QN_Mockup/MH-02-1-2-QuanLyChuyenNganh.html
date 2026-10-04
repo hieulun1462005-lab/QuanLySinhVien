@@ -1557,11 +1557,76 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+        }
+    </style>
+    <style id="seed-badges">
+        .major-badge.ia {
+            background: #FCE7F3;
+            color: #9D174D
+        }
+
+        .major-badge.mkt {
+            background: #FFEDD5;
+            color: #9A3412
+        }
+
+        .major-badge.el {
+            background: #E0E7FF;
+            color: #3730A3
+        }
+
+        html[data-theme="dark"] .major-badge.ia {
+            background: color-mix(in srgb, #FCE7F3 17%, #0F1B2A) !important;
+            color: color-mix(in srgb, #9D174D 38%, #fff) !important
+        }
+
+        html[data-theme="dark"] .major-badge.mkt {
+            background: color-mix(in srgb, #FFEDD5 17%, #0F1B2A) !important;
+            color: color-mix(in srgb, #9A3412 38%, #fff) !important
+        }
+
+        html[data-theme="dark"] .major-badge.el {
+            background: color-mix(in srgb, #E0E7FF 17%, #0F1B2A) !important;
+            color: color-mix(in srgb, #3730A3 38%, #fff) !important
+        }
     </style>
 </head>
 
@@ -1672,19 +1737,19 @@
                     <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
                     <div class="category-icon"><i data-lucide="graduation-cap" size="28"></i></div>
                     <div class="category-label">Giảng viên</div>
-                    <div class="category-count" id="countLecturer">2 giảng viên</div>
+                    <div class="category-count" id="countLecturer">24 giảng viên</div>
                 </div>
                 <div class="category-card card-major" onclick="switchCategory('major')" id="cardMajor">
                     <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
                     <div class="category-icon"><i data-lucide="git-branch" size="28"></i></div>
                     <div class="category-label">Chuyên ngành</div>
-                    <div class="category-count" id="countMajor">2 chuyên ngành</div>
+                    <div class="category-count" id="countMajor">6 chuyên ngành</div>
                 </div>
                 <div class="category-card card-subject" onclick="switchCategory('subject')" id="cardSubject">
                     <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
                     <div class="category-icon"><i data-lucide="book-text" size="28"></i></div>
                     <div class="category-label">Môn học</div>
-                    <div class="category-count" id="countSubject">2 môn học</div>
+                    <div class="category-count" id="countSubject">73 môn học</div>
                 </div>
             </div>
 
@@ -1723,6 +1788,7 @@
                                 <option value="Công nghệ thông tin">Công nghệ thông tin</option>
                                 <option value="Kinh tế">Kinh tế</option>
                                 <option value="Ngôn ngữ Anh">Ngôn ngữ Anh</option>
+                                <option value="Khoa học cơ bản">Khoa học cơ bản</option>
                             </select>
                         </div>
                         <div class="toolbar-right">
@@ -1751,13 +1817,10 @@
                                 <td>hungnv@onenet.edu.vn</td>
                                 <td>0988123456</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"
-                                            onclick="showError('fkAlert')"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
                                 </td>
                             </tr>
                             <tr>
@@ -1767,13 +1830,296 @@
                                 <td>maitt@onenet.edu.vn</td>
                                 <td>0909123456</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"
-                                            onclick="showError('fkAlert')"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV003</span></td>
+                                <td style="font-weight: 600;">TS. Lê Văn Khải</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>khailv@onenet.edu.vn</td>
+                                <td>0863530829</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV004</span></td>
+                                <td style="font-weight: 600;">ThS. Phạm Minh Tuấn</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>tuanpm@onenet.edu.vn</td>
+                                <td>0881810111</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV005</span></td>
+                                <td style="font-weight: 600;">ThS. Hoàng Thị Lan Anh</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>anhhtl@onenet.edu.vn</td>
+                                <td>0919990608</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV006</span></td>
+                                <td style="font-weight: 600;">TS. Đặng Quốc Bảo</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>baodq@onenet.edu.vn</td>
+                                <td>0917135241</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV007</span></td>
+                                <td style="font-weight: 600;">ThS. Vũ Đức Thịnh</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>thinhvd@onenet.edu.vn</td>
+                                <td>0381973060</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV008</span></td>
+                                <td style="font-weight: 600;">ThS. Ngô Thanh Hà</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>hant@onenet.edu.vn</td>
+                                <td>0354602037</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV009</span></td>
+                                <td style="font-weight: 600;">TS. Bùi Anh Khoa</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>khoaba@onenet.edu.vn</td>
+                                <td>0902441955</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV010</span></td>
+                                <td style="font-weight: 600;">ThS. Đỗ Thị Hương</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>huongdt@onenet.edu.vn</td>
+                                <td>0888015764</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV011</span></td>
+                                <td style="font-weight: 600;">ThS. Trương Hoài Nam</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>namth@onenet.edu.vn</td>
+                                <td>0915037655</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV012</span></td>
+                                <td style="font-weight: 600;">ThS. Lý Gia Huy</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>huylg@onenet.edu.vn</td>
+                                <td>0918122250</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV013</span></td>
+                                <td style="font-weight: 600;">TS. Nguyễn Thị Thu Hà</td>
+                                <td>Kinh tế</td>
+                                <td>hantt@onenet.edu.vn</td>
+                                <td>0903077052</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV014</span></td>
+                                <td style="font-weight: 600;">ThS. Phan Văn Long</td>
+                                <td>Kinh tế</td>
+                                <td>longpv@onenet.edu.vn</td>
+                                <td>0972037872</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV015</span></td>
+                                <td style="font-weight: 600;">ThS. Đinh Ngọc Linh</td>
+                                <td>Kinh tế</td>
+                                <td>linhdn@onenet.edu.vn</td>
+                                <td>0387655194</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV016</span></td>
+                                <td style="font-weight: 600;">TS. Võ Minh Châu</td>
+                                <td>Kinh tế</td>
+                                <td>chauvm@onenet.edu.vn</td>
+                                <td>0904709137</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV017</span></td>
+                                <td style="font-weight: 600;">ThS. Cao Thị Bích Ngọc</td>
+                                <td>Kinh tế</td>
+                                <td>ngocctb@onenet.edu.vn</td>
+                                <td>0903234302</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV018</span></td>
+                                <td style="font-weight: 600;">ThS. Lương Thu Trang</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>tranglt@onenet.edu.vn</td>
+                                <td>0988031986</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV019</span></td>
+                                <td style="font-weight: 600;">TS. Dương Hải Yến</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>yendh@onenet.edu.vn</td>
+                                <td>0932976225</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV020</span></td>
+                                <td style="font-weight: 600;">ThS. Tạ Quang Vinh</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>vinhtq@onenet.edu.vn</td>
+                                <td>0386175466</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV021</span></td>
+                                <td style="font-weight: 600;">ThS. Mai Phương Thảo</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>thaomp@onenet.edu.vn</td>
+                                <td>0354032085</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV022</span></td>
+                                <td style="font-weight: 600;">TS. Hồ Quang Minh</td>
+                                <td>Khoa học cơ bản</td>
+                                <td>minhhq@onenet.edu.vn</td>
+                                <td>0914151952</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV023</span></td>
+                                <td style="font-weight: 600;">ThS. Lâm Thị Diệu</td>
+                                <td>Khoa học cơ bản</td>
+                                <td>dieult@onenet.edu.vn</td>
+                                <td>0862634613</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV024</span></td>
+                                <td style="font-weight: 600;">ThS. Kiều Anh Tú</td>
+                                <td>Khoa học cơ bản</td>
+                                <td>tuka@onenet.edu.vn</td>
+                                <td>0352053424</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
                                 </td>
                             </tr>
                         </tbody>
@@ -1830,12 +2176,10 @@
                                 <td style="font-weight: 600;">Kỹ thuật phần mềm (Software Engineering)</td>
                                 <td>Đào tạo kỹ sư phát triển phần mềm chuyên nghiệp</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
                                 </td>
                             </tr>
                             <tr onclick="openMajorClassesModal('AI', 'Trí tuệ nhân tạo (Artificial Intelligence)', event)"
@@ -1844,12 +2188,58 @@
                                 <td style="font-weight: 600;">Trí tuệ nhân tạo (Artificial Intelligence)</td>
                                 <td>Nghiên cứu ứng dụng AI, Machine Learning</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr onclick="openMajorClassesModal('IA', 'An toàn thông tin (Information Assurance)', event)"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">IA</span></td>
+                                <td style="font-weight: 600;">An toàn thông tin (Information Assurance)</td>
+                                <td>Đào tạo chuyên gia bảo mật, an ninh mạng và điều tra số</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr onclick="openMajorClassesModal('IB', 'Kinh doanh quốc tế (International Business)', event)"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">IB</span></td>
+                                <td style="font-weight: 600;">Kinh doanh quốc tế (International Business)</td>
+                                <td>Đào tạo nhà quản trị kinh doanh, thương mại và tài chính quốc tế</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr onclick="openMajorClassesModal('MKT', 'Marketing số (Digital Marketing)', event)"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">MKT</span></td>
+                                <td style="font-weight: 600;">Marketing số (Digital Marketing)</td>
+                                <td>Đào tạo chuyên viên marketing số, truyền thông và quản trị thương hiệu</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr onclick="openMajorClassesModal('EL', 'Ngôn ngữ Anh (English Language)', event)"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">EL</span></td>
+                                <td style="font-weight: 600;">Ngôn ngữ Anh (English Language)</td>
+                                <td>Đào tạo cử nhân ngôn ngữ Anh: biên phiên dịch, giảng dạy, tiếng Anh thương mại</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
                                 </td>
                             </tr>
                         </tbody>
@@ -1888,12 +2278,16 @@
                                 <option value="SE">Kỹ thuật phần mềm (SE)</option>
                                 <option value="AI">Trí tuệ nhân tạo (AI)</option>
                                 <option value="IB">Kinh doanh quốc tế (IB)</option>
+                                <option value="IA">An toàn thông tin (IA)</option>
+                                <option value="MKT">Marketing số (MKT)</option>
+                                <option value="EL">Ngôn ngữ Anh (EL)</option>
                             </select>
                             <select class="filter-select" id="filterSubjectCredits" onchange="filterSubject()">
                                 <option value="">Tất cả tín chỉ</option>
                                 <option value="2">2 tín chỉ</option>
                                 <option value="3">3 tín chỉ</option>
                                 <option value="4">4 tín chỉ</option>
+                                <option value="10">10 tín chỉ</option>
                             </select>
                         </div>
                         <div class="toolbar-right">
@@ -1914,38 +2308,902 @@
                             </tr>
                         </thead>
                         <tbody id="subjectTableBody">
-                            <tr data-major="SE,AI" data-credits="3">
+                            <tr data-major="SE,AI,IA" data-credits="3">
                                 <td><span class="code-badge">PRF192</span></td>
                                 <td style="font-weight: 600;">Programming Fundamentals</td>
                                 <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
                                 <td>
-                                    <span class="major-badge se">SE</span>
-                                    <span class="major-badge ai">AI</span>
-                                </td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
                                 </td>
                             </tr>
-                            <tr data-major="SE,AI" data-credits="3">
+                            <tr data-major="SE,AI,IA" data-credits="3">
                                 <td><span class="code-badge">PRO192</span></td>
                                 <td style="font-weight: 600;">Object-Oriented Programming</td>
                                 <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
                                 <td>
-                                    <span class="major-badge se">SE</span>
-                                    <span class="major-badge ai">AI</span>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
                                 </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="3">
+                                <td><span class="code-badge">DBI202</span></td>
+                                <td style="font-weight: 600;">Introduction to Databases</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE" data-credits="3">
+                                <td><span class="code-badge">PRN212</span></td>
+                                <td style="font-weight: 600;">Basis Cross-Platform Application Programming With .NET
+                                </td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA,IB,MKT,EL" data-credits="2">
+                                <td><span class="code-badge">SSL101C</span></td>
+                                <td style="font-weight: 600;">Academic Skills for University Success</td>
+                                <td>2</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span> <span class="major-badge ib">IB</span> <span
+                                        class="major-badge mkt">MKT</span> <span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="3">
+                                <td><span class="code-badge">MAD101</span></td>
+                                <td style="font-weight: 600;">Discrete Mathematics</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="3">
+                                <td><span class="code-badge">MAE101</span></td>
+                                <td style="font-weight: 600;">Mathematics for Engineering</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="3">
+                                <td><span class="code-badge">CSI104</span></td>
+                                <td style="font-weight: 600;">Introduction to Computing</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA,IB,MKT,EL" data-credits="2">
+                                <td><span class="code-badge">SSG104</span></td>
+                                <td style="font-weight: 600;">Communication and In-Group Working Skills</td>
+                                <td>2</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span> <span class="major-badge ib">IB</span> <span
+                                        class="major-badge mkt">MKT</span> <span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="3">
+                                <td><span class="code-badge">NWC203C</span></td>
+                                <td style="font-weight: 600;">Computer Networking</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="3">
+                                <td><span class="code-badge">OSG202</span></td>
+                                <td style="font-weight: 600;">Operating Systems</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="3">
+                                <td><span class="code-badge">CEA201</span></td>
+                                <td style="font-weight: 600;">Computer Organization and Architecture</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="3">
+                                <td><span class="code-badge">CSD201</span></td>
+                                <td style="font-weight: 600;">Data Structures and Algorithms</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="3">
+                                <td><span class="code-badge">MAS291</span></td>
+                                <td style="font-weight: 600;">Statistics and Probability</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="3">
+                                <td><span class="code-badge">PMG201C</span></td>
+                                <td style="font-weight: 600;">Project Management</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA" data-credits="2">
+                                <td><span class="code-badge">EXE101</span></td>
+                                <td style="font-weight: 600;">Experiential Entrepreneurship</td>
+                                <td>2</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE,AI,IA,IB,MKT,EL" data-credits="10">
+                                <td><span class="code-badge">OJT202</span></td>
+                                <td style="font-weight: 600;">On-the-Job Training</td>
+                                <td>10</td>
+                                <td><span class="major-badge se">SE</span> <span class="major-badge ai">AI</span> <span
+                                        class="major-badge ia">IA</span> <span class="major-badge ib">IB</span> <span
+                                        class="major-badge mkt">MKT</span> <span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE" data-credits="3">
+                                <td><span class="code-badge">SWE201C</span></td>
+                                <td style="font-weight: 600;">Introduction to Software Engineering</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE" data-credits="3">
+                                <td><span class="code-badge">PRJ301</span></td>
+                                <td style="font-weight: 600;">Java Web Application Development</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE" data-credits="4">
+                                <td><span class="code-badge">PRN222</span></td>
+                                <td style="font-weight: 600;">Advanced Cross-Platform Application Programming With .NET
+                                </td>
+                                <td>4</td>
+                                <td><span class="major-badge se">SE</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE" data-credits="3">
+                                <td><span class="code-badge">SWR302</span></td>
+                                <td style="font-weight: 600;">Software Requirements</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE" data-credits="3">
+                                <td><span class="code-badge">SWT301</span></td>
+                                <td style="font-weight: 600;">Software Testing</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE" data-credits="3">
+                                <td><span class="code-badge">SWP391</span></td>
+                                <td style="font-weight: 600;">Application Development Project</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE" data-credits="3">
+                                <td><span class="code-badge">SWD392</span></td>
+                                <td style="font-weight: 600;">Software Architecture and Design</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE" data-credits="3">
+                                <td><span class="code-badge">PRM392</span></td>
+                                <td style="font-weight: 600;">Mobile Programming</td>
+                                <td>3</td>
+                                <td><span class="major-badge se">SE</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="SE" data-credits="10">
+                                <td><span class="code-badge">SEP490</span></td>
+                                <td style="font-weight: 600;">SE Capstone Project</td>
+                                <td>10</td>
+                                <td><span class="major-badge se">SE</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="AI" data-credits="3">
+                                <td><span class="code-badge">PFP191</span></td>
+                                <td style="font-weight: 600;">Programming Fundamentals with Python</td>
+                                <td>3</td>
+                                <td><span class="major-badge ai">AI</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="AI" data-credits="3">
+                                <td><span class="code-badge">MAI391</span></td>
+                                <td style="font-weight: 600;">Mathematics for Machine Learning</td>
+                                <td>3</td>
+                                <td><span class="major-badge ai">AI</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="AI" data-credits="3">
+                                <td><span class="code-badge">AIL303M</span></td>
+                                <td style="font-weight: 600;">Machine Learning</td>
+                                <td>3</td>
+                                <td><span class="major-badge ai">AI</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="AI" data-credits="3">
+                                <td><span class="code-badge">DMA301M</span></td>
+                                <td style="font-weight: 600;">Data Mining</td>
+                                <td>3</td>
+                                <td><span class="major-badge ai">AI</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="AI" data-credits="4">
+                                <td><span class="code-badge">DPL302M</span></td>
+                                <td style="font-weight: 600;">Deep Learning</td>
+                                <td>4</td>
+                                <td><span class="major-badge ai">AI</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="AI" data-credits="3">
+                                <td><span class="code-badge">CPV301</span></td>
+                                <td style="font-weight: 600;">Computer Vision</td>
+                                <td>3</td>
+                                <td><span class="major-badge ai">AI</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="AI" data-credits="3">
+                                <td><span class="code-badge">NLP301C</span></td>
+                                <td style="font-weight: 600;">Natural Language Processing</td>
+                                <td>3</td>
+                                <td><span class="major-badge ai">AI</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="AI" data-credits="10">
+                                <td><span class="code-badge">AIP490</span></td>
+                                <td style="font-weight: 600;">AI Capstone Project</td>
+                                <td>10</td>
+                                <td><span class="major-badge ai">AI</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IA" data-credits="3">
+                                <td><span class="code-badge">INS301</span></td>
+                                <td style="font-weight: 600;">Introduction to Information Security</td>
+                                <td>3</td>
+                                <td><span class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IA" data-credits="3">
+                                <td><span class="code-badge">CRY303</span></td>
+                                <td style="font-weight: 600;">Cryptography</td>
+                                <td>3</td>
+                                <td><span class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IA" data-credits="3">
+                                <td><span class="code-badge">IAM302</span></td>
+                                <td style="font-weight: 600;">Identity and Access Management</td>
+                                <td>3</td>
+                                <td><span class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IA" data-credits="3">
+                                <td><span class="code-badge">SDC301</span></td>
+                                <td style="font-weight: 600;">Secure Coding</td>
+                                <td>3</td>
+                                <td><span class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IA" data-credits="3">
+                                <td><span class="code-badge">PEN301</span></td>
+                                <td style="font-weight: 600;">Penetration Testing</td>
+                                <td>3</td>
+                                <td><span class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IA" data-credits="3">
+                                <td><span class="code-badge">FOR302</span></td>
+                                <td style="font-weight: 600;">Digital Forensics</td>
+                                <td>3</td>
+                                <td><span class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IA" data-credits="10">
+                                <td><span class="code-badge">IAP490</span></td>
+                                <td style="font-weight: 600;">IA Capstone Project</td>
+                                <td>10</td>
+                                <td><span class="major-badge ia">IA</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB,MKT" data-credits="3">
+                                <td><span class="code-badge">MKT101</span></td>
+                                <td style="font-weight: 600;">Marketing Principles</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span> <span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB,MKT" data-credits="3">
+                                <td><span class="code-badge">MGT103</span></td>
+                                <td style="font-weight: 600;">Introduction to Management</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span> <span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB,MKT" data-credits="3">
+                                <td><span class="code-badge">ECO111</span></td>
+                                <td style="font-weight: 600;">Microeconomics</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span> <span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB,MKT" data-credits="3">
+                                <td><span class="code-badge">ACC101</span></td>
+                                <td style="font-weight: 600;">Principles of Accounting</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span> <span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB,MKT" data-credits="3">
+                                <td><span class="code-badge">ECO121</span></td>
+                                <td style="font-weight: 600;">Macroeconomics</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span> <span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB,MKT" data-credits="3">
+                                <td><span class="code-badge">FIN201</span></td>
+                                <td style="font-weight: 600;">Corporate Finance</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span> <span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB" data-credits="3">
+                                <td><span class="code-badge">INB301</span></td>
+                                <td style="font-weight: 600;">International Business</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB" data-credits="3">
+                                <td><span class="code-badge">ITR301</span></td>
+                                <td style="font-weight: 600;">International Trade</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB" data-credits="3">
+                                <td><span class="code-badge">IFM301</span></td>
+                                <td style="font-weight: 600;">International Finance</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB" data-credits="3">
+                                <td><span class="code-badge">SCM301</span></td>
+                                <td style="font-weight: 600;">Supply Chain Management</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB" data-credits="3">
+                                <td><span class="code-badge">BLW301</span></td>
+                                <td style="font-weight: 600;">International Business Law</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB" data-credits="3">
+                                <td><span class="code-badge">NEG301</span></td>
+                                <td style="font-weight: 600;">Business Negotiation</td>
+                                <td>3</td>
+                                <td><span class="major-badge ib">IB</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="IB" data-credits="10">
+                                <td><span class="code-badge">IBP490</span></td>
+                                <td style="font-weight: 600;">IB Capstone Project</td>
+                                <td>10</td>
+                                <td><span class="major-badge ib">IB</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="MKT" data-credits="3">
+                                <td><span class="code-badge">CBH301</span></td>
+                                <td style="font-weight: 600;">Consumer Behavior</td>
+                                <td>3</td>
+                                <td><span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="MKT" data-credits="3">
+                                <td><span class="code-badge">DMK301</span></td>
+                                <td style="font-weight: 600;">Digital Marketing</td>
+                                <td>3</td>
+                                <td><span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="MKT" data-credits="3">
+                                <td><span class="code-badge">MRE301</span></td>
+                                <td style="font-weight: 600;">Marketing Research</td>
+                                <td>3</td>
+                                <td><span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="MKT" data-credits="3">
+                                <td><span class="code-badge">BRD301</span></td>
+                                <td style="font-weight: 600;">Brand Management</td>
+                                <td>3</td>
+                                <td><span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="MKT" data-credits="3">
+                                <td><span class="code-badge">SMM301</span></td>
+                                <td style="font-weight: 600;">Social Media Marketing</td>
+                                <td>3</td>
+                                <td><span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="MKT" data-credits="3">
+                                <td><span class="code-badge">CMK301</span></td>
+                                <td style="font-weight: 600;">Content Marketing</td>
+                                <td>3</td>
+                                <td><span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="MKT" data-credits="3">
+                                <td><span class="code-badge">SEM301</span></td>
+                                <td style="font-weight: 600;">SEO and Search Engine Marketing</td>
+                                <td>3</td>
+                                <td><span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="MKT" data-credits="10">
+                                <td><span class="code-badge">MKP490</span></td>
+                                <td style="font-weight: 600;">Digital Marketing Capstone Project</td>
+                                <td>10</td>
+                                <td><span class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL" data-credits="3">
+                                <td><span class="code-badge">LIN101</span></td>
+                                <td style="font-weight: 600;">General Linguistics</td>
+                                <td>3</td>
+                                <td><span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL" data-credits="3">
+                                <td><span class="code-badge">ELS101</span></td>
+                                <td style="font-weight: 600;">Listening and Speaking 1</td>
+                                <td>3</td>
+                                <td><span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL" data-credits="3">
+                                <td><span class="code-badge">ELR101</span></td>
+                                <td style="font-weight: 600;">Reading and Writing 1</td>
+                                <td>3</td>
+                                <td><span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL" data-credits="3">
+                                <td><span class="code-badge">ELS201</span></td>
+                                <td style="font-weight: 600;">Listening and Speaking 2</td>
+                                <td>3</td>
+                                <td><span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL" data-credits="3">
+                                <td><span class="code-badge">ELR201</span></td>
+                                <td style="font-weight: 600;">Reading and Writing 2</td>
+                                <td>3</td>
+                                <td><span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL" data-credits="3">
+                                <td><span class="code-badge">ELG201</span></td>
+                                <td style="font-weight: 600;">Advanced English Grammar</td>
+                                <td>3</td>
+                                <td><span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL" data-credits="3">
+                                <td><span class="code-badge">LIT301</span></td>
+                                <td style="font-weight: 600;">British and American Literature</td>
+                                <td>3</td>
+                                <td><span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL" data-credits="3">
+                                <td><span class="code-badge">TRA301</span></td>
+                                <td style="font-weight: 600;">Translation and Interpretation</td>
+                                <td>3</td>
+                                <td><span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL,IB,MKT" data-credits="3">
+                                <td><span class="code-badge">BEC301</span></td>
+                                <td style="font-weight: 600;">Business English</td>
+                                <td>3</td>
+                                <td><span class="major-badge el">EL</span> <span class="major-badge ib">IB</span> <span
+                                        class="major-badge mkt">MKT</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL" data-credits="3">
+                                <td><span class="code-badge">ELT301</span></td>
+                                <td style="font-weight: 600;">English Language Teaching Methodology</td>
+                                <td>3</td>
+                                <td><span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-major="EL" data-credits="10">
+                                <td><span class="code-badge">ELP490</span></td>
+                                <td style="font-weight: 600;">English Language Capstone Project</td>
+                                <td>10</td>
+                                <td><span class="major-badge el">EL</span></td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
                                 </td>
                             </tr>
                         </tbody>
@@ -1986,6 +3244,7 @@
                         <option>Công nghệ thông tin</option>
                         <option>Kinh tế</option>
                         <option>Ngôn ngữ Anh</option>
+                        <option>Khoa học cơ bản</option>
                     </select>
                 </div>
                 <div class="form-grid">
@@ -2073,6 +3332,9 @@
                             <option value="SE">Kỹ thuật phần mềm (Software Engineering)</option>
                             <option value="AI">Trí tuệ nhân tạo (Artificial Intelligence)</option>
                             <option value="IB">Kinh doanh quốc tế (International Business)</option>
+                            <option value="IA">An toàn thông tin (Information Assurance)</option>
+                            <option value="MKT">Marketing số (Digital Marketing)</option>
+                            <option value="EL">Ngôn ngữ Anh (English Language)</option>
                         </select>
                     </div>
                     <div class="form-group">

@@ -261,99 +261,107 @@
             font-size: 14px;
             font-weight: 500;
         }
+
         .nav-breadcrumbs .bc-item {
             color: var(--text-gray);
             cursor: pointer;
             transition: color 0.2s;
         }
+
         .nav-breadcrumbs .bc-item:hover {
             color: var(--primary);
         }
+
         .nav-breadcrumbs .bc-item.active {
             color: var(--text-dark);
             font-weight: 600;
             pointer-events: none;
         }
+
         .nav-breadcrumbs .bc-sep {
             color: var(--border);
         }
 
         /* ─── Aesthetic Cards Grid ─── */
         .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             animation: fadeUp 0.4s ease-out forwards;
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .aes-card {
             background: white;
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 12px;
+            padding: 16px 20px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             border: 1px solid var(--border-light);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex;
-            flex-direction: column;
-            gap: 16px;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
             z-index: 1;
         }
 
         .aes-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-            z-index: -1;
-            transition: opacity 0.3s;
-        }
-
-        .aes-card::after {
-            content: '';
-            position: absolute;
-            right: -20px;
-            bottom: -20px;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: var(--card-color, var(--primary-light));
-            opacity: 0.15;
-            z-index: -1;
-            transition: transform 0.5s ease;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--card-color, var(--primary));
+            transition: width 0.3s;
         }
 
         .aes-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(7, 87, 166, 0.12);
+            transform: translateX(5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
             border-color: var(--card-border, var(--primary));
         }
 
-        .aes-card:hover::after {
-            transform: scale(1.5);
+        .aes-card:hover::before {
+            width: 8px;
         }
 
         .aes-card-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 14px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             background: var(--card-bg, #F0F7FF);
             color: var(--card-color, var(--primary));
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+        
+        .aes-card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .aes-card-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-dark);
         }
@@ -365,30 +373,89 @@
         }
 
         .aes-card-meta {
-            margin-top: auto;
+            margin-top: 0;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding-top: 16px;
-            border-top: 1px dashed var(--border);
+            gap: 16px;
+            padding-top: 0;
+            border-top: none;
             font-size: 13px;
             font-weight: 600;
         }
 
         /* Specific Card Colors */
-        .card-se { --card-color: #2563EB; --card-bg: #DBEAFE; --card-border: #93C5FD; }
-        .card-ba { --card-color: #059669; --card-bg: #D1FAE5; --card-border: #6EE7B7; }
-        .card-gd { --card-color: #D97706; --card-bg: #FEF3C7; --card-border: #FCD34D; }
-        .card-k19 { --card-color: #7C3AED; --card-bg: #EDE9FE; --card-border: #C4B5FD; }
-        .card-k18 { --card-color: #0891B2; --card-bg: #CFFAFE; --card-border: #67E8F9; }
-        .card-k17 { --card-color: #BE123C; --card-bg: #FFE4E6; --card-border: #FDA4AF; }
+        .card-se {
+            --card-color: #2563EB;
+            --card-bg: #DBEAFE;
+            --card-border: #93C5FD;
+        }
+
+        .card-ba {
+            --card-color: #059669;
+            --card-bg: #D1FAE5;
+            --card-border: #6EE7B7;
+        }
+
+        .card-gd {
+            --card-color: #D97706;
+            --card-bg: #FEF3C7;
+            --card-border: #FCD34D;
+        }
+
+        .card-ai {
+            --card-color: #8B5CF6;
+            --card-bg: #EDE9FE;
+            --card-border: #C4B5FD;
+        }
+
+        .card-ia {
+            --card-color: #EF4444;
+            --card-bg: #FEE2E2;
+            --card-border: #FCA5A5;
+        }
+
+        .card-en {
+            --card-color: #EC4899;
+            --card-bg: #FCE7F3;
+            --card-border: #F9A8D4;
+        }
+
+        .card-mc {
+            --card-color: #F97316;
+            --card-bg: #FFEDD5;
+            --card-border: #FDBA74;
+        }
+
+        .card-mk {
+            --card-color: #14B8A6;
+            --card-bg: #CCFBF1;
+            --card-border: #5EEAD4;
+        }
+
+        .card-k19 {
+            --card-color: #7C3AED;
+            --card-bg: #EDE9FE;
+            --card-border: #C4B5FD;
+        }
+
+        .card-k18 {
+            --card-color: #0891B2;
+            --card-bg: #CFFAFE;
+            --card-border: #67E8F9;
+        }
+
+        .card-k17 {
+            --card-color: #BE123C;
+            --card-bg: #FFE4E6;
+            --card-border: #FDA4AF;
+        }
 
         /* ─── Modern List View ─── */
         .student-list-container {
             background: white;
             border-radius: 16px;
             border: 1px solid var(--border-light);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             overflow: hidden;
             animation: fadeUp 0.4s ease-out forwards;
         }
@@ -406,13 +473,16 @@
             position: relative;
             width: 320px;
         }
-        .list-search i {
+
+        .list-search i,
+        .list-search svg {
             position: absolute;
             left: 12px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-gray);
         }
+
         .list-search input {
             width: 100%;
             padding: 10px 12px 10px 38px;
@@ -422,6 +492,7 @@
             font-size: 14px;
             transition: all 0.2s;
         }
+
         .list-search input:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 3px var(--primary-50);
@@ -495,6 +566,7 @@
         .view-section {
             display: none;
         }
+
         .view-section.active {
             display: block;
         }
@@ -1152,11 +1224,45 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+        }
     </style>
 </head>
 
@@ -1257,94 +1363,34 @@
 
             <!-- View 1: Chọn Ngành -->
             <div id="view-majors" class="view-section active">
-                <div class="nav-breadcrumbs">
-                    <span class="bc-item active">Chọn Ngành</span>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <div class="nav-breadcrumbs" style="margin-bottom: 0;">
+                        <span class="bc-item active">Chọn Ngành</span>
+                    </div>
+                    <div class="list-search">
+                        <i data-lucide="search" size="16"></i>
+                        <input type="text" id="major-search" placeholder="Tìm kiếm ngành..." oninput="renderMajors()">
+                    </div>
                 </div>
-                
-                <div class="grid-cards">
-                    <div class="aes-card card-se" onclick="showCohorts('Kỹ thuật phần mềm')">
-                        <div class="aes-card-icon"><i data-lucide="code" size="28"></i></div>
-                        <div>
-                            <div class="aes-card-title">Kỹ thuật phần mềm</div>
-                            <div class="aes-card-desc">Chuyên ngành đào tạo Kỹ sư KTPM</div>
-                        </div>
-                        <div class="aes-card-meta">
-                            <span style="color: var(--card-color)">8 Khóa đang học</span>
-                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="aes-card card-ba" onclick="showCohorts('Quản trị kinh doanh')">
-                        <div class="aes-card-icon"><i data-lucide="briefcase" size="28"></i></div>
-                        <div>
-                            <div class="aes-card-title">Quản trị kinh doanh</div>
-                            <div class="aes-card-desc">Chuyên ngành đào tạo Cử nhân QTKD</div>
-                        </div>
-                        <div class="aes-card-meta">
-                            <span style="color: var(--card-color)">5 Khóa đang học</span>
-                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
-                        </div>
-                    </div>
 
-                    <div class="aes-card card-gd" onclick="showCohorts('Thiết kế đồ họa')">
-                        <div class="aes-card-icon"><i data-lucide="palette" size="28"></i></div>
-                        <div>
-                            <div class="aes-card-title">Thiết kế đồ họa</div>
-                            <div class="aes-card-desc">Chuyên ngành Mỹ thuật số & Thiết kế</div>
-                        </div>
-                        <div class="aes-card-meta">
-                            <span style="color: var(--card-color)">4 Khóa đang học</span>
-                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
-                        </div>
-                    </div>
-                </div>
+                <div class="grid-cards" id="major-grid"></div>
             </div>
 
             <!-- View 2: Chọn Khóa -->
             <div id="view-cohorts" class="view-section">
-                <div class="nav-breadcrumbs">
-                    <span class="bc-item" onclick="showMajors()">Chọn Ngành</span>
-                    <i data-lucide="chevron-right" size="16" class="bc-sep"></i>
-                    <span class="bc-item active" id="bc-major-name">Kỹ thuật phần mềm</span>
-                </div>
-                
-                <div class="grid-cards">
-                    <div class="aes-card card-k19" onclick="showStudents('Khóa 19 (2024-2028)')">
-                        <div class="aes-card-icon"><i data-lucide="graduation-cap" size="28"></i></div>
-                        <div>
-                            <div class="aes-card-title">Khóa 19</div>
-                            <div class="aes-card-desc">Niên khóa 2024 - 2028</div>
-                        </div>
-                        <div class="aes-card-meta">
-                            <span style="color: var(--card-color)">450 Sinh viên</span>
-                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
-                        </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <div class="nav-breadcrumbs" style="margin-bottom: 0;">
+                        <span class="bc-item" onclick="showMajors()">Chọn Ngành</span>
+                        <i data-lucide="chevron-right" size="16" class="bc-sep"></i>
+                        <span class="bc-item active" id="bc-major-name">Kỹ thuật phần mềm</span>
                     </div>
-                    
-                    <div class="aes-card card-k18" onclick="showStudents('Khóa 18 (2023-2027)')">
-                        <div class="aes-card-icon"><i data-lucide="graduation-cap" size="28"></i></div>
-                        <div>
-                            <div class="aes-card-title">Khóa 18</div>
-                            <div class="aes-card-desc">Niên khóa 2023 - 2027</div>
-                        </div>
-                        <div class="aes-card-meta">
-                            <span style="color: var(--card-color)">380 Sinh viên</span>
-                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="aes-card card-k17" onclick="showStudents('Khóa 17 (2022-2026)')">
-                        <div class="aes-card-icon"><i data-lucide="graduation-cap" size="28"></i></div>
-                        <div>
-                            <div class="aes-card-title">Khóa 17</div>
-                            <div class="aes-card-desc">Niên khóa 2022 - 2026</div>
-                        </div>
-                        <div class="aes-card-meta">
-                            <span style="color: var(--card-color)">410 Sinh viên</span>
-                            <i data-lucide="arrow-right" size="18" style="color: var(--card-color)"></i>
-                        </div>
+                    <div class="list-search">
+                        <i data-lucide="search" size="16"></i>
+                        <input type="text" id="cohort-search" placeholder="Tìm kiếm khóa..." oninput="renderCohorts(currentMajor)">
                     </div>
                 </div>
+
+                <div class="grid-cards" id="cohort-grid"></div>
             </div>
 
             <!-- View 3: Danh sách Sinh viên -->
@@ -1352,7 +1398,8 @@
                 <div class="nav-breadcrumbs">
                     <span class="bc-item" onclick="showMajors()">Chọn Ngành</span>
                     <i data-lucide="chevron-right" size="16" class="bc-sep"></i>
-                    <span class="bc-item" onclick="showCohorts(currentMajor)" id="bc-major-back">Kỹ thuật phần mềm</span>
+                    <span class="bc-item" onclick="showCohorts(currentMajor)" id="bc-major-back">Kỹ thuật phần
+                        mềm</span>
                     <i data-lucide="chevron-right" size="16" class="bc-sep"></i>
                     <span class="bc-item active" id="bc-cohort-name">Khóa 19</span>
                 </div>
@@ -1361,17 +1408,22 @@
                     <div class="list-header">
                         <div class="list-search">
                             <i data-lucide="search" size="16"></i>
-                            <input type="text" placeholder="Tìm kiếm theo Tên, Mã SV...">
+                            <input type="text" id="student-search" placeholder="Tìm kiếm theo Tên, Mã SV..."
+                                oninput="renderStudents(currentMajor, currentCohort)">
                         </div>
                         <div style="display: flex; gap: 12px;">
-                            <select class="btn btn-outline" style="appearance: none; padding-right: 32px; background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%235E7184%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E') no-repeat right 12px center;">
+                            <select id="status-filter" onchange="renderStudents(currentMajor, currentCohort)"
+                                class="btn btn-outline"
+                                style="appearance: none; padding-right: 32px; background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%235E7184%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E') no-repeat right 12px center;">
                                 <option>Trạng thái: Tất cả</option>
                                 <option>Đang học</option>
                                 <option>Bảo lưu</option>
+                                <option>Thôi học</option>
+                                <option>Đã tốt nghiệp</option>
                             </select>
                         </div>
                     </div>
-                    
+
                     <table class="list-table">
                         <thead>
                             <tr>
@@ -1382,52 +1434,8 @@
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr onclick="openStudentModal()">
-                                <td>
-                                    <div class="sv-profile">
-                                        <div class="sv-avatar">M</div>
-                                        <div class="sv-info">
-                                            <span class="sv-name">Nguyễn Văn Minh</span>
-                                            <span class="sv-id">HE190001</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span style="font-weight: 500;">SE1901</span></td>
-                                <td>minhnvhe190001@fpt.edu.vn</td>
-                                <td><span class="status-badge" style="background: #D1FAE5; color: #059669;">Đang học</span></td>
-                                <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">Xem hồ sơ</button></td>
-                            </tr>
-                            <tr onclick="openStudentModal()">
-                                <td>
-                                    <div class="sv-profile">
-                                        <div class="sv-avatar" style="background: #FFF0F0; color: #E74C3C;">H</div>
-                                        <div class="sv-info">
-                                            <span class="sv-name">Lê Thị Hoa</span>
-                                            <span class="sv-id">HE190002</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span style="font-weight: 500;">SE1901</span></td>
-                                <td>hoalthe190002@fpt.edu.vn</td>
-                                <td><span class="status-badge" style="background: #D1FAE5; color: #059669;">Đang học</span></td>
-                                <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">Xem hồ sơ</button></td>
-                            </tr>
-                            <tr onclick="openStudentModal()">
-                                <td>
-                                    <div class="sv-profile">
-                                        <div class="sv-avatar" style="background: #F4F0FF; color: #8E44AD;">T</div>
-                                        <div class="sv-info">
-                                            <span class="sv-name">Trần Đức Toàn</span>
-                                            <span class="sv-id">HE190003</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span style="font-weight: 500;">SE1902</span></td>
-                                <td>toantdhe190003@fpt.edu.vn</td>
-                                <td><span class="status-badge" style="background: #FEF3C7; color: #D97706;">Bảo lưu</span></td>
-                                <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">Xem hồ sơ</button></td>
-                            </tr>
+                        <tbody id="student-tbody">
+                            <!-- Sinh viên sẽ được render động bằng JavaScript -->
                         </tbody>
                     </table>
                 </div>
@@ -1620,32 +1628,405 @@
 
         // View Navigation Logic
         let currentMajor = '';
-        
+        let currentCohort = '';
+
+        const seedData = {
+            'Kỹ thuật phần mềm': {
+                'Khóa 19 (2024-2028)': [
+                    { id: 'HE190001', name: 'Nguyễn Văn Minh', class: 'SE1901', email: 'minhnvhe190001@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'M', avatarBg: 'var(--primary-50)', avatarColor: 'var(--primary)' },
+                    { id: 'HE190002', name: 'Lê Thị Hoa', class: 'SE1901', email: 'hoalthe190002@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'H', avatarBg: '#FFF0F0', avatarColor: '#E74C3C' },
+                    { id: 'HE190003', name: 'Trần Đức Toàn', class: 'SE1902', email: 'toantdhe190003@fpt.edu.vn', status: 'Bảo lưu', color: '#D97706', bg: '#FEF3C7', avatar: 'T', avatarBg: '#F4F0FF', avatarColor: '#8E44AD' },
+                    { id: 'HE190004', name: 'Phạm Minh Đạt', class: 'SE1903', email: 'datpmhe190004@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'Đ', avatarBg: '#E8F8F5', avatarColor: '#1ABC9C' },
+                    { id: 'HE190005', name: 'Vũ Hải Yến', class: 'SE1901', email: 'yenvhhe190005@fpt.edu.vn', status: 'Thôi học', color: '#DC2626', bg: '#FEE2E2', avatar: 'Y', avatarBg: '#FEF5E7', avatarColor: '#E67E22' }
+                ],
+                'Khóa 18 (2023-2027)': [
+                    { id: 'HE180010', name: 'Đỗ Trường Giang', class: 'SE1801', email: 'giangdthe180010@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'G', avatarBg: 'var(--primary-50)', avatarColor: 'var(--primary)' },
+                    { id: 'HE180011', name: 'Bùi Thị Hà', class: 'SE1802', email: 'habthe180011@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'H', avatarBg: '#FFF0F0', avatarColor: '#E74C3C' }
+                ],
+                'Khóa 17 (2022-2026)': [
+                    { id: 'HE170020', name: 'Lý Tiểu Long', class: 'SE1701', email: 'longlthe170020@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'L', avatarBg: '#F4F0FF', avatarColor: '#8E44AD' }
+                ]
+            },
+            'Quản trị kinh doanh': {
+                'Khóa 19 (2024-2028)': [
+                    { id: 'BA190001', name: 'Nguyễn Thị Mai', class: 'BA1901', email: 'maintba190001@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'M', avatarBg: '#E8F8F5', avatarColor: '#1ABC9C' },
+                    { id: 'BA190002', name: 'Trần Văn Kiên', class: 'BA1902', email: 'kientvba190002@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'K', avatarBg: '#FEF5E7', avatarColor: '#E67E22' }
+                ],
+                'Khóa 18 (2023-2027)': [
+                    { id: 'BA180015', name: 'Lê Hoàng Phong', class: 'BA1801', email: 'phonglhba180015@fpt.edu.vn', status: 'Bảo lưu', color: '#D97706', bg: '#FEF3C7', avatar: 'P', avatarBg: 'var(--primary-50)', avatarColor: 'var(--primary)' }
+                ],
+                'Khóa 17 (2022-2026)': [
+                    { id: 'BA170030', name: 'Vũ Đức Đam', class: 'BA1702', email: 'damvdba170030@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'Đ', avatarBg: '#F4F0FF', avatarColor: '#8E44AD' }
+                ]
+            },
+            'Thiết kế đồ họa': {
+                'Khóa 19 (2024-2028)': [
+                    { id: 'GD190005', name: 'Phạm Thu Trang', class: 'GD1901', email: 'trangptgd190005@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'T', avatarBg: '#FFF0F0', avatarColor: '#E74C3C' },
+                    { id: 'GD190006', name: 'Đặng Tuấn Anh', class: 'GD1901', email: 'anhdtgd190006@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'A', avatarBg: '#E8F8F5', avatarColor: '#1ABC9C' }
+                ],
+                'Khóa 18 (2023-2027)': [
+                    { id: 'GD180012', name: 'Hồ Quang Hiếu', class: 'GD1802', email: 'hieuhqgd180012@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'H', avatarBg: '#F4F0FF', avatarColor: '#8E44AD' }
+                ],
+                'Khóa 17 (2022-2026)': []
+            },
+            'Trí tuệ nhân tạo': {
+                'Khóa 19 (2024-2028)': [
+                    { id: 'AI190001', name: 'Lê Minh Quân', class: 'AI1901', email: 'quanlmai190001@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'Q', avatarBg: '#E8F8F5', avatarColor: '#1ABC9C' }
+                ],
+                'Khóa 18 (2023-2027)': [],
+                'Khóa 17 (2022-2026)': []
+            },
+            'An toàn thông tin': {
+                'Khóa 19 (2024-2028)': [
+                    { id: 'IA190001', name: 'Nguyễn Tấn Đạt', class: 'IA1901', email: 'datntia190001@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'Đ', avatarBg: '#FFF0F0', avatarColor: '#E74C3C' }
+                ],
+                'Khóa 18 (2023-2027)': [],
+                'Khóa 17 (2022-2026)': []
+            },
+            'Ngôn ngữ Anh': {
+                'Khóa 19 (2024-2028)': [
+                    { id: 'EN190001', name: 'Hoàng Phương Trinh', class: 'EN1901', email: 'trinhhpen190001@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'T', avatarBg: '#F4F0FF', avatarColor: '#8E44AD' }
+                ],
+                'Khóa 18 (2023-2027)': [],
+                'Khóa 17 (2022-2026)': []
+            },
+            'Truyền thông đa phương tiện': {
+                'Khóa 19 (2024-2028)': [
+                    { id: 'MC190001', name: 'Bùi Gia Hân', class: 'MC1901', email: 'hanbgmc190001@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'H', avatarBg: '#FEF5E7', avatarColor: '#E67E22' }
+                ],
+                'Khóa 18 (2023-2027)': [],
+                'Khóa 17 (2022-2026)': []
+            },
+            'Digital Marketing': {
+                'Khóa 19 (2024-2028)': [
+                    { id: 'MK190001', name: 'Trịnh Hoài Nam', class: 'MK1901', email: 'namthmk190001@fpt.edu.vn', status: 'Đang học', color: '#059669', bg: '#D1FAE5', avatar: 'N', avatarBg: 'var(--primary-50)', avatarColor: 'var(--primary)' }
+                ],
+                'Khóa 18 (2023-2027)': [],
+                'Khóa 17 (2022-2026)': []
+            }
+        };
+
+
+        // ═══════════════════════════════════════════════════════════
+        //  DANH MỤC NGÀNH + KHÓA K01 → K20 + SINH VIÊN MẪU
+        // ═══════════════════════════════════════════════════════════
+        const FIRST_COHORT = 1, LAST_COHORT = 20;
+        const COHORT_BASE_YEAR = 2005;      // K01 nhập học 2006, K19 = 2024, K20 = 2025
+        const COURSE_YEARS = 4;
+        const CURRENT_YEAR = 2026;          // khóa nhập học từ (CURRENT_YEAR - 4) trở đi vẫn đang học
+
+        const MAJORS = [
+            // ── Công nghệ thông tin ──
+            { name: 'Kỹ thuật phần mềm', code: 'SE', idCode: 'HE', icon: 'code', desc: 'Chuyên ngành đào tạo Kỹ sư KTPM', c: '#2563EB', bg: '#DBEAFE', bd: '#93C5FD' },
+            { name: 'Công nghệ thông tin', code: 'IT', icon: 'monitor', desc: 'Hạ tầng, mạng máy tính & phát triển ứng dụng', c: '#0EA5E9', bg: '#E0F2FE', bd: '#7DD3FC' },
+            { name: 'Khoa học máy tính', code: 'CS', icon: 'cpu', desc: 'Thuật toán, hệ thống & tính toán nâng cao', c: '#4F46E5', bg: '#E0E7FF', bd: '#A5B4FC' },
+            { name: 'Hệ thống thông tin', code: 'IS', icon: 'database', desc: 'Phân tích, thiết kế & quản trị hệ thống thông tin', c: '#0D9488', bg: '#CCFBF1', bd: '#5EEAD4' },
+            { name: 'Trí tuệ nhân tạo', code: 'AI', icon: 'bot', desc: 'Chuyên ngành Khoa học dữ liệu & AI', c: '#8B5CF6', bg: '#EDE9FE', bd: '#C4B5FD' },
+            { name: 'An toàn thông tin', code: 'IA', icon: 'shield-alert', desc: 'Chuyên ngành An ninh mạng', c: '#EF4444', bg: '#FEE2E2', bd: '#FCA5A5' },
+            // ── Kinh tế - Quản trị ──
+            { name: 'Quản trị kinh doanh', code: 'BA', icon: 'briefcase', desc: 'Chuyên ngành đào tạo Cử nhân QTKD', c: '#059669', bg: '#D1FAE5', bd: '#6EE7B7' },
+            { name: 'Kế toán', code: 'AC', icon: 'calculator', desc: 'Kế toán doanh nghiệp, kiểm toán & thuế', c: '#CA8A04', bg: '#FEF9C3', bd: '#FDE047' },
+            { name: 'Tài chính - Ngân hàng', code: 'FB', icon: 'landmark', desc: 'Tài chính doanh nghiệp, ngân hàng & đầu tư', c: '#16A34A', bg: '#DCFCE7', bd: '#86EFAC' },
+            { name: 'Kinh doanh quốc tế', code: 'IB', icon: 'globe', desc: 'Thương mại quốc tế & xuất nhập khẩu', c: '#0284C7', bg: '#E0F2FE', bd: '#7DD3FC' },
+            { name: 'Logistics & Chuỗi cung ứng', code: 'LG', icon: 'truck', desc: 'Quản trị logistics & chuỗi cung ứng', c: '#EA580C', bg: '#FFEDD5', bd: '#FDBA74' },
+            { name: 'Digital Marketing', code: 'MK', icon: 'megaphone', desc: 'Chuyên ngành Tiếp thị kỹ thuật số', c: '#14B8A6', bg: '#CCFBF1', bd: '#5EEAD4' },
+            { name: 'Luật kinh tế', code: 'LW', icon: 'scale', desc: 'Pháp luật kinh doanh & thương mại', c: '#78716C', bg: '#F5F5F4', bd: '#D6D3D1' },
+            // ── Ngôn ngữ - Truyền thông - Thiết kế ──
+            { name: 'Ngôn ngữ Anh', code: 'EN', icon: 'languages', desc: 'Chuyên ngành Tiếng Anh thương mại', c: '#EC4899', bg: '#FCE7F3', bd: '#F9A8D4' },
+            { name: 'Ngôn ngữ Nhật', code: 'JP', icon: 'languages', desc: 'Tiếng Nhật & văn hóa Nhật Bản', c: '#E11D48', bg: '#FFE4E6', bd: '#FDA4AF' },
+            { name: 'Ngôn ngữ Hàn Quốc', code: 'KR', icon: 'languages', desc: 'Tiếng Hàn & văn hóa Hàn Quốc', c: '#7C3AED', bg: '#EDE9FE', bd: '#C4B5FD' },
+            { name: 'Ngôn ngữ Trung Quốc', code: 'CN', icon: 'languages', desc: 'Tiếng Trung & văn hóa Trung Hoa', c: '#DC2626', bg: '#FEE2E2', bd: '#FCA5A5' },
+            { name: 'Truyền thông đa phương tiện', title: 'Truyền thông ĐPT', code: 'MC', icon: 'film', desc: 'Chuyên ngành Media & Communications', c: '#F97316', bg: '#FFEDD5', bd: '#FDBA74' },
+            { name: 'Quan hệ công chúng', code: 'PR', icon: 'newspaper', desc: 'Truyền thông thương hiệu & quan hệ công chúng', c: '#DB2777', bg: '#FCE7F3', bd: '#F9A8D4' },
+            { name: 'Thiết kế đồ họa', code: 'GD', icon: 'palette', desc: 'Chuyên ngành Mỹ thuật số & Thiết kế', c: '#D97706', bg: '#FEF3C7', bd: '#FCD34D' },
+            // ── Kỹ thuật - Công nghệ ──
+            { name: 'Kỹ thuật điện - điện tử', code: 'EE', icon: 'zap', desc: 'Điện công nghiệp, điện tử & tự động hóa', c: '#EAB308', bg: '#FEF9C3', bd: '#FDE047' },
+            { name: 'Cơ khí chế tạo máy', code: 'ME', icon: 'cog', desc: 'Thiết kế & chế tạo cơ khí', c: '#475569', bg: '#E2E8F0', bd: '#CBD5E1' },
+            { name: 'Công nghệ ô tô', code: 'AU', icon: 'car', desc: 'Kỹ thuật ô tô & phương tiện điện', c: '#B91C1C', bg: '#FEE2E2', bd: '#FCA5A5' },
+            { name: 'Kỹ thuật xây dựng', code: 'CE', icon: 'hard-hat', desc: 'Xây dựng dân dụng & công nghiệp', c: '#B45309', bg: '#FEF3C7', bd: '#FCD34D' },
+            { name: 'Kiến trúc', code: 'AR', icon: 'building-2', desc: 'Thiết kế kiến trúc & quy hoạch', c: '#9333EA', bg: '#F3E8FF', bd: '#D8B4FE' },
+            // ── Dịch vụ - Xã hội - Sức khỏe ──
+            { name: 'Quản trị khách sạn', code: 'HM', icon: 'hotel', desc: 'Quản trị khách sạn & nhà hàng', c: '#0891B2', bg: '#CFFAFE', bd: '#67E8F9' },
+            { name: 'Du lịch & Lữ hành', code: 'TM', icon: 'plane', desc: 'Quản trị dịch vụ du lịch & lữ hành', c: '#2DD4BF', bg: '#CCFBF1', bd: '#99F6E4' },
+            { name: 'Tâm lý học', code: 'PS', icon: 'brain', desc: 'Tâm lý học ứng dụng & tham vấn', c: '#A855F7', bg: '#F3E8FF', bd: '#D8B4FE' },
+            { name: 'Dược học', code: 'PH', icon: 'pill', desc: 'Dược lâm sàng & công nghiệp dược', c: '#10B981', bg: '#D1FAE5', bd: '#6EE7B7' },
+            { name: 'Điều dưỡng', code: 'NU', icon: 'heart-pulse', desc: 'Điều dưỡng đa khoa & chăm sóc sức khỏe', c: '#F43F5E', bg: '#FFE4E6', bd: '#FDA4AF' }
+        ];
+
+        const STATUS = {
+            'Đang học': { color: '#059669', bg: '#D1FAE5' },
+            'Bảo lưu': { color: '#D97706', bg: '#FEF3C7' },
+            'Thôi học': { color: '#DC2626', bg: '#FEE2E2' },
+            'Đã tốt nghiệp': { color: '#2563EB', bg: '#DBEAFE' }
+        };
+
+        // Màu riêng cho 3 khóa gốc của giao diện, các khóa khác tự sinh theo hue
+        const COHORT_COLORS = {
+            19: { c: '#7C3AED', bg: '#EDE9FE', bd: '#C4B5FD' },
+            18: { c: '#0891B2', bg: '#CFFAFE', bd: '#67E8F9' },
+            17: { c: '#BE123C', bg: '#FFE4E6', bd: '#FDA4AF' }
+        };
+
+        const pad2 = n => String(n).padStart(2, '0');
+        const cohortStartYear = n => COHORT_BASE_YEAR + n;
+        const cohortKey = n => `Khóa ${pad2(n)} (${cohortStartYear(n)}-${cohortStartYear(n) + COURSE_YEARS})`;
+        const cohortGraduated = n => cohortStartYear(n) + COURSE_YEARS <= CURRENT_YEAR - 1;
+        const cohortColor = n => COHORT_COLORS[n] || (() => {
+            const h = (n * 47) % 360;
+            return { c: `hsl(${h} 65% 42%)`, bg: `hsl(${h} 90% 93%)`, bd: `hsl(${h} 80% 78%)` };
+        })();
+
+        // Bộ sinh số ngẫu nhiên có seed → dữ liệu luôn giống nhau mỗi lần mở trang
+        function makeRng(seedStr) {
+            let h = 1779033703 ^ seedStr.length;
+            for (let i = 0; i < seedStr.length; i++) { h = Math.imul(h ^ seedStr.charCodeAt(i), 3432918353); h = (h << 13) | (h >>> 19); }
+            let a = h >>> 0;
+            return function () {
+                a |= 0; a = (a + 0x6D2B79F5) | 0;
+                let t = Math.imul(a ^ (a >>> 15), 1 | a);
+                t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+                return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+            };
+        }
+        const pick = (rng, arr) => arr[Math.floor(rng() * arr.length)];
+        const noAccent = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
+
+        const LAST_NAMES = ['Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Huỳnh', 'Phan', 'Vũ', 'Võ', 'Đặng', 'Bùi', 'Đỗ', 'Hồ', 'Ngô', 'Dương', 'Lý', 'Trịnh', 'Đinh', 'Lương', 'Tạ'];
+        const MALE_MID = ['Văn', 'Đức', 'Minh', 'Quốc', 'Hữu', 'Thành', 'Gia', 'Anh', 'Tuấn', 'Quang'];
+        const FEMALE_MID = ['Thị', 'Thị', 'Thu', 'Ngọc', 'Khánh', 'Mai', 'Phương', 'Hồng', 'Bảo', 'Thanh'];
+        const MALE_FIRST = ['Nam', 'Hùng', 'Dũng', 'Long', 'Khoa', 'Phúc', 'Hải', 'Sơn', 'Bách', 'Kiên', 'Đạt', 'Huy', 'Tuấn', 'Việt', 'Cường', 'Hiếu', 'Thịnh', 'Trung', 'Quân', 'Đức'];
+        const FEMALE_FIRST = ['Lan', 'Hoa', 'Linh', 'Trang', 'Hà', 'Ngân', 'Mai', 'Thảo', 'Yến', 'Hương', 'Châu', 'Nhung', 'Vy', 'Anh', 'Phương', 'Trâm', 'Uyên', 'Thủy', 'Hằng', 'Nga'];
+        const AVATAR_STYLES = [
+            ['var(--primary-50)', 'var(--primary)'], ['#FFF0F0', '#E74C3C'], ['#F4F0FF', '#8E44AD'],
+            ['#E8F8F5', '#1ABC9C'], ['#FEF5E7', '#E67E22']
+        ];
+
+        function pickStatus(rng, n) {
+            const r = rng();
+            if (cohortGraduated(n)) return r < 0.92 ? 'Đã tốt nghiệp' : 'Thôi học';
+            return r < 0.85 ? 'Đang học' : (r < 0.93 ? 'Bảo lưu' : 'Thôi học');
+        }
+
+        // Gộp dữ liệu gốc (seedData) + sinh thêm sinh viên cho đủ K01 → K20 ở mọi ngành
+        function buildMockData(seed) {
+            const data = {};
+            MAJORS.forEach(m => {
+                data[m.name] = {};
+                const idCode = m.idCode || m.code;
+                for (let n = LAST_COHORT; n >= FIRST_COHORT; n--) {
+                    const key = cohortKey(n);
+                    const yy = pad2(n);
+                    const list = ((seed[m.name] && seed[m.name][key]) || []).slice();
+                    const used = new Set(list.map(s => s.id));
+                    const rng = makeRng(m.code + key);
+                    const extra = 8 + Math.floor(rng() * 5);          // thêm 8–12 sinh viên / khóa
+                    const classCount = 3 + Math.floor(rng() * 2);     // 3–4 lớp / khóa
+                    let seq = 1;
+                    for (let i = 0; i < extra; i++) {
+                        while (used.has(`${idCode}${yy}${String(seq).padStart(4, '0')}`)) seq++;
+                        const id = `${idCode}${yy}${String(seq++).padStart(4, '0')}`;
+                        used.add(id);
+                        const female = rng() < 0.5;
+                        const last = pick(rng, LAST_NAMES);
+                        const mid = female ? pick(rng, FEMALE_MID) : pick(rng, MALE_MID);
+                        const first = female ? pick(rng, FEMALE_FIRST) : pick(rng, MALE_FIRST);
+                        const initials = (noAccent(last)[0] + noAccent(mid)[0]).toLowerCase();
+                        const st = pickStatus(rng, n);
+                        const av = pick(rng, AVATAR_STYLES);
+                        list.push({
+                            id, name: `${last} ${mid} ${first}`,
+                            class: `${m.code}${yy}${pad2(1 + Math.floor(rng() * classCount))}`,
+                            email: `${noAccent(first).toLowerCase()}${initials}${id.toLowerCase()}@fpt.edu.vn`,
+                            status: st, color: STATUS[st].color, bg: STATUS[st].bg,
+                            avatar: first[0].toUpperCase(), avatarBg: av[0], avatarColor: av[1]
+                        });
+                    }
+                    list.sort((a, b) => a.id.localeCompare(b.id));
+                    data[m.name][key] = list;
+                }
+            });
+            return data;
+        }
+        const mockData = buildMockData(seedData);
+
+        // ── Render thẻ Ngành / Khóa ──
+        function makeCard(title, desc, icon, metaText, colors, onClick) {
+            const el = document.createElement('div');
+            el.className = 'aes-card';
+            el.style.setProperty('--card-color', colors.c);
+            el.style.setProperty('--card-bg', colors.bg);
+            el.style.setProperty('--card-border', colors.bd);
+            el.onclick = onClick;
+            el.innerHTML = `
+                <div class="aes-card-icon"><i data-lucide="${icon}" size="24"></i></div>
+                <div class="aes-card-content">
+                    <div class="aes-card-title"></div>
+                    <div class="aes-card-desc"></div>
+                </div>
+                <div class="aes-card-meta">
+                    <span style="color: var(--card-color); background: var(--card-bg); padding: 4px 12px; border-radius: 20px;"></span>
+                    <i data-lucide="chevron-right" size="20" style="color: var(--text-gray)"></i>
+                </div>`;
+            el.querySelector('.aes-card-title').textContent = title;
+            el.querySelector('.aes-card-desc').textContent = desc;
+            el.querySelector('.aes-card-meta span').textContent = metaText;
+            return el;
+        }
+
+        function renderMajors() {
+            const grid = document.getElementById('major-grid');
+            grid.innerHTML = '';
+            
+            const kw = noAccent(((document.getElementById('major-search') || {}).value || '').trim().toLowerCase());
+            const total = LAST_COHORT - FIRST_COHORT + 1;
+            let active = 0;
+            for (let n = FIRST_COHORT; n <= LAST_COHORT; n++) if (!cohortGraduated(n)) active++;
+            
+            const filteredMajors = MAJORS.filter(m => {
+                return !kw || noAccent(m.name.toLowerCase()).includes(kw) || 
+                       (m.code && noAccent(m.code.toLowerCase()).includes(kw));
+            });
+            
+            if (filteredMajors.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: var(--text-gray); padding: 40px;">Không tìm thấy ngành nào</div>';
+            }
+            
+            filteredMajors.forEach(m => {
+                grid.appendChild(makeCard(m.title || m.name, m.desc, m.icon,
+                    `${total} Khóa (${active} đang học)`, { c: m.c, bg: m.bg, bd: m.bd },
+                    () => showCohorts(m.name)));
+            });
+            lucide.createIcons();
+        }
+
+        function renderCohorts(majorName) {
+            const grid = document.getElementById('cohort-grid');
+            grid.innerHTML = '';
+            
+            const kw = noAccent(((document.getElementById('cohort-search') || {}).value || '').trim().toLowerCase());
+            let foundCount = 0;
+
+            for (let n = LAST_COHORT; n >= FIRST_COHORT; n--) {
+                const key = cohortKey(n);
+                const searchStr1 = `khoa ${pad2(n)}`;
+                const searchStr2 = `khoa ${n}`;
+                if (kw && !searchStr1.includes(kw) && !searchStr2.includes(kw)) continue;
+                
+                foundCount++;
+                const count = ((mockData[majorName] || {})[key] || []).length;
+                const y = cohortStartYear(n);
+                grid.appendChild(makeCard(`Khóa ${pad2(n)}`,
+                    `Niên khóa ${y} - ${y + COURSE_YEARS}` + (cohortGraduated(n) ? ' • Đã tốt nghiệp' : ''),
+                    'graduation-cap', `${count} Sinh viên`, cohortColor(n),
+                    () => showStudents(key)));
+            }
+            
+            if (foundCount === 0) {
+                grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: var(--text-gray); padding: 40px;">Không tìm thấy khóa nào</div>';
+            }
+            lucide.createIcons();
+        }
+
         function showMajors() {
+            const si = document.getElementById('major-search'); if (si) si.value = '';
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById('view-majors').classList.add('active');
+            renderMajors();
         }
-        
+
         function showCohorts(majorName) {
             currentMajor = majorName;
-            
+            const si = document.getElementById('cohort-search'); if (si) si.value = '';
+            renderCohorts(majorName);
+
             // Update breadcrumbs
             document.getElementById('bc-major-name').textContent = majorName;
             document.getElementById('bc-major-back').textContent = majorName;
-            
+
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById('view-cohorts').classList.add('active');
         }
-        
+
+        function renderStudents(major, cohort) {
+            const tbody = document.getElementById('student-tbody');
+            tbody.innerHTML = '';
+
+            const all = (mockData[major] && mockData[major][cohort]) || [];
+            const kw = noAccent(((document.getElementById('student-search') || {}).value || '').trim().toLowerCase());
+            const stSel = (document.getElementById('status-filter') || {}).value || '';
+            const stFilter = stSel.indexOf('Tất cả') > -1 ? '' : stSel;
+            const students = all.filter(sv =>
+                (!stFilter || sv.status === stFilter) &&
+                (!kw || noAccent(sv.name.toLowerCase()).includes(kw) || sv.id.toLowerCase().includes(kw)));
+
+            if (students.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-gray); padding: 24px;">Không có dữ liệu sinh viên</td></tr>';
+                return;
+            }
+
+            students.forEach(sv => {
+                const tr = document.createElement('tr');
+                tr.onclick = () => openStudentModal(sv.id);
+                tr.innerHTML = `
+                    <td>
+                        <div class="sv-profile">
+                            <div class="sv-avatar" style="background: ${sv.avatarBg}; color: ${sv.avatarColor};">${sv.avatar}</div>
+                            <div class="sv-info">
+                                <span class="sv-name">${sv.name}</span>
+                                <span class="sv-id">${sv.id}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span style="font-weight: 500;">${sv.class}</span></td>
+                    <td>${sv.email}</td>
+                    <td><span class="status-badge" style="background: ${sv.bg}; color: ${sv.color};">${sv.status}</span></td>
+                    <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;" onclick="event.stopPropagation(); openStudentModal('${sv.id}')">Xem hồ sơ</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
         function showStudents(cohortName) {
+            currentCohort = cohortName;
+            const si = document.getElementById('student-search'); if (si) si.value = '';
+            const sf = document.getElementById('status-filter'); if (sf) sf.selectedIndex = 0;
             document.getElementById('bc-cohort-name').textContent = cohortName;
-            
+
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById('view-students').classList.add('active');
+
+            renderStudents(currentMajor, cohortName);
         }
 
         // Modal Functions
-        function openStudentModal() {
+        function openStudentModal(studentId) {
+            let student = null;
+            for (const major in mockData) {
+                for (const cohort in mockData[major]) {
+                    const found = mockData[major][cohort].find(s => s.id === studentId);
+                    if (found) {
+                        student = found;
+                        break;
+                    }
+                }
+                if (student) break;
+            }
+
+            if (student) {
+                document.getElementById('modalAvatar').textContent = student.avatar;
+                document.getElementById('modalAvatar').style.background = student.avatarBg;
+                document.getElementById('modalAvatar').style.color = student.avatarColor;
+                document.getElementById('modalName').textContent = student.name;
+                document.getElementById('modalId').textContent = student.id;
+                document.getElementById('modalMajor').textContent = currentMajor;
+                document.getElementById('modalClass').textContent = 'Lớp: ' + student.class;
+
+                const statusBadge = document.querySelector('.modal-header .status-badge');
+                statusBadge.textContent = student.status;
+                statusBadge.style.background = student.bg;
+                statusBadge.style.color = student.color;
+            }
+
             document.getElementById('studentModal').classList.add('active');
         }
 
@@ -1658,6 +2039,8 @@
                 closeStudentModal();
             }
         });
+
+        renderMajors();
     </script>
     <script>
         (function () {

@@ -2055,11 +2055,76 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+        }
+    </style>
+    <style id="seed-badges">
+        .major-badge.ia {
+            background: #FCE7F3;
+            color: #9D174D
+        }
+
+        .major-badge.mkt {
+            background: #FFEDD5;
+            color: #9A3412
+        }
+
+        .major-badge.el {
+            background: #E0E7FF;
+            color: #3730A3
+        }
+
+        html[data-theme="dark"] .major-badge.ia {
+            background: color-mix(in srgb, #FCE7F3 17%, #0F1B2A) !important;
+            color: color-mix(in srgb, #9D174D 38%, #fff) !important
+        }
+
+        html[data-theme="dark"] .major-badge.mkt {
+            background: color-mix(in srgb, #FFEDD5 17%, #0F1B2A) !important;
+            color: color-mix(in srgb, #9A3412 38%, #fff) !important
+        }
+
+        html[data-theme="dark"] .major-badge.el {
+            background: color-mix(in srgb, #E0E7FF 17%, #0F1B2A) !important;
+            color: color-mix(in srgb, #3730A3 38%, #fff) !important
+        }
     </style>
 </head>
 
@@ -2170,19 +2235,19 @@
                     <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
                     <div class="category-icon"><i data-lucide="graduation-cap" size="28"></i></div>
                     <div class="category-label">Giảng viên</div>
-                    <div class="category-count" id="countLecturer">2 giảng viên</div>
+                    <div class="category-count" id="countLecturer">24 giảng viên</div>
                 </div>
                 <div class="category-card card-major" onclick="switchCategory('major')" id="cardMajor">
                     <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
                     <div class="category-icon"><i data-lucide="git-branch" size="28"></i></div>
                     <div class="category-label">Chuyên ngành</div>
-                    <div class="category-count" id="countMajor">2 chuyên ngành</div>
+                    <div class="category-count" id="countMajor">6 chuyên ngành</div>
                 </div>
                 <div class="category-card card-subject" onclick="switchCategory('subject')" id="cardSubject">
                     <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
                     <div class="category-icon"><i data-lucide="book-text" size="28"></i></div>
                     <div class="category-label">Môn học</div>
-                    <div class="category-count" id="countSubject">2 môn học</div>
+                    <div class="category-count" id="countSubject">73 môn học</div>
                 </div>
             </div>
 
@@ -2221,6 +2286,7 @@
                                 <option value="Công nghệ thông tin">Công nghệ thông tin</option>
                                 <option value="Kinh tế">Kinh tế</option>
                                 <option value="Ngôn ngữ Anh">Ngôn ngữ Anh</option>
+                                <option value="Khoa học cơ bản">Khoa học cơ bản</option>
                             </select>
                         </div>
                         <div class="toolbar-right">
@@ -2249,13 +2315,10 @@
                                 <td>hungnv@onenet.edu.vn</td>
                                 <td>0988123456</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"
-                                            onclick="showError('fkAlert')"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
                                 </td>
                             </tr>
                             <tr>
@@ -2265,13 +2328,296 @@
                                 <td>maitt@onenet.edu.vn</td>
                                 <td>0909123456</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"
-                                            onclick="showError('fkAlert')"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV003</span></td>
+                                <td style="font-weight: 600;">TS. Lê Văn Khải</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>khailv@onenet.edu.vn</td>
+                                <td>0863530829</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV004</span></td>
+                                <td style="font-weight: 600;">ThS. Phạm Minh Tuấn</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>tuanpm@onenet.edu.vn</td>
+                                <td>0881810111</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV005</span></td>
+                                <td style="font-weight: 600;">ThS. Hoàng Thị Lan Anh</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>anhhtl@onenet.edu.vn</td>
+                                <td>0919990608</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV006</span></td>
+                                <td style="font-weight: 600;">TS. Đặng Quốc Bảo</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>baodq@onenet.edu.vn</td>
+                                <td>0917135241</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV007</span></td>
+                                <td style="font-weight: 600;">ThS. Vũ Đức Thịnh</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>thinhvd@onenet.edu.vn</td>
+                                <td>0381973060</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV008</span></td>
+                                <td style="font-weight: 600;">ThS. Ngô Thanh Hà</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>hant@onenet.edu.vn</td>
+                                <td>0354602037</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV009</span></td>
+                                <td style="font-weight: 600;">TS. Bùi Anh Khoa</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>khoaba@onenet.edu.vn</td>
+                                <td>0902441955</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV010</span></td>
+                                <td style="font-weight: 600;">ThS. Đỗ Thị Hương</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>huongdt@onenet.edu.vn</td>
+                                <td>0888015764</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV011</span></td>
+                                <td style="font-weight: 600;">ThS. Trương Hoài Nam</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>namth@onenet.edu.vn</td>
+                                <td>0915037655</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV012</span></td>
+                                <td style="font-weight: 600;">ThS. Lý Gia Huy</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>huylg@onenet.edu.vn</td>
+                                <td>0918122250</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV013</span></td>
+                                <td style="font-weight: 600;">TS. Nguyễn Thị Thu Hà</td>
+                                <td>Kinh tế</td>
+                                <td>hantt@onenet.edu.vn</td>
+                                <td>0903077052</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV014</span></td>
+                                <td style="font-weight: 600;">ThS. Phan Văn Long</td>
+                                <td>Kinh tế</td>
+                                <td>longpv@onenet.edu.vn</td>
+                                <td>0972037872</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV015</span></td>
+                                <td style="font-weight: 600;">ThS. Đinh Ngọc Linh</td>
+                                <td>Kinh tế</td>
+                                <td>linhdn@onenet.edu.vn</td>
+                                <td>0387655194</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV016</span></td>
+                                <td style="font-weight: 600;">TS. Võ Minh Châu</td>
+                                <td>Kinh tế</td>
+                                <td>chauvm@onenet.edu.vn</td>
+                                <td>0904709137</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV017</span></td>
+                                <td style="font-weight: 600;">ThS. Cao Thị Bích Ngọc</td>
+                                <td>Kinh tế</td>
+                                <td>ngocctb@onenet.edu.vn</td>
+                                <td>0903234302</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV018</span></td>
+                                <td style="font-weight: 600;">ThS. Lương Thu Trang</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>tranglt@onenet.edu.vn</td>
+                                <td>0988031986</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV019</span></td>
+                                <td style="font-weight: 600;">TS. Dương Hải Yến</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>yendh@onenet.edu.vn</td>
+                                <td>0932976225</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV020</span></td>
+                                <td style="font-weight: 600;">ThS. Tạ Quang Vinh</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>vinhtq@onenet.edu.vn</td>
+                                <td>0386175466</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV021</span></td>
+                                <td style="font-weight: 600;">ThS. Mai Phương Thảo</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>thaomp@onenet.edu.vn</td>
+                                <td>0354032085</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV022</span></td>
+                                <td style="font-weight: 600;">TS. Hồ Quang Minh</td>
+                                <td>Khoa học cơ bản</td>
+                                <td>minhhq@onenet.edu.vn</td>
+                                <td>0914151952</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV023</span></td>
+                                <td style="font-weight: 600;">ThS. Lâm Thị Diệu</td>
+                                <td>Khoa học cơ bản</td>
+                                <td>dieult@onenet.edu.vn</td>
+                                <td>0862634613</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV024</span></td>
+                                <td style="font-weight: 600;">ThS. Kiều Anh Tú</td>
+                                <td>Khoa học cơ bản</td>
+                                <td>tuka@onenet.edu.vn</td>
+                                <td>0352053424</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
                                 </td>
                             </tr>
                         </tbody>
@@ -2327,12 +2673,10 @@
                                 <td style="font-weight: 600;">Kỹ thuật phần mềm (Software Engineering)</td>
                                 <td>Đào tạo kỹ sư phát triển phần mềm chuyên nghiệp</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
                                 </td>
                             </tr>
                             <tr>
@@ -2340,12 +2684,54 @@
                                 <td style="font-weight: 600;">Trí tuệ nhân tạo (Artificial Intelligence)</td>
                                 <td>Nghiên cứu ứng dụng AI, Machine Learning</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">IA</span></td>
+                                <td style="font-weight: 600;">An toàn thông tin (Information Assurance)</td>
+                                <td>Đào tạo chuyên gia bảo mật, an ninh mạng và điều tra số</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">IB</span></td>
+                                <td style="font-weight: 600;">Kinh doanh quốc tế (International Business)</td>
+                                <td>Đào tạo nhà quản trị kinh doanh, thương mại và tài chính quốc tế</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">MKT</span></td>
+                                <td style="font-weight: 600;">Marketing số (Digital Marketing)</td>
+                                <td>Đào tạo chuyên viên marketing số, truyền thông và quản trị thương hiệu</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">EL</span></td>
+                                <td style="font-weight: 600;">Ngôn ngữ Anh (English Language)</td>
+                                <td>Đào tạo cử nhân ngôn ngữ Anh: biên phiên dịch, giảng dạy, tiếng Anh thương mại</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
                                 </td>
                             </tr>
                         </tbody>
@@ -2364,12 +2750,15 @@
                             <span class="panel-title">Danh sách Môn học</span>
                         </div>
                         <div class="panel-header-right" style="display: flex; gap: 8px;">
-                            <button class="btn btn-outline" onclick="downloadSubjectTemplate()" style="color: #6D28D9; border-color: #6D28D9;">
+                            <button class="btn btn-outline" onclick="downloadSubjectTemplate()"
+                                style="color: #6D28D9; border-color: #6D28D9;">
                                 <i data-lucide="download" size="15"></i> Tải template
                             </button>
-                            <label class="btn btn-outline" style="color: #059669; border-color: #059669; margin: 0; cursor: pointer;">
+                            <label class="btn btn-outline"
+                                style="color: #059669; border-color: #059669; margin: 0; cursor: pointer;">
                                 <i data-lucide="upload" size="15"></i> Import môn
-                                <input type="file" id="importSubjectInput" accept=".csv, .xlsx, .xls" style="display: none;" onchange="importSubject(this)">
+                                <input type="file" id="importSubjectInput" accept=".csv, .xlsx, .xls"
+                                    style="display: none;" onchange="importSubject(this)">
                             </label>
                             <button class="btn"
                                 style="background: linear-gradient(135deg, #7C3AED, #8B5CF6); color: white; box-shadow: 0 2px 8px rgba(124,58,237,0.2);"
@@ -2391,12 +2780,16 @@
                                 <option value="SE">Kỹ thuật phần mềm (SE)</option>
                                 <option value="AI">Trí tuệ nhân tạo (AI)</option>
                                 <option value="IB">Kinh doanh quốc tế (IB)</option>
+                                <option value="IA">An toàn thông tin (IA)</option>
+                                <option value="MKT">Marketing số (MKT)</option>
+                                <option value="EL">Ngôn ngữ Anh (EL)</option>
                             </select>
                             <select class="filter-select" id="filterSubjectCredits" onchange="filterSubject()">
                                 <option value="">Tất cả tín chỉ</option>
                                 <option value="2">2 tín chỉ</option>
                                 <option value="3">3 tín chỉ</option>
                                 <option value="4">4 tín chỉ</option>
+                                <option value="10">10 tín chỉ</option>
                             </select>
                         </div>
                         <div class="toolbar-right">
@@ -2456,6 +2849,7 @@
                         <option>Công nghệ thông tin</option>
                         <option>Kinh tế</option>
                         <option>Ngôn ngữ Anh</option>
+                        <option>Khoa học cơ bản</option>
                     </select>
                 </div>
                 <div class="form-grid">
@@ -2570,23 +2964,13 @@
                             <div class="check-row" id="fMajors">
                                 <label><input type="checkbox" value="SE"> Kỹ thuật phần mềm (SE)</label>
                                 <label><input type="checkbox" value="AI"> Trí tuệ nhân tạo (AI)</label>
-                                <label><input type="checkbox" value="IB"> Kinh doanh quốc tế (IB)</label>
+                                <label><input type="checkbox" value="IB"> Kinh doanh quốc tế (IB)</label><label><input
+                                        type="checkbox" value="IA"> An toàn thông tin (IA)</label><label><input
+                                        type="checkbox" value="MKT"> Marketing số (MKT)</label><label><input
+                                        type="checkbox" value="EL"> Ngôn ngữ Anh (EL)</label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Học kỳ <span class="req">*</span></label>
-                            <select class="form-control" id="fSemester">
-                                <option value="1">Học kỳ 1</option>
-                                <option value="2">Học kỳ 2</option>
-                                <option value="3">Học kỳ 3</option>
-                                <option value="4">Học kỳ 4</option>
-                                <option value="5">Học kỳ 5</option>
-                                <option value="6">Học kỳ 6</option>
-                                <option value="7">Học kỳ 7</option>
-                                <option value="8">Học kỳ 8</option>
-                                <option value="9">Học kỳ 9</option>
-                            </select>
-                        </div>
+                        <input type="hidden" id="fSemester" value="1">
                         <div class="form-group">
                             <label>Tổng số Slot <span class="req">*</span></label>
                             <input type="number" class="form-control" id="fSlots" value="30" min="1">
@@ -2929,15 +3313,15 @@
             }, 3500);
         }
         // ================= MÔN HỌC: dữ liệu + CRUD =================
-        const MAJOR_NAME = { SE: 'Kỹ thuật phần mềm', AI: 'Trí tuệ nhân tạo', IB: 'Kinh doanh quốc tế' };
+        const MAJOR_NAME = { SE: 'Kỹ thuật phần mềm', AI: 'Trí tuệ nhân tạo', IA: 'An toàn thông tin', IB: 'Kinh doanh quốc tế', MKT: 'Marketing số', EL: 'Ngôn ngữ Anh' };
         const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
         const fmtDate = d => d ? d.split('-').reverse().join('/') : '—';
         const base = o => Object.assign({ nameEn: '', majors: ['SE'], semester: 1, credits: 3, slots: 30, level: 'Cử nhân', scale: 10, minPass: 5, prereq: [], status: 'on', decision: '', approved: '', hours: '', contact: '', self: '', method: '', desc: '', tasks: '', tools: '', clos: [], materials: [], plan: [], assess: [] }, o);
 
         let subjects = [
-            base({ code: 'PRF192', name: 'Cơ sở lập trình', nameEn: 'Programming Fundamentals', majors: ['SE', 'AI'], semester: 1 }),
-            base({ code: 'PRO192', name: 'Lập trình hướng đối tượng', nameEn: 'Object-Oriented Programming', majors: ['SE', 'AI'], semester: 2, prereq: ['PRF192'] }),
-            base({ code: 'DBI202', name: 'Cơ sở dữ liệu', nameEn: 'Introduction to Databases', majors: ['SE', 'AI'], semester: 3 }),
+            base({ code: 'PRF192', name: 'Cơ sở lập trình', nameEn: 'Programming Fundamentals', majors: ['SE', 'AI', 'IA'], semester: 1 }),
+            base({ code: 'PRO192', name: 'Lập trình hướng đối tượng', nameEn: 'Object-Oriented Programming', majors: ['SE', 'AI', 'IA'], semester: 2, prereq: ['PRF192'] }),
+            base({ code: 'DBI202', name: 'Cơ sở dữ liệu', nameEn: 'Introduction to Databases', majors: ['SE', 'AI', 'IA'], semester: 3 }),
             base({
                 code: 'PRN212', name: 'Lập trình ứng dụng đa nền tảng cơ bản với .NET', nameEn: 'Basis Cross-Platform Application Programming With .NET',
                 majors: ['SE'], semester: 4, credits: 3, slots: 30, prereq: ['PRO192', 'DBI202'], status: 'on',
@@ -2986,6 +3370,8 @@
                 ]
             })
         ];
+        const EXTRA_SUBJECTS = [{ "code": "SSL101C", "name": "Kỹ năng học đại học", "nameEn": "Academic Skills for University Success", "majors": ["SE", "AI", "IA", "IB", "MKT", "EL"], "semester": 1, "credits": 2, "prereq": [], "slots": 30 }, { "code": "MAD101", "name": "Toán rời rạc", "nameEn": "Discrete Mathematics", "majors": ["SE", "AI", "IA"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "MAE101", "name": "Toán cho kỹ thuật", "nameEn": "Mathematics for Engineering", "majors": ["SE", "AI", "IA"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "CSI104", "name": "Nhập môn khoa học máy tính", "nameEn": "Introduction to Computing", "majors": ["SE", "AI", "IA"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "SSG104", "name": "Kỹ năng giao tiếp và hợp tác", "nameEn": "Communication and In-Group Working Skills", "majors": ["SE", "AI", "IA", "IB", "MKT", "EL"], "semester": 2, "credits": 2, "prereq": [], "slots": 30 }, { "code": "NWC203C", "name": "Mạng máy tính", "nameEn": "Computer Networking", "majors": ["SE", "AI", "IA"], "semester": 2, "credits": 3, "prereq": [], "slots": 30 }, { "code": "OSG202", "name": "Hệ điều hành", "nameEn": "Operating Systems", "majors": ["SE", "AI", "IA"], "semester": 2, "credits": 3, "prereq": ["CSI104"], "slots": 30 }, { "code": "CEA201", "name": "Kiến trúc máy tính", "nameEn": "Computer Organization and Architecture", "majors": ["SE", "AI", "IA"], "semester": 2, "credits": 3, "prereq": [], "slots": 30 }, { "code": "CSD201", "name": "Cấu trúc dữ liệu và giải thuật", "nameEn": "Data Structures and Algorithms", "majors": ["SE", "AI", "IA"], "semester": 2, "credits": 3, "prereq": ["PRF192"], "slots": 30 }, { "code": "MAS291", "name": "Xác suất thống kê", "nameEn": "Statistics and Probability", "majors": ["SE", "AI", "IA"], "semester": 3, "credits": 3, "prereq": ["MAE101"], "slots": 30 }, { "code": "PMG201C", "name": "Nguyên lý quản lý dự án", "nameEn": "Project Management", "majors": ["SE", "AI", "IA"], "semester": 5, "credits": 3, "prereq": [], "slots": 30 }, { "code": "EXE101", "name": "Trải nghiệm khởi nghiệp", "nameEn": "Experiential Entrepreneurship", "majors": ["SE", "AI", "IA"], "semester": 6, "credits": 2, "prereq": [], "slots": 30 }, { "code": "OJT202", "name": "Thực tập doanh nghiệp", "nameEn": "On-the-Job Training", "majors": ["SE", "AI", "IA", "IB", "MKT", "EL"], "semester": 7, "credits": 10, "prereq": [], "slots": 30 }, { "code": "SWE201C", "name": "Nhập môn kỹ thuật phần mềm", "nameEn": "Introduction to Software Engineering", "majors": ["SE"], "semester": 3, "credits": 3, "prereq": ["PRO192"], "slots": 30 }, { "code": "PRJ301", "name": "Ứng dụng Java Web", "nameEn": "Java Web Application Development", "majors": ["SE"], "semester": 4, "credits": 3, "prereq": ["PRO192", "DBI202"], "slots": 30 }, { "code": "PRN222", "name": "Lập trình ứng dụng web với .NET", "nameEn": "Advanced Cross-Platform Application Programming With .NET", "majors": ["SE"], "semester": 5, "credits": 4, "prereq": ["PRN212"], "slots": 30 }, { "code": "SWR302", "name": "Yêu cầu phần mềm", "nameEn": "Software Requirements", "majors": ["SE"], "semester": 5, "credits": 3, "prereq": ["SWE201C"], "slots": 30 }, { "code": "SWT301", "name": "Kiểm thử phần mềm", "nameEn": "Software Testing", "majors": ["SE"], "semester": 5, "credits": 3, "prereq": ["SWE201C"], "slots": 30 }, { "code": "SWP391", "name": "Dự án phát triển ứng dụng phần mềm", "nameEn": "Application Development Project", "majors": ["SE"], "semester": 5, "credits": 3, "prereq": ["SWE201C"], "slots": 30 }, { "code": "SWD392", "name": "Kiến trúc và thiết kế phần mềm", "nameEn": "Software Architecture and Design", "majors": ["SE"], "semester": 6, "credits": 3, "prereq": ["SWE201C"], "slots": 30 }, { "code": "PRM392", "name": "Lập trình ứng dụng di động", "nameEn": "Mobile Programming", "majors": ["SE"], "semester": 6, "credits": 3, "prereq": ["PRO192"], "slots": 30 }, { "code": "SEP490", "name": "Đồ án tốt nghiệp ngành Kỹ thuật phần mềm", "nameEn": "SE Capstone Project", "majors": ["SE"], "semester": 9, "credits": 10, "prereq": ["SWP391"], "slots": 30 }, { "code": "PFP191", "name": "Cơ sở lập trình Python", "nameEn": "Programming Fundamentals with Python", "majors": ["AI"], "semester": 2, "credits": 3, "prereq": [], "slots": 30 }, { "code": "MAI391", "name": "Toán cho trí tuệ nhân tạo", "nameEn": "Mathematics for Machine Learning", "majors": ["AI"], "semester": 3, "credits": 3, "prereq": ["MAE101"], "slots": 30 }, { "code": "AIL303M", "name": "Học máy", "nameEn": "Machine Learning", "majors": ["AI"], "semester": 4, "credits": 3, "prereq": ["MAI391", "PFP191"], "slots": 30 }, { "code": "DMA301M", "name": "Khai phá dữ liệu", "nameEn": "Data Mining", "majors": ["AI"], "semester": 5, "credits": 3, "prereq": ["DBI202", "MAS291"], "slots": 30 }, { "code": "DPL302M", "name": "Học sâu", "nameEn": "Deep Learning", "majors": ["AI"], "semester": 5, "credits": 4, "prereq": ["AIL303M"], "slots": 30 }, { "code": "CPV301", "name": "Thị giác máy tính", "nameEn": "Computer Vision", "majors": ["AI"], "semester": 6, "credits": 3, "prereq": ["AIL303M"], "slots": 30 }, { "code": "NLP301C", "name": "Xử lý ngôn ngữ tự nhiên", "nameEn": "Natural Language Processing", "majors": ["AI"], "semester": 6, "credits": 3, "prereq": ["AIL303M"], "slots": 30 }, { "code": "AIP490", "name": "Đồ án tốt nghiệp ngành Trí tuệ nhân tạo", "nameEn": "AI Capstone Project", "majors": ["AI"], "semester": 9, "credits": 10, "prereq": ["DPL302M"], "slots": 30 }, { "code": "INS301", "name": "An toàn thông tin cơ bản", "nameEn": "Introduction to Information Security", "majors": ["IA"], "semester": 3, "credits": 3, "prereq": ["NWC203C"], "slots": 30 }, { "code": "CRY303", "name": "Mật mã học", "nameEn": "Cryptography", "majors": ["IA"], "semester": 4, "credits": 3, "prereq": ["MAD101"], "slots": 30 }, { "code": "IAM302", "name": "Quản lý danh tính và truy cập", "nameEn": "Identity and Access Management", "majors": ["IA"], "semester": 5, "credits": 3, "prereq": ["NWC203C"], "slots": 30 }, { "code": "SDC301", "name": "Lập trình an toàn", "nameEn": "Secure Coding", "majors": ["IA"], "semester": 5, "credits": 3, "prereq": ["PRO192", "INS301"], "slots": 30 }, { "code": "PEN301", "name": "Kiểm thử xâm nhập", "nameEn": "Penetration Testing", "majors": ["IA"], "semester": 6, "credits": 3, "prereq": ["INS301"], "slots": 30 }, { "code": "FOR302", "name": "Điều tra số", "nameEn": "Digital Forensics", "majors": ["IA"], "semester": 6, "credits": 3, "prereq": ["INS301"], "slots": 30 }, { "code": "IAP490", "name": "Đồ án tốt nghiệp ngành An toàn thông tin", "nameEn": "IA Capstone Project", "majors": ["IA"], "semester": 9, "credits": 10, "prereq": ["PEN301"], "slots": 30 }, { "code": "MKT101", "name": "Nguyên lý Marketing", "nameEn": "Marketing Principles", "majors": ["IB", "MKT"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "MGT103", "name": "Nhập môn quản trị", "nameEn": "Introduction to Management", "majors": ["IB", "MKT"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ECO111", "name": "Kinh tế vi mô", "nameEn": "Microeconomics", "majors": ["IB", "MKT"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ACC101", "name": "Nguyên lý kế toán", "nameEn": "Principles of Accounting", "majors": ["IB", "MKT"], "semester": 2, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ECO121", "name": "Kinh tế vĩ mô", "nameEn": "Macroeconomics", "majors": ["IB", "MKT"], "semester": 2, "credits": 3, "prereq": ["ECO111"], "slots": 30 }, { "code": "FIN201", "name": "Tài chính doanh nghiệp", "nameEn": "Corporate Finance", "majors": ["IB", "MKT"], "semester": 3, "credits": 3, "prereq": ["ACC101"], "slots": 30 }, { "code": "INB301", "name": "Kinh doanh quốc tế", "nameEn": "International Business", "majors": ["IB"], "semester": 4, "credits": 3, "prereq": ["MGT103"], "slots": 30 }, { "code": "ITR301", "name": "Thương mại quốc tế", "nameEn": "International Trade", "majors": ["IB"], "semester": 4, "credits": 3, "prereq": ["ECO121"], "slots": 30 }, { "code": "IFM301", "name": "Tài chính quốc tế", "nameEn": "International Finance", "majors": ["IB"], "semester": 5, "credits": 3, "prereq": ["FIN201"], "slots": 30 }, { "code": "SCM301", "name": "Quản trị chuỗi cung ứng", "nameEn": "Supply Chain Management", "majors": ["IB"], "semester": 5, "credits": 3, "prereq": ["INB301"], "slots": 30 }, { "code": "BLW301", "name": "Luật thương mại quốc tế", "nameEn": "International Business Law", "majors": ["IB"], "semester": 6, "credits": 3, "prereq": ["INB301"], "slots": 30 }, { "code": "NEG301", "name": "Đàm phán kinh doanh", "nameEn": "Business Negotiation", "majors": ["IB"], "semester": 6, "credits": 3, "prereq": ["INB301"], "slots": 30 }, { "code": "IBP490", "name": "Đồ án tốt nghiệp ngành Kinh doanh quốc tế", "nameEn": "IB Capstone Project", "majors": ["IB"], "semester": 9, "credits": 10, "prereq": ["NEG301"], "slots": 30 }, { "code": "CBH301", "name": "Hành vi người tiêu dùng", "nameEn": "Consumer Behavior", "majors": ["MKT"], "semester": 3, "credits": 3, "prereq": ["MKT101"], "slots": 30 }, { "code": "DMK301", "name": "Marketing số", "nameEn": "Digital Marketing", "majors": ["MKT"], "semester": 4, "credits": 3, "prereq": ["MKT101"], "slots": 30 }, { "code": "MRE301", "name": "Nghiên cứu thị trường", "nameEn": "Marketing Research", "majors": ["MKT"], "semester": 4, "credits": 3, "prereq": ["MKT101"], "slots": 30 }, { "code": "BRD301", "name": "Quản trị thương hiệu", "nameEn": "Brand Management", "majors": ["MKT"], "semester": 5, "credits": 3, "prereq": ["MKT101"], "slots": 30 }, { "code": "SMM301", "name": "Marketing mạng xã hội", "nameEn": "Social Media Marketing", "majors": ["MKT"], "semester": 5, "credits": 3, "prereq": ["DMK301"], "slots": 30 }, { "code": "CMK301", "name": "Marketing nội dung", "nameEn": "Content Marketing", "majors": ["MKT"], "semester": 5, "credits": 3, "prereq": ["DMK301"], "slots": 30 }, { "code": "SEM301", "name": "Quảng cáo và tối ưu công cụ tìm kiếm", "nameEn": "SEO and Search Engine Marketing", "majors": ["MKT"], "semester": 6, "credits": 3, "prereq": ["DMK301"], "slots": 30 }, { "code": "MKP490", "name": "Đồ án tốt nghiệp ngành Marketing số", "nameEn": "Digital Marketing Capstone Project", "majors": ["MKT"], "semester": 9, "credits": 10, "prereq": ["SEM301"], "slots": 30 }, { "code": "LIN101", "name": "Ngôn ngữ học đại cương", "nameEn": "General Linguistics", "majors": ["EL"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ELS101", "name": "Nghe – Nói 1", "nameEn": "Listening and Speaking 1", "majors": ["EL"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ELR101", "name": "Đọc – Viết 1", "nameEn": "Reading and Writing 1", "majors": ["EL"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ELS201", "name": "Nghe – Nói 2", "nameEn": "Listening and Speaking 2", "majors": ["EL"], "semester": 2, "credits": 3, "prereq": ["ELS101"], "slots": 30 }, { "code": "ELR201", "name": "Đọc – Viết 2", "nameEn": "Reading and Writing 2", "majors": ["EL"], "semester": 2, "credits": 3, "prereq": ["ELR101"], "slots": 30 }, { "code": "ELG201", "name": "Ngữ pháp tiếng Anh nâng cao", "nameEn": "Advanced English Grammar", "majors": ["EL"], "semester": 3, "credits": 3, "prereq": ["ELR101"], "slots": 30 }, { "code": "LIT301", "name": "Văn học Anh – Mỹ", "nameEn": "British and American Literature", "majors": ["EL"], "semester": 4, "credits": 3, "prereq": ["ELR201"], "slots": 30 }, { "code": "TRA301", "name": "Biên phiên dịch", "nameEn": "Translation and Interpretation", "majors": ["EL"], "semester": 5, "credits": 3, "prereq": ["ELS201", "ELR201"], "slots": 30 }, { "code": "BEC301", "name": "Tiếng Anh thương mại", "nameEn": "Business English", "majors": ["EL", "IB", "MKT"], "semester": 5, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ELT301", "name": "Phương pháp giảng dạy tiếng Anh", "nameEn": "English Language Teaching Methodology", "majors": ["EL"], "semester": 6, "credits": 3, "prereq": ["ELG201"], "slots": 30 }, { "code": "ELP490", "name": "Đồ án tốt nghiệp ngành Ngôn ngữ Anh", "nameEn": "English Language Capstone Project", "majors": ["EL"], "semester": 9, "credits": 10, "prereq": ["TRA301"], "slots": 30 }];
+        EXTRA_SUBJECTS.forEach(e => subjects.push(base(e)));
         let editingCode = null, viewingCode = null, deletingCode = null, formPre = [];
 
         function renderSubjects() {
@@ -3096,7 +3482,7 @@
             formPre = [...s.prereq]; renderPre();
             Object.values(listId).forEach(id => {
                 const el = document.getElementById(id);
-                if(el) el.innerHTML = '';
+                if (el) el.innerHTML = '';
             });
             s.clos.forEach(c => addRow('clo', { detail: c }));
             s.plan.forEach(p => addRow('plan', p)); s.assess.forEach(a => addRow('asm', a));
@@ -3194,7 +3580,7 @@
                 "SWE201,Lập trình Web,3,SE\n" +
                 "ML301,Machine Learning,3,AI\n" +
                 "MKT101,Marketing căn bản,3,IB";
-            
+
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
@@ -3208,25 +3594,25 @@
         function importSubject(input) {
             if (!input.files || !input.files[0]) return;
             const file = input.files[0];
-            
+
             // Xử lý đọc file (demo import môn học mới)
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 // Thêm 2 môn học demo giả lập dữ liệu từ file Excel/CSV
-                subjects.push(base({ 
-                    code: 'SWE201', name: 'Lập trình Web', nameEn: 'Web Programming', 
-                    majors: ['SE'], semester: 3, credits: 3 
+                subjects.push(base({
+                    code: 'SWE201', name: 'Lập trình Web', nameEn: 'Web Programming',
+                    majors: ['SE'], semester: 3, credits: 3
                 }));
-                subjects.push(base({ 
-                    code: 'ML301', name: 'Machine Learning', nameEn: 'Machine Learning', 
-                    majors: ['AI'], semester: 4, credits: 3 
+                subjects.push(base({
+                    code: 'ML301', name: 'Machine Learning', nameEn: 'Machine Learning',
+                    majors: ['AI'], semester: 4, credits: 3
                 }));
-                
+
                 input.value = ""; // Reset input
                 renderSubjects();
                 showToast(`Đã import dữ liệu từ file ${file.name} thành công!`, 'success');
             };
-            
+
             // Giả lập độ trễ khi đọc file
             setTimeout(() => {
                 reader.readAsText(file);
