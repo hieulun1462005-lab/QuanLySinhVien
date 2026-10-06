@@ -53,6 +53,7 @@ _Tài liệu yêu cầu nghiệp vụ cho Hệ thống Quản Lý Sinh Viên_
 | 5.1 | 28/09/2026 | Khánh, Hiếu | Chuẩn hóa quy ước đặt tên file Mockup, cập nhật mã định danh màn hình (UI). |
 | 5.2 | 29/09/2026 | Khánh, Hiếu | Đối chiếu toàn diện BRD với 36 file Mockup thực tế: sửa xung đột mã MH-04-1 (tách SV thành MH-04-1b), cập nhật MH-03-3 đúng tên file QRDiemDanh, bổ sung 2 màn hình MH-01-5/MH-01-6 thiếu, sửa ma trận truy vết, chuẩn hóa tên màn hình khớp mockup. |
 | 5.3 | 02/10/2026 | Khánh, Hiếu | Đối chiếu BRD với 41 file Mockup: bổ sung MH-01-8-HoSoSinhVien (Xem hồ sơ chi tiết SV), bổ sung 3 màn hình con MH-02-1-1/MH-02-1-2/MH-02-1-3 (tách riêng GV/Chuyên ngành/Môn học từ MH-02-1), cập nhật ma trận truy vết. Tổng cộng 41 file HTML + 1 CSV template. |
+| 5.4 | 06/10/2026 | Khánh, Hiếu | Bổ sung các màn hình từ Mockup: Chuyển ngành, Quản lý Khoa/Tòa nhà/Phòng học, Đổi lớp, Đánh giá giảng viên, Kho đề thi, Lịch thi, Quản lý học bổng, Điểm phúc khảo, Cập nhật điểm thi. Cập nhật thực thể, UC, phân quyền và ma trận truy vết tương ứng. |
 
 ## Phê duyệt tài liệu
 
@@ -556,6 +557,12 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 | TT-18 | Thông báo (Notification) | Nội dung, loại, người nhận, trạng thái đã đọc, thời điểm, TTL 90 ngày | Toàn hệ |
 | TT-19 | Môn tiên quyết (Subject PreRequisite) | Bảng trung gian quản lý quan hệ tiên quyết giữa các môn học | QLSV-02 |
 | TT-20 | Cấu hình tỷ trọng điểm (Grade Weight Config) | Tỷ trọng từng đầu điểm thành phần theo môn học | QLSV-04 |
+| TT-21 | Khoa/Viện (Department) | Quản lý thông tin khoa, phòng ban | QLSV-02 |
+| TT-22 | Tòa nhà (Building) | Quản lý các tòa nhà học | QLSV-02 |
+| TT-23 | Kho đề thi (Exam Bank) | Quản lý đề thi, câu hỏi khảo thí | QLSV-04 |
+| TT-24 | Đánh giá Giảng viên (Feedback) | Phiếu khảo sát chất lượng giảng dạy | QLSV-03 |
+| TT-25 | Học bổng (Scholarship) | Quản lý danh sách học bổng, mức tiền | QLSV-05 |
+| TT-26 | Phúc khảo (Grade Appeal) | Đơn yêu cầu xem lại điểm thi | QLSV-05 |
 
 # CHƯƠNG 7. QUY TRÌNH NGHIỆP VỤ ĐẦU–CUỐI
 
@@ -857,6 +864,87 @@ Các quy tắc nghiệp vụ (BR) áp dụng xuyên suốt toàn hệ thống, l
 | **Quy tắc nghiệp vụ** | BR-030, BR-031, BR-032, BR-033, BR-034, BR-035, BR-045. |
 | **Tiêu chí nghiệm thu** | UC-16.NT01: VNPay/MoMo thành công → Paid + Success. UC-16.NT02: Webhook bị mất → Query Transaction thủ công → gạch nợ bổ sung. |
 
+### UC-17 — Quản lý Kho đề thi & Lịch thi
+
+| **Thuộc tính** | **Mô tả chi tiết** |
+| --- | --- |
+| **Mã quy trình** | UC-17 |
+| **Tên quy trình** | Quản lý Kho đề thi & Lịch thi |
+| **Phân hệ liên quan** | QLSV-04 |
+| **Tác nhân** | VT-01 Quản nhiệm |
+| **Điều kiện bắt đầu** | Cần chuẩn bị kỳ thi cuối kỳ hoặc thi lại. Môn học đã được cấu hình trong CTĐT. |
+| **Dữ liệu đầu vào** | File đề thi, thông tin ca thi (Ngày, giờ, phòng, giám thị). |
+| **Luồng chính** | 1. QN tải đề thi lên Kho đề thi hệ thống. 2. Lập danh sách các ca thi theo môn học. 3. Phân bổ sinh viên đủ điều kiện dự thi vào phòng thi. 4. Gắn đề thi vào ca thi tương ứng. |
+| **Luồng ngoại lệ** | 1a. Upload file đề thi sai định dạng/dung lượng quá lớn: Báo lỗi và từ chối lưu. 3a. Sĩ số vượt quá sức chứa phòng thi: Cảnh báo đỏ, yêu cầu tách ca/thêm phòng. |
+| **Dữ liệu đầu ra** | Lịch thi chi tiết, Kho đề thi (TT-23). |
+| **Quy tắc nghiệp vụ** | BR-009, BR-051. |
+| **Tiêu chí nghiệm thu** | UC-17.NT01: Lập lịch thi và phân phòng không bị trùng lặp thời gian và phòng thi. UC-17.NT02: Đề thi được mã hóa và lưu trữ an toàn. |
+
+### UC-18 — Đánh giá Giảng viên
+
+| **Thuộc tính** | **Mô tả chi tiết** |
+| --- | --- |
+| **Mã quy trình** | UC-18 |
+| **Tên quy trình** | Đánh giá Giảng viên |
+| **Phân hệ liên quan** | QLSV-03 |
+| **Tác nhân** | VT-03 Sinh viên, VT-02 Giảng viên |
+| **Điều kiện bắt đầu** | Gần kết thúc học kỳ, hệ thống mở đợt khảo sát đánh giá giảng viên. |
+| **Dữ liệu đầu vào** | Các câu trả lời khảo sát và góp ý từ sinh viên. |
+| **Luồng chính** | 1. SV truy cập màn hình Đánh giá giảng viên của môn học đang theo. 2. Trả lời các câu hỏi trắc nghiệm và nhập góp ý (nếu có). 3. Nhấn gửi đánh giá. 4. Hệ thống ghi nhận trạng thái đã hoàn thành. 5. Cuối đợt, GV xem báo cáo kết quả đánh giá tổng hợp ẩn danh. |
+| **Luồng ngoại lệ** | 1a. Chưa đến hạn hoặc đã hết hạn đánh giá: Khóa nút Đánh giá, hiển thị thông báo. |
+| **Dữ liệu đầu ra** | Kết quả đánh giá giảng viên (TT-24). |
+| **Quy tắc nghiệp vụ** | Đánh giá ẩn danh 100%. |
+| **Tiêu chí nghiệm thu** | UC-18.NT01: Mỗi sinh viên chỉ được đánh giá 1 lần cho mỗi lớp. UC-18.NT02: GV không thể xem thông tin định danh của người đánh giá. |
+
+### UC-19 — Chuyển ngành & Đổi lớp
+
+| **Thuộc tính** | **Mô tả chi tiết** |
+| --- | --- |
+| **Mã quy trình** | UC-19 |
+| **Tên quy trình** | Chuyển ngành & Đổi lớp |
+| **Phân hệ liên quan** | QLSV-01, QLSV-02 |
+| **Tác nhân** | VT-01 Quản nhiệm, VT-03 Sinh viên |
+| **Điều kiện bắt đầu** | SV có nhu cầu và đáp ứng đủ quy chế thời gian cho phép đổi lớp/ngành. |
+| **Dữ liệu đầu vào** | Ngành mới hoặc Lớp mới đăng ký. |
+| **Luồng chính** | 1. SV nộp yêu cầu chuyển lớp hoặc Quản nhiệm tạo yêu cầu chuyển ngành. 2. Hệ thống kiểm tra điều kiện sĩ số lớp chuyển đến và điểm số tích lũy. 3. Quản nhiệm phê duyệt yêu cầu. 4. Cập nhật hồ sơ SV sang ngành/lớp mới. |
+| **Luồng ngoại lệ** | 2a. Lớp đích đã đạt sĩ số tối đa: Chặn phê duyệt, báo lỗi lớp đầy. |
+| **Dữ liệu đầu ra** | Hồ sơ SV được cập nhật (TT-01). |
+| **Quy tắc nghiệp vụ** | BR-004, BR-005. |
+| **Tiêu chí nghiệm thu** | UC-19.NT01: Sau khi duyệt đổi lớp, SV bị loại khỏi lớp cũ và thêm vào lớp mới ngay lập tức. |
+
+### UC-20 — Quản lý Học bổng
+
+| **Thuộc tính** | **Mô tả chi tiết** |
+| --- | --- |
+| **Mã quy trình** | UC-20 |
+| **Tên quy trình** | Quản lý Học bổng |
+| **Phân hệ liên quan** | QLSV-05 |
+| **Tác nhân** | VT-01 Quản nhiệm, VT-03 Sinh viên |
+| **Điều kiện bắt đầu** | Có quyết định xét duyệt học bổng từ nhà trường. |
+| **Dữ liệu đầu vào** | Danh sách SV đạt học bổng, mức học bổng, học kỳ áp dụng. |
+| **Luồng chính** | 1. QN import danh sách cấp học bổng vào hệ thống. 2. Hệ thống tạo dữ liệu Học bổng cá nhân. 3. SV nhận thông báo và xem chi tiết học bổng trên cổng thông tin. 4. Tự động cấn trừ học bổng vào hóa đơn thanh toán kỳ tiếp theo. |
+| **Luồng ngoại lệ** | 4a. Hóa đơn đã thanh toán trước khi cấp học bổng: Lưu số dư học bổng vào tài khoản sinh viên. |
+| **Dữ liệu đầu ra** | Hồ sơ học bổng (TT-25). |
+| **Quy tắc nghiệp vụ** | BR-051 (lưu vết thay đổi tài chính). |
+| **Tiêu chí nghiệm thu** | UC-20.NT01: Số tiền học bổng được tự động cấn trừ chính xác khi xuất hóa đơn học phí mới. |
+
+### UC-21 — Quản lý Phúc khảo
+
+| **Thuộc tính** | **Mô tả chi tiết** |
+| --- | --- |
+| **Mã quy trình** | UC-21 |
+| **Tên quy trình** | Quản lý Phúc khảo |
+| **Phân hệ liên quan** | QLSV-05 |
+| **Tác nhân** | VT-01 Quản nhiệm, VT-03 Sinh viên |
+| **Điều kiện bắt đầu** | Có kết quả điểm thi, còn trong thời hạn xin phúc khảo (ví dụ 7 ngày sau công bố). |
+| **Dữ liệu đầu vào** | Môn phúc khảo, lý do, lệ phí phúc khảo. |
+| **Luồng chính** | 1. SV nộp đơn phúc khảo và thanh toán lệ phí (UC-16). 2. Hệ thống chuyển đơn sang trạng thái Processing. 3. QN nhận đơn, tổ chức chấm lại bài thi. 4. QN cập nhật điểm mới và hoàn tất đơn phúc khảo (Approved/Rejected). |
+| **Luồng ngoại lệ** | 1a. Chưa thanh toán lệ phí: Đơn giữ ở trạng thái Pending. 1b. Hết hạn nộp đơn: Chặn tạo đơn. |
+| **Dữ liệu đầu ra** | Đơn phúc khảo (TT-26), Bảng điểm cập nhật (nếu có). |
+| **Quy tắc nghiệp vụ** | BR-027, BR-028, BR-051. |
+| **Tiêu chí nghiệm thu** | UC-21.NT01: Điểm môn học cập nhật ngay lập tức nếu QN xác nhận phúc khảo làm thay đổi điểm số. |
+
+
 # CHƯƠNG 8. BẢNG TRẠNG THÁI CÁC THỰC THỂ CHÍNH
 
 ## 8.1. Trạng thái Sinh viên (TT-01)
@@ -961,7 +1049,7 @@ _Ghi chú: Trạng thái G2 (Reserved) đã được loại bỏ từ v4.0 vì k
 
 | **Chức năng \\ Vai trò** | **VT-01 (QN)** | **VT-02 (GV)** | **VT-03 (SV)** | **VT-04 (Admin)** |
 | --- | --- | --- | --- | --- |
-| Quản lý GV & Phòng | —   | —   | —   | C/R/U/D |
+| Quản lý GV, Khoa, Tòa nhà, Phòng | —   | —   | —   | C/R/U/D |
 | Import hồ sơ SV | C/R/U/D | —   | —   | R   |
 | Cập nhật trạng thái SV | R/U | —   | —   | R/U |
 | Phân lớp chuyên ngành | C/R/U | —   | R   | R   |
@@ -983,8 +1071,11 @@ _Ghi chú: Trạng thái G2 (Reserved) đã được loại bỏ từ v4.0 vì k
 | Xem Activity Log | R (tài chính) | —   | —   | R   |
 | Xem Báo cáo thống kê | R (tất cả) | R (của mình) | —   | R   |
 | Đổi mật khẩu / Profile | U (của mình) | U (của mình) | U (của mình) | U (tất cả) |
-
-_Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Không có quyền._
+| Quản lý Kho đề thi & Lịch thi | C/R/U/D | — | R (lịch thi) | R |
+| Đánh giá Giảng viên | — | R (kết quả) | C/R | R |
+| Chuyển ngành & Đổi lớp | C/R/U | — | C/R | R |
+| Quản lý Học bổng | C/R/U | — | R | R |
+| Phúc khảo điểm | R/U | — | C/R | R |
 
 # CHƯƠNG 10. DANH SÁCH MÀN HÌNH UI THEO PHÂN HỆ
 
@@ -1012,21 +1103,28 @@ _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Khô
 | MH-01-4-PhanBoSinhVienVaoLop | Phân bổ sinh viên vào lớp chuyên ngành | VT-01 | Phân lớp tự động/thủ công | UC-04 |
 | MH-01-5-DanhSachLop | Danh sách lớp chuyên ngành | VT-01 | Xem, lọc, quản lý danh sách lớp | UC-04 |
 | MH-01-6-DanhSachSinhVienTrongLop | Danh sách sinh viên trong lớp | VT-01 | Xem chi tiết sĩ số & danh sách SV theo lớp | UC-04 |
-| MH-01-8-HoSoSinhVien | Hồ sơ sinh viên toàn trường | VT-01 | Xem chi tiết hồ sơ từng SV (grid card + modal chi tiết), lọc theo ngành/khóa/trạng thái, xuất danh sách | UC-02, UC-03 |
+| MH-01-7-ChuyenNganh | Chuyển ngành | VT-01 | Đăng ký và xử lý chuyển ngành sinh viên | UC-03 |
+| MH-01-8-HoSoSinhVien | Hồ sơ sinh viên toàn trường | VT-01 | Xem chi tiết hồ sơ từng SV, lọc theo ngành/khóa | UC-02, UC-03 |
 
 ## 10.3. Module 2: Đào tạo & TKB (QLSV-02)
 
 | **Mã MH (Tên File)** | **Màn hình** | **Vai trò** | **Chức năng chính** | **UC** |
 | --- | --- | --- | --- | --- |
-| MH-02-1-QuanLyDanhMuc | Quản lý Danh mục (Hub) | VT-01 | Trang tổng hợp 3 category card: GV, Chuyên ngành, Môn học — điều hướng sang trang con tương ứng | UC-05, UC-06 |
-| MH-02-1-1-QuanLyGiangVien | Quản lý Giảng viên (Chi tiết) | VT-01 | CRUD Giảng viên, tìm kiếm/lọc theo Khoa, xem danh sách lớp đang dạy | UC-05 |
+| MH-02-1-QuanLyDanhMuc | Quản lý Danh mục (Hub) | VT-01 | Trang tổng hợp các danh mục hệ thống — điều hướng sang trang con tương ứng | UC-05, UC-06 |
+| MH-02-1-1-QuanLyGiangVien | Quản lý Giảng viên (Chi tiết) | VT-01 | CRUD Giảng viên, tìm kiếm/lọc theo Khoa | UC-05 |
 | MH-02-1-2-QuanLyChuyenNganh | Quản lý Chuyên ngành (Chi tiết) | VT-01 | CRUD Chuyên ngành, xem danh sách lớp thuộc ngành | UC-05 |
-| MH-02-1-3-QuanLyMonHoc | Quản lý Môn học (Chi tiết) | VT-01 | CRUD Môn học, lọc theo chuyên ngành/tín chỉ, quản lý multi-tag ngành | UC-05, UC-06 |
+| MH-02-1-3-QuanLyMonHoc | Quản lý Môn học (Chi tiết) | VT-01 | CRUD Môn học, lọc theo chuyên ngành/tín chỉ | UC-05, UC-06 |
+| MH-02-1-4-QuanLyKhoa | Quản lý Khoa | VT-01 | CRUD Khoa viện | UC-05 |
+| MH-02-1-5-QuanLyToaNha | Quản lý Tòa nhà | VT-01 | CRUD Tòa nhà | UC-05 |
+| MH-02-1-6-QuanLyPhongHoc | Quản lý Phòng học | VT-01 | CRUD Phòng học theo tòa nhà | UC-05 |
 | MH-02-2-KhungChuongTrinhHoc | Khung chương trình học | VT-01 | Cấu hình cây CTĐT | UC-06 |
 | MH-02-3-XepThoiKhoaBieu | Xếp Thời Khóa Biểu | VT-01 | Xếp lịch tự động/thủ công | UC-07 |
 | MH-02-4-QuanLyYeuCauBaoNghiLichBu | Quản lý Yêu cầu Báo nghỉ & Lịch bù | VT-01 | Duyệt lịch báo nghỉ, xếp lịch bù | UC-08 |
+| MH-02-5-Khodethi | Kho đề thi | VT-01 | Quản lý danh sách đề thi (Ngân hàng câu hỏi) | UC-11 |
 | MH-02-5-LichGiangDayBaoNghi | Lịch giảng dạy & Báo nghỉ | VT-02 | Xem lịch dạy, báo nghỉ (GV) | UC-07, UC-08 |
+| MH-02-6-LichThi | Lịch thi | VT-01 | Quản lý và xếp lịch thi cho sinh viên | UC-11 |
 | MH-02-6-ThoiKhoaBieu | Thời khóa biểu (Timetable) | VT-03 | Xem lịch học (SV) | UC-07 |
+| MH-02-7-DoiLop | Đổi lớp | VT-03 | SV đăng ký đổi lớp học phần | UC-08 |
 
 ## 10.4. Module 3: Điểm danh (QLSV-03)
 
@@ -1035,6 +1133,7 @@ _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Khô
 | MH-03-1-DiemDanhLopHoc | Điểm danh Lớp học | VT-02 | Mở/đóng phiên QR, hiển thị QR động | UC-09 |
 | MH-03-2-BaoCaoDiemDanh | Báo cáo điểm danh | VT-03 | Xem tỉ lệ đi học theo từng môn, cảnh báo vắng mặt | UC-09 |
 | MH-03-3-QRDiemDanh | Lịch học trong ngày & Quét QR điểm danh | VT-03 | Xem lịch học, quét QR qua camera (SV) | UC-09 |
+| MH-03-4-DanhGiaGiangVien | Đánh giá giảng viên | VT-03 | Thực hiện khảo sát chất lượng giảng dạy | UC-18 |
 
 ## 10.5. Module 4: Quản lý Điểm & Khảo thí (QLSV-04)
 
@@ -1042,7 +1141,9 @@ _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Khô
 | --- | --- | --- | --- | --- |
 | MH-04-1-CapNhatDiemQuaTrinh | Cập nhật điểm quá trình | VT-02 | Grid nhập điểm TP (GV) | UC-10 |
 | MH-04-1b-ChuongTrinhDaoTao | Khung chương trình & Quản lý môn học (SV) | VT-03 | Xem CTDT theo học kỳ, thông tin môn học | UC-06 |
+| MH-04-2-CapNhatDiemThi | Cập nhật điểm thi | VT-02 | Nhập điểm thi Final Exam | UC-11 |
 | MH-04-2-KetQuaHocTap | Kết quả học tập | VT-03 | Xem điểm tổng hợp, bảng điểm cá nhân | UC-11 |
+| MH-04-3-XemDanhGiaGiangVien | Kết quả đánh giá giảng viên | VT-02 | Xem kết quả feedback từ sinh viên | UC-18 |
 | MH-04-3-LichThi | Lịch thi (Exam Schedule) | VT-03 | Xem lịch thi cá nhân | UC-10, UC-11 |
 
 ## 10.6. Module 5: Dịch vụ Hành chính (QLSV-05)
@@ -1051,7 +1152,9 @@ _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Khô
 | --- | --- | --- | --- | --- |
 | MH-05-1-HoSoCanBoQuanNhiem | Hồ Sơ Cán Bộ Quản Nhiệm | VT-01 | Quản lý Profile (QN) | UC-13 |
 | MH-05-2-PheDuyetDonTuSinhVien | Phê duyệt đơn từ sinh viên | VT-01 | Xem, Approve/Reject đơn | UC-14 |
+| MH-05-3-Quanlyhocbong | Quản lý học bổng | VT-01 | Phê duyệt, quản lý danh sách học bổng | UC-20 |
 | MH-05-3-QuanLyHoSoGiangVien | Quản lý Hồ sơ Giảng viên | VT-02 | Cập nhật Profile (GV) | UC-13 |
+| MH-05-4-Phuckhaodiem | Điểm phúc khảo | VT-01 | Xử lý yêu cầu phúc khảo của SV | UC-21 |
 | MH-05-4-QuanLyHoSoCaNhan | Quản lý Hồ sơ Cá nhân | VT-03 | Cập nhật Profile (SV) | UC-13 |
 | MH-05-5-DichVuHanhChinhMotCua | Dịch vụ hành chính một cửa | VT-03 | Nộp đơn, xem kết quả duyệt | UC-14 |
 
@@ -1061,6 +1164,7 @@ _Ghi chú: C = Create, R = Read, U = Update, D = Delete, X = Execute, — = Khô
 | --- | --- | --- | --- | --- |
 | MH-06-1-LichSuGiaoDich | Lịch sử giao dịch | VT-01 | Xem, tra soát thanh toán | UC-16 |
 | MH-06-2-HoaDonVaThanhToan | Hóa đơn & Thanh toán | VT-03 | Xem hóa đơn, thanh toán | UC-16 |
+| MH-06-3-hocbong | Học bổng | VT-03 | Xem học bổng cá nhân được cấp | UC-20 |
 
 # CHƯƠNG 11. TIÊU CHÍ NGHIỆM THU NGHIỆP VỤ
 
@@ -1184,3 +1288,10 @@ Tài liệu này thiết lập khung nghiệp vụ chi tiết đầy đủ cho H
 **Người cập nhật:** Hiếu, Khánh
 
 _Hết tài liệu._
+
+
+
+
+
+
+

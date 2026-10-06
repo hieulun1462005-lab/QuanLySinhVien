@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xếp Thời Khóa Biểu - Hệ Thống Quản Lý Sinh Viên</title>
+    <title>Xếp thời khóa biểu - Hệ Thống Quản Lý Sinh Viên</title>
     <meta name="description"
         content="Trang xếp thời khóa biểu tự động và thủ công cho hệ thống quản lý sinh viên Đại Học ONENET">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -2055,11 +2055,882 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+        }
+    </style>
+    <style id="page-ext">
+        /* ===== Mở rộng giao diện (dùng chung 2 màn hình) ===== */
+        .btn-outline {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            color: var(--text-dark)
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary)
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 13px
+        }
+
+        .btn:disabled {
+            opacity: .5;
+            cursor: not-allowed
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px
+        }
+
+        .page-subtitle {
+            font-size: 13px;
+            margin-top: 4px;
+            font-weight: 500
+        }
+
+        .x-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 18px;
+            box-shadow: var(--shadow-md)
+        }
+
+        .x-inp {
+            height: 40px;
+            width: 100%;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            font-size: 14px;
+            outline: none;
+            transition: border-color .15s, box-shadow .15s
+        }
+
+        textarea.x-inp {
+            height: 76px;
+            padding: 10px 12px;
+            resize: vertical
+        }
+
+        .x-inp:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-50)
+        }
+
+        .x-inp:disabled {
+            background: var(--bg-soft);
+            color: var(--text-light);
+            cursor: not-allowed
+        }
+
+        .x-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap
+        }
+
+        .x-badge::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor
+        }
+
+        .b-wait {
+            background: var(--bg-soft);
+            color: var(--text-gray)
+        }
+
+        .b-ok {
+            background: var(--success-light);
+            color: var(--success)
+        }
+
+        .b-miss {
+            background: var(--warning-light);
+            color: var(--warning)
+        }
+
+        .b-err {
+            background: var(--danger-light);
+            color: var(--danger)
+        }
+
+        .x-ov {
+            position: fixed;
+            inset: 0;
+            background: rgba(16, 42, 67, .45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 16px
+        }
+
+        .x-ov.active {
+            display: flex;
+            animation: fadeIn .2s ease-out
+        }
+
+        .x-modal {
+            background: var(--bg-white);
+            border-radius: 18px;
+            box-shadow: var(--shadow-xl);
+            width: min(920px, 100%);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column
+        }
+
+        .x-mh {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 17px
+        }
+
+        .x-mb {
+            padding: 20px 24px;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
+        .x-mf {
+            padding: 14px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-soft);
+            border-radius: 0 0 18px 18px
+        }
+
+        .x-x {
+            background: none;
+            border: 0;
+            color: var(--text-gray);
+            cursor: pointer;
+            display: flex
+        }
+
+        .x-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            max-width: 420px;
+            background: var(--success);
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(120px);
+            opacity: 0;
+            transition: .3s;
+            z-index: 2000;
+            font-size: 14px;
+            line-height: 1.45
+        }
+
+        .x-toast.show {
+            transform: none;
+            opacity: 1
+        }
+
+        .x-toast.err {
+            background: var(--danger)
+        }
+
+        .x-tw {
+            overflow-x: auto
+        }
+
+        .table td small {
+            display: block;
+            color: var(--text-gray);
+            font-size: 12px;
+            margin-top: 2px
+        }
+
+        .num {
+            font-variant-numeric: tabular-nums
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            * {
+                animation: none !important;
+                transition: none !important
+            }
+        }
+
+        .tk-bar {
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            padding: 16px 20px;
+            margin-bottom: 16px
+        }
+
+        .tk-bar label {
+            font-size: 13px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px
+        }
+
+        .tk-bar .x-inp {
+            min-width: 210px;
+            width: auto
+        }
+
+        .tk-meta {
+            margin-left: auto;
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.55;
+            text-align: right
+        }
+
+        .tk-st {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            margin-bottom: 16px;
+            overflow: hidden
+        }
+
+        .tk-st>div {
+            padding: 14px 22px;
+            border-right: 1px solid var(--border-light)
+        }
+
+        .tk-st>div:last-child {
+            border-right: 0
+        }
+
+        .tk-st b {
+            display: block;
+            font-size: 26px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums
+        }
+
+        .tk-st span {
+            font-size: 13px;
+            color: var(--text-gray)
+        }
+
+        .tk-two {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+            gap: 16px;
+            margin-bottom: 16px;
+            align-items: start
+        }
+
+        .tk-list {
+            display: flex;
+            flex-direction: column;
+            max-height: 600px;
+            overflow: hidden
+        }
+
+        .tk-lh {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            gap: 8px
+        }
+
+        .tk-lh .x-inp {
+            height: 36px
+        }
+
+        .tk-rows {
+            overflow: auto;
+            padding: 10px
+        }
+
+        .tk-row {
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--c);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            cursor: pointer;
+            font-size: 13.5px
+        }
+
+        .tk-row:hover {
+            background: var(--bg-soft)
+        }
+
+        .tk-row.on {
+            border-color: var(--primary);
+            border-left-color: var(--c);
+            background: var(--primary-50)
+        }
+
+        .tk-r1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px
+        }
+
+        .tk-row small {
+            display: block;
+            color: var(--text-gray);
+            font-size: 12.5px;
+            margin: 2px 0 6px
+        }
+
+        .tk-r3 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 14px;
+            font-size: 12.5px
+        }
+
+        .tk-r3 .miss {
+            color: var(--warning);
+            font-weight: 600
+        }
+
+        .tk-eh {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-light)
+        }
+
+        .tk-eh b {
+            font-size: 16px
+        }
+
+        .tk-eh small {
+            display: block;
+            color: var(--text-gray);
+            font-size: 13px;
+            margin-top: 3px
+        }
+
+        .tk-iss {
+            margin: 14px 20px 0;
+            display: grid;
+            gap: 6px
+        }
+
+        .tk-is {
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            line-height: 1.4
+        }
+
+        .tk-is.err {
+            background: var(--danger-light);
+            color: var(--danger)
+        }
+
+        .tk-is.warn {
+            background: var(--warning-light);
+            color: var(--warning)
+        }
+
+        .tk-is.ok {
+            background: var(--success-light);
+            color: var(--success)
+        }
+
+        .tk-is.info {
+            background: var(--bg-soft);
+            color: var(--text-gray)
+        }
+
+        .tk-fg {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 14px;
+            padding: 16px 20px
+        }
+
+        .tk-fg label,
+        .tk-sg label {
+            font-size: 13px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px
+        }
+
+        .tk-sg {
+            padding: 0 20px 14px
+        }
+
+        .tk-sg .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px
+        }
+
+        .tk-ch {
+            border: 1px solid var(--border);
+            background: var(--bg-white);
+            color: var(--text-dark);
+            border-radius: 99px;
+            padding: 5px 12px;
+            font-size: 12.5px;
+            cursor: pointer
+        }
+
+        .tk-ch.ok {
+            border-color: var(--success);
+            background: var(--success-light);
+            color: var(--success);
+            font-weight: 600
+        }
+
+        .tk-ch:not(.ok) {
+            color: var(--text-light);
+            cursor: not-allowed
+        }
+
+        .tk-ef {
+            padding: 12px 20px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-soft);
+            border-radius: 0 0 18px 18px;
+            font-size: 12.5px;
+            color: var(--text-gray)
+        }
+
+        .tk-empty {
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--text-gray)
+        }
+
+        .tk-gh {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-light)
+        }
+
+        .tk-gh .x-inp {
+            width: auto;
+            min-width: 190px;
+            height: 36px
+        }
+
+        .tk-gh .sp {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 13.5px
+        }
+
+        .seg {
+            display: inline-flex;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden
+        }
+
+        .seg button {
+            padding: 7px 14px;
+            border: 0;
+            background: var(--bg-white);
+            color: var(--text-gray);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer
+        }
+
+        .seg button.on {
+            background: var(--primary);
+            color: #fff
+        }
+
+        .tk-grid {
+            display: grid;
+            grid-template-columns: 88px repeat(6, minmax(138px, 1fr));
+            min-width: 940px
+        }
+
+        .tk-c {
+            border-right: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+            padding: 6px;
+            min-height: 96px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .tk-c.h {
+            min-height: 0;
+            background: var(--bg-soft);
+            font-weight: 600;
+            font-size: 13px;
+            text-align: center;
+            padding: 10px 4px
+        }
+
+        .tk-c.h small {
+            display: block;
+            font-weight: 500;
+            color: var(--text-gray);
+            font-size: 12px
+        }
+
+        .tk-c.h.today {
+            color: var(--primary);
+            background: var(--primary-50)
+        }
+
+        .tk-c.s {
+            background: var(--bg-soft);
+            font-size: 13px;
+            font-weight: 600;
+            justify-content: center
+        }
+
+        .tk-c.s small {
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 12px
+        }
+
+        .tk-c.free {
+            box-shadow: inset 0 0 0 2px var(--success);
+            background: var(--success-light);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            color: var(--success);
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 8px
+        }
+
+        .tk-b {
+            display: block;
+            text-align: left;
+            border: 0;
+            border-left: 4px solid var(--c);
+            border-radius: 10px;
+            padding: 6px 8px;
+            font-size: 11.5px;
+            line-height: 1.4;
+            background: color-mix(in srgb, var(--c) 15%, var(--bg-white));
+            color: var(--text-dark);
+            cursor: pointer
+        }
+
+        .tk-b b {
+            font-size: 12.5px
+        }
+
+        .tk-b .m {
+            color: var(--warning);
+            font-weight: 600
+        }
+
+        .tk-b.bad {
+            box-shadow: 0 0 0 2px var(--danger)
+        }
+
+        .tk-b.on {
+            box-shadow: 0 0 0 2px var(--primary)
+        }
+
+        .tk-lg {
+            padding: 10px 18px;
+            font-size: 12.5px;
+            color: var(--text-gray);
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap
+        }
+
+        @media(max-width:1100px) {
+            .tk-two {
+                grid-template-columns: 1fr
+            }
+
+            .tk-st {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media print {
+
+            .header,
+            .sidebar,
+            .tk-bar,
+            .tk-st,
+            .tk-two,
+            .page-header,
+            .tk-gh .seg,
+            .tk-lg,
+            .x-toast {
+                display: none !important
+            }
+
+            .dashboard-layout {
+                display: block;
+                height: auto
+            }
+
+            .dashboard-content {
+                overflow: visible
+            }
+        }
+
+        .page-header {
+            flex-wrap: wrap;
+            gap: 14px
+        }
+
+        .page-header>div:first-child {
+            flex: 1 1 380px
+        }
+    </style>
+    <style id="tk-scale">
+        .tk-cap {
+            padding: 20px
+        }
+
+        .cap-top {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 16px
+        }
+
+        .cap-top div {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            background: var(--bg-soft, #F9FBFD)
+        }
+
+        .cap-top b {
+            display: block;
+            font-size: 22px
+        }
+
+        .cap-top span {
+            font-size: 12px;
+            color: var(--text-gray)
+        }
+
+        .cap-g {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 14px
+        }
+
+        .cp-h {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 6px
+        }
+
+        .cp-h b.bad,
+        .cap-t b.bad {
+            color: var(--danger)
+        }
+
+        .cp-h b.warn,
+        .cap-t b.warn {
+            color: var(--warning)
+        }
+
+        .cb {
+            height: 8px;
+            border-radius: 99px;
+            background: var(--border-light, #EDF2F7);
+            overflow: hidden
+        }
+
+        .cb i {
+            display: block;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 99px;
+            transition: width .2s
+        }
+
+        .cb i.warn {
+            background: var(--warning)
+        }
+
+        .cb i.bad {
+            background: var(--danger)
+        }
+
+        .cap-v {
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 13.5px;
+            margin-bottom: 14px;
+            background: var(--success-light);
+            color: var(--success)
+        }
+
+        .cap-v.bad {
+            background: var(--danger-light);
+            color: var(--danger)
+        }
+
+        .cap-t {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px
+        }
+
+        .cap-t th {
+            text-align: left;
+            color: var(--text-gray);
+            font-weight: 600;
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .cap-t td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border-light, #EDF2F7)
+        }
+
+        .cap-t tr[data-f] {
+            cursor: pointer
+        }
+
+        .cap-t tr[data-f]:hover {
+            background: var(--primary-50)
+        }
+
+        .tk-prog {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-white);
+            font-size: 13px
+        }
+
+        .tk-prog .cb {
+            flex: 1
+        }
+
+        .tk-hm {
+            min-height: 44px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--text-gray);
+            border-radius: 8px;
+            background: color-mix(in srgb, var(--primary) var(--p), transparent)
+        }
+
+        .tk-hm b {
+            font-size: 16px;
+            color: var(--text-dark)
+        }
+
+        .tk-more {
+            width: 100%;
+            justify-content: center;
+            margin-top: 8px
+        }
+
+        @media(max-width:900px) {
+
+            .cap-top,
+            .cap-g {
+                grid-template-columns: 1fr 1fr
+            }
+        }
     </style>
 </head>
 
@@ -2124,6 +2995,12 @@
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="18"></i> Chương trình học
             </a>
+            <a href="MH-02-5-KhoDeThi.html" class="sidebar-item ">
+                <i data-lucide="library-big" size="18"></i> Kho đề thi
+            </a>
+            <a href="MH-02-6-LichThi.html" class="sidebar-item ">
+                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
+            </a>
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item active">
                 <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
@@ -2133,6 +3010,13 @@
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="award" size="18"></i> Học bổng
+            </a>
+            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+            </a>
+
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
@@ -2140,1213 +3024,287 @@
         </aside>
 
         <main class="dashboard-content">
-            <!-- Page Header -->
             <div class="page-header">
-                <div class="page-header-left">
-                    <h1 class="page-title">Xếp Thời Khóa Biểu</h1>
-                    <div class="page-subtitle">
-                        <span>MH-02-2</span>
-                        <span class="dot"></span>
-                        <span>QLSV-02-100</span>
-                        <span class="dot"></span>
-                        <span>Kéo giáo viên vào lớp hoặc dùng phân bổ tự động</span>
-                    </div>
+                <div>
+                    <h1 class="page-title">Xếp thời khóa biểu</h1>
+                    <p class="page-subtitle">Chọn khoa → ngành → khóa, rồi gán giảng viên, phòng và lịch cho từng lớp
+                        học phần; hệ thống kiểm tra trùng lịch, chuyên môn và sức chứa trên toàn trường. Quy mô 10.000
+                        sinh viên: lớp học phần được ghép theo sĩ số, xếp tự động theo lô.</p>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+                    <button class="btn btn-outline" id="bUndo" onclick="undo()" disabled><i data-lucide="undo-2"
+                            size="16"></i> Hoàn tác</button>
+                    <button class="btn btn-outline" onclick="exportCsv()"><i data-lucide="file-down" size="16"></i> Xuất
+                        CSV</button>
+                    <button class="btn btn-outline" onclick="saveTKB()"><i data-lucide="save" size="16"></i> Lưu
+                        TKB</button>
+                    <button class="btn btn-outline" id="bAutoAll"
+                        title="Xếp mọi lớp học phần còn thiếu trên toàn trường, bỏ qua bộ lọc"
+                        onclick="autoRun(true)"><i data-lucide="zap" size="16"></i> Xếp toàn trường</button>
+                    <button class="btn btn-primary" id="bAuto"
+                        title="Chỉ xếp các lớp học phần còn thiếu, giữ nguyên phần đã xếp" onclick="autoRun()"><i
+                            data-lucide="wand-2" size="16"></i> Xếp tự động</button>
                 </div>
             </div>
 
-            <!-- Filter Card -->
-            <div class="filter-card">
-                <div class="filter-card-header">
-                    <div class="icon-wrap"><i data-lucide="sliders-horizontal" size="16"></i></div>
-                    <h3>Thiết lập thông số</h3>
-                </div>
-                <div class="filter-grid">
-                    <div class="form-group">
-                        <label>Học kỳ <span class="req">*</span></label>
-                        <select class="form-control" id="filterSemester">
-                            <option>Fall 2026</option>
-                            <option>Spring 2027</option>
-                            <option>Summer 2027</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Chuyên ngành <span class="req">*</span></label>
-                        <select class="form-control" id="filterMajor">
-                            <option value="SE">Kỹ thuật phần mềm (SE)</option>
-                            <option value="AI">Trí tuệ nhân tạo (AI)</option>
-                            <option value="IB">Kinh doanh quốc tế (IB)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Khung giờ (Slot)</label>
-                        <select class="form-control" id="filterSlot">
-                            <option value="all">Tất cả Slot</option>
-                            <option value="1">Slot 1 (07:30 – 09:00)</option>
-                            <option value="2">Slot 2 (09:10 – 10:40)</option>
-                            <option value="3">Slot 3 (10:50 – 12:20)</option>
-                            <option value="4">Slot 4 (12:50 – 14:20)</option>
-                            <option value="5">Slot 5 (14:30 – 16:00)</option>
-                            <option value="6">Slot 6 (16:10 – 17:40)</option>
-                        </select>
-                    </div>
-                    <div class="filter-actions">
-                        <button class="btn btn-outline" onclick="openManualModal()">
-                            <i data-lucide="plus" size="16"></i> Thủ công
-                        </button>
-                    </div>
-                </div>
+            <div class="x-card tk-bar">
+                <div><label for="fSem">Học kỳ</label><select class="x-inp" id="fSem">
+                        <option>Fall 2026</option>
+                        <option disabled>Spring 2027 (chưa mở xếp lịch)</option>
+                    </select></div>
+                <div><label for="fFac">Khoa</label><select class="x-inp" id="fFac"></select></div>
+                <div><label for="fMajor">Chuyên ngành</label><select class="x-inp" id="fMajor"></select></div>
+                <div><label for="fK">Khóa</label><select class="x-inp" id="fK">
+                        <option value="">Cả 4 khóa đang học</option>
+                        <option value="20">Khóa 20</option>
+                        <option value="19">Khóa 19</option>
+                        <option value="18">Khóa 18</option>
+                        <option value="17">Khóa 17</option>
+                    </select></div>
+                <div class="tk-meta">Mỗi môn học <b>30 buổi</b>: 3 buổi/tuần × 10 tuần<br>Tuần học 07/09 – 15/11/2026 ·
+                    Slot 90 phút</div>
             </div>
 
-            <!-- ═══════════ DUAL PANEL: Class List + Teacher List ═══════════ -->
-            <div class="dual-panel-layout">
-                <!-- LEFT: Class List -->
-                <div class="list-panel" id="classPanelContainer">
-                    <div class="panel-header">
-                        <div class="panel-header-left">
-                            <div class="panel-icon" style="background: #DBEAFE; color: #1D4ED8;">
-                                <i data-lucide="layers" size="20"></i>
-                            </div>
-                            <div class="panel-info">
-                                <span class="panel-title">Danh sách Lớp</span>
-                                <span class="panel-desc" id="classCount">5 lớp • Kéo giáo viên vào đây</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-filter">
-                        <div class="search-box">
-                            <i data-lucide="search" size="14"></i>
-                            <input type="text" placeholder="Tìm lớp..." id="searchClass" oninput="filterClassList()">
-                        </div>
-                        <select class="filter-select" id="filterClassMajor" onchange="filterClassList()">
-                            <option value="">Tất cả ngành</option>
-                            <option value="SE">Kỹ thuật phần mềm</option>
-                            <option value="AI">Trí tuệ nhân tạo</option>
-                            <option value="IB">Kinh doanh quốc tế</option>
+            <div class="x-card tk-st" id="stats"></div>
+            <div id="prog" class="tk-prog"><span id="progT">Đang xếp…</span>
+                <div class="cb"><i id="progB" style="width:0"></i></div><button class="btn btn-outline btn-sm"
+                    onclick="stopAuto=true">Dừng</button>
+            </div>
+            <div class="x-card tk-cap" id="cap"></div>
+
+            <div class="tk-two">
+                <div class="x-card tk-list">
+                    <div class="tk-lh">
+                        <input class="x-inp" id="q" placeholder="Tìm lớp hoặc môn" aria-label="Tìm lớp học phần"
+                            style="flex:1">
+                        <select class="x-inp" id="fSt" aria-label="Lọc trạng thái" style="width:auto">
+                            <option value="">Tất cả</option>
+                            <option value="todo">Cần xử lý</option>
+                            <option value="err">Có xung đột</option>
+                            <option value="ok">Hoàn chỉnh</option>
                         </select>
                     </div>
-                    <div class="panel-list" id="classList">
-                        <!-- Classes are rendered by JS -->
-                    </div>
+                    <div class="tk-rows" id="rows"></div>
                 </div>
-
-                <!-- RIGHT: Teacher List -->
-                <div class="list-panel" id="teacherPanelContainer">
-                    <div class="panel-header">
-                        <div class="panel-header-left">
-                            <div class="panel-icon" style="background: #D1FAE5; color: #047857;">
-                                <i data-lucide="graduation-cap" size="20"></i>
-                            </div>
-                            <div class="panel-info">
-                                <span class="panel-title">Danh sách Giáo viên</span>
-                                <span class="panel-desc" id="teacherCount">4 giáo viên • Kéo thả để phân bổ</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-filter">
-                        <div class="search-box">
-                            <i data-lucide="search" size="14"></i>
-                            <input type="text" placeholder="Tìm giáo viên..." id="searchTeacher"
-                                oninput="filterTeacherList()">
-                        </div>
-                        <select class="filter-select" id="filterTeacherMajor" onchange="filterTeacherList()">
-                            <option value="">Tất cả ngành</option>
-                            <option value="CNTT">Công nghệ thông tin</option>
-                            <option value="KT">Kinh tế</option>
-                            <option value="NN">Ngôn ngữ</option>
-                        </select>
-                    </div>
-                    <div class="panel-list" id="teacherList">
-                        <!-- Teachers are rendered by JS -->
-                    </div>
-                </div>
+                <div class="x-card" id="ed"></div>
             </div>
 
-            <!-- ═══════════ AUTO ALLOCATE BUTTON ═══════════ -->
-            <div class="bottom-action-bar">
-                <div class="bar-info">
-                    <div class="bar-title">
-                        <i data-lucide="wand-2" size="20" style="color: #7C3AED;"></i>
-                        Phân bổ tự động
-                    </div>
-                    <div class="bar-desc">Hệ thống sẽ tự động gán giáo viên phù hợp cho các lớp chưa có GV, đảm bảo 0%
-                        conflict.</div>
-                </div>
-                <div class="bar-actions">
-                    <button class="btn btn-outline" onclick="resetAllAssignments()">
-                        <i data-lucide="rotate-ccw" size="15"></i> Đặt lại
-                    </button>
-                    <button class="btn btn-auto" id="btnAutoSchedule" onclick="simulateAutoSchedule()">
-                        <i data-lucide="sparkles" size="18"></i> Phân bổ tự động
-                    </button>
-                </div>
-            </div>
-
-            <!-- Results Section (hidden initially) -->
-            <div id="scheduleResult" style="display: none;">
-                <!-- Stats Row -->
-                <div class="stats-grid" id="statsArea">
-                    <div class="stat-card primary">
-                        <div class="stat-card-top">
-                            <span class="stat-label">Lớp được xếp</span>
-                            <div class="stat-icon"><i data-lucide="layers" size="18"></i></div>
-                        </div>
-                        <div class="stat-value-row"><span class="value">5</span><span class="unit">lớp</span></div>
-                    </div>
-                    <div class="stat-card info">
-                        <div class="stat-card-top">
-                            <span class="stat-label">Tổng SV phân bổ</span>
-                            <div class="stat-icon"><i data-lucide="users" size="18"></i></div>
-                        </div>
-                        <div class="stat-value-row"><span class="value">142</span><span class="unit">sinh viên</span>
-                        </div>
-                    </div>
-                    <div class="stat-card success">
-                        <div class="stat-card-top">
-                            <span class="stat-label">Conflict Phòng/GV</span>
-                            <div class="stat-icon"><i data-lucide="shield-check" size="18"></i></div>
-                        </div>
-                        <div class="stat-value-row"><span class="value" style="color: var(--success);">0%</span></div>
-                    </div>
-                    <div class="stat-card warning">
-                        <div class="stat-card-top">
-                            <span class="stat-label">Thời gian xử lý</span>
-                            <div class="stat-icon"><i data-lucide="timer" size="18"></i></div>
-                        </div>
-                        <div class="stat-value-row"><span class="value" id="processTime">2.4</span><span
-                                class="unit">giây (≤30s)</span></div>
+            <div class="x-card" style="overflow:hidden">
+                <div class="tk-gh">
+                    <div class="seg" id="seg"><button data-v="cls" class="on">Theo lớp</button><button data-v="gv">Theo
+                            giảng viên</button><button data-v="room">Theo phòng</button></div>
+                    <select class="x-inp" id="ent" aria-label="Chọn đối tượng xem"></select>
+                    <div class="sp"><button class="btn btn-outline btn-sm" onclick="wk(-1)" aria-label="Tuần trước"><i
+                                data-lucide="chevron-left" size="16"></i></button><span id="wl"></span><button
+                            class="btn btn-outline btn-sm" onclick="wk(1)" aria-label="Tuần sau"><i
+                                data-lucide="chevron-right" size="16"></i></button>
+                        <button class="btn btn-outline btn-sm" onclick="window.print()"><i data-lucide="printer"
+                                size="16"></i> In</button>
                     </div>
                 </div>
-
-                <!-- View Toggle Bar -->
-                <div class="view-toggle-bar">
-                    <div class="left">
-                        <h3>
-                            Kết quả phân bổ TKB
-                            <span class="conflict-badge ok"><i data-lucide="check-circle-2" size="13"></i> 0%
-                                Conflict</span>
-                        </h3>
-                    </div>
-                    <div class="right">
-                        <div class="toggle-group">
-                            <button class="toggle-btn active" onclick="switchView('grid')" id="toggleGrid">
-                                <i data-lucide="calendar-days" size="14"></i> Lưới
-                            </button>
-                            <button class="toggle-btn" onclick="switchView('table')" id="toggleTable">
-                                <i data-lucide="list" size="14"></i> Bảng
-                            </button>
-                        </div>
-                        <button class="btn btn-outline" onclick="window.print()">
-                            <i data-lucide="printer" size="15"></i> In TKB
-                        </button>
-                        <button class="btn btn-success" onclick="saveTKB()">
-                            <i data-lucide="save" size="15"></i> Lưu TKB
-                        </button>
-                    </div>
+                <div style="overflow-x:auto">
+                    <div class="tk-grid" id="grid"></div>
                 </div>
-
-                <!-- Grid View (Timetable) -->
-                <div class="timetable-card" id="gridView">
-                    <div style="overflow-x: auto;">
-                        <div class="timetable-grid">
-                            <!-- Header Row -->
-                            <div class="cell cell-header"></div>
-                            <div class="cell cell-header">Thứ 2</div>
-                            <div class="cell cell-header">Thứ 3</div>
-                            <div class="cell cell-header">Thứ 4</div>
-                            <div class="cell cell-header">Thứ 5</div>
-                            <div class="cell cell-header">Thứ 6</div>
-                            <div class="cell cell-header">Thứ 7</div>
-
-                            <!-- Slot 1 -->
-                            <div class="cell cell-slot">Slot 1<span class="slot-time">07:30–09:00</span></div>
-                            <div class="cell">
-                                <div class="schedule-block block-blue"
-                                    onclick="openEditModal('SE1901','GV001','P.301','1','246')">
-                                    <div class="sb-code">SE1901</div>
-                                    <div class="sb-subject">PRO192 – OOP</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.301</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> TS. Nguyễn Văn Hùng</div>
-                                </div>
-                            </div>
-                            <div class="cell">
-                                <div class="schedule-block block-rose"
-                                    onclick="openEditModal('SE1905','GV004','P.304','1','35')">
-                                    <div class="sb-code">SE1905</div>
-                                    <div class="sb-subject">SWR302</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.304</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> PGS. Phạm Minh Tuấn</div>
-                                </div>
-                            </div>
-                            <div class="cell">
-                                <div class="schedule-block block-blue"
-                                    onclick="openEditModal('SE1901','GV001','P.301','1','246')">
-                                    <div class="sb-code">SE1901</div>
-                                    <div class="sb-subject">PRO192 – OOP</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.301</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> TS. Nguyễn Văn Hùng</div>
-                                </div>
-                            </div>
-                            <div class="cell">
-                                <div class="schedule-block block-rose"
-                                    onclick="openEditModal('SE1905','GV004','P.304','1','35')">
-                                    <div class="sb-code">SE1905</div>
-                                    <div class="sb-subject">SWR302</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.304</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> PGS. Phạm Minh Tuấn</div>
-                                </div>
-                            </div>
-                            <div class="cell">
-                                <div class="schedule-block block-blue"
-                                    onclick="openEditModal('SE1901','GV001','P.301','1','246')">
-                                    <div class="sb-code">SE1901</div>
-                                    <div class="sb-subject">PRO192 – OOP</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.301</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> TS. Nguyễn Văn Hùng</div>
-                                </div>
-                            </div>
-                            <div class="cell cell-empty"></div>
-
-                            <!-- Slot 2 -->
-                            <div class="cell cell-slot">Slot 2<span class="slot-time">09:10–10:40</span></div>
-                            <div class="cell">
-                                <div class="schedule-block block-green"
-                                    onclick="openEditModal('SE1902','GV002','P.302','2','246')">
-                                    <div class="sb-code">SE1902</div>
-                                    <div class="sb-subject">DBI202 – Database</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.302</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> ThS. Trần Thị Mai</div>
-                                </div>
-                            </div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell">
-                                <div class="schedule-block block-green"
-                                    onclick="openEditModal('SE1902','GV002','P.302','2','246')">
-                                    <div class="sb-code">SE1902</div>
-                                    <div class="sb-subject">DBI202 – Database</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.302</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> ThS. Trần Thị Mai</div>
-                                </div>
-                            </div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell">
-                                <div class="schedule-block block-green"
-                                    onclick="openEditModal('SE1902','GV002','P.302','2','246')">
-                                    <div class="sb-code">SE1902</div>
-                                    <div class="sb-subject">DBI202 – Database</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.302</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> ThS. Trần Thị Mai</div>
-                                </div>
-                            </div>
-                            <div class="cell cell-empty"></div>
-
-                            <!-- Slot 3 -->
-                            <div class="cell cell-slot">Slot 3<span class="slot-time">10:50–12:20</span></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell">
-                                <div class="schedule-block block-purple"
-                                    onclick="openEditModal('SE1903','GV003','P.303','3','35')">
-                                    <div class="sb-code">SE1903</div>
-                                    <div class="sb-subject">PRF192 – Prog. Fund.</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.303</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> TS. Lê Hoàng Nam</div>
-                                </div>
-                            </div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell">
-                                <div class="schedule-block block-purple"
-                                    onclick="openEditModal('SE1903','GV003','P.303','3','35')">
-                                    <div class="sb-code">SE1903</div>
-                                    <div class="sb-subject">PRF192 – Prog. Fund.</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.303</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> TS. Lê Hoàng Nam</div>
-                                </div>
-                            </div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-
-                            <!-- Slot 4 -->
-                            <div class="cell cell-slot">Slot 4<span class="slot-time">12:50–14:20</span></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell">
-                                <div class="schedule-block block-orange"
-                                    onclick="openEditModal('SE1904','GV001','P.Lab01','4','35')">
-                                    <div class="sb-code">SE1904</div>
-                                    <div class="sb-subject">WED201 – Web Design</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.Lab01</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> TS. Nguyễn Văn Hùng</div>
-                                </div>
-                            </div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell">
-                                <div class="schedule-block block-orange"
-                                    onclick="openEditModal('SE1904','GV001','P.Lab01','4','35')">
-                                    <div class="sb-code">SE1904</div>
-                                    <div class="sb-subject">WED201 – Web Design</div>
-                                    <div class="sb-meta"><i data-lucide="map-pin" size="9"></i> P.Lab01</div>
-                                    <div class="sb-meta"
-                                        style="margin-top: 3px; font-weight: 500; font-size: 10px; color: inherit; opacity: 0.85;">
-                                        <i data-lucide="user" size="9"></i> TS. Nguyễn Văn Hùng</div>
-                                </div>
-                            </div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-
-                            <!-- Slot 5 -->
-                            <div class="cell cell-slot">Slot 5<span class="slot-time">14:30–16:00</span></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-
-                            <!-- Slot 6 -->
-                            <div class="cell cell-slot">Slot 6<span class="slot-time">16:10–17:40</span></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-                            <div class="cell cell-empty"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Table View -->
-                <div class="table-card" id="tableView" style="display: none;">
-                    <div class="table-scroll">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Mã Lớp</th>
-                                    <th>Môn Học</th>
-                                    <th>Giảng Viên</th>
-                                    <th>Phòng</th>
-                                    <th>Slot</th>
-                                    <th>Thứ dạy</th>
-                                    <th>Sĩ số</th>
-                                    <th style="text-align: right;">Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><span class="class-code"><span class="dot-indicator"
-                                                style="background:#3B82F6;"></span>SE1901</span></td>
-                                    <td>PRO192 – OOP</td>
-                                    <td>GV001 – TS. Nguyễn Văn Hùng</td>
-                                    <td>P.301</td>
-                                    <td><span class="slot-chip"><i data-lucide="clock" size="12"></i> Slot 1</span></td>
-                                    <td>
-                                        <div class="days-chip">
-                                            <span class="active">T2</span><span>T3</span><span
-                                                class="active">T4</span><span>T5</span><span class="active">T6</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="capacity-bar">
-                                            <div class="bar">
-                                                <div class="bar-fill full" style="width:100%"></div>
-                                            </div>
-                                            <span class="label">30/30</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-ghost"
-                                                onclick="openEditModal('SE1901','GV001','P.301','1','246')"><i
-                                                    data-lucide="pencil" size="15"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><span class="class-code"><span class="dot-indicator"
-                                                style="background:#10B981;"></span>SE1902</span></td>
-                                    <td>DBI202 – Database</td>
-                                    <td>GV002 – ThS. Trần Thị Mai</td>
-                                    <td>P.302</td>
-                                    <td><span class="slot-chip"><i data-lucide="clock" size="12"></i> Slot 2</span></td>
-                                    <td>
-                                        <div class="days-chip">
-                                            <span class="active">T2</span><span>T3</span><span
-                                                class="active">T4</span><span>T5</span><span class="active">T6</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="capacity-bar">
-                                            <div class="bar">
-                                                <div class="bar-fill partial" style="width:93%"></div>
-                                            </div>
-                                            <span class="label">28/30</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-ghost"
-                                                onclick="openEditModal('SE1902','GV002','P.302','2','246')"><i
-                                                    data-lucide="pencil" size="15"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><span class="class-code"><span class="dot-indicator"
-                                                style="background:#8B5CF6;"></span>SE1903</span></td>
-                                    <td>PRF192 – Programming Fundamentals</td>
-                                    <td>GV003 – TS. Lê Hoàng Nam</td>
-                                    <td>P.303</td>
-                                    <td><span class="slot-chip"><i data-lucide="clock" size="12"></i> Slot 3</span></td>
-                                    <td>
-                                        <div class="days-chip">
-                                            <span>T2</span><span class="active">T3</span><span>T4</span><span
-                                                class="active">T5</span><span>T6</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="capacity-bar">
-                                            <div class="bar">
-                                                <div class="bar-fill full" style="width:100%"></div>
-                                            </div>
-                                            <span class="label">30/30</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-ghost"
-                                                onclick="openEditModal('SE1903','GV003','P.303','3','35')"><i
-                                                    data-lucide="pencil" size="15"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><span class="class-code"><span class="dot-indicator"
-                                                style="background:#F59E0B;"></span>SE1904</span></td>
-                                    <td>WED201 – Web Design</td>
-                                    <td>GV001 – TS. Nguyễn Văn Hùng</td>
-                                    <td>P.Lab01</td>
-                                    <td><span class="slot-chip"><i data-lucide="clock" size="12"></i> Slot 4</span></td>
-                                    <td>
-                                        <div class="days-chip">
-                                            <span>T2</span><span class="active">T3</span><span>T4</span><span
-                                                class="active">T5</span><span>T6</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="capacity-bar">
-                                            <div class="bar">
-                                                <div class="bar-fill partial" style="width:83%"></div>
-                                            </div>
-                                            <span class="label">25/30</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-ghost"
-                                                onclick="openEditModal('SE1904','GV001','P.Lab01','4','35')"><i
-                                                    data-lucide="pencil" size="15"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><span class="class-code"><span class="dot-indicator"
-                                                style="background:#F43F5E;"></span>SE1905</span></td>
-                                    <td>SWR302 – Software Requirements</td>
-                                    <td>GV004 – PGS. Phạm Minh Tuấn</td>
-                                    <td>P.304</td>
-                                    <td><span class="slot-chip"><i data-lucide="clock" size="12"></i> Slot 1</span></td>
-                                    <td>
-                                        <div class="days-chip">
-                                            <span>T2</span><span class="active">T3</span><span>T4</span><span
-                                                class="active">T5</span><span>T6</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="capacity-bar">
-                                            <div class="bar">
-                                                <div class="bar-fill full" style="width:97%"></div>
-                                            </div>
-                                            <span class="label">29/30</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="btn-ghost"
-                                                onclick="openEditModal('SE1905','GV004','P.304','1','35')"><i
-                                                    data-lucide="pencil" size="15"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <div class="tk-lg"><span>Ô xanh: có thể xếp lớp đang chọn vào đây mà không xung đột (bấm để áp
+                        dụng).</span><span style="color:var(--danger)">Viền đỏ: lớp học phần đang xung đột.</span><span
+                        id="hmNote" style="display:none">Đang hiển thị mật độ số lớp học phần theo từng ô. Chọn một lớp,
+                        giảng viên hoặc phòng để xem chi tiết.</span></div>
             </div>
         </main>
     </div>
-
-    <!-- Edit Schedule Modal -->
-    <div id="editModal" class="modal-overlay">
-        <div class="modal-panel">
-            <div class="modal-header">
-                <h3>Chỉnh sửa lịch dạy <span class="class-tag" id="editClassName"></span></h3>
-                <button class="btn-ghost" onclick="closeEditModal()"><i data-lucide="x" size="18"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="alert-inline" id="conflictAlert">
-                    <div class="alert-icon"><i data-lucide="alert-triangle" size="14"></i></div>
-                    <div class="alert-body">
-                        <strong>ERR-QLSV-02: Phát hiện Conflict!</strong>
-                        <p id="conflictDetail">Giảng viên hoặc Phòng học đang bị trùng lịch.</p>
-                    </div>
-                </div>
-                <div class="form-group-full">
-                    <label>Giảng Viên</label>
-                    <select class="form-control" id="editTeacher" style="width:100%;">
-                        <option value="GV001">GV001 – TS. Nguyễn Văn Hùng</option>
-                        <option value="GV002">GV002 – ThS. Trần Thị Mai</option>
-                        <option value="GV003">GV003 – TS. Lê Hoàng Nam</option>
-                        <option value="GV004">GV004 – PGS. Phạm Minh Tuấn</option>
-                    </select>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Phòng Học</label>
-                        <select class="form-control" id="editRoom">
-                            <option value="P.301">P.301</option>
-                            <option value="P.302">P.302</option>
-                            <option value="P.303">P.303</option>
-                            <option value="P.304">P.304</option>
-                            <option value="P.Lab01">P.Lab01</option>
-                            <option value="P.Lab02">P.Lab02</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Slot</label>
-                        <select class="form-control" id="editSlot">
-                            <option value="1">Slot 1 (07:30 – 09:00)</option>
-                            <option value="2">Slot 2 (09:10 – 10:40)</option>
-                            <option value="3">Slot 3 (10:50 – 12:20)</option>
-                            <option value="4">Slot 4 (12:50 – 14:20)</option>
-                            <option value="5">Slot 5 (14:30 – 16:00)</option>
-                            <option value="6">Slot 6 (16:10 – 17:40)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group-full">
-                    <label>Thứ dạy</label>
-                    <select class="form-control" id="editDays" style="width:100%;">
-                        <option value="246">T2, T4, T6</option>
-                        <option value="35">T3, T5</option>
-                        <option value="2345">T2, T3, T4, T5</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeEditModal()">Hủy</button>
-                <button class="btn btn-primary" onclick="saveEdit()"><i data-lucide="check" size="15"></i> Lưu thay
-                    đổi</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manual Schedule Modal -->
-    <div id="manualModal" class="modal-overlay">
-        <div class="modal-panel">
-            <div class="modal-header">
-                <h3><i data-lucide="plus-circle" size="18" style="color: var(--primary);"></i> Xếp TKB Thủ Công</h3>
-                <button class="btn-ghost" onclick="closeManualModal()"><i data-lucide="x" size="18"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="alert-inline" id="manualConflictAlert">
-                    <div class="alert-icon"><i data-lucide="alert-triangle" size="14"></i></div>
-                    <div class="alert-body">
-                        <strong>ERR-QLSV-02: Phát hiện Conflict!</strong>
-                        <p id="manualConflictDetail">Giảng viên hoặc Phòng học đang bị trùng lịch.</p>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Lớp học</label>
-                        <select class="form-control" id="manualClass">
-                            <option value="SE1906">SE1906</option>
-                            <option value="SE1907">SE1907</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Môn học</label>
-                        <select class="form-control" id="manualSubject">
-                            <option value="CSD201 – Data Structures">CSD201 – Data Structures</option>
-                            <option value="IOT102 – Internet of Things">IOT102 – Internet of Things</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group-full">
-                    <label>Giảng Viên</label>
-                    <select class="form-control" id="manualTeacher" style="width:100%;">
-                        <option value="GV001">GV001 – TS. Nguyễn Văn Hùng</option>
-                        <option value="GV002">GV002 – ThS. Trần Thị Mai</option>
-                        <option value="GV003">GV003 – TS. Lê Hoàng Nam</option>
-                        <option value="GV004">GV004 – PGS. Phạm Minh Tuấn</option>
-                    </select>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Phòng Học</label>
-                        <select class="form-control" id="manualRoom">
-                            <option value="P.301">P.301</option>
-                            <option value="P.302">P.302</option>
-                            <option value="P.303">P.303</option>
-                            <option value="P.304">P.304</option>
-                            <option value="P.Lab01">P.Lab01</option>
-                            <option value="P.Lab02">P.Lab02</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Slot</label>
-                        <select class="form-control" id="manualSlot">
-                            <option value="1">Slot 1 (07:30 – 09:00)</option>
-                            <option value="2">Slot 2 (09:10 – 10:40)</option>
-                            <option value="3">Slot 3 (10:50 – 12:20)</option>
-                            <option value="4">Slot 4 (12:50 – 14:20)</option>
-                            <option value="5">Slot 5 (14:30 – 16:00)</option>
-                            <option value="6">Slot 6 (16:10 – 17:40)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group-full">
-                    <label>Thứ dạy</label>
-                    <select class="form-control" id="manualDays" style="width:100%;">
-                        <option value="246">T2, T4, T6</option>
-                        <option value="35">T3, T5</option>
-                        <option value="2345">T2, T3, T4, T5</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeManualModal()">Hủy</button>
-                <button class="btn btn-primary" onclick="saveManual()"><i data-lucide="plus" size="15"></i> Thêm
-                    TKB</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loader-ring"></div>
-        <div class="loading-steps">
-            <div class="step" id="step1"><i data-lucide="database" size="14"></i> Đang tải dữ liệu danh mục...</div>
-            <div class="step" id="step2"><i data-lucide="cpu" size="14"></i> Chạy thuật toán xếp TKB...</div>
-            <div class="step" id="step3"><i data-lucide="shield-check" size="14"></i> Kiểm tra conflict phòng/GV...
-            </div>
-            <div class="step" id="step4"><i data-lucide="check-circle" size="14"></i> Hoàn tất!</div>
-        </div>
-        <div class="loading-progress">
-            <div class="bar" id="loadingBar"></div>
-        </div>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
-
+    <div class="x-toast" id="toast"><i data-lucide="check-circle" size="22" style="flex-shrink:0"></i><span
+            id="toastText"></span></div>
     <script>
         lucide.createIcons();
-
-        // ═══════════ DATA ═══════════
-        const classData = [
-            { id: 'SE1901', name: 'Lớp SE1901', subject: 'PRO192 – OOP', major: 'SE', majorName: 'Kỹ thuật phần mềm', students: 30, gv: null },
-            { id: 'SE1902', name: 'Lớp SE1902', subject: 'DBI202 – Database', major: 'SE', majorName: 'Kỹ thuật phần mềm', students: 28, gv: null },
-            { id: 'SE1903', name: 'Lớp SE1903', subject: 'PRF192 – Prog. Fund.', major: 'SE', majorName: 'Kỹ thuật phần mềm', students: 30, gv: null },
-            { id: 'SE1904', name: 'Lớp SE1904', subject: 'WED201 – Web Design', major: 'SE', majorName: 'Kỹ thuật phần mềm', students: 25, gv: null },
-            { id: 'SE1905', name: 'Lớp SE1905', subject: 'SWR302 – Software Req.', major: 'SE', majorName: 'Kỹ thuật phần mềm', students: 29, gv: null },
-        ];
-
-        const teacherData = [
-            { id: 'GV001', name: 'TS. Nguyễn Văn Hùng', dept: 'CNTT', deptFull: 'Công nghệ thông tin', color: '#3B82F6', initial: 'H' },
-            { id: 'GV002', name: 'ThS. Trần Thị Mai', dept: 'KT', deptFull: 'Kinh tế', color: '#10B981', initial: 'M' },
-            { id: 'GV003', name: 'TS. Lê Hoàng Nam', dept: 'CNTT', deptFull: 'Công nghệ thông tin', color: '#8B5CF6', initial: 'N' },
-            { id: 'GV004', name: 'PGS. Phạm Minh Tuấn', dept: 'CNTT', deptFull: 'Công nghệ thông tin', color: '#F43F5E', initial: 'T' },
-        ];
-
-        const currentSchedule = [
-            { cls: 'SE1901', gv: 'GV001', room: 'P.301', slot: '1', days: '246' },
-            { cls: 'SE1902', gv: 'GV002', room: 'P.302', slot: '2', days: '246' },
-            { cls: 'SE1903', gv: 'GV003', room: 'P.303', slot: '3', days: '35' },
-            { cls: 'SE1904', gv: 'GV001', room: 'P.Lab01', slot: '4', days: '35' },
-            { cls: 'SE1905', gv: 'GV004', room: 'P.304', slot: '1', days: '35' },
-        ];
-
-        // ═══════════ RENDER LISTS ═══════════
-        function renderClassList() {
-            const container = document.getElementById('classList');
-            container.innerHTML = '';
-            const search = (document.getElementById('searchClass')?.value || '').toLowerCase();
-            const majorFilter = document.getElementById('filterClassMajor')?.value || '';
-
-            let visibleCount = 0;
-            classData.forEach((cls, idx) => {
-                if (search && !cls.name.toLowerCase().includes(search) && !cls.id.toLowerCase().includes(search) && !cls.subject.toLowerCase().includes(search)) return;
-                if (majorFilter && cls.major !== majorFilter) return;
-                visibleCount++;
-
-                const gvInfo = cls.gv ? teacherData.find(t => t.id === cls.gv) : null;
-                const item = document.createElement('div');
-                item.className = 'list-item class-item';
-                item.setAttribute('data-class-id', cls.id);
-                item.setAttribute('data-class-index', idx);
-                item.innerHTML = `
-                    <div class="item-avatar" style="background: #DBEAFE; color: #1D4ED8; font-size: 11px;">${cls.id.slice(-2)}</div>
-                    <div class="item-info">
-                        <div class="item-name">${cls.id} – ${cls.subject}</div>
-                        <div class="item-meta">
-                            <i data-lucide="users" size="11"></i> ${cls.students} SV
-                            <span style="color:#CBD5E1;">•</span>
-                            ${cls.majorName}
-                        </div>
-                    </div>
-                    <div>
-                        <span class="assigned-gv ${gvInfo ? 'filled' : 'empty'}">
-                            ${gvInfo
-                        ? `<i data-lucide="check-circle" size="12"></i> ${gvInfo.name}`
-                        : `<i data-lucide="user-x" size="12"></i> Chưa gán GV`
-                    }
-                        </span>
-                    </div>
-                    <div class="drop-hint"><i data-lucide="arrow-down" size="10"></i> Thả vào đây</div>
-                `;
-
-                // Drop target events
-                item.addEventListener('dragover', handleDragOver);
-                item.addEventListener('dragenter', handleDragEnter);
-                item.addEventListener('dragleave', handleDragLeave);
-                item.addEventListener('drop', handleDrop);
-                container.appendChild(item);
+        const $ = id => document.getElementById(id);
+        const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const norm = s => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+        let _t; function toast(m, err) { const t = $('toast'); $('toastText').textContent = m; t.classList.toggle('err', !!err); t.classList.add('show'); clearTimeout(_t); _t = setTimeout(() => t.classList.remove('show'), 5500) }
+        /* ===== Dữ liệu danh mục ===== */
+        const SLOTS = [['07:30', '09:00'], ['09:10', '10:40'], ['10:50', '12:20'], ['12:50', '14:20'], ['14:30', '16:00'], ['16:10', '17:40']];
+        const PAT = { '246': 'T2-4-6', '357': 'T3-5-7' }, START = new Date(2026, 8, 7), WEEKS = 10, PER = 3, TKEY = 'onenet-tkb-fall2026-v3';
+        const FACS = [
+            ['IT', 'Công nghệ thông tin', [['KTPM', 'Kỹ thuật phần mềm'], ['CNTT', 'Công nghệ thông tin'], ['KHMT', 'Khoa học máy tính'], ['HTTT', 'Hệ thống thông tin'], ['TTNT', 'Trí tuệ nhân tạo'], ['ATTT', 'An toàn thông tin']], ['Lập trình hướng đối tượng*', 'Cơ sở dữ liệu*', 'Toán rời rạc', 'Kiến trúc máy tính', 'Mạng máy tính', 'Nhập môn trí tuệ nhân tạo']],
+            ['EC', 'Kinh tế - Quản trị', [['QTKD', 'Quản trị kinh doanh'], ['KT', 'Kế toán'], ['TCNH', 'Tài chính - Ngân hàng'], ['KDQT', 'Kinh doanh quốc tế'], ['LOG', 'Logistics & Chuỗi cung ứng'], ['DMK', 'Digital Marketing'], ['LKT', 'Luật kinh tế']], ['Nguyên lý Marketing', 'Kinh tế vi mô', 'Nguyên lý kế toán', 'Pháp luật kinh doanh', 'Phân tích dữ liệu kinh doanh*', 'Quản trị học']],
+            ['LN', 'Ngoại ngữ - Truyền thông', [['NNA', 'Ngôn ngữ Anh'], ['NNN', 'Ngôn ngữ Nhật'], ['NNH', 'Ngôn ngữ Hàn Quốc'], ['NNT', 'Ngôn ngữ Trung Quốc'], ['TTDPT', 'Truyền thông ĐPT'], ['QHCC', 'Quan hệ công chúng'], ['TKDH', 'Thiết kế đồ họa']], ['Ngữ âm thực hành*', 'Nghe - Nói*', 'Đọc - Viết', 'Văn hóa - Giao tiếp', 'Biên phiên dịch', 'Truyền thông đa phương tiện']],
+            ['EN', 'Kỹ thuật - Công nghệ', [['DDT', 'Kỹ thuật điện - điện tử'], ['CKCT', 'Cơ khí chế tạo máy'], ['CNOT', 'Công nghệ ô tô'], ['KTXD', 'Kỹ thuật xây dựng'], ['KTR', 'Kiến trúc']], ['Vẽ kỹ thuật', 'Cơ học kỹ thuật', 'Vật liệu kỹ thuật', 'Thực hành xưởng*', 'Đo lường - Cảm biến*', 'An toàn lao động']],
+            ['TH', 'Du lịch - Dịch vụ', [['QTKS', 'Quản trị khách sạn'], ['DLLH', 'Du lịch & Lữ hành']], ['Tổng quan du lịch', 'Nghiệp vụ lễ tân*', 'Tâm lý khách hàng', 'Quản trị dịch vụ', 'Tiếng Anh chuyên ngành', 'Marketing du lịch']],
+            ['HS', 'Sức khỏe - Xã hội', [['TLH', 'Tâm lý học'], ['DH', 'Dược học'], ['DD', 'Điều dưỡng']], ['Giải phẫu - Sinh lý', 'Thực hành lâm sàng*', 'Tâm lý học đại cương', 'Y đức', 'Hóa học ứng dụng*', 'Dịch tễ học']]];
+        const MONS = {}; FACS.forEach(F => F[3].forEach((n, j) => { MONS[F[0] + '10' + (j + 1)] = [n.replace('*', ''), n.endsWith('*') ? 'Lab' : 'LT'] }));
+        const MAJ = []; FACS.forEach(F => F[2].forEach(m => MAJ.push({ c: m[0], n: m[1], f: F[0] })));
+        const HO = ['Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Vũ', 'Đặng', 'Bùi', 'Đỗ', 'Ngô'], DM = ['Văn', 'Thị', 'Minh', 'Quốc', 'Thu', 'Hữu', 'Lan', 'Ngọc', 'Đức', 'Thanh'], TN = ['Hùng', 'Mai', 'Nam', 'Tuấn', 'Hà', 'Huy', 'Anh', 'Lan', 'Bảo', 'Linh', 'Phúc', 'Trang', 'Khoa'];
+        const TEACHERS = []; FACS.forEach((F, fi) => { for (let j = 0; j < 40; j++) { const part = j % 9 === 8, sat = j % 7 === 6; TEACHERS.push({ id: 'GV' + (fi * 100 + j + 1), f: F[0], name: (j % 8 === 0 ? 'PGS. ' : j % 3 === 0 ? 'TS. ' : 'ThS. ') + HO[(j * 3 + fi) % 10] + ' ' + DM[(j * 7 + fi) % 10] + ' ' + TN[(j * 5 + fi * 2) % 13], skills: [j % 6, (j + 1) % 6, (j + 3) % 6].map(x => F[0] + '10' + (x + 1)), busySlots: part ? [1, 2, 3] : [], busyDays: sat ? ['7'] : [], max: part ? 6 : 15, note: part ? 'giảng viên thỉnh giảng, chỉ dạy buổi chiều' : sat ? 'không dạy thứ 7' : '' }) } });
+        const GVS = {}; TEACHERS.forEach(t => t.skills.forEach(m => (GVS[m] = GVS[m] || []).push(t)));
+        const ROOMS = [];[[8, 150, 'A'], [16, 100, 'B'], [16, 60, 'C']].forEach(([n, c, p]) => { for (let i = 0; i < n; i++)ROOMS.push({ id: 'P.' + p + String(i + 1).padStart(2, '0'), type: 'LT', cap: c }) }); for (let i = 0; i < 30; i++)ROOMS.push({ id: 'P.Lab' + String(i + 1).padStart(2, '0'), type: 'Lab', cap: 40 });
+        const RB = { LT: ROOMS.filter(r => r.type === 'LT').sort((a, b) => a.cap - b.cap), Lab: ROOMS.filter(r => r.type === 'Lab') };
+        /* ===== Quy mô 10.000 sinh viên: chia lớp sinh hoạt (<=40 SV), ghép lớp học phần ===== */
+        const SVN = 10000, pad = (n, l = 2) => String(n).padStart(l, '0'), CB = (sl, p) => (sl - 1) * 2 + (p === '246' ? 0 : 1);
+        const COH = []; MAJ.forEach((m, mi) => [17, 18, 19, 20].forEach(k => COH.push({ m, k, n: 40 + (mi * 37 + k * 11) % 86 })));
+        { const tot = COH.reduce((a, c) => a + c.n, 0); COH.forEach(c => c.n = Math.round(c.n * SVN / tot)); COH[0].n += SVN - COH.reduce((a, c) => a + c.n, 0) }
+        COH.forEach(c => { const nc = Math.ceil(c.n / 40), b = c.n / nc | 0, x = c.n % nc; c.cls = []; for (let i = 0; i < nc; i++)c.cls.push({ code: c.m.c + c.k + pad(i + 1), size: b + (i < x ? 1 : 0) }) });
+        const NCLS = COH.reduce((a, c) => a + c.cls.length, 0);
+        /* Chỉ mục xung đột: đếm theo (đối tượng, tổ hợp slot+ngày) để kiểm tra O(1) */
+        const A = (m, k) => m[k] || (m[k] = new Uint8Array(12)), hit = (m, k, b) => m[k] && m[k][b] > 0;
+        function ixAdd(I, s, d) { if (s.gv) I.l[s.gv] = (I.l[s.gv] || 0) + PER * d; if (!(s.slot && s.pat)) return; const b = CB(s.slot, s.pat); if (s.gv) A(I.g, s.gv)[b] += d; if (s.room) A(I.r, s.room)[b] += d; s.cl.forEach(c => A(I.c, c)[b] += d) }
+        const mkIdx = list => { const I = { g: {}, r: {}, c: {}, l: {} }; list.forEach(s => ixAdd(I, s, 1)); return I };
+        function place(s, I) {
+            const lab = MONS[s.mon][1] === 'Lab', fix = !!s.gv, gvs = fix ? [T(s.gv)] : (GVS[s.mon] || []).slice().sort((a, b) => (I.l[a.id] || 0) - (I.l[b.id] || 0));
+            const rooms = s.room ? [R(s.room)] : RB[lab ? 'Lab' : 'LT'].filter(r => r.cap >= s.size), off = [...s.id].reduce((a, c) => a + c.charCodeAt(0), 0) % 12;
+            for (let q = 0; q < 12; q++) {
+                const i = (q + off) % 12, sl = (i >> 1) + 1, p = i % 2 ? '357' : '246';
+                if (s.slot && s.slot !== sl || s.pat && s.pat !== p || s.cl.some(c => hit(I.c, c, i))) continue;
+                for (const g of gvs) { if (hit(I.g, g.id, i) || g.busySlots.includes(sl) || g.busyDays.some(d => p.includes(d)) || !fix && (I.l[g.id] || 0) + PER > g.max) continue; for (const r of rooms) if (!hit(I.r, r.id, i)) return { slot: sl, pat: p, gv: g.id, room: r.id } }
+            } return null
+        }
+        function buildSecs() {
+            const out = []; FACS.forEach(F => [17, 18, 19, 20].forEach(k => { const co = COH.filter(c => c.m.f === F[0] && c.k === k); for (let j = 0; j < 3; j++) { const code = F[0] + '10' + (1 + (k + j * 2) % 6), cap = MONS[code][1] === 'Lab' ? 40 : 100, grp = []; let g = null; co.forEach(c => c.cls.forEach(cl => { if (!g || g.size + cl.size > cap) { g = { cl: [], majors: [], size: 0 }; grp.push(g) } g.cl.push(cl.code); if (!g.majors.includes(c.m.c)) g.majors.push(c.m.c); g.size += cl.size })); grp.forEach((g, i) => { const id = code + '.' + k + '-' + pad(i + 1); out.push({ id, cls: id, cl: g.cl, majors: g.majors, major: g.majors[0], mon: code, f: F[0], k, size: g.size, gv: '', room: '', slot: 0, pat: '' }) }) } })); return out
+        }
+        /* ~60% lớp học phần được xếp sẵn, phần còn lại để cán bộ xếp tay hoặc bấm Xếp tự động */
+        function buildInit() { const L = buildSecs(), I = mkIdx([]); L.forEach((s, i) => { if ((i * 7) % 10 < 6) { const c = place(s, I); if (c) { Object.assign(s, c); ixAdd(I, s, 1) } } }); return L }
+        const COL = ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#F43F5E'], ccol = c => COL[[...c].reduce((a, ch) => a + ch.charCodeAt(0), 0) % 5];
+        const TM = new Map(TEACHERS.map(t => [t.id, t])), RM = new Map(ROOMS.map(r => [r.id, r])), T = id => TM.get(id), R = id => RM.get(id);
+        const INIT = buildInit();
+        const short = n => { const p = n.split(' '); return p[0] + ' ' + p[p.length - 1] };
+        const clone = o => JSON.parse(JSON.stringify(o));
+        let S; try { S = JSON.parse(localStorage.getItem(TKEY)) } catch (e) { } if (!Array.isArray(S)) S = clone(INIT);
+        let sel = null, view = 'cls', ent = '', fFac = 'IT', fMajor = 'KTPM', fK = '', fSt = '', q = '', prev = null;
+        const inScope = s => (!fFac || s.f === fFac) && (!fMajor || s.majors.includes(fMajor)) && (!fK || s.k == fK);
+        function fillOpts(all) {
+            const cnt = {}; S.forEach((s, i) => { if (all[i] !== 'ok') s.majors.forEach(m => cnt[m] = (cnt[m] || 0) + 1) });
+            $('fFac').innerHTML = '<option value="">Tất cả khoa</option>' + FACS.map(F => `<option value="${F[0]}" ${F[0] === fFac ? 'selected' : ''}>${F[1]}</option>`).join('');
+            $('fMajor').innerHTML = `<option value="">Tất cả ngành${fFac ? ' trong khoa' : ''}</option>` + MAJ.filter(m => !fFac || m.f === fFac).map(m => `<option value="${m.c}" ${m.c === fMajor ? 'selected' : ''}>${m.n} (${m.c})${cnt[m.c] ? ' · ' + cnt[m.c] + ' chưa xong' : ' · ✓'}</option>`).join(''); $('fK').value = fK
+        }
+        const nowW = Math.min(WEEKS, Math.max(1, Math.floor((new Date() - START) / 6048e5) + 1)); let week = nowW;
+        /* ===== Kiểm tra ràng buộc ===== */
+        const overlap = (a, b) => a.slot && b.slot && a.slot === b.slot && a.pat && b.pat && [...a.pat].some(d => b.pat.includes(d));
+        const load = (g, list, skip) => list.filter(s => s.gv === g && s.id !== skip).reduce((n, s) => n + (s.pat ? s.pat.length : PER), 0);
+        function check(s, list = S) {
+            const o = [], add = (lv, k, m) => o.push({ lv, k, m }), g = s.gv && T(s.gv), r = s.room && R(s.room), lab = MONS[s.mon][1] === 'Lab';
+            list.forEach(x => {
+                if (x.id === s.id || !overlap(s, x)) return;
+                const cc = s.cl.find(c => x.cl.includes(c)); if (cc) add('err', 'cx', `Lớp ${cc} đang học ${x.mon} cùng lúc (${x.cls})`);
+                if (s.gv && x.gv === s.gv) add('err', 'gx', `${g.name} đang dạy ${x.cls}-${x.mon} cùng lúc`);
+                if (s.room && x.room === s.room) add('err', 'rx', `Phòng ${s.room} đang dùng cho ${x.cls}-${x.mon}`)
             });
-
-            document.getElementById('classCount').textContent = `${visibleCount} lớp • Kéo giáo viên vào đây`;
-            lucide.createIcons();
+            if (g) {
+                if (!g.skills.includes(s.mon)) add('warn', 'skill', `${g.name} chưa đăng ký dạy môn ${s.mon}`);
+                if (s.slot && g.busySlots.includes(s.slot)) add('err', 'gx', `${g.name} không nhận slot ${s.slot} (${g.note})`);
+                if (s.pat && g.busyDays.some(d => s.pat.includes(d))) add('err', 'gx', `${g.name} ${g.note}`);
+                const L = load(g.id, list, s.id) + (s.pat ? s.pat.length : PER); if (L > g.max) add('warn', 'load', `${g.name} vượt tải: ${L}/${g.max} slot mỗi tuần`)
+            }
+            if (r) {
+                if (r.cap < s.size) add('err', 'rc', `${r.id} có ${r.cap} chỗ, lớp có ${s.size} sinh viên`);
+                if (lab && r.type !== 'Lab') add('err', 'rc', `Môn ${s.mon} thực hành, cần phòng Lab`)
+            }
+            return o
         }
-
-        function renderTeacherList() {
-            const container = document.getElementById('teacherList');
-            container.innerHTML = '';
-            const search = (document.getElementById('searchTeacher')?.value || '').toLowerCase();
-            const deptFilter = document.getElementById('filterTeacherMajor')?.value || '';
-
-            let visibleCount = 0;
-            teacherData.forEach(teacher => {
-                if (search && !teacher.name.toLowerCase().includes(search) && !teacher.id.toLowerCase().includes(search)) return;
-                if (deptFilter && teacher.dept !== deptFilter) return;
-                visibleCount++;
-
-                const assignedClasses = classData.filter(c => c.gv === teacher.id).map(c => c.id);
-                const item = document.createElement('div');
-                item.className = 'list-item teacher-item';
-                item.setAttribute('draggable', 'true');
-                item.setAttribute('data-teacher-id', teacher.id);
-                item.innerHTML = `
-                    <div class="item-avatar" style="background: ${teacher.color}22; color: ${teacher.color};">
-                        ${teacher.initial}
-                    </div>
-                    <div class="item-info">
-                        <div class="item-name">${teacher.id} – ${teacher.name}</div>
-                        <div class="item-meta">
-                            <i data-lucide="briefcase" size="11"></i> ${teacher.deptFull}
-                            ${assignedClasses.length > 0
-                        ? `<span style="color:#CBD5E1;">•</span> <span style="color:var(--success);font-weight:600;">${assignedClasses.length} lớp</span>`
-                        : ''
-                    }
-                        </div>
-                    </div>
-                    <div class="item-badge" style="background: ${teacher.color}15; color: ${teacher.color};">
-                        <i data-lucide="grip-vertical" size="14"></i> Kéo
-                    </div>
-                `;
-
-                // Drag events
-                item.addEventListener('dragstart', handleDragStart);
-                item.addEventListener('dragend', handleDragEnd);
-                container.appendChild(item);
+        const miss = s => [!s.gv && 'giảng viên', !s.room && 'phòng', !(s.slot && s.pat) && 'lịch học'].filter(Boolean);
+        function status(s) { const i = check(s); if (i.some(x => x.lv === 'err')) return 'err'; if (miss(s).length) return 'part'; return i.length ? 'warn' : 'ok' }
+        const SL = { ok: ['Hoàn chỉnh', 'b-ok', '--success'], warn: ['Cảnh báo', 'b-miss', '--warning'], err: ['Xung đột', 'b-err', '--danger'], part: ['Chưa đủ', 'b-wait', '--text-light'] };
+        const cur = () => S.find(s => s.id === sel);
+        function upd(k, v) { const s = cur(); if (!s) return; s[k] = k === 'slot' ? (+v || 0) : v; render() }
+        function clearSel() { const s = cur(); Object.assign(s, { gv: '', room: '', slot: 0, pat: '' }); render() }
+        /* ===== Hiển thị ===== */
+        let ST = {}, lim = 60, fsig = '';
+        const rowHtml = s => { const k = ST[s.id], g = s.gv && T(s.gv); return `<button class="tk-row ${s.id === sel ? 'on' : ''}" style="--c:var(${SL[k][2]})" data-id="${s.id}"><div class="tk-r1"><b>${s.cls}</b><span class="x-badge ${SL[k][1]}">${SL[k][0]}</span></div><small>${MONS[s.mon][0]} · ${s.size} SV · ${s.cl.length} lớp SH · ${MONS[s.mon][1] === 'Lab' ? 'Thực hành' : 'Lý thuyết'}</small><div class="tk-r3"><span class="${g ? '' : 'miss'}">${g ? short(g.name) : 'Chưa gán GV'}</span><span class="${s.room ? '' : 'miss'}">${s.room || 'Chưa chọn phòng'}</span><span class="${s.slot && s.pat ? '' : 'miss'}">${s.slot && s.pat ? `Slot ${s.slot} · ${PAT[s.pat]}` : 'Chưa xếp lịch'}</span></div></button>` };
+        function renderCap() {
+            const F = {}, ad = (f, k, v) => (F[f] = F[f] || { sv: 0, hp: 0, ok: 0, ld: 0, cap: 0 })[k] += v;
+            COH.forEach(c => ad(c.m.f, 'sv', c.n)); S.forEach(s => { ad(s.f, 'hp', 1); if (ST[s.id] === 'ok' || ST[s.id] === 'warn') ad(s.f, 'ok', 1); if (s.gv) ad(s.f, 'ld', PER) }); TEACHERS.forEach(t => ad(t.f, 'cap', t.max));
+            const nl = S.filter(s => MONS[s.mon][1] === 'Lab').length, nt = S.length - nl, rl = RB.Lab.length * 12, rt = RB.LT.length * 12, gc = TEACHERS.reduce((a, t) => a + t.max, 0), gd = S.length * PER;
+            const cls = p => p > 100 ? 'bad' : p > 85 ? 'warn' : '', bar = (d, c, l) => { const p = Math.round(d / c * 100); return `<div><div class="cp-h"><span>${l}</span><b class="${cls(p)}">${d}/${c} · ${p}%</b></div><div class="cb"><i class="${cls(p)}" style="width:${Math.min(100, p)}%"></i></div></div>` };
+            const need = [nt > rt && `${Math.ceil((nt - rt) / 12)} phòng lý thuyết`, nl > rl && `${Math.ceil((nl - rl) / 12)} phòng Lab`, gd > gc && `${Math.ceil((gd - gc) / 15)} giảng viên`].filter(Boolean), nf = x => x.toLocaleString('vi-VN');
+            $('cap').innerHTML = `<div class="cap-top"><div><b>${nf(SVN)}</b><span>sinh viên · ${nf(SVN * 3)} lượt đăng ký môn/kỳ</span></div><div><b>${NCLS}</b><span>lớp sinh hoạt (≤ 40 SV)</span></div><div><b>${S.length}</b><span>lớp học phần: ${nt} lý thuyết (≤ 100 SV, ghép lớp) · ${nl} thực hành (≤ 40 SV)</span></div><div><b>${ROOMS.length} · ${TEACHERS.length}</b><span>phòng · giảng viên</span></div></div>
+<div class="cap-g">${bar(nt, rt, 'Phòng lý thuyết: slot cần/có mỗi tuần')}${bar(nl, rl, 'Phòng Lab: slot cần/có mỗi tuần')}${bar(gd, gc, 'Giảng viên: slot cần/tối đa mỗi tuần')}</div>
+<div class="cap-v ${need.length ? 'bad' : ''}">${need.length ? `Nguồn lực chưa đủ cho ${nf(SVN)} sinh viên: cần bổ sung ít nhất ${need.join(', ')}.` : `Nguồn lực đủ cho ${nf(SVN)} sinh viên. Xếp tự động sẽ ưu tiên giảng viên ít tải và phòng nhỏ nhất vừa sức chứa.`}</div>
+<table class="cap-t"><thead><tr><th>Khoa (bấm để lọc)</th><th>SV</th><th>Lớp HP</th><th style="width:30%">Đã xếp đủ</th><th>Tải GV</th></tr></thead><tbody>${FACS.map(f => { const x = F[f[0]], p = Math.round(x.ok / x.hp * 100), l = Math.round(x.ld / x.cap * 100); return `<tr data-f="${f[0]}"><td><b>${f[1]}</b></td><td>${nf(x.sv)}</td><td>${x.hp}</td><td><div class="cp-h"><span>${x.ok}/${x.hp}</span><b>${p}%</b></div><div class="cb"><i style="width:${p}%"></i></div></td><td><b class="${cls(l)}" style="font-size:13px">${l}%</b></td></tr>` }).join('')}</tbody></table>`
+        }
+        function render() {
+            const all = S.map(s => ST[s.id] = status(s)); ST = Object.fromEntries(S.map((s, i) => [s.id, all[i]]));
+            const sc = S.filter(inScope), st = sc.map(s => ST[s.id]), n = k => st.filter(x => x === k).length, sig = [fFac, fMajor, fK, fSt, q].join('|'); if (sig !== fsig) { fsig = sig; lim = 60 }
+            $('stats').innerHTML = [[n('ok') + n('warn'), `/ ${st.length} lớp học phần đã xếp đủ`], [n('part'), 'còn thiếu GV, phòng hoặc lịch'], [n('err'), 'lớp học phần đang xung đột'], [n('warn'), 'có cảnh báo (vượt tải, trái chuyên môn)']].map(a => `<div><b>${a[0]}</b><span>${a[1]}</span></div>`).join('');
+            const vis = sc.filter(s => (!q || norm(s.cls + ' ' + s.cl.join(' ') + ' ' + MONS[s.mon][0]).includes(q)) && (!fSt || (fSt === 'todo' ? ['part', 'err', 'warn'].includes(ST[s.id]) : ST[s.id] === fSt)));
+            $('rows').innerHTML = vis.slice(0, lim).map(rowHtml).join('') + (vis.length > lim ? `<button class="btn btn-outline btn-sm tk-more" data-more="1">Xem thêm (còn ${vis.length - lim} / ${vis.length} lớp học phần)</button>` : '') || '<div class="tk-empty">Không có lớp học phần phù hợp bộ lọc.</div>';
+            fillOpts(all); renderCap(); $('bUndo').disabled = !prev; edit(); grid(); lucide.createIcons()
+        }
+        function edit() {
+            const s = cur(), el = $('ed');
+            if (!s) { el.innerHTML = '<div class="tk-empty"><i data-lucide="mouse-pointer-click" size="36" style="opacity:.4"></i><br>Chọn một lớp học phần ở bên trái để xếp giảng viên, phòng và lịch.</div>'; return }
+            const iss = check(s), m = miss(s), lab = MONS[s.mon][1] === 'Lab', sc = (k, v) => check({ ...s, [k]: v }).filter(x => ['gx', 'rx', 'cx'].includes(x.k)).length;
+            const gvs = TEACHERS.filter(t => t.f === s.f).sort((a, b) => b.skills.includes(s.mon) - a.skills.includes(s.mon)), rooms = ROOMS.filter(r => true).sort((a, b) => (b.type === (lab ? 'Lab' : 'LT')) - (a.type === (lab ? 'Lab' : 'LT')));
+            const gOpt = t => { const bad = check({ ...s, gv: t.id }).some(x => x.k === 'gx'), ok = t.skills.includes(s.mon); return `<option value="${t.id}" ${s.gv === t.id ? 'selected' : ''}>${t.name} · ${load(t.id, S, s.id)}/${t.max} slot${bad ? ' · xung đột' : !ok ? ' · chưa đăng ký môn' : ''}</option>` };
+            const rOpt = r => { const bad = check({ ...s, room: r.id }).some(x => x.k === 'rx' || x.k === 'rc'); return `<option value="${r.id}" ${s.room === r.id ? 'selected' : ''}>${r.id} · ${r.type === 'Lab' ? 'Lab' : 'Lý thuyết'} · ${r.cap} chỗ${bad ? ' · trùng/sai' : ''}</option>` };
+            el.innerHTML = `<div class="tk-eh"><b>${s.cls} · ${s.mon}</b><small>${MONS[s.mon][0]} · ${s.size} sinh viên (${s.cl.length} lớp SH: ${s.cl.join(', ')}) · ${lab ? 'Thực hành, cần phòng Lab' : 'Lý thuyết'} · 30 buổi</small></div>
+ <div class="tk-iss">${iss.map(i => `<div class="tk-is ${i.lv}"><i data-lucide="${i.lv === 'err' ? 'x-circle' : 'alert-triangle'}" size="16" style="flex-shrink:0;margin-top:1px"></i><span>${esc(i.m)}</span></div>`).join('')}${m.length ? `<div class="tk-is info"><i data-lucide="info" size="16" style="flex-shrink:0;margin-top:1px"></i><span>Còn thiếu: ${m.join(', ')}.</span></div>` : ''}${!iss.length && !m.length ? '<div class="tk-is ok"><i data-lucide="check-circle" size="16"></i><span>Không có xung đột. Lịch này sẵn sàng để lưu.</span></div>' : ''}</div>
+ <div class="tk-fg">
+  <div style="grid-column:1/-1"><label for="eG">Giảng viên</label><select class="x-inp" id="eG" onchange="upd('gv',this.value)"><option value="">— Chưa gán —</option>${gvs.map(gOpt).join('')}</select></div>
+  <div><label for="eR">Phòng học</label><select class="x-inp" id="eR" onchange="upd('room',this.value)"><option value="">— Chưa chọn —</option>${rooms.map(rOpt).join('')}</select></div>
+  <div><label for="eS">Slot</label><select class="x-inp" id="eS" onchange="upd('slot',this.value)"><option value="0">— Chưa chọn —</option>${SLOTS.map((t, i) => `<option value="${i + 1}" ${s.slot === i + 1 ? 'selected' : ''}>Slot ${i + 1} (${t[0]}–${t[1]})${sc('slot', i + 1) ? ' · xung đột' : ''}</option>`).join('')}</select></div>
+  <div style="grid-column:1/-1"><label for="eP">Ngày học trong tuần</label><select class="x-inp" id="eP" onchange="upd('pat',this.value)"><option value="">— Chưa chọn —</option>${Object.keys(PAT).map(p => `<option value="${p}" ${s.pat === p ? 'selected' : ''}>${PAT[p]} · 3 buổi/tuần</option>`).join('')}</select></div>
+ </div>
+ <div class="tk-sg"><label>Giảng viên đăng ký dạy môn ${s.mon}</label><div class="row">${TEACHERS.filter(t => t.skills.includes(s.mon)).map(t => { const bad = check({ ...s, gv: t.id }).find(x => x.k === 'gx' || x.lv === 'warn'); return `<button type="button" class="tk-ch ${bad ? '' : 'ok'}" ${bad ? `title="${esc(bad.m)}" disabled` : `onclick="upd('gv','${t.id}')"`}>${short(t.name)} · ${load(t.id, S, s.id)}/${t.max}</button>` }).join('') || '<span style="font-size:13px;color:var(--text-gray)">Chưa có giảng viên đăng ký môn này.</span>'}</div></div>
+ <div class="tk-ef"><span>Mọi thay đổi áp dụng ngay lên lưới. Nhớ bấm Lưu TKB.</span><button class="btn btn-outline btn-sm" onclick="clearSel()"><i data-lucide="eraser" size="14"></i> Gỡ lịch lớp này</button></div>`}
+        const keyOf = s => view === 'cls' ? s.cl : view === 'gv' ? (s.gv ? [s.gv] : []) : (s.room ? [s.room] : []);
+        function grid() {
+            const vis = S.filter(inScope), ents = [...new Set(vis.flatMap(keyOf))].sort(), lab = v => view === 'gv' ? T(v).name : v;
+            $('ent').innerHTML = `<option value="">${{ cls: 'Tất cả lớp', gv: 'Tất cả giảng viên', room: 'Tất cả phòng' }[view]}</option>` + ents.map(v => `<option value="${v}" ${v === ent ? 'selected' : ''}>${esc(lab(v))}</option>`).join('');
+            const shown = vis.filter(s => s.slot && s.pat && (!ent || keyOf(s).includes(ent))), heat = !ent && shown.length > 60, mon = new Date(START.getTime() + (week - 1) * 6048e5), dd = d => { const x = new Date(mon.getTime() + (d - 2) * 864e5); return String(x.getDate()).padStart(2, '0') + '/' + String(x.getMonth() + 1).padStart(2, '0') };
+            $('wl').textContent = `Tuần ${week} · ${dd(2)} – ${dd(8)}`; $('hmNote').style.display = heat ? '' : 'none'; const td = new Date(), s0 = cur(), at = (k, d) => shown.filter(s => s.slot === k && s.pat.includes(String(d)));
+            const HM = heat ? Math.max(1, ...SLOTS.flatMap((_, i) => [2, 3, 4, 5, 6, 7].map(d => at(i + 1, d).length))) : 1;
+            let h = '<div class="tk-c h"></div>' + [2, 3, 4, 5, 6, 7].map(d => { const x = new Date(mon.getTime() + (d - 2) * 864e5); return `<div class="tk-c h ${x.toDateString() === td.toDateString() ? 'today' : ''}">Thứ ${d}<small>${dd(d)}</small></div>` }).join('');
+            SLOTS.forEach((t, i) => {
+                const k = i + 1; h += `<div class="tk-c s">Slot ${k}<small>${t[0]}–${t[1]}</small></div>`;
+                [2, 3, 4, 5, 6, 7].forEach(d => {
+                    const bl = at(k, d), pat = d % 2 ? '357' : '246';
+                    if (heat) { h += `<div class="tk-c"><div class="tk-hm" style="--p:${Math.round(bl.length / HM * 65)}%"><b>${bl.length}</b>lớp HP</div></div>`; return }
+                    const free = s0 && !bl.some(b => b.id === s0.id) && !check({ ...s0, slot: k, pat }).some(x => ['gx', 'rx', 'cx'].includes(x.k)) && (!ent || keyOf(s0).includes(ent)), f = free && !bl.length;
+                    h += `<div class="tk-c ${f ? 'free' : ''}" ${f ? `data-slot="${k}" data-pat="${pat}" role="button" tabindex="0" title="Xếp ${s0.cls} vào Slot ${k}, ${PAT[pat]}"` : ''}>${f ? '+ Xếp vào đây' : bl.map(b => {
+                        const g = b.gv && T(b.gv), no = Math.floor((week - 1) * PER + b.pat.indexOf(String(d)) + 1);
+                        return `<button type="button" class="tk-b ${check(b).some(x => x.lv === 'err') ? 'bad' : ''} ${b.id === sel ? 'on' : ''}" style="--c:${ccol(b.cls)}" data-id="${b.id}"><b>${b.mon}</b> · ${b.cls}<br>${b.room ? esc(b.room) : '<span class="m">Chưa có phòng</span>'} · ${g ? esc(short(g.name)) : '<span class="m">Chưa có GV</span>'}<br>Buổi ${no}/30</button>`
+                    }).join('')}</div>`
+                })
             });
-
-            document.getElementById('teacherCount').textContent = `${visibleCount} giáo viên • Kéo thả để phân bổ`;
-            lucide.createIcons();
+            $('grid').innerHTML = h
         }
-
-        // Initial render
-        renderClassList();
-        renderTeacherList();
-
-        // ═══════════ DRAG & DROP ═══════════
-        let draggedTeacherId = null;
-
-        function handleDragStart(e) {
-            draggedTeacherId = e.currentTarget.getAttribute('data-teacher-id');
-            e.currentTarget.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/plain', draggedTeacherId);
-
-            // Custom drag image
-            const ghost = document.createElement('div');
-            ghost.className = 'drag-ghost';
-            const teacher = teacherData.find(t => t.id === draggedTeacherId);
-            ghost.innerHTML = `<i data-lucide="user" size="14"></i> ${teacher.name}`;
-            ghost.style.position = 'absolute';
-            ghost.style.top = '-1000px';
-            document.body.appendChild(ghost);
-            e.dataTransfer.setDragImage(ghost, 0, 0);
-            setTimeout(() => ghost.remove(), 0);
-        }
-
-        function handleDragEnd(e) {
-            e.currentTarget.classList.remove('dragging');
-            draggedTeacherId = null;
-            document.querySelectorAll('.class-item.drag-over').forEach(el => el.classList.remove('drag-over'));
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
-        }
-
-        function handleDragEnter(e) {
-            e.preventDefault();
-            const classItem = e.currentTarget;
-            classItem.classList.add('drag-over');
-        }
-
-        function handleDragLeave(e) {
-            const classItem = e.currentTarget;
-            if (!classItem.contains(e.relatedTarget)) {
-                classItem.classList.remove('drag-over');
-            }
-        }
-
-        function handleDrop(e) {
-            e.preventDefault();
-            const classItem = e.currentTarget;
-            classItem.classList.remove('drag-over');
-
-            const teacherId = e.dataTransfer.getData('text/plain');
-            const classIndex = parseInt(classItem.getAttribute('data-class-index'));
-            const classId = classItem.getAttribute('data-class-id');
-
-            if (teacherId && classIndex >= 0 && classIndex < classData.length) {
-                const teacher = teacherData.find(t => t.id === teacherId);
-
-                // Validate if class is already scheduled
-                const classSchedule = currentSchedule.find(s => s.cls === classId);
-                if (classSchedule) {
-                    let conflict = null;
-                    for (const entry of currentSchedule) {
-                        if (entry.cls === classId) continue;
-                        if (entry.slot !== classSchedule.slot) continue;
-                        const overlapDays = [...classSchedule.days].filter(d => entry.days.includes(d));
-                        if (overlapDays.length === 0) continue;
-                        if (entry.gv === teacherId) {
-                            conflict = `GV ${teacher.name} đã được xếp dạy lớp ${entry.cls} tại Slot ${classSchedule.slot} cùng ngày.`;
-                            break;
-                        }
-                    }
-
-                    if (conflict) {
-                        showToast(conflict, 'error');
-                        return;
-                    }
-
-                    classSchedule.gv = teacherId;
-                }
-
-                classData[classIndex].gv = teacherId;
-                renderClassList();
-                renderTeacherList();
-                showToast(`Đã gán ${teacher.name} vào lớp ${classId}`, 'success');
-            }
-        }
-
-        // ═══════════ FILTER FUNCTIONS ═══════════
-        function filterClassList() { renderClassList(); }
-        function filterTeacherList() { renderTeacherList(); }
-
-        // ═══════════ AUTO SCHEDULE ═══════════
-        function simulateAutoSchedule() {
-            const overlay = document.getElementById('loadingOverlay');
-            const bar = document.getElementById('loadingBar');
-            overlay.classList.add('active');
-
-            ['step1', 'step2', 'step3', 'step4'].forEach(id => {
-                document.getElementById(id).className = 'step';
-            });
-            bar.style.width = '0%';
-
-            const t0 = performance.now();
-            const steps = [
-                { id: 'step1', delay: 0, progress: '15%' },
-                { id: 'step1', delay: 400, progress: '30%', done: true },
-                { id: 'step2', delay: 500, progress: '50%' },
-                { id: 'step2', delay: 1100, progress: '70%', done: true },
-                { id: 'step3', delay: 1200, progress: '85%' },
-                { id: 'step3', delay: 1600, progress: '95%', done: true },
-                { id: 'step4', delay: 1800, progress: '100%' },
-            ];
-
-            steps.forEach(step => {
-                setTimeout(() => {
-                    const el = document.getElementById(step.id);
-                    if (step.done) {
-                        el.classList.remove('active');
-                        el.classList.add('done');
-                    } else {
-                        el.classList.add('active');
-                    }
-                    bar.style.width = step.progress;
-                }, step.delay);
-            });
-
-            setTimeout(() => {
-                // Auto-assign teachers to classes
-                const autoAssignments = ['GV001', 'GV002', 'GV003', 'GV001', 'GV004'];
-                classData.forEach((cls, i) => {
-                    cls.gv = autoAssignments[i];
-                });
-
-                const elapsed = ((performance.now() - t0) / 1000).toFixed(1);
-                document.getElementById('processTime').innerText = elapsed;
-                overlay.classList.remove('active');
-                document.getElementById('scheduleResult').style.display = 'block';
-
-                renderClassList();
-                renderTeacherList();
-
-                // Re-trigger stat card animations
-                document.querySelectorAll('.stat-card').forEach(card => {
-                    card.style.animation = 'none';
-                    card.offsetHeight;
-                    card.style.animation = '';
-                });
-
-                lucide.createIcons();
-                showToast('Phân bổ tự động hoàn tất! 0% Conflict.', 'success');
-            }, 2200);
-        }
-
-        // ═══════════ RESET ASSIGNMENTS ═══════════
-        function resetAllAssignments() {
-            classData.forEach(cls => cls.gv = null);
-            renderClassList();
-            renderTeacherList();
-            showToast('Đã đặt lại toàn bộ phân bổ.', 'success');
-        }
-
-        // ═══════════ VIEW TOGGLE ═══════════
-        function switchView(view) {
-            const gridView = document.getElementById('gridView');
-            const tableView = document.getElementById('tableView');
-            const toggleGrid = document.getElementById('toggleGrid');
-            const toggleTable = document.getElementById('toggleTable');
-
-            if (view === 'grid') {
-                gridView.style.display = 'block';
-                tableView.style.display = 'none';
-                toggleGrid.classList.add('active');
-                toggleTable.classList.remove('active');
-            } else {
-                gridView.style.display = 'none';
-                tableView.style.display = 'block';
-                toggleGrid.classList.remove('active');
-                toggleTable.classList.add('active');
-            }
-        }
-
-        // ═══════════ EDIT MODAL ═══════════
-        let currentEditingClass = '';
-
-        function openEditModal(className, teacher, room, slot, days) {
-            currentEditingClass = className;
-            document.getElementById('editClassName').innerText = className;
-            document.getElementById('editTeacher').value = teacher;
-            document.getElementById('editRoom').value = room;
-            document.getElementById('editSlot').value = slot;
-            document.getElementById('editDays').value = days;
-            document.getElementById('conflictAlert').classList.remove('active');
-            document.getElementById('editModal').classList.add('active');
-        }
-
-        function closeEditModal() {
-            document.getElementById('editModal').classList.remove('active');
-        }
-
-        function saveEdit() {
-            const newGV = document.getElementById('editTeacher').value;
-            const newRoom = document.getElementById('editRoom').value;
-            const newSlot = document.getElementById('editSlot').value;
-            const newDays = document.getElementById('editDays').value;
-
-            let conflict = null;
-            for (const entry of currentSchedule) {
-                if (entry.cls === currentEditingClass) continue;
-                if (entry.slot !== newSlot) continue;
-                const overlapDays = [...newDays].filter(d => entry.days.includes(d));
-                if (overlapDays.length === 0) continue;
-                if (entry.cls === cls) {
-                    conflict = `Lớp ${cls} đã có lịch học tại Slot ${newSlot} cùng ngày.`;
-                    break;
-                }
-                if (entry.gv === newGV) {
-                    conflict = `GV ${newGV} đã được xếp dạy lớp ${entry.cls} tại Slot ${newSlot} cùng ngày.`;
-                    break;
-                }
-                if (entry.room === newRoom) {
-                    conflict = `Phòng ${newRoom} đã được dùng cho lớp ${entry.cls} tại Slot ${newSlot} cùng ngày.`;
-                    break;
-                }
-            }
-
-            if (conflict) {
-                document.getElementById('conflictDetail').innerText = conflict;
-                document.getElementById('conflictAlert').classList.add('active');
-                lucide.createIcons();
-            } else {
-                const idx = currentSchedule.findIndex(e => e.cls === currentEditingClass);
-                if (idx >= 0) {
-                    currentSchedule[idx] = { cls: currentEditingClass, gv: newGV, room: newRoom, slot: newSlot, days: newDays };
-                }
-                closeEditModal();
-                showToast('Đã cập nhật lịch dạy lớp ' + currentEditingClass, 'success');
-            }
-        }
-
-        // ═══════════ MANUAL MODAL ═══════════
-        function openManualModal() {
-            document.getElementById('manualConflictAlert').classList.remove('active');
-            document.getElementById('manualModal').classList.add('active');
-        }
-
-        function closeManualModal() {
-            document.getElementById('manualModal').classList.remove('active');
-        }
-
-        function saveManual() {
-            const cls = document.getElementById('manualClass').value;
-            const subject = document.getElementById('manualSubject').value;
-            const newGV = document.getElementById('manualTeacher').value;
-            const newRoom = document.getElementById('manualRoom').value;
-            const newSlot = document.getElementById('manualSlot').value;
-            const newDays = document.getElementById('manualDays').value;
-
-            let conflict = null;
-            for (const entry of currentSchedule) {
-                if (entry.slot !== newSlot) continue;
-                const overlapDays = [...newDays].filter(d => entry.days.includes(d));
-                if (overlapDays.length === 0) continue;
-                if (entry.cls === cls) {
-                    conflict = `Lớp ${cls} đã có lịch học tại Slot ${newSlot} cùng ngày.`;
-                    break;
-                }
-                if (entry.gv === newGV) {
-                    conflict = `GV ${newGV} đã được xếp dạy lớp ${entry.cls} tại Slot ${newSlot} cùng ngày.`;
-                    break;
-                }
-                if (entry.room === newRoom) {
-                    conflict = `Phòng ${newRoom} đã được dùng cho lớp ${entry.cls} tại Slot ${newSlot} cùng ngày.`;
-                    break;
-                }
-            }
-
-            if (conflict) {
-                document.getElementById('manualConflictDetail').innerText = conflict;
-                document.getElementById('manualConflictAlert').classList.add('active');
-                lucide.createIcons();
-            } else {
-                currentSchedule.push({ cls, gv: newGV, room: newRoom, slot: newSlot, days: newDays });
-                closeManualModal();
-
-                const tableBody = document.querySelector('.table tbody');
-                if (tableBody) {
-                    const rowCount = tableBody.children.length + 1;
-                    let dayStr = newDays === "246" ? "T2, T4, T6" : newDays === "35" ? "T3, T5" : "T2, T3, T4, T5";
-                    let gvStr = document.getElementById('manualTeacher').options[document.getElementById('manualTeacher').selectedIndex].text;
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <td>${rowCount}</td>
-                        <td><span class="class-code"><span class="dot-indicator" style="background:#6366F1;"></span>${cls}</span></td>
-                        <td>${subject}</td>
-                        <td>${gvStr}</td>
-                        <td>${newRoom}</td>
-                        <td><span class="slot-chip"><i data-lucide="clock" size="12"></i> Slot ${newSlot}</span></td>
-                        <td><div class="days-chip">${dayStr.split(', ').map(d => `<span class="active">${d}</span>`).join('')}</div></td>
-                        <td><div class="capacity-bar"><div class="bar"><div class="bar-fill full" style="width:100%"></div></div><span class="label">30/30</span></div></td>
-                        <td><div class="action-btns"><button class="btn-ghost" onclick="openEditModal('${cls}','${newGV}','${newRoom}','${newSlot}','${newDays}')"><i data-lucide="pencil" size="15"></i></button></div></td>
-                    `;
-                    tableBody.appendChild(newRow);
-                }
-
-                document.getElementById('scheduleResult').style.display = 'block';
-                lucide.createIcons();
-                showToast('Đã thêm TKB thủ công cho lớp ' + cls, 'success');
-            }
-        }
-
-        // ═══════════ SAVE TKB ═══════════
+        /* ===== Tương tác ===== */
+        $('rows').onclick = e => { if (e.target.closest('[data-more]')) { lim += 60; render(); return } const b = e.target.closest('.tk-row'); if (b) { sel = b.dataset.id; render() } };
+        $('grid').onclick = e => {
+            const b = e.target.closest('.tk-b'); if (b) { sel = b.dataset.id; render(); return }
+            const c = e.target.closest('.tk-c.free'); if (c && sel) { const s = cur(); s.slot = +c.dataset.slot; s.pat = c.dataset.pat; toast(`Đã xếp ${s.cls}-${s.mon} vào Slot ${s.slot}, ${PAT[s.pat]}.`); render() }
+        };
+        $('grid').onkeydown = e => { if (e.key === 'Enter' && e.target.classList.contains('free')) e.target.click() };
+        $('seg').onclick = e => { const b = e.target.closest('button'); if (!b) return; view = b.dataset.v; ent = ''; document.querySelectorAll('#seg button').forEach(x => x.classList.toggle('on', x === b)); grid(); lucide.createIcons() };
+        $('ent').onchange = e => { ent = e.target.value; grid() }; $('fFac').onchange = e => { fFac = e.target.value; fMajor = ''; ent = ''; render() }; $('fMajor').onchange = e => { fMajor = e.target.value; ent = ''; render() }; $('fK').onchange = e => { fK = e.target.value; ent = ''; render() }; $('fSt').onchange = e => { fSt = e.target.value; render() };
+        $('q').oninput = e => { q = norm(e.target.value); render() };
+        function wk(d) { week = Math.min(WEEKS, Math.max(1, week + d)); grid(); lucide.createIcons() }
+        function undo() { if (prev) { S = prev; prev = null; render(); toast('Đã hoàn tác lần xếp tự động.') } }
         function saveTKB() {
-            showToast('Đã lưu toàn bộ TKB kỳ Fall 2026 thành công!', 'success');
+            const e = S.filter(s => status(s) === 'err').length, p = S.filter(s => status(s) === 'part').length;
+            if (e) return toast(`Còn ${e} lớp học phần xung đột. Hãy xử lý trước khi lưu.`, true);
+            try { localStorage.setItem(TKEY, JSON.stringify(S)) } catch (x) { } toast(p ? `Đã lưu TKB Fall 2026. Còn ${p} lớp học phần chưa xếp đủ.` : 'Đã lưu TKB Fall 2026.')
         }
-
-        // ═══════════ TOAST ═══════════
-        function showToast(msg, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.innerHTML = `
-                <div class="toast-icon"><i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}" size="16"></i></div>
-                <span>${msg}</span>
-            `;
-            container.appendChild(toast);
-            lucide.createIcons();
-
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => toast.classList.add('show'));
-            });
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 350);
-            }, 3500);
+        function exportCsv() {
+            const rows = [['Lớp học phần', 'Các lớp SH', 'Môn', 'Tên môn', 'Sĩ số', 'Giảng viên', 'Phòng', 'Slot', 'Giờ học', 'Ngày học', 'Trạng thái'], ...S.filter(inScope).map(s => [s.cls, s.cl.join(' '), s.mon, MONS[s.mon][0], s.size, s.gv ? T(s.gv).name : '', s.room, s.slot || '', s.slot ? SLOTS[s.slot - 1].join('-') : '', PAT[s.pat] || '', SL[status(s)][0]])];
+            const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\ufeff' + rows.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\r\n')], { type: 'text/csv;charset=utf-8' })); a.download = 'TKB_Fall2026_' + (fMajor || fFac || 'ALL') + '.csv'; a.click(); URL.revokeObjectURL(a.href)
         }
+        /* ===== Xếp tự động: chạy theo lô 20 lớp, có thanh tiến trình và nút Dừng ===== */
+        let stopAuto = false;
+        function autoRun(all) {
+            const b = $('bAuto'); if (b.disabled) return;
+            const list = clone(S), todo = list.filter(s => (all || inScope(s)) && status(s) === 'part').sort((a, b) => (MONS[b.mon][1] === 'Lab') - (MONS[a.mon][1] === 'Lab') || b.size - a.size);
+            if (!todo.length) return toast('Không có lớp học phần nào còn thiếu để xếp.');
+            const I = mkIdx(list), fail = [], t0 = performance.now(); let i = 0; stopAuto = false; b.disabled = $('bAutoAll').disabled = true; $('prog').style.display = 'flex';
+            (function step() {
+                for (const e = Math.min(todo.length, i + 20); i < e && !stopAuto; i++) { const s = todo[i]; ixAdd(I, s, -1); const c = place(s, I) || place({ ...s, slot: 0, pat: '' }, I); if (c) Object.assign(s, c); else fail.push(s.cls); ixAdd(I, s, 1) }
+                $('progB').style.width = Math.round(i / todo.length * 100) + '%'; $('progT').textContent = `Đang xếp ${i}/${todo.length} lớp học phần…`;
+                if (i < todo.length && !stopAuto) return setTimeout(step, 0);
+                prev = S; S = list; if (!sel || !cur()) sel = todo[0].id; b.disabled = $('bAutoAll').disabled = false; $('prog').style.display = 'none'; render();
+                const ok = i - fail.length, ms = Math.round(performance.now() - t0);
+                toast(`${stopAuto ? 'Đã dừng. ' : ''}Đã xếp ${ok}/${todo.length} lớp học phần trong ${ms} ms.` + (fail.length ? ` Chưa xếp được ${fail.length} lớp (${fail.slice(0, 4).join(', ')}${fail.length > 4 ? '…' : ''}): hết tổ hợp giảng viên, phòng, slot phù hợp, xem mục Nguồn lực ở trên.` : ' Các lớp đang xung đột (nếu có) cần xử lý thủ công.'), !!fail.length)
+            })()
+        }
+        $('cap').onclick = e => { const r = e.target.closest('[data-f]'); if (r) { fFac = r.dataset.f; fMajor = ''; ent = ''; render() } };
+        sel = (S.filter(inScope).find(s => status(s) !== 'ok') || S[0]).id; render();
 
-        // Close modal on backdrop click
-        document.querySelectorAll('.modal-overlay').forEach(modal => {
-            modal.addEventListener('click', e => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-        });
     </script>
     <script>
         (function () {

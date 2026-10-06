@@ -1,0 +1,314 @@
+﻿[
+    {
+        "Category":  "MH_Chung_Mockup",
+        "File":  "MH-00-5-DangNhapAdmin.html",
+        "Title":  "Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "ONENET UNIVERSITY"
+    },
+    {
+        "Category":  "MH_Chung_Mockup",
+        "File":  "MH-00-6-DangNhapGiangVien.html",
+        "Title":  "Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "ONENET UNIVERSITY"
+    },
+    {
+        "Category":  "MH_Admin_Mockup",
+        "File":  "MH-00-1-TongQuanHeThong.html",
+        "Title":  "Quản Trị Hệ Thống - Đại Học ONENET",
+        "H1":  "Quản lý tài khoản"
+    },
+    {
+        "Category":  "MH_Admin_Mockup",
+        "File":  "MH-00-2-QuanLyTaiKhoan.html",
+        "Title":  "Quản Trị Hệ Thống - Đại Học ONENET",
+        "H1":  "Quản lý tài khoản"
+    },
+    {
+        "Category":  "MH_Admin_Mockup",
+        "File":  "MH-00-3-NhatKyHeThong.html",
+        "Title":  "Quản Trị Hệ Thống - Đại Học ONENET",
+        "H1":  "Nhật ký hệ thống"
+    },
+    {
+        "Category":  "MH_Admin_Mockup",
+        "File":  "MH-00-4-BackupRestoreDB.html",
+        "Title":  "Quản Trị Hệ Thống - Đại Học ONENET",
+        "H1":  "Backup \u0026 Restore Database"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-00-7-DashboardBaoCao.html",
+        "Title":  "Tổng quan \u0026 Báo cáo - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Dashboard \u0026 Báo cáo"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-01-1-DanhSachTrungTuyen.html",
+        "Title":  "Danh sách trúng tuyển - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Danh sách trúng tuyển"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-01-2-TiepNhanHoSoSinhVien.html",
+        "Title":  "Tiếp nhận hồ sơ nhập học - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Tiếp nhận hồ sơ nhập học"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-01-3-CapNhatTrangThaiHocTap.html",
+        "Title":  "Cập nhật trạng thái học tập - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Cập nhật trạng thái học tập"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-01-4-PhanBoSinhVienVaoLop.html",
+        "Title":  "Phân bổ lớp - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Phân bổ sinh viên vào lớp chuyên ngành"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-01-5-DanhSachLop.html",
+        "Title":  "Danh sách lớp - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Danh sách lớp"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-01-6-DanhSachSinhVienTrongLop.html",
+        "Title":  "Danh sách sinh viên lớp SE1901 - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Danh sách sinh viên lớp SE1901"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-01-7-ChuyenNganh.html",
+        "Title":  "Chuyển ngành - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Chuyển ngành sinh viên"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-01-8-HoSoSinhVien.html",
+        "Title":  "Hồ sơ sinh viên - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Hồ sơ sinh viên"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-1-1-QuanLyGiangVien.html",
+        "Title":  "Quản lý Danh mục - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Quản lý Giảng viên"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-1-2-QuanLyChuyenNganh.html",
+        "Title":  "Quản lý Danh mục - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Quản lý Chuyên ngành"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-1-3-QuanLyMonHoc.html",
+        "Title":  "Quản lý Danh mục - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Quản lý Môn học"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-1-4-QuanLyKhoa.html",
+        "Title":  "Quản lý Danh mục - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Quản lý Khoa"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-1-5-QuanLyToaNha.html",
+        "Title":  "Quản lý Danh mục - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Quản lý Tòa nhà"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-1-6-QuanLyPhongHoc.html",
+        "Title":  "Quản lý Danh mục - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Quản lý Phòng học"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-1-QuanLyDanhMuc.html",
+        "Title":  "Quản lý Danh mục - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Quản lý Danh mục"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-2-KhungChuongTrinhHoc.html",
+        "Title":  "Chương trình học - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Khung chương trình học"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-3-XepThoiKhoaBieu.html",
+        "Title":  "Xếp thời khóa biểu - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Xếp thời khóa biểu"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-4-QuanLyYeuCauBaoNghiLichBu.html",
+        "Title":  "Điều chỉnh lịch học - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Quản lý Yêu cầu Báo nghỉ \u0026 Lịch bù"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-5-Khodethi.html",
+        "Title":  "Kho đề thi - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Kho đề thi"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-02-6-LichThi.html",
+        "Title":  "Lịch thi - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Lịch thi"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-05-1-HoSoCanBoQuanNhiem.html",
+        "Title":  "Phê duyệt đơn từ - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Phê duyệt đơn từ sinh viên"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-05-2-PheDuyetDonTuSinhVien.html",
+        "Title":  "Phê duyệt đơn từ - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Phê duyệt đơn từ sinh viên"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-05-3-Quanlyhocbong.html",
+        "Title":  "Quản lý học bổng - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Quản lý học bổng"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-05-4-Phuckhaodiem.html",
+        "Title":  "Điểm phúc khảo - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Điểm phúc khảo"
+    },
+    {
+        "Category":  "MH_QN_Mockup",
+        "File":  "MH-06-1-LichSuGiaoDich.html",
+        "Title":  "Lịch sử giao dịch - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Lịch sử giao dịch"
+    },
+    {
+        "Category":  "MH_GV_Mockup",
+        "File":  "MH-00-8-TongQuanGiangVien.html",
+        "Title":  "Tổng quan Giảng viên - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Chào mừng, Thầy Bình!"
+    },
+    {
+        "Category":  "MH_GV_Mockup",
+        "File":  "MH-02-5-LichGiangDayBaoNghi.html",
+        "Title":  "Lịch giảng dạy - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Lịch giảng dạy \u0026 Báo nghỉ"
+    },
+    {
+        "Category":  "MH_GV_Mockup",
+        "File":  "MH-03-1-DiemDanhLopHoc.html",
+        "Title":  "Điểm danh lớp học - Đại Học ONENET",
+        "H1":  "Điểm danh lớp học"
+    },
+    {
+        "Category":  "MH_GV_Mockup",
+        "File":  "MH-04-1-CapNhatDiemQuaTrinh.html",
+        "Title":  "Quản lý điểm số - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Cập nhật điểm quá trình"
+    },
+    {
+        "Category":  "MH_GV_Mockup",
+        "File":  "MH-04-2-CapNhatDiemThi.html",
+        "Title":  "Cập nhật điểm thi - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Cập nhật điểm thi"
+    },
+    {
+        "Category":  "MH_GV_Mockup",
+        "File":  "MH-04-3-XemDanhGiaGiangVien.html",
+        "Title":  "Kết quả đánh giá giảng viên - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Kết quả đánh giá giảng viên"
+    },
+    {
+        "Category":  "MH_GV_Mockup",
+        "File":  "MH-05-3-QuanLyHoSoGiangVien.html",
+        "Title":  "Hồ Sơ Giảng Viên - Hệ Thống Quản Lý Sinh Viên",
+        "H1":  "Quản lý Hồ sơ Giảng viên"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-00-9-TongQuanHocTap.html",
+        "Title":  "Cổng Thông Tin Sinh Viên - Đại Học ONENET",
+        "H1":  "Tổng quan học tập"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-02-6-ThoiKhoaBieu.html",
+        "Title":  "Thời khóa biểu - Đại Học ONENET",
+        "H1":  "Thời khóa biểu"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-02-7-DoiLop.html",
+        "Title":  "Đổi Lớp - Cổng Thông Tin Sinh Viên",
+        "H1":  "Đổi lớp học phần"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-03-2-BaoCaoDiemDanh.html",
+        "Title":  "Cổng Thông Tin Sinh Viên - Đại Học ONENET",
+        "H1":  "Báo cáo điểm danh"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-03-3-QRDiemDanh.html",
+        "Title":  "Lịch học \u0026 Điểm danh QR - Đại Học ONENET",
+        "H1":  "Lịch học trong ngày"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-03-4-DanhGiaGiangVien.html",
+        "Title":  "Cổng Thông Tin Sinh Viên - Đại Học ONENET",
+        "H1":  "Đánh giá giảng viên / Khảo sát chất lượng"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-04-1b-ChuongTrinhDaoTao.html",
+        "Title":  "Cổng Thông Tin Sinh Viên - Đại Học ONENET",
+        "H1":  "Khung chương trình \u0026 Quản lý môn học"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-04-2-KetQuaHocTap.html",
+        "Title":  "Cổng Thông Tin Sinh Viên - Đại Học ONENET",
+        "H1":  "Kết quả học tập"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-04-3-LichThi.html",
+        "Title":  "Cổng Thông Tin Sinh Viên - Đại Học ONENET",
+        "H1":  "Lịch thi (Exam Schedule)"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-05-4-QuanLyHoSoCaNhan.html",
+        "Title":  "Hồ Sơ Cá Nhân - Đại Học ONENET",
+        "H1":  "Quản lý Hồ sơ Cá nhân"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-05-5-DichVuHanhChinhMotCua.html",
+        "Title":  "Cổng Thông Tin Sinh Viên - Đại Học ONENET",
+        "H1":  "Dịch vụ hành chính một cửa"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-06-2-HoaDonVaThanhToan.html",
+        "Title":  "Cổng Thông Tin Sinh Viên - Đại Học ONENET",
+        "H1":  "Quản lý Tài chính"
+    },
+    {
+        "Category":  "MH_SV_Mockup",
+        "File":  "MH-06-3-hocbong.html",
+        "Title":  "Học bổng - Cổng Thông Tin Sinh Viên - Đại Học ONENET",
+        "H1":  "Học bổng"
+    }
+]

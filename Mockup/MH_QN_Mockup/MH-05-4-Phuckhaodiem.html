@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách lớp - Hệ Thống Quản Lý Sinh Viên</title>
+    <title>Điểm phúc khảo - Hệ Thống Quản Lý Sinh Viên</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -1424,11 +1424,267 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+        }
+    </style>
+    <style id="cl-redesign">
+        .cl-side {
+            max-height: calc(100vh - 150px);
+            overflow-y: auto;
+        }
+
+        .cl-side::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .cl-side::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+
+        .cl-side-search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 4px 10px;
+            padding: 0 12px;
+            height: 38px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-light);
+            color: var(--text-light);
+        }
+
+        .cl-side-search:focus-within {
+            border-color: var(--primary);
+            background: var(--bg-white, #fff);
+        }
+
+        .cl-side-search input {
+            border: none;
+            outline: none;
+            background: transparent;
+            flex: 1;
+            min-width: 0;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-dark);
+        }
+
+        .cl-major.hide {
+            display: none;
+        }
+
+        .cl-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .cl-stat {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--bg-white, #fff);
+            border: 1px solid var(--border-light, #EDF2F7);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cl-stat-i {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--c);
+            background: color-mix(in srgb, var(--c) 14%, transparent);
+        }
+
+        .cl-stat b {
+            display: block;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -.3px;
+            color: var(--text-dark);
+            line-height: 1.1;
+        }
+
+        .cl-stat small {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .cl-filters {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .cl-select {
+            height: 42px;
+            padding: 0 36px 0 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 600;
+            font-family: inherit;
+            color: var(--text-dark);
+            background-color: var(--bg-white, #fff);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235E7184' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        .cl-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-50);
+        }
+
+        .cl-chip {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-left: 8px;
+            vertical-align: middle;
+            color: var(--c);
+            background: color-mix(in srgb, var(--c) 14%, transparent);
+        }
+
+        .cl-meta+.cl-meta {
+            margin-top: -6px;
+        }
+
+        .cl-st.grad {
+            background: #DBEAFE;
+            color: #1D4ED8;
+        }
+
+        .cl-bar.done span {
+            background: linear-gradient(90deg, #94A3B8, #CBD5E1);
+        }
+
+        .cl-cap-note {
+            font-size: 12.5px;
+            color: var(--text-gray);
+        }
+
+        .cl-pager {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin: 22px 0 6px;
+            flex-wrap: wrap;
+        }
+
+        .cl-pager button {
+            min-width: 38px;
+            height: 38px;
+            padding: 0 10px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-white, #fff);
+            color: var(--text-gray);
+            font-size: 13px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .cl-pager button:hover:not(:disabled):not(.active) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .cl-pager button.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .cl-pager button:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+
+        .cl-pager span {
+            color: var(--text-light);
+            padding: 0 4px;
+        }
+
+        html[data-theme="dark"] .cl-st.grad {
+            background: #12284A !important;
+            color: #93C5FD !important;
+        }
+
+        html[data-theme="dark"] .cl-side-search {
+            background: rgba(255, 255, 255, .04);
+        }
+
+        @media (max-width: 1100px) {
+            .cl-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .cl-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .cl-select,
+            .cl-filters {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -1473,7 +1729,7 @@
                 <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
             <div class="menu-group-title">Sinh Viên</div>
-            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item active">
+            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
                 <i data-lucide="list" size="20"></i> Danh sách lớp
             </a>
             <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
@@ -1510,6 +1766,12 @@
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="award" size="18"></i> Học bổng
+            </a>
+            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item active">
+                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+            </a>
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
@@ -1520,89 +1782,726 @@
         <!-- Main Content -->
         <main class="dashboard-content">
             <div class="page-header">
-                <h1 class="page-title">Danh sách lớp</h1>
-                <div class="header-actions" style="display: flex; gap: 12px;">
-                    <!-- Button removed -->
-                    <!-- Icon removed -->
-                    <!-- Text removed -->
-                    <!-- End button removed -->
+                <h1 class="page-title">Điểm phúc khảo</h1>
+            </div>
+
+            <div class="pk-stats" id="pkStats"></div>
+
+            <div class="pk-toolbar">
+                <div class="pk-search"><i data-lucide="search" size="16"></i>
+                    <input type="text" id="pkSearch" placeholder="Tìm theo tên, MSSV hoặc mã môn...">
+                </div>
+                <select id="pkTerm" class="pk-select">
+                    <option value="all">Tất cả học kỳ</option>
+                    <option>HK1 2025-2026</option>
+                    <option>HK2 2024-2025</option>
+                </select>
+                <div class="pk-seg" id="pkSeg">
+                    <button class="active" data-f="all">Tất cả</button>
+                    <button data-f="wait">Chờ xử lý</button>
+                    <button data-f="up">Tăng điểm</button>
+                    <button data-f="same">Giữ nguyên</button>
+                    <button data-f="down">Giảm điểm</button>
                 </div>
             </div>
 
-            <div class="cl-layout">
-                <aside class="cl-side">
-                    <div class="cl-side-title">Chuyên ngành</div>
-                    <button class="cl-major active" data-major="all"><span class="cl-mi" style="--c:#7C3AED"><i
-                                data-lucide="layers" size="18"></i></span><span class="cl-mt"><b>Tất cả chuyên
-                                ngành</b><small>Toàn bộ lớp</small></span><span class="cl-count"
-                            id="cnt-all"></span></button>
-                    <button class="cl-major" data-major="se"><span class="cl-mi" style="--c:#2563EB"><i
-                                data-lucide="code" size="18"></i></span><span class="cl-mt"><b>Kỹ thuật phần
-                                mềm</b><small>Mã ngành HE</small></span><span class="cl-count"
-                            id="cnt-se"></span></button>
-                    <button class="cl-major" data-major="ss"><span class="cl-mi" style="--c:#D97706"><i
-                                data-lucide="briefcase" size="18"></i></span><span class="cl-mt"><b>Quản trị kinh
-                                doanh</b><small>Mã ngành HS</small></span><span class="cl-count"
-                            id="cnt-ss"></span></button>
-                    <button class="cl-major" data-major="ia"><span class="cl-mi" style="--c:#059669"><i
-                                data-lucide="shield-check" size="18"></i></span><span class="cl-mt"><b>An toàn thông
-                                tin</b><small>Mã ngành HA</small></span><span class="cl-count"
-                            id="cnt-ia"></span></button>
-                </aside>
-                <section class="cl-main">
-                    <div class="cl-toolbar">
-                        <div class="cl-search"><i data-lucide="search" size="16"></i><input type="text" id="clSearch"
-                                placeholder="Tìm theo mã lớp..."></div>
-                        <div class="cl-seg" id="clSeg">
-                            <button class="active" data-f="all">Tất cả</button>
-                            <button data-f="open">Còn chỗ</button>
-                            <button data-f="full">Đã đầy</button>
-                        </div>
-                    </div>
-                    <div class="cl-result" id="clResult"></div>
-                    <div class="cl-grid" id="clGrid"></div>
-                </section>
+            <div class="pk-card">
+                <div class="pk-scroll">
+                    <table class="pk-table">
+                        <thead>
+                            <tr>
+                                <th>Sinh viên</th>
+                                <th>Môn học</th>
+                                <th>Học kỳ</th>
+                                <th class="c">Điểm gốc</th>
+                                <th class="c">Điểm phúc khảo</th>
+                                <th>Kết quả</th>
+                                <th>Ngày xử lý</th>
+                                <th class="c">Bài làm</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="pkBody"></tbody>
+                    </table>
+                </div>
+                <div class="pk-empty" id="pkEmpty" hidden>
+                    <i data-lucide="search-x" size="28"></i>
+                    <b>Không tìm thấy đơn phúc khảo</b>
+                    <span>Thử đổi từ khóa hoặc bộ lọc để xem thêm kết quả.</span>
+                </div>
+                <div class="pk-foot" id="pkFoot"></div>
             </div>
         </main>
     </div>
 
+    <div class="pk-drawer-bg" id="pkBg"></div>
+    <aside class="pk-drawer" id="pkDrawer" aria-hidden="true">
+        <div class="pk-d-head">
+            <div><b id="dName"></b><small id="dSub"></small></div>
+            <button class="pk-x" id="pkClose" aria-label="Đóng"><i data-lucide="x" size="18"></i></button>
+        </div>
+        <div class="pk-d-body" id="dBody"></div>
+    </aside>
+
+    <style id="pk-style">
+        .pk-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px
+        }
+
+        .pk-stat {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .pk-stat i,
+        .pk-stat svg {
+            flex: none
+        }
+
+        .pk-si {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            color: var(--c);
+            background: color-mix(in srgb, var(--c) 14%, transparent)
+        }
+
+        .pk-stat b {
+            display: block;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.1
+        }
+
+        .pk-stat small {
+            font-size: 13px;
+            color: var(--text-gray)
+        }
+
+        .pk-toolbar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 16px
+        }
+
+        .pk-search {
+            flex: 1 1 280px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 42px;
+            padding: 0 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-white);
+            color: var(--text-light)
+        }
+
+        .pk-search:focus-within,
+        .pk-select:focus {
+            border-color: var(--primary);
+            outline: 2px solid color-mix(in srgb, var(--primary) 25%, transparent)
+        }
+
+        .pk-search input {
+            flex: 1;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-size: 14px;
+            color: var(--text-dark)
+        }
+
+        .pk-select {
+            height: 42px;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            font-size: 14px
+        }
+
+        .pk-seg {
+            display: flex;
+            padding: 3px;
+            gap: 2px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-white)
+        }
+
+        .pk-seg button {
+            border: 0;
+            background: transparent;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            cursor: pointer
+        }
+
+        .pk-seg button:hover {
+            color: var(--text-dark)
+        }
+
+        .pk-seg button.active {
+            background: var(--primary);
+            color: #fff
+        }
+
+        .pk-seg button:focus-visible,
+        .pk-view:focus-visible,
+        .pk-x:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px
+        }
+
+        .pk-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden
+        }
+
+        .pk-scroll {
+            overflow-x: auto
+        }
+
+        .pk-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 960px
+        }
+
+        .pk-table th {
+            text-align: left;
+            padding: 13px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            background: var(--bg-soft, #F9FBFD);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap
+        }
+
+        .pk-table td {
+            padding: 14px 18px;
+            font-size: 14px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: middle
+        }
+
+        .pk-table tbody tr {
+            cursor: pointer
+        }
+
+        .pk-table tbody tr:hover {
+            background: var(--primary-50)
+        }
+
+        .pk-table tbody tr:last-child td {
+            border-bottom: 0
+        }
+
+        .pk-table .c {
+            text-align: center
+        }
+
+        .pk-who {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .pk-av {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--c);
+            background: color-mix(in srgb, var(--c) 15%, transparent);
+            flex: none
+        }
+
+        .pk-who b {
+            display: block;
+            font-weight: 600
+        }
+
+        .pk-who small,
+        .pk-sub small {
+            color: var(--text-gray);
+            font-size: 12.5px
+        }
+
+        .pk-sub b {
+            display: block;
+            font-weight: 600
+        }
+
+        .pk-num {
+            font-variant-numeric: tabular-nums;
+            font-weight: 700;
+            font-size: 15px
+        }
+
+        .pk-old {
+            color: var(--text-gray);
+            font-weight: 600
+        }
+
+        .pk-new {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .pk-delta {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 999px
+        }
+
+        .d-up {
+            color: var(--success);
+            background: var(--success-light)
+        }
+
+        .d-down {
+            color: var(--danger);
+            background: var(--danger-light)
+        }
+
+        .d-same {
+            color: var(--text-gray);
+            background: var(--border-light)
+        }
+
+        .pk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 11px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 600
+        }
+
+        .pk-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor
+        }
+
+        .b-wait {
+            color: var(--warning);
+            background: var(--warning-light)
+        }
+
+        .pk-view {
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-gray);
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: grid;
+            place-items: center
+        }
+
+        .pk-view:hover {
+            color: var(--primary);
+            border-color: var(--primary)
+        }
+
+        .pk-foot {
+            padding: 14px 18px;
+            font-size: 13px;
+            color: var(--text-gray);
+            border-top: 1px solid var(--border-light)
+        }
+
+        .pk-empty {
+            padding: 56px 20px;
+            text-align: center;
+            color: var(--text-gray);
+            display: grid;
+            gap: 6px;
+            justify-items: center
+        }
+
+        .pk-empty b {
+            color: var(--text-dark);
+            font-size: 15px
+        }
+
+        .pk-drawer-bg {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 20, 34, .45);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s;
+            z-index: 900
+        }
+
+        .pk-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: min(440px, 100%);
+            background: var(--bg-white);
+            border-left: 1px solid var(--border);
+            box-shadow: var(--shadow-xl);
+            transform: translateX(100%);
+            transition: transform .25s ease;
+            z-index: 901;
+            display: flex;
+            flex-direction: column
+        }
+
+        .pk-open .pk-drawer {
+            transform: none
+        }
+
+        .pk-open .pk-drawer-bg {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .pk-d-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 22px 24px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .pk-d-head b {
+            font-size: 18px;
+            color: var(--text-dark);
+            display: block
+        }
+
+        .pk-d-head small {
+            color: var(--text-gray);
+            font-size: 13px
+        }
+
+        .pk-x {
+            border: 0;
+            background: var(--border-light);
+            color: var(--text-gray);
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: grid;
+            place-items: center
+        }
+
+        .pk-d-body {
+            padding: 24px;
+            overflow-y: auto;
+            display: grid;
+            gap: 22px;
+            align-content: start
+        }
+
+        .pk-cmp {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+            padding: 20px 12px;
+            border-radius: 14px;
+            background: var(--bg-soft, #F9FBFD);
+            border: 1px solid var(--border)
+        }
+
+        .pk-cmp small {
+            display: block;
+            color: var(--text-gray);
+            font-size: 12.5px;
+            margin-bottom: 4px
+        }
+
+        .pk-cmp b {
+            font-size: 34px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--text-dark)
+        }
+
+        .pk-cmp .arrow {
+            color: var(--text-light)
+        }
+
+        .pk-dl {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 10px 12px;
+            font-size: 14px
+        }
+
+        .pk-dl dt {
+            color: var(--text-gray)
+        }
+
+        .pk-dl dd {
+            color: var(--text-dark);
+            font-weight: 500
+        }
+
+        .pk-note {
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: var(--primary-50);
+            color: var(--text-dark);
+            font-size: 14px;
+            line-height: 1.55
+        }
+
+        .pk-note b {
+            display: block;
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 4px;
+            font-weight: 600
+        }
+
+        @media (max-width: 900px) {
+            .pk-stats {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (max-width: 520px) {
+            .pk-stats {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .pk-drawer,
+            .pk-drawer-bg {
+                transition: none
+            }
+        }
+    </style>
+
     <script>
-        const MAJ = { se: { n: 'Kỹ thuật phần mềm', c: '#2563EB' }, ss: { n: 'Quản trị kinh doanh', c: '#D97706' }, ia: { n: 'An toàn thông tin', c: '#059669' } };
-        const CLASSES = [
-            { code: 'SE1901', major: 'se', term: 'Kỳ 1 (Fall 2024)', size: 30, cap: 30, status: 'Đang học' },
-            { code: 'SE1902', major: 'se', term: 'Kỳ 1 (Fall 2024)', size: 28, cap: 30, status: 'Đang học' },
-            { code: 'SS1901', major: 'ss', term: 'Kỳ 1 (Fall 2024)', size: 25, cap: 30, status: 'Đang học' },
-            { code: 'IA1901', major: 'ia', term: 'Kỳ 1 (Fall 2024)', size: 28, cap: 30, status: 'Đang học' }
+        const C = ['#2563EB', '#7C3AED', '#059669', '#D97706', '#E11D48', '#0891B2'];
+        // [mssv, tên, lớp, mã môn, tên môn, học kỳ, điểm gốc, điểm phúc khảo | null, ngày, lý do, ghi chú giảng viên chấm]
+        const RAW = [
+            ['SE190112', 'Trần Minh Khôi', 'SE1901', 'PRF192', 'Nhập môn lập trình C', 'HK1 2025-2026', 5.5, 6.5, '28/09/2026', 'Bài thi tự luận câu 4 chưa được cộng điểm thành phần.', 'Đã chấm lại: cộng thêm 1.0 điểm ở câu 4.'],
+            ['SE190245', 'Lê Thu Hà', 'SE1902', 'DBI202', 'Cơ sở dữ liệu', 'HK1 2025-2026', 6.0, 6.0, '27/09/2026', 'Cho rằng câu truy vấn lồng nhau đúng kết quả.', 'Đã chấm lại: giữ nguyên điểm, truy vấn thiếu điều kiện nhóm.'],
+            ['IT190078', 'Phạm Quốc Bảo', 'IT1901', 'NWC203', 'Mạng máy tính', 'HK1 2025-2026', 4.0, null, '—', 'Điểm cuối kỳ thấp hơn kỳ vọng so với điểm quá trình.', ''],
+            ['AC190031', 'Nguyễn Ngọc Anh', 'AC1901', 'ACC101', 'Nguyên lý kế toán', 'HK1 2025-2026', 7.0, 7.5, '26/09/2026', 'Sai sót khi cộng tổng điểm các phần thi.', 'Đã chấm lại: điều chỉnh tổng điểm +0.5.'],
+            ['BA190156', 'Đỗ Hoàng Long', 'BA1901', 'MKT101', 'Marketing căn bản', 'HK2 2024-2025', 6.5, 6.0, '12/06/2026', 'Đề nghị xem lại phần bài tập nhóm.', 'Đã chấm lại: phát hiện lỗi trích dẫn, trừ 0.5 điểm.'],
+            ['SE190203', 'Vũ Thị Mai', 'SE1902', 'SWE201', 'Nhập môn kỹ thuật phần mềm', 'HK1 2025-2026', 5.0, null, '—', 'Điểm vấn đáp chưa phản ánh đúng phần trình bày.', ''],
+            ['AI190019', 'Bùi Anh Tuấn', 'AI1901', 'MAD101', 'Toán rời rạc', 'HK2 2024-2025', 3.5, 4.5, '10/06/2026', 'Câu 2 và câu 5 có cách giải khác đáp án.', 'Đã chấm lại: chấp nhận cách giải câu 5, +1.0 điểm.'],
+            ['IT190144', 'Hoàng Gia Hân', 'IT1901', 'OSG202', 'Hệ điều hành', 'HK1 2025-2026', 6.5, 6.5, '25/09/2026', 'Thắc mắc về thang điểm câu lý thuyết.', 'Đã chấm lại: giữ nguyên điểm.']
         ];
-        let curMajor = 'all', curFilter = 'all';
-        function renderClasses() {
-            const q = document.getElementById('clSearch').value.trim().toLowerCase();
-            const list = CLASSES.filter(c => (curMajor === 'all' || c.major === curMajor) && c.code.toLowerCase().includes(q) &&
-                (curFilter === 'all' || (curFilter === 'full' ? c.size >= c.cap : c.size < c.cap)));
-            document.getElementById('clResult').textContent = list.length + ' lớp';
-            document.getElementById('clGrid').innerHTML = list.length ? list.map((c, i) => {
-                const m = MAJ[c.major], pct = Math.round(c.size / c.cap * 100), full = c.size >= c.cap;
-                return `<a class="cl-card" style="--c:${m.c};animation-delay:${i * 0.05}s" href="MH-01-6-DanhSachSinhVienTrongLop.html">
-                    <div class="cl-top"><div><div class="cl-code">${c.code}</div><div class="cl-maj">${m.n}</div></div><span class="cl-st">${c.status}</span></div>
-                    <div class="cl-meta"><i data-lucide="calendar" size="15"></i> ${c.term}</div>
-                    <div class="cl-cap"><div class="cl-cap-row"><span>Sĩ số</span><span><b>${c.size}/${c.cap}</b> · ${full ? 'Đã đầy' : 'Còn ' + (c.cap - c.size) + ' chỗ'}</span></div>
-                        <div class="cl-bar ${full ? 'full' : ''}"><span style="width:${pct}%"></span></div></div>
-                    <div class="cl-foot"><span>Xem danh sách sinh viên</span><i data-lucide="arrow-right" size="16"></i></div></a>`;
-            }).join('') : '<div class="cl-empty">Không tìm thấy lớp phù hợp.</div>';
+        const D = RAW.map((r, i) => {
+            const [id, name, cls, code, subj, term, old, nw, date, why, note] = r;
+            const st = nw === null ? 'wait' : nw > old ? 'up' : nw < old ? 'down' : 'same';
+            return { id, name, cls, code, subj, term, old, nw, date, why, note, st, c: C[i % C.length] };
+        });
+        const LBL = { wait: 'Chờ xử lý', up: 'Tăng điểm', same: 'Giữ nguyên', down: 'Giảm điểm' };
+        const BCL = { wait: 'b-wait', up: 'd-up', same: 'd-same', down: 'd-down' };
+        const $ = id => document.getElementById(id);
+        const fmt = n => n.toFixed(1);
+        const delta = r => r.nw === null ? '' : (r.nw === r.old ? '' : `<span class="pk-delta ${r.nw > r.old ? 'd-up' : 'd-down'}">${r.nw > r.old ? '+' : '−'}${fmt(Math.abs(r.nw - r.old))}</span>`);
+        const ini = n => n.split(' ').pop()[0];
+        let f = 'all', term = 'all';
+
+        function stats() {
+            const s = k => D.filter(r => r.st === k).length;
+            const items = [
+                ['inbox', '#2563EB', D.length, 'Tổng đơn phúc khảo'],
+                ['hourglass', '#D97706', s('wait'), 'Chờ xử lý'],
+                ['trending-up', '#059669', s('up'), 'Được tăng điểm'],
+                ['equal', '#64748B', s('same') + s('down'), 'Giữ nguyên / giảm điểm']
+            ];
+            $('pkStats').innerHTML = items.map(([ic, c, n, l]) =>
+                `<div class="pk-stat"><span class="pk-si" style="--c:${c}"><i data-lucide="${ic}" size="20"></i></span><div><b>${n}</b><small>${l}</small></div></div>`).join('');
+        }
+
+        function render() {
+            const q = $('pkSearch').value.trim().toLowerCase();
+            const rows = D.filter(r => (f === 'all' || r.st === f) && (term === 'all' || r.term === term) &&
+                (!q || [r.name, r.id, r.code, r.subj].some(x => x.toLowerCase().includes(q))));
+            $('pkBody').innerHTML = rows.map(r => `
+                <tr data-id="${r.id}-${r.code}" tabindex="0">
+                    <td><div class="pk-who"><span class="pk-av" style="--c:${r.c}">${ini(r.name)}</span><div><b>${r.name}</b><small>${r.id} · ${r.cls}</small></div></div></td>
+                    <td><div class="pk-sub"><b>${r.subj}</b><small>${r.code}</small></div></td>
+                    <td>${r.term}</td>
+                    <td class="c"><span class="pk-num pk-old">${fmt(r.old)}</span></td>
+                    <td class="c">${r.nw === null ? '<span class="pk-old">—</span>' : `<span class="pk-new"><span class="pk-num">${fmt(r.nw)}</span>${delta(r)}</span>`}</td>
+                    <td><span class="pk-badge ${BCL[r.st]}">${LBL[r.st]}</span></td>
+                    <td>${r.date}</td>
+                    <td class="c"><button style="background:transparent; border:none; cursor:pointer; color:var(--primary); padding: 4px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='var(--primary-50)'" onmouseout="this.style.background='transparent'" title="Tải bài làm" onclick="event.stopPropagation(); alert('Đang tải file bài làm...')"><i data-lucide="download" size="18"></i></button></td>
+                    <td><button class="pk-view" aria-label="Xem chi tiết" title="Xem chi tiết"><i data-lucide="chevron-right" size="16"></i></button></td>
+                </tr>`).join('');
+            $('pkEmpty').hidden = rows.length > 0;
+            $('pkFoot').textContent = `Hiển thị ${rows.length} / ${D.length} đơn phúc khảo`;
             lucide.createIcons();
         }
-        document.getElementById('cnt-all').textContent = CLASSES.length;
-        ['se', 'ss', 'ia'].forEach(k => document.getElementById('cnt-' + k).textContent = CLASSES.filter(c => c.major === k).length);
-        document.querySelectorAll('.cl-major').forEach(b => b.addEventListener('click', () => {
-            document.querySelectorAll('.cl-major').forEach(x => x.classList.remove('active')); b.classList.add('active');
-            curMajor = b.dataset.major; renderClasses();
+
+        function openDrawer(key) {
+            const r = D.find(x => `${x.id}-${x.code}` === key); if (!r) return;
+            $('dName').textContent = r.name;
+            $('dSub').textContent = `${r.id} · lớp ${r.cls}`;
+            $('dBody').innerHTML = `
+                <div class="pk-cmp">
+                    <div><small>Điểm gốc</small><b>${fmt(r.old)}</b></div>
+                    <i data-lucide="arrow-right" class="arrow" size="22"></i>
+                    <div><small>Điểm phúc khảo</small><b>${r.nw === null ? '—' : fmt(r.nw)}</b></div>
+                </div>
+                <dl class="pk-dl">
+                    <dt>Môn học</dt><dd>${r.subj} (${r.code})</dd>
+                    <dt>Học kỳ</dt><dd>${r.term}</dd>
+                    <dt>Kết quả</dt><dd><span class="pk-badge ${BCL[r.st]}">${LBL[r.st]}</span> ${delta(r)}</dd>
+                    <dt>Ngày xử lý</dt><dd>${r.date}</dd>
+                    <dt>Bài làm</dt><dd><a href="#" style="color: var(--primary); font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" onclick="alert('Đang tải file bài làm...')"><i data-lucide="download-cloud" size="16"></i> Tải về bài thi</a></dd>
+                </dl>
+                <div class="pk-note"><b>Lý do phúc khảo của sinh viên</b>${r.why}</div>
+                ${r.note ? `<div class="pk-note"><b>Kết luận của giảng viên chấm lại</b>${r.note}</div>` : `
+                <div class="pk-note" style="background: transparent; padding: 0; margin-top: 8px;">
+                    <b style="color: var(--text-dark); margin-bottom: 12px; font-size: 14px; display: block;">Cập nhật điểm phúc khảo</b>
+                    <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+                        <div style="flex: 1;">
+                            <label style="display: block; font-size: 12px; color: var(--text-gray); margin-bottom: 6px;">Điểm mới</label>
+                            <input id="pkNewGrade" type="number" step="0.1" min="0" max="10" placeholder="Nhập điểm..." style="width: 100%; height: 40px; padding: 0 12px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 14px; outline: none; background: var(--bg-white); color: var(--text-dark);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'">
+                        </div>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: var(--text-gray); margin-bottom: 6px;">Ghi chú / Kết luận</label>
+                        <textarea id="pkNewNote" placeholder="Nhập lý do thay đổi hoặc kết luận..." style="width: 100%; height: 80px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 14px; resize: none; outline: none; margin-bottom: 12px; background: var(--bg-white); color: var(--text-dark);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+                    </div>
+                    <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                        <button style="padding: 10px 16px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--text-gray); font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='var(--bg-soft)'; this.style.color='var(--text-dark)'" onmouseout="this.style.background='transparent'; this.style.color='var(--text-gray)'" onclick="document.getElementById('pkClose').click()">Hủy</button>
+                        <button style="padding: 10px 16px; border: none; border-radius: 8px; background: var(--primary); color: white; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.background='var(--primary-dark)'" onmouseout="this.style.background='var(--primary)'" onclick="saveGrade('${key}')"><i data-lucide="check" size="16"></i> Lưu kết quả</button>
+                    </div>
+                </div>`}`;
+            document.body.classList.add('pk-open');
+            $('pkDrawer').setAttribute('aria-hidden', 'false');
+            lucide.createIcons();
+        }
+        const closeDrawer = () => { document.body.classList.remove('pk-open'); $('pkDrawer').setAttribute('aria-hidden', 'true'); };
+
+        $('pkBody').addEventListener('click', e => { const t = e.target.closest('tr'); if (t) openDrawer(t.dataset.id); });
+        $('pkBody').addEventListener('keydown', e => { if (e.key === 'Enter') { const t = e.target.closest('tr'); if (t) openDrawer(t.dataset.id); } });
+        $('pkClose').onclick = closeDrawer; $('pkBg').onclick = closeDrawer;
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+        $('pkSearch').addEventListener('input', render);
+        $('pkTerm').addEventListener('change', e => { term = e.target.value; render(); });
+        document.querySelectorAll('#pkSeg button').forEach(b => b.addEventListener('click', () => {
+            document.querySelectorAll('#pkSeg button').forEach(x => x.classList.remove('active'));
+            b.classList.add('active'); f = b.dataset.f; render();
         }));
-        document.querySelectorAll('#clSeg button').forEach(b => b.addEventListener('click', () => {
-            document.querySelectorAll('#clSeg button').forEach(x => x.classList.remove('active')); b.classList.add('active');
-            curFilter = b.dataset.f; renderClasses();
-        }));
-        document.getElementById('clSearch').addEventListener('input', renderClasses);
-        renderClasses();
+
+        function saveGrade(key) {
+            const gradeInput = document.getElementById('pkNewGrade').value;
+            if (!gradeInput) {
+                showToast('Vui lòng nhập điểm mới!', true);
+                return;
+            }
+
+            const nw = parseFloat(gradeInput);
+            if (isNaN(nw) || nw < 0 || nw > 10) {
+                showToast('Điểm phúc khảo không hợp lệ (0 - 10)', true);
+                return;
+            }
+
+            const r = D.find(x => `${x.id}-${x.code}` === key);
+            if (r) {
+                const old = parseFloat(r.old);
+                r.nw = nw;
+
+                const noteInput = document.getElementById('pkNewNote').value;
+                if (noteInput) {
+                    r.note = 'Đã chấm lại: ' + noteInput;
+                } else {
+                    const diff = nw - old;
+                    r.note = 'Đã chấm lại: ' + (diff > 0 ? '+' : (diff < 0 ? '−' : 'giữ nguyên, ' + nw.toFixed(1) + ' điểm.')) + (diff !== 0 ? Math.abs(diff).toFixed(1) + ' điểm.' : '');
+                }
+
+                r.st = nw > old ? 'up' : nw < old ? 'down' : 'same';
+
+                const d = new Date();
+                const pad = n => n < 10 ? '0' + n : n;
+                r.date = pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear();
+
+                const rawIdx = RAW.findIndex(x => x[0] === r.id && x[3] === r.code);
+                if (rawIdx !== -1) {
+                    RAW[rawIdx][7] = r.nw;
+                    RAW[rawIdx][8] = r.date;
+                    RAW[rawIdx][10] = r.note;
+                }
+
+                render();
+                stats();
+                closeDrawer();
+                showToast('Đã cập nhật điểm phúc khảo thành công!');
+            }
+        }
+
+        function showToast(msg, isError = false) {
+            let t = document.getElementById('toast');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'toast';
+                document.body.appendChild(t);
+            }
+            t.className = 'toast';
+            if (isError) {
+                t.style.background = '#DC2626';
+                t.innerHTML = `<i data-lucide="alert-circle" size="20"></i> <span id="toastMsg" style="font-weight: 500; font-size: 14px;"></span>`;
+            } else {
+                t.style.background = '#10B981';
+                t.innerHTML = `<i data-lucide="check-circle" size="20"></i> <span id="toastMsg" style="font-weight: 500; font-size: 14px;"></span>`;
+            }
+            document.getElementById('toastMsg').textContent = msg;
+            lucide.createIcons();
+
+            // Force reflow
+            void t.offsetWidth;
+
+            t.classList.add('show');
+            setTimeout(() => {
+                t.classList.remove('show');
+            }, 3000);
+        }
+
+        stats(); render();
     </script>
 
 

@@ -1,4 +1,4 @@
-# Tài Liệu Thiết Kế Hệ Thống (System Design Document)
+﻿# Tài Liệu Thiết Kế Hệ Thống (System Design Document)
 
 **Mục đích:** Tài liệu này mô tả kiến trúc hệ thống, các thành phần, giao diện tích hợp và luồng dữ liệu của **Hệ thống Quản Lý Sinh Viên (QLSV)**, nhằm đảm bảo hệ thống đáp ứng toàn bộ yêu cầu chức năng và phi chức năng được đặc tả trong BRD v5.2 và FSD v3.0. Tài liệu là kim chỉ nam cho đội phát triển, tester và các bên liên quan trong suốt vòng đời phát triển phần mềm.
 
@@ -10,9 +10,9 @@
 | --- | --- |
 | **Tên hệ thống** | Hệ thống Quản Lý Sinh Viên (QLSV) |
 | **Người biên soạn** | Khánh, Hiếu — ONENET |
-| **Ngày** | 02/10/2026 |
-| **Phiên bản** | 1.0 |
-| **Tài liệu nguồn** | BRD-QLSV-v5.2, FSD-QLSV-v3.0, Bộ Mockup 41 file HTML |
+| **Ngày** | 06/10/2026 |
+| **Phiên bản** | 1.1 |
+| **Tài liệu nguồn** | BRD-QLSV-v5.4, FSD-QLSV-v3.2, Bộ Mockup 41 file HTML |
 | **Công nghệ chính** | C# / .NET 8.0 · PostgreSQL 16 · Visual Studio 2022 (Community/Professional) |
 | **Triển khai** | Progressive Web App (PWA) · Self-hosted / Cloud VM |
 
@@ -39,12 +39,12 @@ Hệ thống Quản Lý Sinh Viên được xây dựng nhằm:
 
 | **Module** | **Mã** | **Phạm vi chức năng** |
 | --- | --- | --- |
-| Quản lý Sinh viên | QLSV-01 | Hồ sơ SV, trạng thái học tập (S0–S5), phân lớp chuyên ngành |
-| Đào tạo & TKB | QLSV-02 | Cây CTĐT, danh mục GV/Phòng/Môn, xếp TKB, báo nghỉ/lịch bù |
-| Điểm danh QR | QLSV-03 | QR Động 10s, PWA camera, sửa thủ công, cảnh báo vắng |
-| Quản lý Điểm & Khảo thí | QLSV-04 | Nhập điểm TP, Rule Engine xét G0→G1/G3/G4/G5, chốt sổ |
-| Dịch vụ Hành chính | QLSV-05 | Nộp/duyệt đơn từ, quản lý Profile, báo cáo & thống kê |
-| Thanh toán | QLSV-06 | Tích hợp VNPay/MoMo, gạch nợ tự động/thủ công, đối soát |
+| Quản lý Sinh viên | QLSV-01 | Hồ sơ SV, trạng thái học tập (S0–S5), phân lớp chuyên ngành, chuyển ngành |
+| Đào tạo & TKB | QLSV-02 | Cây CTĐT, danh mục GV/Khoa/Tòa nhà/Phòng/Môn, xếp TKB, đổi lớp, báo nghỉ/lịch bù |
+| Điểm danh QR | QLSV-03 | QR Động 10s, PWA camera, sửa thủ công, cảnh báo vắng, đánh giá GV |
+| Quản lý Điểm & Khảo thí | QLSV-04 | Kho đề thi, lịch thi, nhập điểm TP, xét G0→G1/G3/G4/G5, chốt sổ |
+| Dịch vụ Hành chính | QLSV-05 | Nộp/duyệt đơn từ, quản lý Profile, báo cáo & thống kê, học bổng, phúc khảo |
+| Thanh toán | QLSV-06 | Tích hợp VNPay/MoMo, gạch nợ tự động/thủ công, đối soát, khấu trừ học bổng |
 | Học lại & Kỷ luật | QLSV-07 | Đăng ký học lại/thi lại, quản lý hồ sơ kỷ luật |
 | Notification Center | QLSV-08 | Thông báo in-app, email bất đồng bộ, template HTML |
 
@@ -451,9 +451,15 @@ Dữ liệu trong hệ thống được quản lý tập trung tại PostgreSQL,
 | `notifications` | TT-18 | Thông báo in-app (user_id, type, title, body, is_read, channel, created_at) | 10 |
 | `activity_logs` | TT-14 | Audit trail (user_id, action, entity, entity_id, old_value, new_value, ip_address, timestamp) | 12 |
 | `refresh_tokens` | — | JWT Refresh Token storage | 6 |
-| `password_history` | — | Lưu 3 mật khẩu gần nhất (BR-048) | 5 |
+| password_history | — | Lưu 3 mật khẩu gần nhất (BR-048) | 5 |
+| departments | TT-21 | Khoa/Viện (dept_code, name, head_id) | 5 |
+| uildings | TT-22 | Tòa nhà (building_code, name, address) | 5 |
+| exam_banks | TT-23 | Kho đề thi (exam_id, subject_id, file_url, created_by) | 6 |
+| evaluations | TT-24 | Đánh giá Giảng viên (eval_id, class_id, student_id, rating, comment) | 7 |
+| scholarships | TT-25 | Học bổng (scholarship_id, student_id, amount, semester) | 6 |
+| grade_appeals | TT-26 | Phúc khảo (appeal_id, student_id, subject_id, reason, new_score, status) | 8 |
 
-**Tổng cộng: ~24 bảng chính**
+**Tổng cộng: ~30 bảng chính**
 
 ### 7.3. Sơ Đồ Quan Hệ Thực Thể (ERD)
 
@@ -570,7 +576,15 @@ erDiagram
 | POST | `/api/v1/webhooks/momo` | IPN callback MoMo | MoMo (IP whitelist) |
 | POST | `/api/v1/retake/register` | Đăng ký học lại/thi lại | SV |
 | GET | `/api/v1/reports/{type}` | Báo cáo thống kê | QN, Admin |
-| GET | `/api/v1/reports/export` | Xuất Excel/PDF | QN, Admin |
+| GET | /api/v1/reports/export | Xuất Excel/PDF | QN, Admin |
+| POST | /api/v1/students/{id}/transfer-major | Chuyển ngành cho SV | QN |
+| POST | /api/v1/classes/{id}/transfer-student | Đổi lớp cho SV | QN, SV |
+| POST | /api/v1/evaluations | Nộp Đánh giá Giảng viên | SV |
+| GET | /api/v1/evaluations/results | Xem kết quả đánh giá | GV |
+| POST | /api/v1/exams | Upload đề thi, xếp lịch thi | QN |
+| POST | /api/v1/scholarships | Import cấp học bổng | QN |
+| POST | /api/v1/grade-appeals | Nộp đơn phúc khảo | SV |
+| PUT | /api/v1/grade-appeals/{id} | Cập nhật điểm phúc khảo | QN |
 
 ---
 
@@ -893,3 +907,4 @@ _Hết tài liệu Thiết Kế Hệ Thống v1.0_
 **Ngày tạo:** 02/10/2026
 
 **Người tạo:** Khánh, Hiếu — ONENET
+

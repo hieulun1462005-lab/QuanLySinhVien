@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý Danh mục - Hệ Thống Quản Lý Sinh Viên</title>
     <meta name="description"
-        content="Quản lý danh mục giảng viên, chuyên ngành và môn học cho hệ thống quản lý sinh viên Đại Học ONENET">
+        content="Quản lý danh mục giảng viên, chuyên ngành và tòa nhà cho hệ thống quản lý sinh viên Đại Học ONENET">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -1066,7 +1066,7 @@
     </style>
 
     <style>
-        /* ===== Môn học: form chi tiết + CRUD ===== */
+        /* ===== Tòa nhà: form chi tiết + CRUD ===== */
         #subjectModal .modal-panel,
         #subjectViewModal .modal-panel {
             width: 860px;
@@ -2055,11 +2055,76 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+        }
+    </style>
+    <style id="seed-badges">
+        .major-badge.ia {
+            background: #FCE7F3;
+            color: #9D174D
+        }
+
+        .major-badge.mkt {
+            background: #FFEDD5;
+            color: #9A3412
+        }
+
+        .major-badge.el {
+            background: #E0E7FF;
+            color: #3730A3
+        }
+
+        html[data-theme="dark"] .major-badge.ia {
+            background: color-mix(in srgb, #FCE7F3 17%, #0F1B2A) !important;
+            color: color-mix(in srgb, #9D174D 38%, #fff) !important
+        }
+
+        html[data-theme="dark"] .major-badge.mkt {
+            background: color-mix(in srgb, #FFEDD5 17%, #0F1B2A) !important;
+            color: color-mix(in srgb, #9A3412 38%, #fff) !important
+        }
+
+        html[data-theme="dark"] .major-badge.el {
+            background: color-mix(in srgb, #E0E7FF 17%, #0F1B2A) !important;
+            color: color-mix(in srgb, #3730A3 38%, #fff) !important
+        }
     </style>
 </head>
 
@@ -2140,6 +2205,12 @@
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            </a>
+            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+            </a>
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
@@ -2157,14 +2228,14 @@
                         <i data-lucide="arrow-left" size="20"></i>
                     </a>
                     <div style="display: flex; flex-direction: column; gap: 6px;">
-                        <h1 class="page-title">Quản lý Môn học</h1>
+                        <h1 class="page-title">Quản lý Tòa nhà</h1>
                         <div class="page-subtitle">
-                            <span>MH-02-1-3</span>
+                            <span>MH-02-1-5</span>
                             <span class="dot"></span>
                             <a href="MH-02-1-QuanLyDanhMuc.html" style="color:var(--primary);text-decoration:none;">Danh
                                 mục</a>
                             <span class="dot"></span>
-                            <span>Môn học</span>
+                            <span>Tòa nhà</span>
                         </div>
                     </div>
                 </div>
@@ -2176,19 +2247,19 @@
                     <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
                     <div class="category-icon"><i data-lucide="graduation-cap" size="28"></i></div>
                     <div class="category-label">Giảng viên</div>
-                    <div class="category-count" id="countLecturer">2 giảng viên</div>
+                    <div class="category-count" id="countLecturer">24 giảng viên</div>
                 </div>
                 <div class="category-card card-major" onclick="switchCategory('major')" id="cardMajor">
                     <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
                     <div class="category-icon"><i data-lucide="git-branch" size="28"></i></div>
                     <div class="category-label">Chuyên ngành</div>
-                    <div class="category-count" id="countMajor">2 chuyên ngành</div>
+                    <div class="category-count" id="countMajor">6 chuyên ngành</div>
                 </div>
                 <div class="category-card card-subject" onclick="switchCategory('subject')" id="cardSubject">
                     <div class="check-indicator"><i data-lucide="check" size="14"></i></div>
                     <div class="category-icon"><i data-lucide="book-text" size="28"></i></div>
-                    <div class="category-label">Môn học</div>
-                    <div class="category-count" id="countSubject">2 môn học</div>
+                    <div class="category-label">Tòa nhà</div>
+                    <div class="category-count" id="countSubject">73 tòa nhà</div>
                 </div>
             </div>
 
@@ -2227,6 +2298,7 @@
                                 <option value="Công nghệ thông tin">Công nghệ thông tin</option>
                                 <option value="Kinh tế">Kinh tế</option>
                                 <option value="Ngôn ngữ Anh">Ngôn ngữ Anh</option>
+                                <option value="Khoa học cơ bản">Khoa học cơ bản</option>
                             </select>
                         </div>
                         <div class="toolbar-right">
@@ -2241,7 +2313,7 @@
                             <tr>
                                 <th>Mã GV</th>
                                 <th>Họ và Tên</th>
-                                <th>Khoa/Bộ môn</th>
+                                <th>Khoa/Bộ tòa nhà</th>
                                 <th>Email</th>
                                 <th>SĐT</th>
                                 <th style="text-align: right;">Thao tác</th>
@@ -2255,13 +2327,10 @@
                                 <td>hungnv@onenet.edu.vn</td>
                                 <td>0988123456</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"
-                                            onclick="showError('fkAlert')"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
                                 </td>
                             </tr>
                             <tr>
@@ -2271,13 +2340,296 @@
                                 <td>maitt@onenet.edu.vn</td>
                                 <td>0909123456</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"
-                                            onclick="showError('fkAlert')"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV003</span></td>
+                                <td style="font-weight: 600;">TS. Lê Văn Khải</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>khailv@onenet.edu.vn</td>
+                                <td>0863530829</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV004</span></td>
+                                <td style="font-weight: 600;">ThS. Phạm Minh Tuấn</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>tuanpm@onenet.edu.vn</td>
+                                <td>0881810111</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV005</span></td>
+                                <td style="font-weight: 600;">ThS. Hoàng Thị Lan Anh</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>anhhtl@onenet.edu.vn</td>
+                                <td>0919990608</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV006</span></td>
+                                <td style="font-weight: 600;">TS. Đặng Quốc Bảo</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>baodq@onenet.edu.vn</td>
+                                <td>0917135241</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV007</span></td>
+                                <td style="font-weight: 600;">ThS. Vũ Đức Thịnh</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>thinhvd@onenet.edu.vn</td>
+                                <td>0381973060</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV008</span></td>
+                                <td style="font-weight: 600;">ThS. Ngô Thanh Hà</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>hant@onenet.edu.vn</td>
+                                <td>0354602037</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV009</span></td>
+                                <td style="font-weight: 600;">TS. Bùi Anh Khoa</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>khoaba@onenet.edu.vn</td>
+                                <td>0902441955</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV010</span></td>
+                                <td style="font-weight: 600;">ThS. Đỗ Thị Hương</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>huongdt@onenet.edu.vn</td>
+                                <td>0888015764</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV011</span></td>
+                                <td style="font-weight: 600;">ThS. Trương Hoài Nam</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>namth@onenet.edu.vn</td>
+                                <td>0915037655</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV012</span></td>
+                                <td style="font-weight: 600;">ThS. Lý Gia Huy</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>huylg@onenet.edu.vn</td>
+                                <td>0918122250</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV013</span></td>
+                                <td style="font-weight: 600;">TS. Nguyễn Thị Thu Hà</td>
+                                <td>Kinh tế</td>
+                                <td>hantt@onenet.edu.vn</td>
+                                <td>0903077052</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV014</span></td>
+                                <td style="font-weight: 600;">ThS. Phan Văn Long</td>
+                                <td>Kinh tế</td>
+                                <td>longpv@onenet.edu.vn</td>
+                                <td>0972037872</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV015</span></td>
+                                <td style="font-weight: 600;">ThS. Đinh Ngọc Linh</td>
+                                <td>Kinh tế</td>
+                                <td>linhdn@onenet.edu.vn</td>
+                                <td>0387655194</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV016</span></td>
+                                <td style="font-weight: 600;">TS. Võ Minh Châu</td>
+                                <td>Kinh tế</td>
+                                <td>chauvm@onenet.edu.vn</td>
+                                <td>0904709137</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV017</span></td>
+                                <td style="font-weight: 600;">ThS. Cao Thị Bích Ngọc</td>
+                                <td>Kinh tế</td>
+                                <td>ngocctb@onenet.edu.vn</td>
+                                <td>0903234302</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV018</span></td>
+                                <td style="font-weight: 600;">ThS. Lương Thu Trang</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>tranglt@onenet.edu.vn</td>
+                                <td>0988031986</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV019</span></td>
+                                <td style="font-weight: 600;">TS. Dương Hải Yến</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>yendh@onenet.edu.vn</td>
+                                <td>0932976225</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV020</span></td>
+                                <td style="font-weight: 600;">ThS. Tạ Quang Vinh</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>vinhtq@onenet.edu.vn</td>
+                                <td>0386175466</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV021</span></td>
+                                <td style="font-weight: 600;">ThS. Mai Phương Thảo</td>
+                                <td>Ngôn ngữ Anh</td>
+                                <td>thaomp@onenet.edu.vn</td>
+                                <td>0354032085</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV022</span></td>
+                                <td style="font-weight: 600;">TS. Hồ Quang Minh</td>
+                                <td>Khoa học cơ bản</td>
+                                <td>minhhq@onenet.edu.vn</td>
+                                <td>0914151952</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV023</span></td>
+                                <td style="font-weight: 600;">ThS. Lâm Thị Diệu</td>
+                                <td>Khoa học cơ bản</td>
+                                <td>dieult@onenet.edu.vn</td>
+                                <td>0862634613</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">GV024</span></td>
+                                <td style="font-weight: 600;">ThS. Kiều Anh Tú</td>
+                                <td>Khoa học cơ bản</td>
+                                <td>tuka@onenet.edu.vn</td>
+                                <td>0352053424</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa" onclick="showError('fkAlert')"><i
+                                                data-lucide="trash-2" size="16"></i></button></div>
                                 </td>
                             </tr>
                         </tbody>
@@ -2329,29 +2681,333 @@
                         </thead>
                         <tbody id="majorTableBody">
                             <tr>
-                                <td><span class="code-badge">SE</span></td>
-                                <td style="font-weight: 600;">Kỹ thuật phần mềm (Software Engineering)</td>
-                                <td>Đào tạo kỹ sư phát triển phần mềm chuyên nghiệp</td>
+                                <td><span class="code-badge">KTPM</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật phần mềm</td>
+                                <td>Công nghệ thông tin</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><span class="code-badge">AI</span></td>
-                                <td style="font-weight: 600;">Trí tuệ nhân tạo (Artificial Intelligence)</td>
-                                <td>Nghiên cứu ứng dụng AI, Machine Learning</td>
+                                <td><span class="code-badge">CNTT</span></td>
+                                <td style="font-weight: 600;">Công nghệ thông tin</td>
+                                <td>Công nghệ thông tin</td>
                                 <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon btn-edit" title="Sửa"><i data-lucide="pencil"
-                                                size="16"></i></button>
-                                        <button class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
-                                                size="16"></i></button>
-                                    </div>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">KHMT</span></td>
+                                <td style="font-weight: 600;">Khoa học máy tính</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">HTTT</span></td>
+                                <td style="font-weight: 600;">Hệ thống thông tin</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">TTNT</span></td>
+                                <td style="font-weight: 600;">Trí tuệ nhân tạo</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">ATTT</span></td>
+                                <td style="font-weight: 600;">An toàn thông tin</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">QTKD</span></td>
+                                <td style="font-weight: 600;">Quản trị kinh doanh</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">KT</span></td>
+                                <td style="font-weight: 600;">Kế toán</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">TCNH</span></td>
+                                <td style="font-weight: 600;">Tài chính ngân hàng</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">KDQT</span></td>
+                                <td style="font-weight: 600;">Kinh doanh quốc tế</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">LOG</span></td>
+                                <td style="font-weight: 600;">Logistics và QL chuỗi cung ứng</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">DMK</span></td>
+                                <td style="font-weight: 600;">Digital Marketing</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">LKT</span></td>
+                                <td style="font-weight: 600;">Luật kinh tế</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">NNA</span></td>
+                                <td style="font-weight: 600;">Ngôn ngữ Anh</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">NNN</span></td>
+                                <td style="font-weight: 600;">Ngôn ngữ Nhật</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">NNH</span></td>
+                                <td style="font-weight: 600;">Ngôn ngữ Hàn</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">NNT</span></td>
+                                <td style="font-weight: 600;">Ngôn ngữ Trung</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">TTDPT</span></td>
+                                <td style="font-weight: 600;">Truyền thông đa phương tiện</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">QHCC</span></td>
+                                <td style="font-weight: 600;">Quan hệ công chúng</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">TKDH</span></td>
+                                <td style="font-weight: 600;">Thiết kế đồ họa</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">DDT</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật điện, điện tử</td>
+                                <td>Kỹ thuật - Công nghệ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">CKCT</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật cơ khí chế tạo</td>
+                                <td>Kỹ thuật - Công nghệ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">CNOT</span></td>
+                                <td style="font-weight: 600;">Công nghệ kỹ thuật ô tô</td>
+                                <td>Kỹ thuật - Công nghệ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">KTXD</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật xây dựng</td>
+                                <td>Kỹ thuật - Công nghệ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">KTR</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật robot</td>
+                                <td>Kỹ thuật - Công nghệ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">QTKS</span></td>
+                                <td style="font-weight: 600;">Quản trị khách sạn</td>
+                                <td>Du lịch - Dịch vụ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">DLLH</span></td>
+                                <td style="font-weight: 600;">Du lịch và Lữ hành</td>
+                                <td>Du lịch - Dịch vụ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">TLH</span></td>
+                                <td style="font-weight: 600;">Tâm lý học</td>
+                                <td>Sức khỏe - Xã hội</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">DH</span></td>
+                                <td style="font-weight: 600;">Điều dưỡng</td>
+                                <td>Sức khỏe - Xã hội</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="code-badge">DD</span></td>
+                                <td style="font-weight: 600;">Dinh dưỡng</td>
+                                <td>Sức khỏe - Xã hội</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
                                 </td>
                             </tr>
                         </tbody>
@@ -2367,20 +3023,23 @@
                             <div class="panel-icon" style="background: #EDE9FE; color: #6D28D9;">
                                 <i data-lucide="book-text" size="18"></i>
                             </div>
-                            <span class="panel-title">Danh sách Môn học</span>
+                            <span class="panel-title">Danh sách Tòa nhà</span>
                         </div>
                         <div class="panel-header-right" style="display: flex; gap: 8px;">
-                            <button class="btn btn-outline" onclick="downloadSubjectTemplate()" style="color: #6D28D9; border-color: #6D28D9;">
+                            <button class="btn btn-outline" onclick="downloadSubjectTemplate()"
+                                style="color: #6D28D9; border-color: #6D28D9;">
                                 <i data-lucide="download" size="15"></i> Tải template
                             </button>
-                            <label class="btn btn-outline" style="color: #059669; border-color: #059669; margin: 0; cursor: pointer;">
-                                <i data-lucide="upload" size="15"></i> Import môn
-                                <input type="file" id="importSubjectInput" accept=".csv, .xlsx, .xls" style="display: none;" onchange="importSubject(this)">
+                            <label class="btn btn-outline"
+                                style="color: #059669; border-color: #059669; margin: 0; cursor: pointer;">
+                                <i data-lucide="upload" size="15"></i> Import tòa nhà
+                                <input type="file" id="importSubjectInput" accept=".csv, .xlsx, .xls"
+                                    style="display: none;" onchange="importSubject(this)">
                             </label>
                             <button class="btn"
                                 style="background: linear-gradient(135deg, #7C3AED, #8B5CF6); color: white; box-shadow: 0 2px 8px rgba(124,58,237,0.2);"
                                 onclick="openSubjectForm()">
-                                <i data-lucide="plus" size="15"></i> Tạo môn học
+                                <i data-lucide="plus" size="15"></i> Tạo tòa nhà
                             </button>
                         </div>
                     </div>
@@ -2389,20 +3048,60 @@
                         <div class="toolbar-left">
                             <div class="search-box">
                                 <i data-lucide="search" size="16"></i>
-                                <input type="text" placeholder="Tìm kiếm môn học..." id="searchSubject"
+                                <input type="text" placeholder="Tìm kiếm tòa nhà..." id="searchSubject"
                                     oninput="filterSubject()">
                             </div>
                             <select class="filter-select" id="filterSubjectMajor" onchange="filterSubject()">
                                 <option value="">Tất cả chuyên ngành</option>
-                                <option value="SE">Kỹ thuật phần mềm (SE)</option>
-                                <option value="AI">Trí tuệ nhân tạo (AI)</option>
-                                <option value="IB">Kinh doanh quốc tế (IB)</option>
+                                <optgroup label="Công nghệ thông tin">
+                                    <option value="KTPM">Kỹ thuật phần mềm</option>
+                                    <option value="CNTT">Công nghệ thông tin</option>
+                                    <option value="KHMT">Khoa học máy tính</option>
+                                    <option value="HTTT">Hệ thống thông tin</option>
+                                    <option value="TTNT">Trí tuệ nhân tạo</option>
+                                    <option value="ATTT">An toàn thông tin</option>
+                                </optgroup>
+                                <optgroup label="Kinh tế - Quản trị">
+                                    <option value="QTKD">Quản trị kinh doanh</option>
+                                    <option value="KT">Kế toán</option>
+                                    <option value="TCNH">Tài chính ngân hàng</option>
+                                    <option value="KDQT">Kinh doanh quốc tế</option>
+                                    <option value="LOG">Logistics và QL chuỗi cung ứng</option>
+                                    <option value="DMK">Digital Marketing</option>
+                                    <option value="LKT">Luật kinh tế</option>
+                                </optgroup>
+                                <optgroup label="Ngoại ngữ - Truyền thông">
+                                    <option value="NNA">Ngôn ngữ Anh</option>
+                                    <option value="NNN">Ngôn ngữ Nhật</option>
+                                    <option value="NNH">Ngôn ngữ Hàn</option>
+                                    <option value="NNT">Ngôn ngữ Trung</option>
+                                    <option value="TTDPT">Truyền thông đa phương tiện</option>
+                                    <option value="QHCC">Quan hệ công chúng</option>
+                                    <option value="TKDH">Thiết kế đồ họa</option>
+                                </optgroup>
+                                <optgroup label="Kỹ thuật - Công nghệ">
+                                    <option value="DDT">Kỹ thuật điện, điện tử</option>
+                                    <option value="CKCT">Kỹ thuật cơ khí chế tạo</option>
+                                    <option value="CNOT">Công nghệ kỹ thuật ô tô</option>
+                                    <option value="KTXD">Kỹ thuật xây dựng</option>
+                                    <option value="KTR">Kỹ thuật robot</option>
+                                </optgroup>
+                                <optgroup label="Du lịch - Dịch vụ">
+                                    <option value="QTKS">Quản trị khách sạn</option>
+                                    <option value="DLLH">Du lịch và Lữ hành</option>
+                                </optgroup>
+                                <optgroup label="Sức khỏe - Xã hội">
+                                    <option value="TLH">Tâm lý học</option>
+                                    <option value="DH">Điều dưỡng</option>
+                                    <option value="DD">Dinh dưỡng</option>
+                                </optgroup>
                             </select>
                             <select class="filter-select" id="filterSubjectCredits" onchange="filterSubject()">
                                 <option value="">Tất cả tín chỉ</option>
                                 <option value="2">2 tín chỉ</option>
                                 <option value="3">3 tín chỉ</option>
                                 <option value="4">4 tín chỉ</option>
+                                <option value="10">10 tín chỉ</option>
                             </select>
                         </div>
                         <div class="toolbar-right">
@@ -2415,8 +3114,8 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Mã môn</th>
-                                <th>Tên môn học</th>
+                                <th>Mã tòa nhà</th>
+                                <th>Tên tòa nhà</th>
                                 <th>Tín chỉ</th>
                                 <th>Thuộc ngành</th>
                                 <th>Tiên quyết</th>
@@ -2457,11 +3156,12 @@
                     <input type="text" id="gvName" class="form-control" placeholder="Nguyễn Văn A">
                 </div>
                 <div class="form-group">
-                    <label>Khoa / Bộ môn <span class="req">*</span></label>
+                    <label>Khoa / Bộ tòa nhà <span class="req">*</span></label>
                     <select id="gvDept" class="form-control">
                         <option>Công nghệ thông tin</option>
                         <option>Kinh tế</option>
                         <option>Ngôn ngữ Anh</option>
+                        <option>Khoa học cơ bản</option>
                     </select>
                 </div>
                 <div class="form-grid">
@@ -2528,7 +3228,7 @@
                         style="width:28px;height:28px;border-radius:8px;background:#EDE9FE;color:#6D28D9;display:flex;align-items:center;justify-content:center;">
                         <i data-lucide="book-plus" size="14"></i>
                     </div>
-                    <span id="subjectModalTitle">Thêm môn học mới</span>
+                    <span id="subjectModalTitle">Thêm tòa nhà mới</span>
                 </h3>
                 <button class="btn-ghost" onclick="closeModal('subjectModal')"><i data-lucide="x"
                         size="18"></i></button>
@@ -2553,60 +3253,74 @@
                 <div class="sj-pane active" id="pane-general">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Mã môn học <span class="req">*</span></label>
+                            <label>Mã tòa nhà <span class="req">*</span></label>
                             <input type="text" class="form-control" id="fCode" placeholder="VD: PRN212"
                                 style="text-transform:uppercase">
                         </div>
                         <div class="form-group">
-                            <label>Số tín chỉ <span class="req">*</span></label>
+                            <label>Số tầng <span class="req">*</span></label>
                             <input type="number" class="form-control" id="fCredits" value="3" min="1" max="10">
                         </div>
                         <div class="form-group full-width">
-                            <label>Tên môn học (Tiếng Việt) <span class="req">*</span></label>
+                            <label>Tên tòa nhà (Tiếng Việt) <span class="req">*</span></label>
                             <input type="text" class="form-control" id="fName"
                                 placeholder="VD: Lập trình ứng dụng đa nền tảng cơ bản với .NET">
                         </div>
                         <div class="form-group full-width">
-                            <label>Tên môn học (Tiếng Anh)</label>
+                            <label>Tên tòa nhà (Tiếng Anh)</label>
                             <input type="text" class="form-control" id="fNameEn"
                                 placeholder="VD: Basis Cross-Platform Application Programming With .NET">
                         </div>
                         <div class="form-group full-width">
                             <label>Thuộc chuyên ngành <span class="req">*</span></label>
                             <div class="check-row" id="fMajors">
-                                <label><input type="checkbox" value="SE"> Kỹ thuật phần mềm (SE)</label>
-                                <label><input type="checkbox" value="AI"> Trí tuệ nhân tạo (AI)</label>
-                                <label><input type="checkbox" value="IB"> Kinh doanh quốc tế (IB)</label>
+                                <label><input type="checkbox" value="KTPM"> KTPM</label>
+                                <label><input type="checkbox" value="CNTT"> CNTT</label>
+                                <label><input type="checkbox" value="KHMT"> KHMT</label>
+                                <label><input type="checkbox" value="HTTT"> HTTT</label>
+                                <label><input type="checkbox" value="TTNT"> TTNT</label>
+                                <label><input type="checkbox" value="ATTT"> ATTT</label>
+                                <label><input type="checkbox" value="QTKD"> QTKD</label>
+                                <label><input type="checkbox" value="KT"> KT</label>
+                                <label><input type="checkbox" value="TCNH"> TCNH</label>
+                                <label><input type="checkbox" value="KDQT"> KDQT</label>
+                                <label><input type="checkbox" value="LOG"> LOG</label>
+                                <label><input type="checkbox" value="DMK"> DMK</label>
+                                <label><input type="checkbox" value="LKT"> LKT</label>
+                                <label><input type="checkbox" value="NNA"> NNA</label>
+                                <label><input type="checkbox" value="NNN"> NNN</label>
+                                <label><input type="checkbox" value="NNH"> NNH</label>
+                                <label><input type="checkbox" value="NNT"> NNT</label>
+                                <label><input type="checkbox" value="TTDPT"> TTDPT</label>
+                                <label><input type="checkbox" value="QHCC"> QHCC</label>
+                                <label><input type="checkbox" value="TKDH"> TKDH</label>
+                                <label><input type="checkbox" value="DDT"> DDT</label>
+                                <label><input type="checkbox" value="CKCT"> CKCT</label>
+                                <label><input type="checkbox" value="CNOT"> CNOT</label>
+                                <label><input type="checkbox" value="KTXD"> KTXD</label>
+                                <label><input type="checkbox" value="KTR"> KTR</label>
+                                <label><input type="checkbox" value="QTKS"> QTKS</label>
+                                <label><input type="checkbox" value="DLLH"> DLLH</label>
+                                <label><input type="checkbox" value="TLH"> TLH</label>
+                                <label><input type="checkbox" value="DH"> DH</label>
+                                <label><input type="checkbox" value="DD"> DD</label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Học kỳ <span class="req">*</span></label>
-                            <select class="form-control" id="fSemester">
-                                <option value="1">Học kỳ 1</option>
-                                <option value="2">Học kỳ 2</option>
-                                <option value="3">Học kỳ 3</option>
-                                <option value="4">Học kỳ 4</option>
-                                <option value="5">Học kỳ 5</option>
-                                <option value="6">Học kỳ 6</option>
-                                <option value="7">Học kỳ 7</option>
-                                <option value="8">Học kỳ 8</option>
-                                <option value="9">Học kỳ 9</option>
-                            </select>
-                        </div>
+                        <input type="hidden" id="fSemester" value="1">
                         <div class="form-group">
                             <label>Tổng số Slot <span class="req">*</span></label>
                             <input type="number" class="form-control" id="fSlots" value="30" min="1">
                         </div>
                         <div class="form-group full-width">
-                            <label>Môn tiên quyết</label>
+                            <label>Khu vực</label>
                             <div class="tags-input" id="fPreBox">
-                                <input type="text" id="fPreInput" placeholder="Gõ mã môn và nhấn Enter..."
+                                <input type="text" id="fPreInput" placeholder="Gõ mã tòa nhà và nhấn Enter..."
                                     style="border:none;outline:none;flex:1;min-width:150px;background:transparent;font-size:13px;">
                             </div>
                             <p class="sj-hint">Hệ thống tự động kiểm tra vòng lặp tiên quyết (Deadlock).</p>
                         </div>
                     </div>
-                    <div class="sj-sec-title" style="margin-top:8px">Phân bổ thời gian &amp; điều kiện qua môn</div>
+                    <div class="sj-sec-title" style="margin-top:8px">Phân bổ thời gian &amp; điều kiện qua tòa nhà</div>
                     <div class="form-grid cols-3">
                         <div class="form-group"><label>Tổng giờ học</label><input type="number" class="form-control"
                                 id="fHours" placeholder="150"></div>
@@ -2624,8 +3338,8 @@
                         </div>
                         <div class="form-group"><label>Thang điểm</label><input type="number" class="form-control"
                                 id="fScale" value="10"></div>
-                        <div class="form-group"><label>Điểm trung bình tối thiểu để qua môn</label><input type="number"
-                                step="0.1" class="form-control" id="fMinPass" value="5"></div>
+                        <div class="form-group"><label>Điểm trung bình tối thiểu để qua tòa nhà</label><input
+                                type="number" step="0.1" class="form-control" id="fMinPass" value="5"></div>
                         <div class="form-group"><label>Số quyết định ban hành</label><input type="text"
                                 class="form-control" id="fDecision" placeholder="VD: 1402/QĐ-ĐHFPT"></div>
                         <div class="form-group"><label>Ngày phê duyệt</label><input type="date" class="form-control"
@@ -2644,9 +3358,9 @@
                 <div class="sj-pane" id="pane-outcome">
                     <div class="form-grid">
                         <div class="form-group full-width">
-                            <label>Mô tả môn học</label>
+                            <label>Mô tả tòa nhà</label>
                             <textarea class="form-control" id="fDesc"
-                                placeholder="Sau khi hoàn thành môn học, sinh viên có thể..."></textarea>
+                                placeholder="Sau khi hoàn thành tòa nhà, sinh viên có thể..."></textarea>
                         </div>
                         <div class="form-group full-width">
                             <label>Phương pháp giảng dạy &amp; học tập</label>
@@ -2665,7 +3379,7 @@
                                 placeholder="VD: Visual Studio 2022, SQL Server 2019, .NET 8">
                         </div>
                     </div>
-                    <div class="sj-sec-title" style="margin-top:6px">Chuẩn đầu ra môn học (CLO)
+                    <div class="sj-sec-title" style="margin-top:6px">Chuẩn đầu ra tòa nhà (CLO)
                         <button type="button" class="btn-add-row" onclick="addRow('clo')"><i data-lucide="plus"
                                 size="14"></i> Thêm CLO</button>
                     </div>
@@ -2700,7 +3414,7 @@
             <div class="modal-footer">
                 <button class="btn btn-outline" onclick="closeModal('subjectModal')">Hủy bỏ</button>
                 <button class="btn" style="background: linear-gradient(135deg, #7C3AED, #8B5CF6); color: white;"
-                    onclick="saveSubject()"><i data-lucide="save" size="15"></i> <span id="saveBtnText">Lưu môn
+                    onclick="saveSubject()"><i data-lucide="save" size="15"></i> <span id="saveBtnText">Lưu tòa nhà
                         học</span></button>
             </div>
         </div>
@@ -2732,13 +3446,13 @@
         <div class="modal-panel">
             <div class="confirm-body">
                 <div class="confirm-ico"><i data-lucide="trash-2" size="24"></i></div>
-                <h3 style="font-size:17px;margin-bottom:8px">Xóa môn học?</h3>
+                <h3 style="font-size:17px;margin-bottom:8px">Xóa tòa nhà?</h3>
                 <p style="font-size:13.5px;color:var(--text-gray);line-height:1.6" id="confirmText"></p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline" onclick="closeModal('confirmDeleteModal')">Hủy bỏ</button>
                 <button class="btn" style="background:#DC2626;color:#fff" onclick="confirmDelete()"><i
-                        data-lucide="trash-2" size="15"></i> Xóa môn học</button>
+                        data-lucide="trash-2" size="15"></i> Xóa tòa nhà</button>
             </div>
         </div>
     </div>
@@ -2912,7 +3626,7 @@
             const subjectCount = (typeof subjects !== 'undefined' ? subjects.length : 0);
             document.getElementById('countLecturer').textContent = lecturerCount + ' giảng viên';
             document.getElementById('countMajor').textContent = majorCount + ' chuyên ngành';
-            document.getElementById('countSubject').textContent = subjectCount + ' môn học';
+            document.getElementById('countSubject').textContent = subjectCount + ' tòa nhà';
         }
 
         // === Toast ===
@@ -2935,21 +3649,21 @@
             }, 3500);
         }
         // ================= MÔN HỌC: dữ liệu + CRUD =================
-        const MAJOR_NAME = { SE: 'Kỹ thuật phần mềm', AI: 'Trí tuệ nhân tạo', IB: 'Kinh doanh quốc tế' };
+        const MAJOR_NAME = { SE: 'Kỹ thuật phần mềm', AI: 'Trí tuệ nhân tạo', IA: 'An toàn thông tin', IB: 'Kinh doanh quốc tế', MKT: 'Marketing số', EL: 'Ngôn ngữ Anh' };
         const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
         const fmtDate = d => d ? d.split('-').reverse().join('/') : '—';
         const base = o => Object.assign({ nameEn: '', majors: ['SE'], semester: 1, credits: 3, slots: 30, level: 'Cử nhân', scale: 10, minPass: 5, prereq: [], status: 'on', decision: '', approved: '', hours: '', contact: '', self: '', method: '', desc: '', tasks: '', tools: '', clos: [], materials: [], plan: [], assess: [] }, o);
 
         let subjects = [
-            base({ code: 'PRF192', name: 'Cơ sở lập trình', nameEn: 'Programming Fundamentals', majors: ['SE', 'AI'], semester: 1 }),
-            base({ code: 'PRO192', name: 'Lập trình hướng đối tượng', nameEn: 'Object-Oriented Programming', majors: ['SE', 'AI'], semester: 2, prereq: ['PRF192'] }),
-            base({ code: 'DBI202', name: 'Cơ sở dữ liệu', nameEn: 'Introduction to Databases', majors: ['SE', 'AI'], semester: 3 }),
+            base({ code: 'PRF192', name: 'Cơ sở lập trình', nameEn: 'Programming Fundamentals', majors: ['SE', 'AI', 'IA'], semester: 1 }),
+            base({ code: 'PRO192', name: 'Lập trình hướng đối tượng', nameEn: 'Object-Oriented Programming', majors: ['SE', 'AI', 'IA'], semester: 2, prereq: ['PRF192'] }),
+            base({ code: 'DBI202', name: 'Cơ sở dữ liệu', nameEn: 'Introduction to Databases', majors: ['SE', 'AI', 'IA'], semester: 3 }),
             base({
                 code: 'PRN212', name: 'Lập trình ứng dụng đa nền tảng cơ bản với .NET', nameEn: 'Basis Cross-Platform Application Programming With .NET',
                 majors: ['SE'], semester: 4, credits: 3, slots: 30, prereq: ['PRO192', 'DBI202'], status: 'on',
                 decision: '1402/QĐ-ĐHFPT', approved: '2025-12-12', hours: 150, contact: 49.5, self: 98.1, minPass: 5,
                 method: 'Học tập kiến tạo xã hội, giảng dạy trên lớp, học qua tìm hiểu',
-                desc: 'Sau khi hoàn thành môn học, sinh viên có thể:\n• Hiểu ngôn ngữ C# để phát triển ứng dụng .NET, các khái niệm nền tảng của .NET và kiến thức cơ bản về Windows Presentation Foundation (WPF).\n• Phát triển ứng dụng desktop đa nền tảng, chú trọng trải nghiệm người dùng (UI & UX).\n• Làm việc nhóm và trình bày kết quả của nhóm.',
+                desc: 'Sau khi hoàn thành tòa nhà, sinh viên có thể:\n• Hiểu ngôn ngữ C# để phát triển ứng dụng .NET, các khái niệm nền tảng của .NET và kiến thức cơ bản về Windows Presentation Foundation (WPF).\n• Phát triển ứng dụng desktop đa nền tảng, chú trọng trải nghiệm người dùng (UI & UX).\n• Làm việc nhóm và trình bày kết quả của nhóm.',
                 tasks: '- Tham dự tối thiểu 80% số buổi học để đủ điều kiện dự thi cuối kỳ.\n- Hoàn thành và nộp đúng hạn các bài tập do giảng viên giao.\n- Chỉ sử dụng laptop trên lớp cho mục đích học tập.',
                 tools: 'Visual Studio 2022 trở lên, SQL Server 2019 trở lên, .NET 8.0 trở lên, GitHub Copilot, GitHub Workflow',
                 clos: [
@@ -2967,7 +3681,7 @@
                     { title: 'https://learn.microsoft.com/en-us/ef/core/', author: 'Microsoft', publisher: 'Microsoft', year: '', main: true }
                 ],
                 plan: [
-                    { topic: 'Giới thiệu môn học, môi trường làm việc, giới thiệu dự án', sessions: 1, clo: 'CLO1' },
+                    { topic: 'Giới thiệu tòa nhà, môi trường làm việc, giới thiệu dự án', sessions: 1, clo: 'CLO1' },
                     { topic: 'Chương 1: Nền tảng .NET & Visual Studio', sessions: 5, clo: 'CLO1' },
                     { topic: 'Chương 2: Lập trình C#', sessions: 3, clo: 'CLO1' },
                     { topic: 'Chương 3: Lập trình hướng đối tượng với C#', sessions: 3, clo: 'CLO2' },
@@ -2992,12 +3706,14 @@
                 ]
             })
         ];
+        const EXTRA_SUBJECTS = [{ "code": "SSL101C", "name": "Kỹ năng học đại học", "nameEn": "Academic Skills for University Success", "majors": ["SE", "AI", "IA", "IB", "MKT", "EL"], "semester": 1, "credits": 2, "prereq": [], "slots": 30 }, { "code": "MAD101", "name": "Toán rời rạc", "nameEn": "Discrete Mathematics", "majors": ["SE", "AI", "IA"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "MAE101", "name": "Toán cho kỹ thuật", "nameEn": "Mathematics for Engineering", "majors": ["SE", "AI", "IA"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "CSI104", "name": "Nhập tòa nhà khoa học máy tính", "nameEn": "Introduction to Computing", "majors": ["SE", "AI", "IA"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "SSG104", "name": "Kỹ năng giao tiếp và hợp tác", "nameEn": "Communication and In-Group Working Skills", "majors": ["SE", "AI", "IA", "IB", "MKT", "EL"], "semester": 2, "credits": 2, "prereq": [], "slots": 30 }, { "code": "NWC203C", "name": "Mạng máy tính", "nameEn": "Computer Networking", "majors": ["SE", "AI", "IA"], "semester": 2, "credits": 3, "prereq": [], "slots": 30 }, { "code": "OSG202", "name": "Hệ điều hành", "nameEn": "Operating Systems", "majors": ["SE", "AI", "IA"], "semester": 2, "credits": 3, "prereq": ["CSI104"], "slots": 30 }, { "code": "CEA201", "name": "Kiến trúc máy tính", "nameEn": "Computer Organization and Architecture", "majors": ["SE", "AI", "IA"], "semester": 2, "credits": 3, "prereq": [], "slots": 30 }, { "code": "CSD201", "name": "Cấu trúc dữ liệu và giải thuật", "nameEn": "Data Structures and Algorithms", "majors": ["SE", "AI", "IA"], "semester": 2, "credits": 3, "prereq": ["PRF192"], "slots": 30 }, { "code": "MAS291", "name": "Xác suất thống kê", "nameEn": "Statistics and Probability", "majors": ["SE", "AI", "IA"], "semester": 3, "credits": 3, "prereq": ["MAE101"], "slots": 30 }, { "code": "PMG201C", "name": "Nguyên lý quản lý dự án", "nameEn": "Project Management", "majors": ["SE", "AI", "IA"], "semester": 5, "credits": 3, "prereq": [], "slots": 30 }, { "code": "EXE101", "name": "Trải nghiệm khởi nghiệp", "nameEn": "Experiential Entrepreneurship", "majors": ["SE", "AI", "IA"], "semester": 6, "credits": 2, "prereq": [], "slots": 30 }, { "code": "OJT202", "name": "Thực tập doanh nghiệp", "nameEn": "On-the-Job Training", "majors": ["SE", "AI", "IA", "IB", "MKT", "EL"], "semester": 7, "credits": 10, "prereq": [], "slots": 30 }, { "code": "SWE201C", "name": "Nhập tòa nhà kỹ thuật phần mềm", "nameEn": "Introduction to Software Engineering", "majors": ["SE"], "semester": 3, "credits": 3, "prereq": ["PRO192"], "slots": 30 }, { "code": "PRJ301", "name": "Ứng dụng Java Web", "nameEn": "Java Web Application Development", "majors": ["SE"], "semester": 4, "credits": 3, "prereq": ["PRO192", "DBI202"], "slots": 30 }, { "code": "PRN222", "name": "Lập trình ứng dụng web với .NET", "nameEn": "Advanced Cross-Platform Application Programming With .NET", "majors": ["SE"], "semester": 5, "credits": 4, "prereq": ["PRN212"], "slots": 30 }, { "code": "SWR302", "name": "Yêu cầu phần mềm", "nameEn": "Software Requirements", "majors": ["SE"], "semester": 5, "credits": 3, "prereq": ["SWE201C"], "slots": 30 }, { "code": "SWT301", "name": "Kiểm thử phần mềm", "nameEn": "Software Testing", "majors": ["SE"], "semester": 5, "credits": 3, "prereq": ["SWE201C"], "slots": 30 }, { "code": "SWP391", "name": "Dự án phát triển ứng dụng phần mềm", "nameEn": "Application Development Project", "majors": ["SE"], "semester": 5, "credits": 3, "prereq": ["SWE201C"], "slots": 30 }, { "code": "SWD392", "name": "Kiến trúc và thiết kế phần mềm", "nameEn": "Software Architecture and Design", "majors": ["SE"], "semester": 6, "credits": 3, "prereq": ["SWE201C"], "slots": 30 }, { "code": "PRM392", "name": "Lập trình ứng dụng di động", "nameEn": "Mobile Programming", "majors": ["SE"], "semester": 6, "credits": 3, "prereq": ["PRO192"], "slots": 30 }, { "code": "SEP490", "name": "Đồ án tốt nghiệp ngành Kỹ thuật phần mềm", "nameEn": "SE Capstone Project", "majors": ["SE"], "semester": 9, "credits": 10, "prereq": ["SWP391"], "slots": 30 }, { "code": "PFP191", "name": "Cơ sở lập trình Python", "nameEn": "Programming Fundamentals with Python", "majors": ["AI"], "semester": 2, "credits": 3, "prereq": [], "slots": 30 }, { "code": "MAI391", "name": "Toán cho trí tuệ nhân tạo", "nameEn": "Mathematics for Machine Learning", "majors": ["AI"], "semester": 3, "credits": 3, "prereq": ["MAE101"], "slots": 30 }, { "code": "AIL303M", "name": "Học máy", "nameEn": "Machine Learning", "majors": ["AI"], "semester": 4, "credits": 3, "prereq": ["MAI391", "PFP191"], "slots": 30 }, { "code": "DMA301M", "name": "Khai phá dữ liệu", "nameEn": "Data Mining", "majors": ["AI"], "semester": 5, "credits": 3, "prereq": ["DBI202", "MAS291"], "slots": 30 }, { "code": "DPL302M", "name": "Học sâu", "nameEn": "Deep Learning", "majors": ["AI"], "semester": 5, "credits": 4, "prereq": ["AIL303M"], "slots": 30 }, { "code": "CPV301", "name": "Thị giác máy tính", "nameEn": "Computer Vision", "majors": ["AI"], "semester": 6, "credits": 3, "prereq": ["AIL303M"], "slots": 30 }, { "code": "NLP301C", "name": "Xử lý ngôn ngữ tự nhiên", "nameEn": "Natural Language Processing", "majors": ["AI"], "semester": 6, "credits": 3, "prereq": ["AIL303M"], "slots": 30 }, { "code": "AIP490", "name": "Đồ án tốt nghiệp ngành Trí tuệ nhân tạo", "nameEn": "AI Capstone Project", "majors": ["AI"], "semester": 9, "credits": 10, "prereq": ["DPL302M"], "slots": 30 }, { "code": "INS301", "name": "An toàn thông tin cơ bản", "nameEn": "Introduction to Information Security", "majors": ["IA"], "semester": 3, "credits": 3, "prereq": ["NWC203C"], "slots": 30 }, { "code": "CRY303", "name": "Mật mã học", "nameEn": "Cryptography", "majors": ["IA"], "semester": 4, "credits": 3, "prereq": ["MAD101"], "slots": 30 }, { "code": "IAM302", "name": "Quản lý danh tính và truy cập", "nameEn": "Identity and Access Management", "majors": ["IA"], "semester": 5, "credits": 3, "prereq": ["NWC203C"], "slots": 30 }, { "code": "SDC301", "name": "Lập trình an toàn", "nameEn": "Secure Coding", "majors": ["IA"], "semester": 5, "credits": 3, "prereq": ["PRO192", "INS301"], "slots": 30 }, { "code": "PEN301", "name": "Kiểm thử xâm nhập", "nameEn": "Penetration Testing", "majors": ["IA"], "semester": 6, "credits": 3, "prereq": ["INS301"], "slots": 30 }, { "code": "FOR302", "name": "Điều tra số", "nameEn": "Digital Forensics", "majors": ["IA"], "semester": 6, "credits": 3, "prereq": ["INS301"], "slots": 30 }, { "code": "IAP490", "name": "Đồ án tốt nghiệp ngành An toàn thông tin", "nameEn": "IA Capstone Project", "majors": ["IA"], "semester": 9, "credits": 10, "prereq": ["PEN301"], "slots": 30 }, { "code": "MKT101", "name": "Nguyên lý Marketing", "nameEn": "Marketing Principles", "majors": ["IB", "MKT"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "MGT103", "name": "Nhập tòa nhà quản trị", "nameEn": "Introduction to Management", "majors": ["IB", "MKT"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ECO111", "name": "Kinh tế vi mô", "nameEn": "Microeconomics", "majors": ["IB", "MKT"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ACC101", "name": "Nguyên lý kế toán", "nameEn": "Principles of Accounting", "majors": ["IB", "MKT"], "semester": 2, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ECO121", "name": "Kinh tế vĩ mô", "nameEn": "Macroeconomics", "majors": ["IB", "MKT"], "semester": 2, "credits": 3, "prereq": ["ECO111"], "slots": 30 }, { "code": "FIN201", "name": "Tài chính doanh nghiệp", "nameEn": "Corporate Finance", "majors": ["IB", "MKT"], "semester": 3, "credits": 3, "prereq": ["ACC101"], "slots": 30 }, { "code": "INB301", "name": "Kinh doanh quốc tế", "nameEn": "International Business", "majors": ["IB"], "semester": 4, "credits": 3, "prereq": ["MGT103"], "slots": 30 }, { "code": "ITR301", "name": "Thương mại quốc tế", "nameEn": "International Trade", "majors": ["IB"], "semester": 4, "credits": 3, "prereq": ["ECO121"], "slots": 30 }, { "code": "IFM301", "name": "Tài chính quốc tế", "nameEn": "International Finance", "majors": ["IB"], "semester": 5, "credits": 3, "prereq": ["FIN201"], "slots": 30 }, { "code": "SCM301", "name": "Quản trị chuỗi cung ứng", "nameEn": "Supply Chain Management", "majors": ["IB"], "semester": 5, "credits": 3, "prereq": ["INB301"], "slots": 30 }, { "code": "BLW301", "name": "Luật thương mại quốc tế", "nameEn": "International Business Law", "majors": ["IB"], "semester": 6, "credits": 3, "prereq": ["INB301"], "slots": 30 }, { "code": "NEG301", "name": "Đàm phán kinh doanh", "nameEn": "Business Negotiation", "majors": ["IB"], "semester": 6, "credits": 3, "prereq": ["INB301"], "slots": 30 }, { "code": "IBP490", "name": "Đồ án tốt nghiệp ngành Kinh doanh quốc tế", "nameEn": "IB Capstone Project", "majors": ["IB"], "semester": 9, "credits": 10, "prereq": ["NEG301"], "slots": 30 }, { "code": "CBH301", "name": "Hành vi người tiêu dùng", "nameEn": "Consumer Behavior", "majors": ["MKT"], "semester": 3, "credits": 3, "prereq": ["MKT101"], "slots": 30 }, { "code": "DMK301", "name": "Marketing số", "nameEn": "Digital Marketing", "majors": ["MKT"], "semester": 4, "credits": 3, "prereq": ["MKT101"], "slots": 30 }, { "code": "MRE301", "name": "Nghiên cứu thị trường", "nameEn": "Marketing Research", "majors": ["MKT"], "semester": 4, "credits": 3, "prereq": ["MKT101"], "slots": 30 }, { "code": "BRD301", "name": "Quản trị thương hiệu", "nameEn": "Brand Management", "majors": ["MKT"], "semester": 5, "credits": 3, "prereq": ["MKT101"], "slots": 30 }, { "code": "SMM301", "name": "Marketing mạng xã hội", "nameEn": "Social Media Marketing", "majors": ["MKT"], "semester": 5, "credits": 3, "prereq": ["DMK301"], "slots": 30 }, { "code": "CMK301", "name": "Marketing nội dung", "nameEn": "Content Marketing", "majors": ["MKT"], "semester": 5, "credits": 3, "prereq": ["DMK301"], "slots": 30 }, { "code": "SEM301", "name": "Quảng cáo và tối ưu công cụ tìm kiếm", "nameEn": "SEO and Search Engine Marketing", "majors": ["MKT"], "semester": 6, "credits": 3, "prereq": ["DMK301"], "slots": 30 }, { "code": "MKP490", "name": "Đồ án tốt nghiệp ngành Marketing số", "nameEn": "Digital Marketing Capstone Project", "majors": ["MKT"], "semester": 9, "credits": 10, "prereq": ["SEM301"], "slots": 30 }, { "code": "LIN101", "name": "Ngôn ngữ học đại cương", "nameEn": "General Linguistics", "majors": ["EL"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ELS101", "name": "Nghe – Nói 1", "nameEn": "Listening and Speaking 1", "majors": ["EL"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ELR101", "name": "Đọc – Viết 1", "nameEn": "Reading and Writing 1", "majors": ["EL"], "semester": 1, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ELS201", "name": "Nghe – Nói 2", "nameEn": "Listening and Speaking 2", "majors": ["EL"], "semester": 2, "credits": 3, "prereq": ["ELS101"], "slots": 30 }, { "code": "ELR201", "name": "Đọc – Viết 2", "nameEn": "Reading and Writing 2", "majors": ["EL"], "semester": 2, "credits": 3, "prereq": ["ELR101"], "slots": 30 }, { "code": "ELG201", "name": "Ngữ pháp tiếng Anh nâng cao", "nameEn": "Advanced English Grammar", "majors": ["EL"], "semester": 3, "credits": 3, "prereq": ["ELR101"], "slots": 30 }, { "code": "LIT301", "name": "Văn học Anh – Mỹ", "nameEn": "British and American Literature", "majors": ["EL"], "semester": 4, "credits": 3, "prereq": ["ELR201"], "slots": 30 }, { "code": "TRA301", "name": "Biên phiên dịch", "nameEn": "Translation and Interpretation", "majors": ["EL"], "semester": 5, "credits": 3, "prereq": ["ELS201", "ELR201"], "slots": 30 }, { "code": "BEC301", "name": "Tiếng Anh thương mại", "nameEn": "Business English", "majors": ["EL", "IB", "MKT"], "semester": 5, "credits": 3, "prereq": [], "slots": 30 }, { "code": "ELT301", "name": "Phương pháp giảng dạy tiếng Anh", "nameEn": "English Language Teaching Methodology", "majors": ["EL"], "semester": 6, "credits": 3, "prereq": ["ELG201"], "slots": 30 }, { "code": "ELP490", "name": "Đồ án tốt nghiệp ngành Ngôn ngữ Anh", "nameEn": "English Language Capstone Project", "majors": ["EL"], "semester": 9, "credits": 10, "prereq": ["TRA301"], "slots": 30 }];
+        EXTRA_SUBJECTS.forEach(e => subjects.push(base(e)));
         let editingCode = null, viewingCode = null, deletingCode = null, formPre = [];
 
         function renderSubjects() {
             const tb = document.getElementById('subjectTableBody');
             if (!subjects.length) {
-                tb.innerHTML = '<tr><td colspan="7"><div class="empty-state"><h4>Chưa có môn học nào</h4><p>Nhấn "Tạo môn học" để thêm môn học đầu tiên.</p></div></td></tr>';
+                tb.innerHTML = '<tr><td colspan="7"><div class="empty-state"><h4>Chưa có tòa nhà nào</h4><p>Nhấn "Tạo tòa nhà" để thêm tòa nhà đầu tiên.</p></div></td></tr>';
             } else {
                 tb.innerHTML = subjects.map(s => `
                 <tr data-major="${s.majors.join(',')}" data-credits="${s.credits}">
@@ -3066,13 +3782,13 @@
             if (e.key !== 'Enter') return;
             e.preventDefault();
             const code = this.value.trim().toUpperCase(); if (!code) return;
-            if (code === (document.getElementById('fCode').value.trim().toUpperCase())) { showToast('Môn học không thể là tiên quyết của chính nó!', 'error'); return; }
-            if (!subjects.some(s => s.code === code)) { showToast('Mã môn "' + code + '" chưa tồn tại trong danh sách môn học!', 'error'); return; }
+            if (code === (document.getElementById('fCode').value.trim().toUpperCase())) { showToast('Tòa nhà không thể là tiên quyết của chính nó!', 'error'); return; }
+            if (!subjects.some(s => s.code === code)) { showToast('Mã tòa nhà "' + code + '" chưa tồn tại trong danh sách tòa nhà!', 'error'); return; }
             if (!formPre.includes(code)) formPre.push(code);
             this.value = ''; renderPre();
         });
 
-        // Kiểm tra vòng lặp tiên quyết: có đường đi từ tiên quyết ngược về môn đang lưu hay không
+        // Kiểm tra vòng lặp tiên quyết: có đường đi từ tiên quyết ngược về tòa nhà đang lưu hay không
         function findCycle(code, pre) {
             const map = {}; subjects.forEach(s => map[s.code] = s.prereq); map[code] = pre;
             for (const p of pre) {
@@ -3089,8 +3805,8 @@
         function openSubjectForm(code) {
             editingCode = code || null;
             const s = code ? subjects.find(x => x.code === code) : base({ code: '', name: '', majors: [] });
-            document.getElementById('subjectModalTitle').textContent = code ? 'Chỉnh sửa môn học' : 'Thêm môn học mới';
-            document.getElementById('saveBtnText').textContent = code ? 'Lưu thay đổi' : 'Lưu môn học';
+            document.getElementById('subjectModalTitle').textContent = code ? 'Chỉnh sửa tòa nhà' : 'Thêm tòa nhà mới';
+            document.getElementById('saveBtnText').textContent = code ? 'Lưu thay đổi' : 'Lưu tòa nhà';
             const $ = id => document.getElementById(id);
             $('fCode').value = s.code; $('fCode').disabled = !!code;
             $('fName').value = s.name; $('fNameEn').value = s.nameEn; $('fCredits').value = s.credits; $('fSlots').value = s.slots;
@@ -3102,7 +3818,7 @@
             formPre = [...s.prereq]; renderPre();
             Object.values(listId).forEach(id => {
                 const el = document.getElementById(id);
-                if(el) el.innerHTML = '';
+                if (el) el.innerHTML = '';
             });
             s.clos.forEach(c => addRow('clo', { detail: c }));
             s.plan.forEach(p => addRow('plan', p)); s.assess.forEach(a => addRow('asm', a));
@@ -3120,17 +3836,17 @@
             const credits = parseInt($('fCredits').value), slots = parseInt($('fSlots').value);
             const majors = [...document.querySelectorAll('#fMajors input:checked')].map(c => c.value);
             const fail = (tab, msg) => { tabError(tab, true); goTab(tab); showToast(msg, 'error'); };
-            if (!code) return fail('general', 'Vui lòng nhập mã môn học!');
-            if (!/^[A-Z]{2,5}[0-9]{2,4}[A-Z]?$/.test(code)) return fail('general', 'Mã môn không hợp lệ (VD: PRN212)!');
-            if (!editingCode && subjects.some(s => s.code === code)) return fail('general', 'Mã môn học đã tồn tại!');
-            if (!name) return fail('general', 'Vui lòng nhập tên môn học!');
-            if (!credits || credits < 1 || credits > 10) return fail('general', 'Số tín chỉ phải từ 1 đến 10!');
+            if (!code) return fail('general', 'Vui lòng nhập mã tòa nhà!');
+            if (!/^[A-Z]{2,5}[0-9]{2,4}[A-Z]?$/.test(code)) return fail('general', 'Mã tòa nhà không hợp lệ (VD: PRN212)!');
+            if (!editingCode && subjects.some(s => s.code === code)) return fail('general', 'Mã tòa nhà đã tồn tại!');
+            if (!name) return fail('general', 'Vui lòng nhập tên tòa nhà!');
+            if (!credits || credits < 1 || credits > 10) return fail('general', 'Số tầng phải từ 1 đến 10!');
             if (!majors.length) return fail('general', 'Vui lòng chọn ít nhất một chuyên ngành!');
             if (!slots || slots < 1) return fail('general', 'Tổng số Slot phải lớn hơn 0!');
             const cyc = findCycle(code, formPre);
             if (cyc) {
                 tabError('general', true); goTab('general');
-                document.getElementById('deadlockText').innerHTML = `<strong>Phát hiện vòng lặp môn tiên quyết!</strong><br>Môn ${esc(code)} không thể lấy ${esc(cyc)} làm môn tiên quyết vì ${esc(cyc)} đang (trực tiếp hoặc gián tiếp) yêu cầu ${esc(code)}.`;
+                document.getElementById('deadlockText').innerHTML = `<strong>Phát hiện vòng lặp tòa nhà tiên quyết!</strong><br>Tòa nhà ${esc(code)} không thể lấy ${esc(cyc)} làm tòa nhà tiên quyết vì ${esc(cyc)} đang (trực tiếp hoặc gián tiếp) yêu cầu ${esc(code)}.`;
                 document.getElementById('deadlockAlert').classList.add('active'); return;
             }
             document.getElementById('deadlockAlert').classList.remove('active');
@@ -3147,8 +3863,8 @@
                 method: $('fMethod').value.trim(), desc: $('fDesc').value.trim(), tasks: $('fTasks').value.trim(), tools: $('fTools').value.trim(),
                 clos, materials: [], plan, assess
             };
-            if (editingCode) { subjects = subjects.map(s => s.code === editingCode ? data : s); showToast('Đã cập nhật môn học ' + code + ' thành công!', 'success'); }
-            else { subjects.push(data); showToast('Đã thêm môn học ' + name + ' thành công!', 'success'); }
+            if (editingCode) { subjects = subjects.map(s => s.code === editingCode ? data : s); showToast('Đã cập nhật tòa nhà ' + code + ' thành công!', 'success'); }
+            else { subjects.push(data); showToast('Đã thêm tòa nhà ' + name + ' thành công!', 'success'); }
             closeModal('subjectModal'); renderSubjects();
         }
 
@@ -3163,12 +3879,12 @@
             document.getElementById('svNameEn').textContent = s.nameEn || '';
             document.getElementById('svBody').innerHTML = `
                 <div class="sv-sec"><h4>Thông tin chung</h4><div class="sv-grid">
-                    ${kv('Số tín chỉ', s.credits)}${kv('Học kỳ', 'Học kỳ ' + s.semester)}${kv('Tổng số Slot', s.slots)}
-                    ${kv('Chuyên ngành', s.majors.map(m => MAJOR_NAME[m] + ' (' + m + ')').join(', '))}${kv('Môn tiên quyết', s.prereq.join(', '))}${kv('Trạng thái', s.status === 'on' ? 'Đang hoạt động' : 'Ngừng hoạt động')}
-                    ${kv('Trình độ', s.level)}${kv('Thang điểm / Điểm qua môn', s.scale + ' / ' + s.minPass)}${kv('Phân bổ thời gian (giờ)', s.hours ? `${s.hours}h = ${s.contact || 0}h lên lớp + ${s.self || 0}h tự học` : '')}
+                    ${kv('Số tầng', s.credits)}${kv('Học kỳ', 'Học kỳ ' + s.semester)}${kv('Tổng số Slot', s.slots)}
+                    ${kv('Chuyên ngành', s.majors.map(m => MAJOR_NAME[m] + ' (' + m + ')').join(', '))}${kv('Khu vực', s.prereq.join(', '))}${kv('Trạng thái', s.status === 'on' ? 'Đang hoạt động' : 'Ngừng hoạt động')}
+                    ${kv('Trình độ', s.level)}${kv('Thang điểm / Điểm qua tòa nhà', s.scale + ' / ' + s.minPass)}${kv('Phân bổ thời gian (giờ)', s.hours ? `${s.hours}h = ${s.contact || 0}h lên lớp + ${s.self || 0}h tự học` : '')}
                     ${kv('Quyết định ban hành', s.decision)}${kv('Ngày phê duyệt', fmtDate(s.approved))}${kv('Phương pháp giảng dạy', s.method)}
                 </div></div>
-                <div class="sv-sec"><h4>Mô tả môn học</h4>${s.desc ? `<div class="sv-text">${esc(s.desc)}</div>` : '<div class="sv-empty">Chưa có mô tả.</div>'}</div>
+                <div class="sv-sec"><h4>Mô tả tòa nhà</h4>${s.desc ? `<div class="sv-text">${esc(s.desc)}</div>` : '<div class="sv-empty">Chưa có mô tả.</div>'}</div>
                 ${s.tasks ? `<div class="sv-sec"><h4>Yêu cầu đối với sinh viên</h4><div class="sv-text">${esc(s.tasks)}</div></div>` : ''}
                 ${s.tools ? `<div class="sv-sec"><h4>Công cụ sử dụng</h4><div class="sv-text">${esc(s.tools)}</div></div>` : ''}
                 <div class="sv-sec"><h4>Chuẩn đầu ra (${s.clos.length})</h4>${s.clos.length ? `<table class="sv-table"><tbody>${s.clos.map((c, i) => `<tr><td style="width:70px"><b style="color:#6D28D9">CLO${i + 1}</b></td><td>${esc(c)}</td></tr>`).join('')}</tbody></table>` : '<div class="sv-empty">Chưa có chuẩn đầu ra.</div>'}</div>
@@ -3181,26 +3897,26 @@
         // ---------- Xóa ----------
         function askDelete(code) {
             const deps = subjects.filter(s => s.prereq.includes(code)).map(s => s.code);
-            if (deps.length) { showToast(`Không thể xóa ${code}! Môn này đang là tiên quyết của: ${deps.join(', ')}.`, 'error'); return; }
+            if (deps.length) { showToast(`Không thể xóa ${code}! Tòa nhà này đang là tiên quyết của: ${deps.join(', ')}.`, 'error'); return; }
             deletingCode = code;
             const s = subjects.find(x => x.code === code);
-            document.getElementById('confirmText').innerHTML = `Bạn sắp xóa môn <b>${esc(code)} – ${esc(s.name)}</b>.<br>Thao tác này không thể hoàn tác.`;
+            document.getElementById('confirmText').innerHTML = `Bạn sắp xóa tòa nhà <b>${esc(code)} – ${esc(s.name)}</b>.<br>Thao tác này không thể hoàn tác.`;
             openModal('confirmDeleteModal');
         }
         function confirmDelete() {
             subjects = subjects.filter(s => s.code !== deletingCode);
             closeModal('confirmDeleteModal'); renderSubjects();
-            showToast('Đã xóa môn học ' + deletingCode + '.', 'success');
+            showToast('Đã xóa tòa nhà ' + deletingCode + '.', 'success');
         }
 
         // ---------- Tải Template & Import ----------
         function downloadSubjectTemplate() {
             const csvContent = "data:text/csv;charset=utf-8,\uFEFF" +
-                "Mã môn,Tên môn,Số tín chỉ,Chuyên ngành\n" +
+                "Mã tòa nhà,Tên tòa nhà,Số tầng,Chuyên ngành\n" +
                 "SWE201,Lập trình Web,3,SE\n" +
                 "ML301,Machine Learning,3,AI\n" +
                 "MKT101,Marketing căn bản,3,IB";
-            
+
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
@@ -3208,31 +3924,31 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            showToast("Đã tải xuống template import môn học.", "success");
+            showToast("Đã tải xuống template import tòa nhà.", "success");
         }
 
         function importSubject(input) {
             if (!input.files || !input.files[0]) return;
             const file = input.files[0];
-            
-            // Xử lý đọc file (demo import môn học mới)
+
+            // Xử lý đọc file (demo import tòa nhà mới)
             const reader = new FileReader();
-            reader.onload = function(e) {
-                // Thêm 2 môn học demo giả lập dữ liệu từ file Excel/CSV
-                subjects.push(base({ 
-                    code: 'SWE201', name: 'Lập trình Web', nameEn: 'Web Programming', 
-                    majors: ['SE'], semester: 3, credits: 3 
+            reader.onload = function (e) {
+                // Thêm 2 tòa nhà demo giả lập dữ liệu từ file Excel/CSV
+                subjects.push(base({
+                    code: 'SWE201', name: 'Lập trình Web', nameEn: 'Web Programming',
+                    majors: ['SE'], semester: 3, credits: 3
                 }));
-                subjects.push(base({ 
-                    code: 'ML301', name: 'Machine Learning', nameEn: 'Machine Learning', 
-                    majors: ['AI'], semester: 4, credits: 3 
+                subjects.push(base({
+                    code: 'ML301', name: 'Machine Learning', nameEn: 'Machine Learning',
+                    majors: ['AI'], semester: 4, credits: 3
                 }));
-                
+
                 input.value = ""; // Reset input
                 renderSubjects();
                 showToast(`Đã import dữ liệu từ file ${file.name} thành công!`, 'success');
             };
-            
+
             // Giả lập độ trễ khi đọc file
             setTimeout(() => {
                 reader.readAsText(file);
@@ -3289,6 +4005,26 @@
             apply(h.getAttribute('data-theme') || 'light', false);
         })();
 
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const major = urlParams.get('major');
+            if (major) {
+                if (typeof switchCategory === 'function') {
+                    switchCategory('subject');
+                }
+                setTimeout(() => {
+                    const filterSelect = document.getElementById('filterSubjectMajor');
+                    if (filterSelect) {
+                        filterSelect.value = major;
+                        if (typeof filterSubject === 'function') {
+                            filterSubject();
+                        }
+                    }
+                }, 100);
+            }
+        });
     </script>
 </body>
 
