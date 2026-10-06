@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách lớp - Hệ Thống Quản Lý Sinh Viên</title>
+    <title>Điểm phúc khảo - Hệ Thống Quản Lý Sinh Viên</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -1729,7 +1729,7 @@
                 <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
             <div class="menu-group-title">Sinh Viên</div>
-            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item active">
+            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
                 <i data-lucide="list" size="20"></i> Danh sách lớp
             </a>
             <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
@@ -1761,9 +1761,9 @@
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
             <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+                <i data-lucide="award" size="18"></i> Học bổng
             </a>
-            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
+            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item active">
                 <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
             </a>
             <div class="menu-group-title">Tài Chính</div>
@@ -1776,358 +1776,726 @@
         <!-- Main Content -->
         <main class="dashboard-content">
             <div class="page-header">
-                <h1 class="page-title">Danh sách lớp</h1>
-                <div class="header-actions" style="display: flex; gap: 12px;">
-                    <!-- Button removed -->
-                    <!-- Icon removed -->
-                    <!-- Text removed -->
-                    <!-- End button removed -->
+                <h1 class="page-title">Điểm phúc khảo</h1>
+            </div>
+
+            <div class="pk-stats" id="pkStats"></div>
+
+            <div class="pk-toolbar">
+                <div class="pk-search"><i data-lucide="search" size="16"></i>
+                    <input type="text" id="pkSearch" placeholder="Tìm theo tên, MSSV hoặc mã môn...">
+                </div>
+                <select id="pkTerm" class="pk-select">
+                    <option value="all">Tất cả học kỳ</option>
+                    <option>HK1 2025-2026</option>
+                    <option>HK2 2024-2025</option>
+                </select>
+                <div class="pk-seg" id="pkSeg">
+                    <button class="active" data-f="all">Tất cả</button>
+                    <button data-f="wait">Chờ xử lý</button>
+                    <button data-f="up">Tăng điểm</button>
+                    <button data-f="same">Giữ nguyên</button>
+                    <button data-f="down">Giảm điểm</button>
                 </div>
             </div>
 
-            <div class="cl-layout">
-                <aside class="cl-side">
-                    <div class="cl-side-title">Chuyên ngành</div>
-                    <div class="cl-side-search"><i data-lucide="search" size="14"></i><input type="text" id="majSearch"
-                            placeholder="Tìm chuyên ngành..."></div>
-                    <button class="cl-major active" data-major="all">
-                        <span class="cl-mi" style="--c:#7C3AED"><i data-lucide="layers" size="18"></i></span>
-                        <span class="cl-mt"><b>Tất cả chuyên ngành</b><small>Toàn bộ lớp</small></span>
-                        <span class="cl-count" id="cnt-all"></span>
-                    </button>
-                    <button class="cl-major" data-major="ktpm"><span class="cl-mi" style="--c:#2563EB"><i
-                                data-lucide="code" size="18"></i></span><span class="cl-mt"><b>Kỹ thuật phần
-                                mềm</b><small>Chuyên ngành đào tạo Kỹ sư KTPM</small></span><span class="cl-count"
-                            id="cnt-ktpm"></span></button>
-                    <button class="cl-major" data-major="cntt"><span class="cl-mi" style="--c:#3B82F6"><i
-                                data-lucide="monitor" size="18"></i></span><span class="cl-mt"><b>Công nghệ thông
-                                tin</b><small>Hạ tầng, mạng máy tính & phát triển ứng dụng</small></span><span
-                            class="cl-count" id="cnt-cntt"></span></button>
-                    <button class="cl-major" data-major="khmt"><span class="cl-mi" style="--c:#6366F1"><i
-                                data-lucide="cpu" size="18"></i></span><span class="cl-mt"><b>Khoa học máy
-                                tính</b><small>Thuật toán, hệ thống & tính toán nâng cao</small></span><span
-                            class="cl-count" id="cnt-khmt"></span></button>
-                    <button class="cl-major" data-major="httt"><span class="cl-mi" style="--c:#8B5CF6"><i
-                                data-lucide="server" size="18"></i></span><span class="cl-mt"><b>Hệ thống thông
-                                tin</b><small>Phân tích, thiết kế & quản trị hệ thống thông tin</small></span><span
-                            class="cl-count" id="cnt-httt"></span></button>
-                    <button class="cl-major" data-major="ttnt"><span class="cl-mi" style="--c:#A855F7"><i
-                                data-lucide="brain" size="18"></i></span><span class="cl-mt"><b>Trí tuệ nhân
-                                tạo</b><small>Chuyên ngành Khoa học dữ liệu & AI</small></span><span class="cl-count"
-                            id="cnt-ttnt"></span></button>
-                    <button class="cl-major" data-major="attt"><span class="cl-mi" style="--c:#059669"><i
-                                data-lucide="shield-check" size="18"></i></span><span class="cl-mt"><b>An toàn thông
-                                tin</b><small>Chuyên ngành An ninh mạng</small></span><span class="cl-count"
-                            id="cnt-attt"></span></button>
-                    <button class="cl-major" data-major="qtkd"><span class="cl-mi" style="--c:#D97706"><i
-                                data-lucide="briefcase" size="18"></i></span><span class="cl-mt"><b>Quản trị kinh
-                                doanh</b><small>Chuyên ngành đào tạo Cử nhân QTKD</small></span><span class="cl-count"
-                            id="cnt-qtkd"></span></button>
-                    <button class="cl-major" data-major="kt"><span class="cl-mi" style="--c:#EA580C"><i
-                                data-lucide="calculator" size="18"></i></span><span class="cl-mt"><b>Kế
-                                toán</b><small>Kế toán doanh nghiệp, kiểm toán & thuế</small></span><span
-                            class="cl-count" id="cnt-kt"></span></button>
-                    <button class="cl-major" data-major="tcnh"><span class="cl-mi" style="--c:#E11D48"><i
-                                data-lucide="landmark" size="18"></i></span><span class="cl-mt"><b>Tài chính - Ngân
-                                hàng</b><small>Tài chính doanh nghiệp, ngân hàng & đầu tư</small></span><span
-                            class="cl-count" id="cnt-tcnh"></span></button>
-                    <button class="cl-major" data-major="kdqt"><span class="cl-mi" style="--c:#DB2777"><i
-                                data-lucide="globe" size="18"></i></span><span class="cl-mt"><b>Kinh doanh quốc
-                                tế</b><small>Thương mại quốc tế & xuất nhập khẩu</small></span><span class="cl-count"
-                            id="cnt-kdqt"></span></button>
-                    <button class="cl-major" data-major="log"><span class="cl-mi" style="--c:#C026D3"><i
-                                data-lucide="truck" size="18"></i></span><span class="cl-mt"><b>Logistics & Chuỗi cung
-                                ứng</b><small>Quản trị logistics & chuỗi cung ứng</small></span><span class="cl-count"
-                            id="cnt-log"></span></button>
-                    <button class="cl-major" data-major="mkt"><span class="cl-mi" style="--c:#9333EA"><i
-                                data-lucide="megaphone" size="18"></i></span><span class="cl-mt"><b>Digital
-                                Marketing</b><small>Chuyên ngành Tiếp thị kỹ thuật số</small></span><span
-                            class="cl-count" id="cnt-mkt"></span></button>
-                    <button class="cl-major" data-major="lkt"><span class="cl-mi" style="--c:#4F46E5"><i
-                                data-lucide="scale" size="18"></i></span><span class="cl-mt"><b>Luật kinh
-                                tế</b><small>Pháp luật kinh doanh & thương mại</small></span><span class="cl-count"
-                            id="cnt-lkt"></span></button>
-                    <button class="cl-major" data-major="nna"><span class="cl-mi" style="--c:#2563EB"><i
-                                data-lucide="languages" size="18"></i></span><span class="cl-mt"><b>Ngôn ngữ
-                                Anh</b><small>Chuyên ngành Tiếng Anh thương mại</small></span><span class="cl-count"
-                            id="cnt-nna"></span></button>
-                    <button class="cl-major" data-major="nnj"><span class="cl-mi" style="--c:#E11D48"><i
-                                data-lucide="languages" size="18"></i></span><span class="cl-mt"><b>Ngôn ngữ
-                                Nhật</b><small>Tiếng Nhật & văn hóa Nhật Bản</small></span><span class="cl-count"
-                            id="cnt-nnj"></span></button>
-                    <button class="cl-major" data-major="nnk"><span class="cl-mi" style="--c:#DB2777"><i
-                                data-lucide="languages" size="18"></i></span><span class="cl-mt"><b>Ngôn ngữ Hàn
-                                Quốc</b><small>Tiếng Hàn & văn hóa Hàn Quốc</small></span><span class="cl-count"
-                            id="cnt-nnk"></span></button>
-                    <button class="cl-major" data-major="nnc"><span class="cl-mi" style="--c:#DC2626"><i
-                                data-lucide="languages" size="18"></i></span><span class="cl-mt"><b>Ngôn ngữ Trung
-                                Quốc</b><small>Tiếng Trung & văn hóa Trung Hoa</small></span><span class="cl-count"
-                            id="cnt-nnc"></span></button>
-                    <button class="cl-major" data-major="ttpt"><span class="cl-mi" style="--c:#9333EA"><i
-                                data-lucide="radio" size="18"></i></span><span class="cl-mt"><b>Truyền thông
-                                ĐPT</b><small>Chuyên ngành Media & Communications</small></span><span class="cl-count"
-                            id="cnt-ttpt"></span></button>
-                    <button class="cl-major" data-major="qhcc"><span class="cl-mi" style="--c:#0EA5E9"><i
-                                data-lucide="users" size="18"></i></span><span class="cl-mt"><b>Quan hệ công
-                                chúng</b><small>Truyền thông thương hiệu & quan hệ công chúng</small></span><span
-                            class="cl-count" id="cnt-qhcc"></span></button>
-                    <button class="cl-major" data-major="tkdh"><span class="cl-mi" style="--c:#F59E0B"><i
-                                data-lucide="pen-tool" size="18"></i></span><span class="cl-mt"><b>Thiết kế đồ
-                                họa</b><small>Chuyên ngành Mỹ thuật số & Thiết kế</small></span><span class="cl-count"
-                            id="cnt-tkdh"></span></button>
-                    <button class="cl-major" data-major="ddt"><span class="cl-mi" style="--c:#EAB308"><i
-                                data-lucide="zap" size="18"></i></span><span class="cl-mt"><b>Kỹ thuật điện - điện
-                                tử</b><small>Điện công nghiệp, điện tử & tự động hóa</small></span><span
-                            class="cl-count" id="cnt-ddt"></span></button>
-                    <button class="cl-major" data-major="ck"><span class="cl-mi" style="--c:#64748B"><i
-                                data-lucide="settings" size="18"></i></span><span class="cl-mt"><b>Cơ khí chế tạo
-                                máy</b><small>Thiết kế & chế tạo cơ khí</small></span><span class="cl-count"
-                            id="cnt-ck"></span></button>
-                    <button class="cl-major" data-major="oto"><span class="cl-mi" style="--c:#475569"><i
-                                data-lucide="car" size="18"></i></span><span class="cl-mt"><b>Công nghệ ô
-                                tô</b><small>Kỹ thuật ô tô & phương tiện điện</small></span><span class="cl-count"
-                            id="cnt-oto"></span></button>
-                    <button class="cl-major" data-major="xd"><span class="cl-mi" style="--c:#334155"><i
-                                data-lucide="hard-hat" size="18"></i></span><span class="cl-mt"><b>Kỹ thuật xây
-                                dựng</b><small>Xây dựng dân dụng & công nghiệp</small></span><span class="cl-count"
-                            id="cnt-xd"></span></button>
-                    <button class="cl-major" data-major="ktruc"><span class="cl-mi" style="--c:#0F172A"><i
-                                data-lucide="ruler" size="18"></i></span><span class="cl-mt"><b>Kiến
-                                trúc</b><small>Thiết kế kiến trúc & quy hoạch</small></span><span class="cl-count"
-                            id="cnt-ktruc"></span></button>
-                    <button class="cl-major" data-major="qth"><span class="cl-mi" style="--c:#059669"><i
-                                data-lucide="hotel" size="18"></i></span><span class="cl-mt"><b>Quản trị khách
-                                sạn</b><small>Quản trị khách sạn & nhà hàng</small></span><span class="cl-count"
-                            id="cnt-qth"></span></button>
-                    <button class="cl-major" data-major="dl"><span class="cl-mi" style="--c:#10B981"><i
-                                data-lucide="map" size="18"></i></span><span class="cl-mt"><b>Du lịch & Lữ
-                                hành</b><small>Quản trị dịch vụ du lịch & lữ hành</small></span><span class="cl-count"
-                            id="cnt-dl"></span></button>
-                    <button class="cl-major" data-major="tl"><span class="cl-mi" style="--c:#F43F5E"><i
-                                data-lucide="heart-handshake" size="18"></i></span><span class="cl-mt"><b>Tâm lý
-                                học</b><small>Tâm lý học ứng dụng & tham vấn</small></span><span class="cl-count"
-                            id="cnt-tl"></span></button>
-                    <button class="cl-major" data-major="dh"><span class="cl-mi" style="--c:#14B8A6"><i
-                                data-lucide="pill" size="18"></i></span><span class="cl-mt"><b>Dược học</b><small>Dược
-                                lâm sàng & công nghiệp dược</small></span><span class="cl-count"
-                            id="cnt-dh"></span></button>
-                    <button class="cl-major" data-major="dd"><span class="cl-mi" style="--c:#06B6D4"><i
-                                data-lucide="stethoscope" size="18"></i></span><span class="cl-mt"><b>Điều
-                                dưỡng</b><small>Điều dưỡng đa khoa & chăm sóc sức khỏe</small></span><span
-                            class="cl-count" id="cnt-dd"></span></button>
-                </aside>
-                <section class="cl-main">
-                    <div class="cl-stats">
-                        <div class="cl-stat"><span class="cl-stat-i" style="--c:#2563EB"><i data-lucide="school"
-                                    size="20"></i></span>
-                            <div><b id="stClasses">0</b><small>Lớp học</small></div>
-                        </div>
-                        <div class="cl-stat"><span class="cl-stat-i" style="--c:#7C3AED"><i data-lucide="users"
-                                    size="20"></i></span>
-                            <div><b id="stStudents">0</b><small>Sinh viên</small></div>
-                        </div>
-                        <div class="cl-stat"><span class="cl-stat-i" style="--c:#059669"><i data-lucide="book-open"
-                                    size="20"></i></span>
-                            <div><b id="stLive">0</b><small>Lớp đang học</small></div>
-                        </div>
-                        <div class="cl-stat"><span class="cl-stat-i" style="--c:#D97706"><i data-lucide="graduation-cap"
-                                    size="20"></i></span>
-                            <div><b id="stGrad">0</b><small>Lớp đã tốt nghiệp</small></div>
-                        </div>
-                    </div>
-                    <div class="cl-toolbar">
-                        <div class="cl-search"><i data-lucide="search" size="16"></i><input type="text" id="clSearch"
-                                placeholder="Tìm theo mã lớp (VD: SE1901)..."></div>
-                        <div class="cl-filters">
-                            <select id="clCohort" class="cl-select">
-                                <option value="all">Tất cả khóa (K01 – K20)</option>
-                            </select>
-                            <div class="cl-seg" id="clSeg">
-                                <button class="active" data-f="all">Tất cả</button>
-                                <button data-f="live">Đang học</button>
-                                <button data-f="grad">Đã tốt nghiệp</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cl-result" id="clResult"></div>
-                    <div class="cl-grid" id="clGrid"></div>
-                    <div class="cl-pager" id="clPager"></div>
-                </section>
+            <div class="pk-card">
+                <div class="pk-scroll">
+                    <table class="pk-table">
+                        <thead>
+                            <tr>
+                                <th>Sinh viên</th>
+                                <th>Môn học</th>
+                                <th>Học kỳ</th>
+                                <th class="c">Điểm gốc</th>
+                                <th class="c">Điểm phúc khảo</th>
+                                <th>Kết quả</th>
+                                <th>Ngày xử lý</th>
+                                <th class="c">Bài làm</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="pkBody"></tbody>
+                    </table>
+                </div>
+                <div class="pk-empty" id="pkEmpty" hidden>
+                    <i data-lucide="search-x" size="28"></i>
+                    <b>Không tìm thấy đơn phúc khảo</b>
+                    <span>Thử đổi từ khóa hoặc bộ lọc để xem thêm kết quả.</span>
+                </div>
+                <div class="pk-foot" id="pkFoot"></div>
             </div>
         </main>
     </div>
 
+    <div class="pk-drawer-bg" id="pkBg"></div>
+    <aside class="pk-drawer" id="pkDrawer" aria-hidden="true">
+        <div class="pk-d-head">
+            <div><b id="dName"></b><small id="dSub"></small></div>
+            <button class="pk-x" id="pkClose" aria-label="Đóng"><i data-lucide="x" size="18"></i></button>
+        </div>
+        <div class="pk-d-body" id="dBody"></div>
+    </aside>
+
+    <style id="pk-style">
+        .pk-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px
+        }
+
+        .pk-stat {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .pk-stat i,
+        .pk-stat svg {
+            flex: none
+        }
+
+        .pk-si {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            color: var(--c);
+            background: color-mix(in srgb, var(--c) 14%, transparent)
+        }
+
+        .pk-stat b {
+            display: block;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.1
+        }
+
+        .pk-stat small {
+            font-size: 13px;
+            color: var(--text-gray)
+        }
+
+        .pk-toolbar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 16px
+        }
+
+        .pk-search {
+            flex: 1 1 280px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 42px;
+            padding: 0 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-white);
+            color: var(--text-light)
+        }
+
+        .pk-search:focus-within,
+        .pk-select:focus {
+            border-color: var(--primary);
+            outline: 2px solid color-mix(in srgb, var(--primary) 25%, transparent)
+        }
+
+        .pk-search input {
+            flex: 1;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-size: 14px;
+            color: var(--text-dark)
+        }
+
+        .pk-select {
+            height: 42px;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            font-size: 14px
+        }
+
+        .pk-seg {
+            display: flex;
+            padding: 3px;
+            gap: 2px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-white)
+        }
+
+        .pk-seg button {
+            border: 0;
+            background: transparent;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            cursor: pointer
+        }
+
+        .pk-seg button:hover {
+            color: var(--text-dark)
+        }
+
+        .pk-seg button.active {
+            background: var(--primary);
+            color: #fff
+        }
+
+        .pk-seg button:focus-visible,
+        .pk-view:focus-visible,
+        .pk-x:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px
+        }
+
+        .pk-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden
+        }
+
+        .pk-scroll {
+            overflow-x: auto
+        }
+
+        .pk-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 960px
+        }
+
+        .pk-table th {
+            text-align: left;
+            padding: 13px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            background: var(--bg-soft, #F9FBFD);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap
+        }
+
+        .pk-table td {
+            padding: 14px 18px;
+            font-size: 14px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: middle
+        }
+
+        .pk-table tbody tr {
+            cursor: pointer
+        }
+
+        .pk-table tbody tr:hover {
+            background: var(--primary-50)
+        }
+
+        .pk-table tbody tr:last-child td {
+            border-bottom: 0
+        }
+
+        .pk-table .c {
+            text-align: center
+        }
+
+        .pk-who {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .pk-av {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--c);
+            background: color-mix(in srgb, var(--c) 15%, transparent);
+            flex: none
+        }
+
+        .pk-who b {
+            display: block;
+            font-weight: 600
+        }
+
+        .pk-who small,
+        .pk-sub small {
+            color: var(--text-gray);
+            font-size: 12.5px
+        }
+
+        .pk-sub b {
+            display: block;
+            font-weight: 600
+        }
+
+        .pk-num {
+            font-variant-numeric: tabular-nums;
+            font-weight: 700;
+            font-size: 15px
+        }
+
+        .pk-old {
+            color: var(--text-gray);
+            font-weight: 600
+        }
+
+        .pk-new {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .pk-delta {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 999px
+        }
+
+        .d-up {
+            color: var(--success);
+            background: var(--success-light)
+        }
+
+        .d-down {
+            color: var(--danger);
+            background: var(--danger-light)
+        }
+
+        .d-same {
+            color: var(--text-gray);
+            background: var(--border-light)
+        }
+
+        .pk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 11px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 600
+        }
+
+        .pk-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor
+        }
+
+        .b-wait {
+            color: var(--warning);
+            background: var(--warning-light)
+        }
+
+        .pk-view {
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-gray);
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: grid;
+            place-items: center
+        }
+
+        .pk-view:hover {
+            color: var(--primary);
+            border-color: var(--primary)
+        }
+
+        .pk-foot {
+            padding: 14px 18px;
+            font-size: 13px;
+            color: var(--text-gray);
+            border-top: 1px solid var(--border-light)
+        }
+
+        .pk-empty {
+            padding: 56px 20px;
+            text-align: center;
+            color: var(--text-gray);
+            display: grid;
+            gap: 6px;
+            justify-items: center
+        }
+
+        .pk-empty b {
+            color: var(--text-dark);
+            font-size: 15px
+        }
+
+        .pk-drawer-bg {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 20, 34, .45);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s;
+            z-index: 900
+        }
+
+        .pk-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: min(440px, 100%);
+            background: var(--bg-white);
+            border-left: 1px solid var(--border);
+            box-shadow: var(--shadow-xl);
+            transform: translateX(100%);
+            transition: transform .25s ease;
+            z-index: 901;
+            display: flex;
+            flex-direction: column
+        }
+
+        .pk-open .pk-drawer {
+            transform: none
+        }
+
+        .pk-open .pk-drawer-bg {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .pk-d-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 22px 24px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .pk-d-head b {
+            font-size: 18px;
+            color: var(--text-dark);
+            display: block
+        }
+
+        .pk-d-head small {
+            color: var(--text-gray);
+            font-size: 13px
+        }
+
+        .pk-x {
+            border: 0;
+            background: var(--border-light);
+            color: var(--text-gray);
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: grid;
+            place-items: center
+        }
+
+        .pk-d-body {
+            padding: 24px;
+            overflow-y: auto;
+            display: grid;
+            gap: 22px;
+            align-content: start
+        }
+
+        .pk-cmp {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+            padding: 20px 12px;
+            border-radius: 14px;
+            background: var(--bg-soft, #F9FBFD);
+            border: 1px solid var(--border)
+        }
+
+        .pk-cmp small {
+            display: block;
+            color: var(--text-gray);
+            font-size: 12.5px;
+            margin-bottom: 4px
+        }
+
+        .pk-cmp b {
+            font-size: 34px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--text-dark)
+        }
+
+        .pk-cmp .arrow {
+            color: var(--text-light)
+        }
+
+        .pk-dl {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 10px 12px;
+            font-size: 14px
+        }
+
+        .pk-dl dt {
+            color: var(--text-gray)
+        }
+
+        .pk-dl dd {
+            color: var(--text-dark);
+            font-weight: 500
+        }
+
+        .pk-note {
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: var(--primary-50);
+            color: var(--text-dark);
+            font-size: 14px;
+            line-height: 1.55
+        }
+
+        .pk-note b {
+            display: block;
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 4px;
+            font-weight: 600
+        }
+
+        @media (max-width: 900px) {
+            .pk-stats {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (max-width: 520px) {
+            .pk-stats {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .pk-drawer,
+            .pk-drawer-bg {
+                transition: none
+            }
+        }
+    </style>
+
     <script>
-        const MAJ = {
-            ktpm: { n: 'Kỹ thuật phần mềm', c: '#2563EB', code: 'SE' },
-            cntt: { n: 'Công nghệ thông tin', c: '#3B82F6', code: 'IT' },
-            khmt: { n: 'Khoa học máy tính', c: '#6366F1', code: 'CS' },
-            httt: { n: 'Hệ thống thông tin', c: '#8B5CF6', code: 'IS' },
-            ttnt: { n: 'Trí tuệ nhân tạo', c: '#A855F7', code: 'AI' },
-            attt: { n: 'An toàn thông tin', c: '#059669', code: 'IA' },
-            qtkd: { n: 'Quản trị kinh doanh', c: '#D97706', code: 'BA' },
-            kt: { n: 'Kế toán', c: '#EA580C', code: 'AC' },
-            tcnh: { n: 'Tài chính - Ngân hàng', c: '#E11D48', code: 'FB' },
-            kdqt: { n: 'Kinh doanh quốc tế', c: '#DB2777', code: 'IB' },
-            log: { n: 'Logistics & Chuỗi cung ứng', c: '#C026D3', code: 'LG' },
-            mkt: { n: 'Digital Marketing', c: '#9333EA', code: 'MK' },
-            lkt: { n: 'Luật kinh tế', c: '#4F46E5', code: 'LW' },
-            nna: { n: 'Ngôn ngữ Anh', c: '#2563EB', code: 'EN' },
-            nnj: { n: 'Ngôn ngữ Nhật', c: '#E11D48', code: 'JP' },
-            nnk: { n: 'Ngôn ngữ Hàn Quốc', c: '#DB2777', code: 'KR' },
-            nnc: { n: 'Ngôn ngữ Trung Quốc', c: '#DC2626', code: 'CN' },
-            ttpt: { n: 'Truyền thông ĐPT', c: '#9333EA', code: 'MC' },
-            qhcc: { n: 'Quan hệ công chúng', c: '#0EA5E9', code: 'PR' },
-            tkdh: { n: 'Thiết kế đồ họa', c: '#F59E0B', code: 'GD' },
-            ddt: { n: 'Kỹ thuật điện - điện tử', c: '#EAB308', code: 'EE' },
-            ck: { n: 'Cơ khí chế tạo máy', c: '#64748B', code: 'ME' },
-            oto: { n: 'Công nghệ ô tô', c: '#475569', code: 'AU' },
-            xd: { n: 'Kỹ thuật xây dựng', c: '#334155', code: 'CE' },
-            ktruc: { n: 'Kiến trúc', c: '#0F172A', code: 'AR' },
-            qth: { n: 'Quản trị khách sạn', c: '#059669', code: 'HM' },
-            dl: { n: 'Du lịch & Lữ hành', c: '#10B981', code: 'TM' },
-            tl: { n: 'Tâm lý học', c: '#F43F5E', code: 'PS' },
-            dh: { n: 'Dược học', c: '#14B8A6', code: 'PH' },
-            dd: { n: 'Điều dưỡng', c: '#06B6D4', code: 'NU' }
-        };
-
-        // ═══ Dữ liệu lớp: sinh từ CÙNG bộ dữ liệu với trang "Hồ sơ sinh viên" (MH-01-8) ═══
-        // → sĩ số mỗi lớp = số sinh viên thực tế của lớp đó trong hồ sơ.
-        const FIRST_COHORT = 1, LAST_COHORT = 20, BASE_YEAR = 2005, COURSE_YEARS = 4, CURRENT_YEAR = 2026, CAP = 30;
-        const pad2 = n => String(n).padStart(2, '0');
-        const startYear = n => BASE_YEAR + n;
-        const isGraduated = n => startYear(n) + COURSE_YEARS <= CURRENT_YEAR - 1;
-        const cohortKey = n => `Khóa ${pad2(n)} (${startYear(n)}-${startYear(n) + COURSE_YEARS})`;
-        function makeRng(seedStr) {
-            let h = 1779033703 ^ seedStr.length;
-            for (let i = 0; i < seedStr.length; i++) { h = Math.imul(h ^ seedStr.charCodeAt(i), 3432918353); h = (h << 13) | (h >>> 19); }
-            let a = h >>> 0;
-            return function () {
-                a |= 0; a = (a + 0x6D2B79F5) | 0;
-                let t = Math.imul(a ^ (a >>> 15), 1 | a);
-                t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-                return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-            };
-        }
-        // Sinh viên có sẵn trong dữ liệu gốc của trang hồ sơ: [mã ngành, khóa, lớp]
-        const SEED_STUDENTS = [["SE", 19, "SE1901"], ["SE", 19, "SE1901"], ["SE", 19, "SE1902"], ["SE", 19, "SE1903"], ["SE", 19, "SE1901"], ["SE", 18, "SE1801"], ["SE", 18, "SE1802"], ["SE", 17, "SE1701"], ["BA", 19, "BA1901"], ["BA", 19, "BA1902"], ["BA", 18, "BA1801"], ["BA", 17, "BA1702"], ["GD", 19, "GD1901"], ["GD", 19, "GD1901"], ["GD", 18, "GD1802"], ["AI", 19, "AI1901"], ["IA", 19, "IA1901"], ["EN", 19, "EN1901"], ["MC", 19, "MC1901"], ["MK", 19, "MK1901"]];
-
-        function buildClasses() {
-            const out = [];
-            Object.keys(MAJ).forEach(k => {
-                const m = MAJ[k];
-                for (let n = LAST_COHORT; n >= FIRST_COHORT; n--) {
-                    const rng = makeRng(m.code + cohortKey(n));          // phải giống hệt MH-01-8
-                    const extra = 8 + Math.floor(rng() * 5);
-                    const classCount = 3 + Math.floor(rng() * 2);
-                    const cnt = {};
-                    SEED_STUDENTS.forEach(s => { if (s[0] === m.code && s[1] === n) cnt[s[2]] = (cnt[s[2]] || 0) + 1; });
-                    for (let i = 0; i < extra; i++) {
-                        for (let j = 0; j < 6; j++) rng();                 // giới tính, họ, đệm, tên, trạng thái, avatar (cùng thứ tự gọi rng như MH-01-8)
-                        const code = `${m.code}${pad2(n)}${pad2(1 + Math.floor(rng() * classCount))}`;
-                        cnt[code] = (cnt[code] || 0) + 1;
-                    }
-                    Object.keys(cnt).sort().forEach(code => out.push({ code, major: k, n, size: cnt[code], cap: CAP, grad: isGraduated(n) }));
-                }
-            });
-            return out;
-        }
-        const CLASSES = buildClasses();
-
-        // ═══ Bộ lọc + hiển thị ═══
-        const PAGE_SIZE = 24;
-        let curMajor = 'all', curStatus = 'all', curCohort = 'all', curPage = 1;
+        const C = ['#2563EB', '#7C3AED', '#059669', '#D97706', '#E11D48', '#0891B2'];
+        // [mssv, tên, lớp, mã môn, tên môn, học kỳ, điểm gốc, điểm phúc khảo | null, ngày, lý do, ghi chú giảng viên chấm]
+        const RAW = [
+            ['SE190112', 'Trần Minh Khôi', 'SE1901', 'PRF192', 'Nhập môn lập trình C', 'HK1 2025-2026', 5.5, 6.5, '28/09/2026', 'Bài thi tự luận câu 4 chưa được cộng điểm thành phần.', 'Đã chấm lại: cộng thêm 1.0 điểm ở câu 4.'],
+            ['SE190245', 'Lê Thu Hà', 'SE1902', 'DBI202', 'Cơ sở dữ liệu', 'HK1 2025-2026', 6.0, 6.0, '27/09/2026', 'Cho rằng câu truy vấn lồng nhau đúng kết quả.', 'Đã chấm lại: giữ nguyên điểm, truy vấn thiếu điều kiện nhóm.'],
+            ['IT190078', 'Phạm Quốc Bảo', 'IT1901', 'NWC203', 'Mạng máy tính', 'HK1 2025-2026', 4.0, null, '—', 'Điểm cuối kỳ thấp hơn kỳ vọng so với điểm quá trình.', ''],
+            ['AC190031', 'Nguyễn Ngọc Anh', 'AC1901', 'ACC101', 'Nguyên lý kế toán', 'HK1 2025-2026', 7.0, 7.5, '26/09/2026', 'Sai sót khi cộng tổng điểm các phần thi.', 'Đã chấm lại: điều chỉnh tổng điểm +0.5.'],
+            ['BA190156', 'Đỗ Hoàng Long', 'BA1901', 'MKT101', 'Marketing căn bản', 'HK2 2024-2025', 6.5, 6.0, '12/06/2026', 'Đề nghị xem lại phần bài tập nhóm.', 'Đã chấm lại: phát hiện lỗi trích dẫn, trừ 0.5 điểm.'],
+            ['SE190203', 'Vũ Thị Mai', 'SE1902', 'SWE201', 'Nhập môn kỹ thuật phần mềm', 'HK1 2025-2026', 5.0, null, '—', 'Điểm vấn đáp chưa phản ánh đúng phần trình bày.', ''],
+            ['AI190019', 'Bùi Anh Tuấn', 'AI1901', 'MAD101', 'Toán rời rạc', 'HK2 2024-2025', 3.5, 4.5, '10/06/2026', 'Câu 2 và câu 5 có cách giải khác đáp án.', 'Đã chấm lại: chấp nhận cách giải câu 5, +1.0 điểm.'],
+            ['IT190144', 'Hoàng Gia Hân', 'IT1901', 'OSG202', 'Hệ điều hành', 'HK1 2025-2026', 6.5, 6.5, '25/09/2026', 'Thắc mắc về thang điểm câu lý thuyết.', 'Đã chấm lại: giữ nguyên điểm.']
+        ];
+        const D = RAW.map((r, i) => {
+            const [id, name, cls, code, subj, term, old, nw, date, why, note] = r;
+            const st = nw === null ? 'wait' : nw > old ? 'up' : nw < old ? 'down' : 'same';
+            return { id, name, cls, code, subj, term, old, nw, date, why, note, st, c: C[i % C.length] };
+        });
+        const LBL = { wait: 'Chờ xử lý', up: 'Tăng điểm', same: 'Giữ nguyên', down: 'Giảm điểm' };
+        const BCL = { wait: 'b-wait', up: 'd-up', same: 'd-same', down: 'd-down' };
         const $ = id => document.getElementById(id);
+        const fmt = n => n.toFixed(1);
+        const delta = r => r.nw === null ? '' : (r.nw === r.old ? '' : `<span class="pk-delta ${r.nw > r.old ? 'd-up' : 'd-down'}">${r.nw > r.old ? '+' : '−'}${fmt(Math.abs(r.nw - r.old))}</span>`);
+        const ini = n => n.split(' ').pop()[0];
+        let f = 'all', term = 'all';
 
-        function termLabel(c) {
-            if (c.grad) return 'Tốt nghiệp ' + (startYear(c.n) + COURSE_YEARS);
-            const k = Math.min(8, (CURRENT_YEAR - startYear(c.n)) * 2 + 1);
-            return `Kỳ ${k} (Fall ${CURRENT_YEAR})`;
+        function stats() {
+            const s = k => D.filter(r => r.st === k).length;
+            const items = [
+                ['inbox', '#2563EB', D.length, 'Tổng đơn phúc khảo'],
+                ['hourglass', '#D97706', s('wait'), 'Chờ xử lý'],
+                ['trending-up', '#059669', s('up'), 'Được tăng điểm'],
+                ['equal', '#64748B', s('same') + s('down'), 'Giữ nguyên / giảm điểm']
+            ];
+            $('pkStats').innerHTML = items.map(([ic, c, n, l]) =>
+                `<div class="pk-stat"><span class="pk-si" style="--c:${c}"><i data-lucide="${ic}" size="20"></i></span><div><b>${n}</b><small>${l}</small></div></div>`).join('');
         }
-        function matches(c, ignoreMajor) {
-            const q = $('clSearch').value.trim().toLowerCase();
-            return (ignoreMajor || curMajor === 'all' || c.major === curMajor) &&
-                (curCohort === 'all' || c.n === +curCohort) &&
-                (curStatus === 'all' || (curStatus === 'grad') === c.grad) &&
-                c.code.toLowerCase().includes(q);
-        }
-        function renderSide() {
-            const base = CLASSES.filter(c => matches(c, true));
-            $('cnt-all').textContent = base.length;
-            Object.keys(MAJ).forEach(k => { $('cnt-' + k).textContent = base.filter(c => c.major === k).length; });
-        }
-        function renderPager(pages) {
-            const el = $('clPager');
-            if (pages <= 1) { el.innerHTML = ''; return; }
-            const set = new Set([1, pages, curPage - 1, curPage, curPage + 1].filter(p => p >= 1 && p <= pages));
-            const arr = [...set].sort((a, b) => a - b);
-            let html = `<button data-p="${curPage - 1}" ${curPage === 1 ? 'disabled' : ''}>‹</button>`;
-            arr.forEach((p, i) => {
-                if (i && p - arr[i - 1] > 1) html += '<span>…</span>';
-                html += `<button data-p="${p}" class="${p === curPage ? 'active' : ''}">${p}</button>`;
-            });
-            html += `<button data-p="${curPage + 1}" ${curPage === pages ? 'disabled' : ''}>›</button>`;
-            el.innerHTML = html;
-            el.querySelectorAll('button:not(:disabled)').forEach(b => b.addEventListener('click', () => {
-                curPage = +b.dataset.p; renderClasses(true);
-                document.querySelector('.dashboard-content').scrollTo({ top: 0, behavior: 'smooth' });
-            }));
-        }
-        function renderClasses(keepPage) {
-            if (!keepPage) curPage = 1;
-            const list = CLASSES.filter(c => matches(c, false));
-            const pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-            if (curPage > pages) curPage = pages;
-            const view = list.slice((curPage - 1) * PAGE_SIZE, curPage * PAGE_SIZE);
 
-            $('stClasses').textContent = list.length.toLocaleString('vi-VN');
-            $('stStudents').textContent = list.reduce((s, c) => s + c.size, 0).toLocaleString('vi-VN');
-            $('stLive').textContent = list.filter(c => !c.grad).length.toLocaleString('vi-VN');
-            $('stGrad').textContent = list.filter(c => c.grad).length.toLocaleString('vi-VN');
-            const label = curMajor === 'all' ? 'Tất cả chuyên ngành' : MAJ[curMajor].n;
-            $('clResult').textContent = `${label} · ${list.length} lớp` + (list.length > PAGE_SIZE ? ` · Trang ${curPage}/${pages}` : '');
-
-            $('clGrid').innerHTML = view.length ? view.map((c, i) => {
-                const m = MAJ[c.major], pct = Math.round(c.size / c.cap * 100), y = startYear(c.n);
-                return `<a class="cl-card" style="--c:${m.c};animation-delay:${Math.min(i, 12) * 0.03}s" href="MH-01-6-DanhSachSinhVienTrongLop.html?lop=${c.code}">
-                    <div class="cl-top"><div><div class="cl-code">${c.code}<span class="cl-chip">K${pad2(c.n)}</span></div><div class="cl-maj">${m.n}</div></div>
-                        <span class="cl-st ${c.grad ? 'grad' : 'live'}">${c.grad ? 'Đã tốt nghiệp' : 'Đang học'}</span></div>
-                    <div class="cl-meta"><i data-lucide="graduation-cap" size="15"></i> Khóa ${pad2(c.n)} · ${y} - ${y + COURSE_YEARS}</div>
-                    <div class="cl-meta"><i data-lucide="calendar" size="15"></i> ${termLabel(c)}</div>
-                    <div class="cl-cap"><div class="cl-cap-row"><span>Sĩ số</span><span><b>${c.size}${c.grad ? '' : '/' + c.cap}</b> sinh viên</span></div>
-                        <div class="cl-bar ${c.grad ? 'done' : ''}"><span style="width:${c.grad ? 100 : pct}%"></span></div></div>
-                    <div class="cl-foot"><span>Xem danh sách sinh viên</span><i data-lucide="arrow-right" size="16"></i></div></a>`;
-            }).join('') : '<div class="cl-empty">Không tìm thấy lớp phù hợp.</div>';
-            renderPager(pages);
-            renderSide();
+        function render() {
+            const q = $('pkSearch').value.trim().toLowerCase();
+            const rows = D.filter(r => (f === 'all' || r.st === f) && (term === 'all' || r.term === term) &&
+                (!q || [r.name, r.id, r.code, r.subj].some(x => x.toLowerCase().includes(q))));
+            $('pkBody').innerHTML = rows.map(r => `
+                <tr data-id="${r.id}-${r.code}" tabindex="0">
+                    <td><div class="pk-who"><span class="pk-av" style="--c:${r.c}">${ini(r.name)}</span><div><b>${r.name}</b><small>${r.id} · ${r.cls}</small></div></div></td>
+                    <td><div class="pk-sub"><b>${r.subj}</b><small>${r.code}</small></div></td>
+                    <td>${r.term}</td>
+                    <td class="c"><span class="pk-num pk-old">${fmt(r.old)}</span></td>
+                    <td class="c">${r.nw === null ? '<span class="pk-old">—</span>' : `<span class="pk-new"><span class="pk-num">${fmt(r.nw)}</span>${delta(r)}</span>`}</td>
+                    <td><span class="pk-badge ${BCL[r.st]}">${LBL[r.st]}</span></td>
+                    <td>${r.date}</td>
+                    <td class="c"><button style="background:transparent; border:none; cursor:pointer; color:var(--primary); padding: 4px; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='var(--primary-50)'" onmouseout="this.style.background='transparent'" title="Tải bài làm" onclick="event.stopPropagation(); alert('Đang tải file bài làm...')"><i data-lucide="download" size="18"></i></button></td>
+                    <td><button class="pk-view" aria-label="Xem chi tiết" title="Xem chi tiết"><i data-lucide="chevron-right" size="16"></i></button></td>
+                </tr>`).join('');
+            $('pkEmpty').hidden = rows.length > 0;
+            $('pkFoot').textContent = `Hiển thị ${rows.length} / ${D.length} đơn phúc khảo`;
             lucide.createIcons();
         }
 
-        // ═══ Khởi tạo & sự kiện ═══
-        const sel = $('clCohort');
-        for (let n = LAST_COHORT; n >= FIRST_COHORT; n--) {
-            const o = document.createElement('option');
-            o.value = n; o.textContent = `Khóa ${pad2(n)} (${startYear(n)} - ${startYear(n) + COURSE_YEARS})` + (isGraduated(n) ? ' · đã tốt nghiệp' : '');
-            sel.appendChild(o);
+        function openDrawer(key) {
+            const r = D.find(x => `${x.id}-${x.code}` === key); if (!r) return;
+            $('dName').textContent = r.name;
+            $('dSub').textContent = `${r.id} · lớp ${r.cls}`;
+            $('dBody').innerHTML = `
+                <div class="pk-cmp">
+                    <div><small>Điểm gốc</small><b>${fmt(r.old)}</b></div>
+                    <i data-lucide="arrow-right" class="arrow" size="22"></i>
+                    <div><small>Điểm phúc khảo</small><b>${r.nw === null ? '—' : fmt(r.nw)}</b></div>
+                </div>
+                <dl class="pk-dl">
+                    <dt>Môn học</dt><dd>${r.subj} (${r.code})</dd>
+                    <dt>Học kỳ</dt><dd>${r.term}</dd>
+                    <dt>Kết quả</dt><dd><span class="pk-badge ${BCL[r.st]}">${LBL[r.st]}</span> ${delta(r)}</dd>
+                    <dt>Ngày xử lý</dt><dd>${r.date}</dd>
+                    <dt>Bài làm</dt><dd><a href="#" style="color: var(--primary); font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" onclick="alert('Đang tải file bài làm...')"><i data-lucide="download-cloud" size="16"></i> Tải về bài thi</a></dd>
+                </dl>
+                <div class="pk-note"><b>Lý do phúc khảo của sinh viên</b>${r.why}</div>
+                ${r.note ? `<div class="pk-note"><b>Kết luận của giảng viên chấm lại</b>${r.note}</div>` : `
+                <div class="pk-note" style="background: transparent; padding: 0; margin-top: 8px;">
+                    <b style="color: var(--text-dark); margin-bottom: 12px; font-size: 14px; display: block;">Cập nhật điểm phúc khảo</b>
+                    <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+                        <div style="flex: 1;">
+                            <label style="display: block; font-size: 12px; color: var(--text-gray); margin-bottom: 6px;">Điểm mới</label>
+                            <input id="pkNewGrade" type="number" step="0.1" min="0" max="10" placeholder="Nhập điểm..." style="width: 100%; height: 40px; padding: 0 12px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 14px; outline: none; background: var(--bg-white); color: var(--text-dark);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'">
+                        </div>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: var(--text-gray); margin-bottom: 6px;">Ghi chú / Kết luận</label>
+                        <textarea id="pkNewNote" placeholder="Nhập lý do thay đổi hoặc kết luận..." style="width: 100%; height: 80px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 14px; resize: none; outline: none; margin-bottom: 12px; background: var(--bg-white); color: var(--text-dark);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+                    </div>
+                    <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                        <button style="padding: 10px 16px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--text-gray); font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='var(--bg-soft)'; this.style.color='var(--text-dark)'" onmouseout="this.style.background='transparent'; this.style.color='var(--text-gray)'" onclick="document.getElementById('pkClose').click()">Hủy</button>
+                        <button style="padding: 10px 16px; border: none; border-radius: 8px; background: var(--primary); color: white; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.background='var(--primary-dark)'" onmouseout="this.style.background='var(--primary)'" onclick="saveGrade('${key}')"><i data-lucide="check" size="16"></i> Lưu kết quả</button>
+                    </div>
+                </div>`}`;
+            document.body.classList.add('pk-open');
+            $('pkDrawer').setAttribute('aria-hidden', 'false');
+            lucide.createIcons();
         }
-        sel.addEventListener('change', () => { curCohort = sel.value; renderClasses(); });
-        document.querySelectorAll('.cl-major').forEach(b => b.addEventListener('click', () => {
-            document.querySelectorAll('.cl-major').forEach(x => x.classList.remove('active')); b.classList.add('active');
-            curMajor = b.dataset.major; renderClasses();
+        const closeDrawer = () => { document.body.classList.remove('pk-open'); $('pkDrawer').setAttribute('aria-hidden', 'true'); };
+
+        $('pkBody').addEventListener('click', e => { const t = e.target.closest('tr'); if (t) openDrawer(t.dataset.id); });
+        $('pkBody').addEventListener('keydown', e => { if (e.key === 'Enter') { const t = e.target.closest('tr'); if (t) openDrawer(t.dataset.id); } });
+        $('pkClose').onclick = closeDrawer; $('pkBg').onclick = closeDrawer;
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+        $('pkSearch').addEventListener('input', render);
+        $('pkTerm').addEventListener('change', e => { term = e.target.value; render(); });
+        document.querySelectorAll('#pkSeg button').forEach(b => b.addEventListener('click', () => {
+            document.querySelectorAll('#pkSeg button').forEach(x => x.classList.remove('active'));
+            b.classList.add('active'); f = b.dataset.f; render();
         }));
-        document.querySelectorAll('#clSeg button').forEach(b => b.addEventListener('click', () => {
-            document.querySelectorAll('#clSeg button').forEach(x => x.classList.remove('active')); b.classList.add('active');
-            curStatus = b.dataset.f; renderClasses();
-        }));
-        $('clSearch').addEventListener('input', () => renderClasses());
-        $('majSearch').addEventListener('input', e => {
-            const q = e.target.value.trim().toLowerCase();
-            document.querySelectorAll('.cl-major').forEach(b => {
-                if (b.dataset.major === 'all') return;
-                b.classList.toggle('hide', !!q && !MAJ[b.dataset.major].n.toLowerCase().includes(q));
-            });
-        });
-        renderClasses();
+
+        function saveGrade(key) {
+            const gradeInput = document.getElementById('pkNewGrade').value;
+            if (!gradeInput) {
+                showToast('Vui lòng nhập điểm mới!', true);
+                return;
+            }
+
+            const nw = parseFloat(gradeInput);
+            if (isNaN(nw) || nw < 0 || nw > 10) {
+                showToast('Điểm phúc khảo không hợp lệ (0 - 10)', true);
+                return;
+            }
+
+            const r = D.find(x => `${x.id}-${x.code}` === key);
+            if (r) {
+                const old = parseFloat(r.old);
+                r.nw = nw;
+
+                const noteInput = document.getElementById('pkNewNote').value;
+                if (noteInput) {
+                    r.note = 'Đã chấm lại: ' + noteInput;
+                } else {
+                    const diff = nw - old;
+                    r.note = 'Đã chấm lại: ' + (diff > 0 ? '+' : (diff < 0 ? '−' : 'giữ nguyên, ' + nw.toFixed(1) + ' điểm.')) + (diff !== 0 ? Math.abs(diff).toFixed(1) + ' điểm.' : '');
+                }
+
+                r.st = nw > old ? 'up' : nw < old ? 'down' : 'same';
+
+                const d = new Date();
+                const pad = n => n < 10 ? '0' + n : n;
+                r.date = pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear();
+
+                const rawIdx = RAW.findIndex(x => x[0] === r.id && x[3] === r.code);
+                if (rawIdx !== -1) {
+                    RAW[rawIdx][7] = r.nw;
+                    RAW[rawIdx][8] = r.date;
+                    RAW[rawIdx][10] = r.note;
+                }
+
+                render();
+                stats();
+                closeDrawer();
+                showToast('Đã cập nhật điểm phúc khảo thành công!');
+            }
+        }
+
+        function showToast(msg, isError = false) {
+            let t = document.getElementById('toast');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'toast';
+                document.body.appendChild(t);
+            }
+            t.className = 'toast';
+            if (isError) {
+                t.style.background = '#DC2626';
+                t.innerHTML = `<i data-lucide="alert-circle" size="20"></i> <span id="toastMsg" style="font-weight: 500; font-size: 14px;"></span>`;
+            } else {
+                t.style.background = '#10B981';
+                t.innerHTML = `<i data-lucide="check-circle" size="20"></i> <span id="toastMsg" style="font-weight: 500; font-size: 14px;"></span>`;
+            }
+            document.getElementById('toastMsg').textContent = msg;
+            lucide.createIcons();
+
+            // Force reflow
+            void t.offsetWidth;
+
+            t.classList.add('show');
+            setTimeout(() => {
+                t.classList.remove('show');
+            }, 3000);
+        }
+
+        stats(); render();
     </script>
 
 

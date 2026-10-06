@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Thông Tin Sinh Viên - Đại Học ONENET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-light: #EFF6FF;
+            --primary-hover: #1D4ED8;
+            --text-dark: #1E293B;
+            --text-gray: #64748B;
+            --bg-light: #F1F5F9;
+            --border: #E2E8F0;
+            --danger: #EF4444;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .emblem {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .uni {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            letter-spacing: 0.5px;
+        }
+
+        .sys-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .user-profile:hover {
+            background: var(--primary-light);
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .user-info .name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .user-info .role {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: #F3E8FD;
+            color: #8E24AA;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* DASHBOARD LAYOUT */
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            overflow-y: auto;
+        }
+
+        .menu-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            letter-spacing: 0.5px;
+            margin-left: 12px;
+            margin-bottom: 4px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--text-gray);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .menu-item:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+        }
+
+        .menu-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 32px 40px;
+            overflow-y: auto;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .content-section {
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* CARDS */
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-success {
+            background: #E6F4EA;
+            color: #1E8E3E;
+        }
+
+        .badge-danger {
+            background: #FCE8E6;
+            color: #D32F2F;
+        }
+
+        .badge-warning {
+            background: #FFF3E0;
+            color: #F57C00;
+        }
+
+        .badge-primary {
+            background: #EAF4FF;
+            color: var(--primary);
+        }
+
+        /* SURVEY SPECIFIC STYLES */
+        .survey-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .survey-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 12px;
+        }
+
+        .survey-title i {
+            color: var(--primary);
+        }
+
+        .survey-question {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .survey-question:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .question-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .rating-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 10px 16px;
+        }
+
+        .rating-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-gray);
+            font-weight: 500;
+            text-align: center;
+            width: 80px;
+        }
+
+        .rating-label:hover {
+            color: var(--primary);
+        }
+
+        .rating-label input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .text-area-group {
+            margin-top: 16px;
+        }
+
+        .text-area-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .scale-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 24px;
+            padding: 16px;
+            background: white;
+            border: 1px solid var(--primary-light);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+        }
+
+        .scale-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .scale-number {
+            font-weight: 700;
+            color: white;
+            background: var(--primary);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .class-info-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .class-info-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .class-info-card p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+
+        .lecturer-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px 20px;
+            border-radius: 12px;
+        }
+
+        .lecturer-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: white;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* TOAST */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 2000;
+        }
+
+        .toast {
+            background: white;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 16px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(120%);
+            animation: slideIn 0.3s forwards;
+        }
+
+        .toast.success {
+            border-left-color: var(--success);
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .toast.hide {
+            animation: slideOut 0.3s forwards;
+        }
+
+        @keyframes slideOut {
+            to {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+        }
+    </style>
+    <!--theme-enhance-->
+    <script>(function () { var t = 'light'; try { t = localStorage.getItem('onenet-theme') || '' } catch (e) { } if (!t && /^onenet-theme=/.test(window.name)) t = window.name.slice(13); document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light') })();</script>
+    <style id="theme-enhance">
+        html[data-theme] {
+            --shadow-sm: 0 1px 2px rgba(16, 42, 67, .06);
+            --shadow-md: 0 4px 16px rgba(16, 42, 67, .07);
+            --shadow-lg: 0 14px 34px rgba(7, 87, 166, .14);
+            --shadow-xl: 0 24px 56px rgba(7, 87, 166, .18);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --bg-soft: #F9FBFD;
+            --info-light: #EFF6FF
+        }
+
+        html[data-theme="dark"] {
+            color-scheme: dark;
+            --primary: #3D93E6;
+            --primary-dark: #2A6FB8;
+            --primary-light: #1E4A7A;
+            --primary-50: #12304F;
+            --text-dark: #E6EDF5;
+            --text-gray: #9FB2C5;
+            --text-light: #6F869C;
+            --bg-light: #0B1522;
+            --bg-white: #111E2E;
+            --bg-soft: #15263A;
+            --border: #27394E;
+            --border-light: #1C2D40;
+            --success: #34D399;
+            --success-light: #0F2E25;
+            --danger: #F87171;
+            --danger-light: #3A1B1F;
+            --warning: #FBBF24;
+            --warning-light: #3A2E12;
+            --info: #60A5FA;
+            --info-light: #12304F;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, .35);
+            --shadow-lg: 0 14px 34px rgba(0, 0, 0, .5)
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-dark)
+        }
+
+        .dashboard-content,
+        .main-content {
+            background: radial-gradient(900px 320px at 100% 0, rgba(7, 87, 166, .07), transparent 65%), var(--bg-light)
+        }
+
+        .dashboard-content>*,
+        .main-content>* {
+            animation: te-rise .45s ease both
+        }
+
+        .dashboard-content>*:nth-child(2),
+        .main-content>*:nth-child(2) {
+            animation-delay: .06s
+        }
+
+        .dashboard-content>*:nth-child(n+3),
+        .main-content>*:nth-child(n+3) {
+            animation-delay: .12s
+        }
+
+        @keyframes te-rise {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .dashboard-content::after,
+        .main-content::after {
+            content: "Đại Học ONENET · Hệ thống quản lý sinh viên";
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-light);
+            padding: 32px 0 4px;
+            letter-spacing: .2px
+        }
+
+        .sidebar-item,
+        .menu-item {
+            border-radius: 0 999px 999px 0;
+            margin-right: 14px
+        }
+
+        .sidebar-item.active,
+        .menu-item.active {
+            box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
+        }
+
+        .card,
+        .survey-card,
+        .data-panel,
+        .filter-card,
+        .filter-section {
+            border-radius: 18px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light)
+        }
+
+        .btn {
+            border-radius: 10px
+        }
+
+        .btn:active {
+            transform: scale(.97)
+        }
+
+        html[data-theme="dark"] input:not([type=checkbox]):not([type=radio]):not([type=range]),
+        html[data-theme="dark"] select,
+        html[data-theme="dark"] textarea {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            border-color: var(--border)
+        }
+
+        html[data-theme="dark"] ::placeholder {
+            color: var(--text-light)
+        }
+
+        html[data-theme="dark"] .dashboard-content,
+        .main-content {
+            background: radial-gradient(900px 320px at 100% 0, rgba(61, 147, 230, .1), transparent 65%), var(--bg-light)
+        }
+
+        /* Hero page header */
+        .page-header {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            background: linear-gradient(120deg, #063B75 0%, #0757A6 55%, #1B7FD6 100%);
+            border-radius: 20px;
+            padding: 40px 32px 24px;
+            min-height: 110px;
+            box-shadow: var(--shadow-lg);
+            align-items: center !important
+        }
+
+        .page-header::before,
+        .page-header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .07);
+            pointer-events: none
+        }
+
+        .page-header::before {
+            width: 300px;
+            height: 300px;
+            right: -80px;
+            top: -140px
+        }
+
+        .page-header::after {
+            width: 180px;
+            height: 180px;
+            right: 160px;
+            bottom: -110px
+        }
+
+        .page-header>* {
+            position: relative;
+            z-index: 1
+        }
+
+        .hero-crumb {
+            position: absolute;
+            z-index: 1;
+            top: 14px;
+            left: 32px;
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: .3px;
+            color: rgba(255, 255, 255, .72);
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .hero-crumb i {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .55)
+        }
+
+        html[data-theme] .page-header .page-title,
+        html[data-theme] .page-header .page-title span,
+        html[data-theme] .page-header .page-title svg {
+            color: #fff !important
+        }
+
+        html[data-theme] .page-header .page-title span {
+            color: #BFE0FF !important
+        }
+
+        html[data-theme] .page-header .page-subtitle,
+        html[data-theme] .page-header .page-subtitle span {
+            color: rgba(255, 255, 255, .78) !important
+        }
+
+        html[data-theme] .page-header .page-subtitle .dot {
+            background: rgba(255, 255, 255, .55) !important
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--bg-white);
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: .25s
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: rotate(18deg)
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round
+        }
+
+        .theme-toggle .i-sun {
+            display: none
+        }
+
+        html[data-theme="dark"] .theme-toggle .i-sun {
+            display: block
+        }
+
+        html[data-theme="dark"] .theme-toggle .i-moon {
+            display: none
+        }
+
+        html.te-anim * {
+            transition: background-color .25s, color .25s, border-color .25s !important
+        }
+
+        html[data-theme="dark"] .dashboard-content::-webkit-scrollbar-thumb,
+        html[data-theme="dark"] .main-content::-webkit-scrollbar-thumb,
+        html[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb {
+            background: #2D4258
+        }
+
+        .main-content>.page-header .page-title {
+            margin: 0 !important
+        }
+
+        .main-content>.page-header {
+            margin-bottom: 24px
+        }
+
+        /* dark overrides generated from this page */
+        html[data-theme="dark"] .header {
+            background: var(--bg-white) !important
+        }
+
+        html[data-theme="dark"] .avatar {
+            background: color-mix(in srgb, #F3E8FD 17%, #0F1B2A) !important;
+            color: color-mix(in srgb, #8E24AA 38%, #fff) !important
+        }
+
+        html[data-theme="dark"] .sidebar {
+            background: var(--bg-white) !important
+        }
+
+        html[data-theme="dark"] .survey-card,
+        html[data-theme="dark"] .course-card,
+        html[data-theme="dark"] [style*="background: white"] {
+            background: var(--bg-white) !important;
+            border-color: var(--border) !important;
+        }
+
+        html[data-theme="dark"] .rating-options {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .scale-info {
+            background: var(--bg-white) !important;
+            border-color: var(--border) !important;
+        }
+
+        html[data-theme="dark"] .toast {
+            background: var(--bg-white) !important
+        }
+    </style>
+    <style id="menu-style-fix">
+        /* Kích thước và cách thiết kế giống MH-01-4 */
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+            border-radius: 8px !important;
+            margin: 0 !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="sys-identity" onclick="window.location.href='../MH_Chung_Mockup/MH-00-5-DangNhapAdmin.html'">
+            <div class="emblem">
+                <i data-lucide="book-open" size="20"></i>
+            </div>
+            <div class="brand-copy">
+                <span class="uni">TRƯỜNG</span>
+                <span class="sys-name">Đại Học ONENET</span>
+            </div>
+        </div>
+        <div class="header-right" style="display: flex; align-items: center; gap: 16px;">
+            <div class="user-profile" onclick="window.location.href='MH-05-4-QuanLyHoSoCaNhan.html'">
+                <div class="user-info">
+                    <span class="name">Nguyễn Hồng Long Khánh</span>
+                    <span class="role">Sinh viên (K19)</span>
+                </div>
+                <div class="avatar" style="background: #EAF4FF; color: var(--primary);">
+                    K
+                </div>
+            </div>
+            <button class="logout-btn"
+                onclick="window.location.href='../MH_Chung_Mockup/MH-00-6-DangNhapGiangVien.html'"
+                style="background: transparent; border: 1px solid #E2E8F0; color: #64748B; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;"
+                onmouseover="this.style.background='#FEF2F2'; this.style.borderColor='#FECACA'; this.style.color='#DC2626'"
+                onmouseout="this.style.background='transparent'; this.style.borderColor='#E2E8F0'; this.style.color='#64748B'">
+                <i data-lucide="log-out" size="14"></i>
+                Đăng xuất
+            </button>
+        </div>
+    </header>
+
+
+    <div class="dashboard-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="menu-group">
+                <div class="menu-title">HỌC TẬP</div>
+                <div class="menu-item " onclick="window.location.href='MH-00-9-TongQuanHocTap.html'">
+                    <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-03-3-QRDiemDanh.html'">
+                    <i data-lucide="scan-line" size="18"></i> Lịch học & Điểm danh QR
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-02-6-ThoiKhoaBieu.html'">
+                    <i data-lucide="calendar" size="18"></i> Thời khóa biểu
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
+                    <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
+                </div>
+
+
+                <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
+                    <i data-lucide="clock" size="18"></i> Lịch thi
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-04-2-KetQuaHocTap.html'">
+                    <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
+                </div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-title">ĐÀO TẠO</div>
+
+                <div class="menu-item active" onclick="window.location.href='MH-03-4-DanhGiaGiangVien.html'">
+                    <i data-lucide="star" size="18"></i> Đánh giá giảng viên
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-02-7-DoiLop.html'">
+                    <i data-lucide="refresh-cw"></i> Đổi lớp
+                </div>
+                <div class="menu-item" onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'">
+                    <i data-lucide="book"></i> Chương trình đào tạo
+                </div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
+                <div class="menu-item " onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'">
+                    <i data-lucide="file-text" size="18"></i> Nộp đơn từ trực tuyến
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'">
+                    <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
+                </div>
+                <div class="menu-item" onclick="window.location.href='MH-06-3-hocbong.html'" id="navAll">
+                    <i data-lucide="award" size="18"></i> Học bổng
+                </div>
+            </div>
+        </div>
+
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <h1 class="page-title">Đánh giá giảng viên / Khảo sát chất lượng</h1>
+            <div class="content-section" id="list-view">
+                <div
+                    style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; gap: 24px; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <label style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Kỳ học:</label>
+                        <select class="form-select"
+                            style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; outline: none; width: 200px;">
+                            <option selected>Summer 2026 (Kỳ 6)</option>
+                            <option>Spring 2026 (Kỳ 5)</option>
+                            <option>Fall 2025 (Kỳ 4)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="course-list" style="display: flex; flex-direction: column; gap: 16px;">
+                    <!-- Course 1 -->
+                    <div class="course-card"
+                        style="padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--border); border-radius: 12px; background: white;">
+                        <div style="display: flex; gap: 16px; align-items: center;">
+                            <div class="avatar"
+                                style="background: var(--primary-light); color: var(--primary); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">
+                                T</div>
+                            <div>
+                                <div
+                                    style="font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px;">
+                                    WDU203c - UI/UX Design</div>
+                                <div style="font-size: 14px; color: var(--text-gray);">Lớp: SE2014-NJ • GV: Trần Văn
+                                    Tùng</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <span class="badge badge-warning" id="status-wdu203c"
+                                style="background: #FFF3E0; color: #F57C00;">Chưa đánh giá</span>
+                            <button
+                                onclick="startEvaluation('wdu203c', 'WDU203c - UI/UX Design', 'SE2014-NJ', 'Trần Văn Tùng', 'T')"
+                                id="btn-wdu203c" class="btn"
+                                style="background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">Đánh
+                                giá</button>
+                        </div>
+                    </div>
+
+                    <!-- Course 2 -->
+                    <div class="course-card"
+                        style="padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--border); border-radius: 12px; background: white;">
+                        <div style="display: flex; gap: 16px; align-items: center;">
+                            <div class="avatar"
+                                style="background: #FCE8E6; color: #D32F2F; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">
+                                L</div>
+                            <div>
+                                <div
+                                    style="font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px;">
+                                    SWT301 - Software Testing</div>
+                                <div style="font-size: 14px; color: var(--text-gray);">Lớp: SE2003-NET • GV: Lê Thị Lan
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <span class="badge badge-warning" id="status-swt301"
+                                style="background: #FFF3E0; color: #F57C00;">Chưa đánh giá</span>
+                            <button
+                                onclick="startEvaluation('swt301', 'SWT301 - Software Testing', 'SE2003-NET', 'Lê Thị Lan', 'L')"
+                                id="btn-swt301" class="btn"
+                                style="background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;">Đánh
+                                giá</button>
+                        </div>
+                    </div>
+
+                    <!-- Course 3 (Already evaluated) -->
+                    <div class="course-card"
+                        style="padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--border); border-radius: 12px; background: white;">
+                        <div style="display: flex; gap: 16px; align-items: center;">
+                            <div class="avatar"
+                                style="background: #E6F4EA; color: #1E8E3E; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">
+                                H</div>
+                            <div>
+                                <div
+                                    style="font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px;">
+                                    SWR302 - Software Requirement</div>
+                                <div style="font-size: 14px; color: var(--text-gray);">Lớp: SE2003-NET • GV: Nguyễn Thị
+                                    Hoa</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <span class="badge badge-success" style="background: #E6F4EA; color: #1E8E3E;">Đã đánh
+                                giá</span>
+                            <button disabled class="btn"
+                                style="background: #E2E8F0; color: #64748B; border: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: not-allowed;">Hoàn
+                                thành</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="form-view" style="display: none;">
+                <button onclick="cancelEvaluation()"
+                    style="background: transparent; border: none; color: var(--text-gray); font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; margin-bottom: 16px; padding: 0;">
+                    <i data-lucide="arrow-left" size="16"></i> Quay lại danh sách
+                </button>
+
+                <!-- Class info banner -->
+                <div class="class-info-card">
+                    <div>
+                        <h2>Khảo sát chất lượng môn học và giảng viên (Bắt buộc)</h2>
+                        <p>Vui lòng hoàn thành phiếu khảo sát này trước khi xem điểm thi cuối kỳ. Ý kiến của bạn sẽ giúp
+                            nhà trường nâng cao chất lượng đào tạo.</p>
+                        <div style="margin-top: 16px;">
+                            <span class="badge badge-warning"
+                                style="background: rgba(255,255,255,0.2); color: white;">Hạn chót: 30/08/2026</span>
+                        </div>
+                    </div>
+                    <div class="lecturer-info">
+                        <div class="lecturer-avatar" id="form-lecturer-avatar">T</div>
+                        <div>
+                            <div style="font-size: 13px; opacity: 0.8;">Môn học: <strong
+                                    style="color: white; opacity: 1;" id="form-course-name">WDU203c - UI/UX
+                                    Design</strong></div>
+                            <div style="font-size: 13px; opacity: 0.8;">Lớp: <strong style="color: white; opacity: 1;"
+                                    id="form-class-name">SE2014-NJ</strong></div>
+                            <div style="font-size: 14px; margin-top: 4px; font-weight: 600;" id="form-lecturer-name">GV:
+                                Trần Văn Tùng</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rating scale explanation -->
+                <div class="scale-info">
+                    <div class="scale-item">
+                        <span class="scale-number" style="background: var(--danger)">1</span>
+                        <span>Hoàn toàn không đồng ý / Rất kém</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-number" style="background: var(--warning)">2</span>
+                        <span>Không đồng ý / Kém</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-number" style="background: #64748B">3</span>
+                        <span>Bình thường / Đạt yêu cầu</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-number" style="background: var(--primary)">4</span>
+                        <span>Đồng ý / Tốt</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="scale-number" style="background: var(--success)">5</span>
+                        <span>Hoàn toàn đồng ý / Rất tốt</span>
+                    </div>
+                </div>
+
+                <form onsubmit="submitEvaluation(event)">
+
+                    <!-- Section 1 -->
+                    <div class="survey-card">
+                        <div class="survey-title">
+                            <i data-lucide="book-open"></i> 1. Năng lực chuyên môn và kiến thức
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">1.1 Giảng viên nắm vững kiến thức chuyên môn và truyền đạt nội
+                                dung bài học chính xác.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q1_1" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q1_1" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q1_1" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q1_1" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q1_1" value="5"> 5</label>
+                            </div>
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">1.2 Giảng viên giải thích rõ ràng các khái niệm khó, trả lời thỏa
+                                đáng các câu hỏi của sinh viên.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q1_2" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q1_2" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q1_2" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q1_2" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q1_2" value="5"> 5</label>
+                            </div>
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">1.3 Giảng viên cập nhật các kiến thức thực tế, tài liệu mới liên
+                                quan đến môn học.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q1_3" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q1_3" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q1_3" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q1_3" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q1_3" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="survey-card">
+                        <div class="survey-title">
+                            <i data-lucide="users"></i> 2. Phương pháp giảng dạy và tổ chức lớp học
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">2.1 Phong cách giảng dạy tự tin, thu hút, giúp sinh viên dễ tiếp
+                                thu.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q2_1" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q2_1" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q2_1" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q2_1" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q2_1" value="5"> 5</label>
+                            </div>
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">2.2 Giảng viên sử dụng hiệu quả các phương tiện, công cụ hỗ trợ
+                                giảng dạy (slide, video, hệ thống trực tuyến).</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q2_2" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q2_2" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q2_2" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q2_2" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q2_2" value="5"> 5</label>
+                            </div>
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">2.3 Giảng viên khuyến khích sinh viên thảo luận, đặt câu hỏi và
+                                tương tác trong giờ học.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q2_3" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q2_3" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q2_3" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q2_3" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q2_3" value="5"> 5</label>
+                            </div>
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">2.4 Phân bổ thời gian lên lớp hợp lý giữa lý thuyết, ví dụ và
+                                thảo luận.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q2_4" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q2_4" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q2_4" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q2_4" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q2_4" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div class="survey-card">
+                        <div class="survey-title">
+                            <i data-lucide="heart"></i> 3. Thái độ sư phạm và trách nhiệm
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">3.1 Giảng viên lên lớp đúng giờ, chuẩn bị chu đáo trước mỗi buổi
+                                dạy.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q3_1" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q3_1" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q3_1" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q3_1" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q3_1" value="5"> 5</label>
+                            </div>
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">3.2 Giảng viên nhiệt tình, quan tâm đến việc tiếp thu bài của
+                                sinh viên và giải đáp thắc mắc ngoài giờ (qua email, diễn đàn).</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q3_2" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q3_2" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q3_2" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q3_2" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q3_2" value="5"> 5</label>
+                            </div>
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">3.3 Giảng viên công tâm, khách quan trong việc đánh giá, cho điểm
+                                và nhận xét bài làm của sinh viên.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q3_3" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q3_3" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q3_3" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q3_3" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q3_3" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 -->
+                    <div class="survey-card">
+                        <div class="survey-title">
+                            <i data-lucide="file-text"></i> 4. Đánh giá và tài liệu học tập
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">4.1 Đề cương chi tiết môn học (syllabus) và tiêu chí đánh giá
+                                được thông báo rõ ràng từ đầu kỳ.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q4_1" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q4_1" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q4_1" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q4_1" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q4_1" value="5"> 5</label>
+                            </div>
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">4.2 Tài liệu học tập, giáo trình hoặc tài nguyên tham khảo thiết
+                                thực và dễ tiếp cận.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q4_2" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q4_2" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q4_2" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q4_2" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q4_2" value="5"> 5</label>
+                            </div>
+                        </div>
+
+                        <div class="survey-question">
+                            <div class="question-text">4.3 Hình thức kiểm tra, thi cử phù hợp với nội dung đã được giảng
+                                dạy trên lớp.</div>
+                            <div class="rating-options">
+                                <label class="rating-label"><input type="radio" name="q4_3" value="1" required>
+                                    1</label>
+                                <label class="rating-label"><input type="radio" name="q4_3" value="2"> 2</label>
+                                <label class="rating-label"><input type="radio" name="q4_3" value="3"> 3</label>
+                                <label class="rating-label"><input type="radio" name="q4_3" value="4"> 4</label>
+                                <label class="rating-label"><input type="radio" name="q4_3" value="5"> 5</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5 -->
+                    <div class="survey-card">
+                        <div class="survey-title">
+                            <i data-lucide="message-square"></i> 5. Ý kiến đóng góp (Câu hỏi mở)
+                        </div>
+
+                        <div class="text-area-group">
+                            <label>5.1 Điều gì bạn ấn tượng/hài lòng nhất về phương pháp giảng dạy của giảng viên trong
+                                học phần này?</label>
+                            <textarea class="form-textarea" placeholder="Nhập ý kiến của bạn..."></textarea>
+                        </div>
+
+                        <div class="text-area-group" style="margin-top: 24px;">
+                            <label>5.2 Giảng viên cần cải thiện điểm gì để nâng cao chất lượng giảng dạy môn học này tốt
+                                hơn?</label>
+                            <textarea class="form-textarea" placeholder="Nhập ý kiến của bạn..."></textarea>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 32px; margin-bottom: 40px;">
+                        <button type="submit" class="submit-btn">
+                            <i data-lucide="send" size="18"></i> Gửi phiếu đánh giá
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        lucide.createIcons();
+
+        let currentCourseId = null;
+
+        function startEvaluation(courseId, courseName, className, lecturerName, lecturerAvatar) {
+            currentCourseId = courseId;
+            document.getElementById('list-view').style.display = 'none';
+            document.getElementById('form-view').style.display = 'block';
+
+            // Update the form info
+            document.getElementById('form-course-name').innerText = courseName;
+            document.getElementById('form-class-name').innerText = className;
+            document.getElementById('form-lecturer-name').innerText = 'GV: ' + lecturerName;
+            document.getElementById('form-lecturer-avatar').innerText = lecturerAvatar;
+
+            // Scroll to top
+            document.querySelector('.main-content').scrollTop = 0;
+        }
+
+        function cancelEvaluation() {
+            document.getElementById('form-view').style.display = 'none';
+            document.getElementById('list-view').style.display = 'block';
+            currentCourseId = null;
+        }
+
+        function submitEvaluation(event) {
+            event.preventDefault();
+            showToast('Cảm ơn bạn đã gửi đánh giá thành công!');
+
+            // Update the status in the list
+            if (currentCourseId) {
+                const statusBadge = document.getElementById('status-' + currentCourseId);
+                const actionBtn = document.getElementById('btn-' + currentCourseId);
+
+                if (statusBadge && actionBtn) {
+                    statusBadge.className = 'badge badge-success';
+                    statusBadge.style.background = '#E6F4EA';
+                    statusBadge.style.color = '#1E8E3E';
+                    statusBadge.innerText = 'Đã đánh giá';
+
+                    actionBtn.disabled = true;
+                    actionBtn.style.background = '#E2E8F0';
+                    actionBtn.style.color = '#64748B';
+                    actionBtn.style.cursor = 'not-allowed';
+                    actionBtn.innerText = 'Hoàn thành';
+                    actionBtn.removeAttribute('onclick');
+                }
+            }
+
+            // Reset form
+            event.target.reset();
+
+            // Go back to list
+            setTimeout(() => {
+                cancelEvaluation();
+                // scroll to top of list
+                document.querySelector('.main-content').scrollTop = 0;
+            }, 800);
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+
+            let icon = 'check-circle';
+            if (type === 'warning') icon = 'alert-triangle';
+            if (type === 'danger') icon = 'x-circle';
+
+            toast.innerHTML = `<i data-lucide="${icon}" size="20"></i> <span style="font-size: 14px; font-weight: 500;">${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+    <script>
+        (function () {
+            var h = document.documentElement;
+            function apply(t, save) {
+                h.setAttribute('data-theme', t);
+                if (save) {
+                    try { localStorage.setItem('onenet-theme', t) } catch (e) { }
+                    if (!window.name || /^onenet-theme=/.test(window.name)) window.name = 'onenet-theme=' + t;
+                }
+                if (window.Chart && Chart.defaults) {
+                    var d = t === 'dark'; Chart.defaults.color = d ? '#9FB2C5' : '#5E7184'; Chart.defaults.borderColor = d ? 'rgba(255,255,255,.08)' : 'rgba(0,0,0,.1)';
+                    try { Object.keys(Chart.instances || {}).forEach(function (k) { Chart.instances[k].update() }) } catch (e) { }
+                }
+            }
+            var hr = document.querySelector('.header-right');
+            if (hr) {
+                var b = document.createElement('button'); b.type = 'button'; b.className = 'theme-toggle';
+                b.title = 'Chuyển chế độ sáng / tối'; b.setAttribute('aria-label', 'Chuyển chế độ sáng / tối');
+                b.innerHTML = '<svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+                b.onclick = function () { h.classList.add('te-anim'); apply(h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true); setTimeout(function () { h.classList.remove('te-anim') }, 400) };
+                hr.insertBefore(b, hr.firstChild);
+            }
+            var ph = document.querySelector('.page-header,.page-head'), pt = document.getElementById('pageTitle') || document.querySelector('.page-title');
+            if (!ph && pt && pt.parentNode) {
+                ph = document.createElement('div'); ph.className = 'page-header'; ph.style.marginBottom = '24px';
+                pt.parentNode.insertBefore(ph, pt); ph.appendChild(pt);
+                var nx = ph.nextElementSibling;
+                if (nx && (nx.classList.contains('page-sub') || nx.classList.contains('page-subtitle'))) { var w = document.createElement('div'); ph.insertBefore(w, pt); w.appendChild(pt); w.appendChild(nx) }
+            }
+            var crumb = null;
+            function crumbUpdate() {
+                if (!ph) return;
+                var items = document.querySelectorAll('.sidebar-item,.menu-item,.side-item'), act = document.querySelector('.sidebar-item.active,.menu-item.active,.side-item.active');
+                if (!act && pt) { var t = pt.textContent.trim().replace(/\s+/g, ' '); items.forEach(function (i) { var x = i.textContent.trim().replace(/\s+/g, ' '); if (!act && x && (x === t || t.indexOf(x) === 0 || (i.getAttribute('onclick') || '').indexOf("'" + t + "'") > -1)) act = i }) }
+                if (!act) return;
+                if (act.classList.contains('menu-item') && !document.querySelector('.menu-item.active')) act.classList.add('active');
+                var gt = '', g = act;
+                while ((g = g.previousElementSibling)) { if (g.classList.contains('menu-group-title') || g.classList.contains('menu-title') || g.classList.contains('group-title')) { gt = g.textContent.trim(); break } }
+                if (!gt && act.parentNode) { var mt = act.parentNode.querySelector('.menu-title'); if (mt) gt = mt.textContent.trim() }
+                if (!crumb) { crumb = document.createElement('div'); crumb.className = 'hero-crumb'; ph.insertBefore(crumb, ph.firstChild) }
+                crumb.innerHTML = '<span>' + gt + '</span><i></i><span>' + act.textContent.trim().replace(/\s+/g, ' ') + '</span>';
+            }
+            crumbUpdate();
+            document.querySelectorAll('.menu-item').forEach(function (i) { i.addEventListener('click', function () { setTimeout(crumbUpdate, 0) }) });
+            apply(h.getAttribute('data-theme') || 'light', false);
+        })();
+
+    </script>
+</body>
+
+</html>

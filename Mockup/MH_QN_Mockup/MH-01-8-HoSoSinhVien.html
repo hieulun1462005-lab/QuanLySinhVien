@@ -352,7 +352,7 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
             flex-shrink: 0;
         }
-        
+
         .aes-card-content {
             flex: 1;
             display: flex;
@@ -1338,6 +1338,12 @@
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            </a>
+            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+            </a>
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
@@ -1386,7 +1392,8 @@
                     </div>
                     <div class="list-search">
                         <i data-lucide="search" size="16"></i>
-                        <input type="text" id="cohort-search" placeholder="Tìm kiếm khóa..." oninput="renderCohorts(currentMajor)">
+                        <input type="text" id="cohort-search" placeholder="Tìm kiếm khóa..."
+                            oninput="renderCohorts(currentMajor)">
                     </div>
                 </div>
 
@@ -1876,21 +1883,21 @@
         function renderMajors() {
             const grid = document.getElementById('major-grid');
             grid.innerHTML = '';
-            
+
             const kw = noAccent(((document.getElementById('major-search') || {}).value || '').trim().toLowerCase());
             const total = LAST_COHORT - FIRST_COHORT + 1;
             let active = 0;
             for (let n = FIRST_COHORT; n <= LAST_COHORT; n++) if (!cohortGraduated(n)) active++;
-            
+
             const filteredMajors = MAJORS.filter(m => {
-                return !kw || noAccent(m.name.toLowerCase()).includes(kw) || 
-                       (m.code && noAccent(m.code.toLowerCase()).includes(kw));
+                return !kw || noAccent(m.name.toLowerCase()).includes(kw) ||
+                    (m.code && noAccent(m.code.toLowerCase()).includes(kw));
             });
-            
+
             if (filteredMajors.length === 0) {
                 grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: var(--text-gray); padding: 40px;">Không tìm thấy ngành nào</div>';
             }
-            
+
             filteredMajors.forEach(m => {
                 grid.appendChild(makeCard(m.title || m.name, m.desc, m.icon,
                     `${total} Khóa (${active} đang học)`, { c: m.c, bg: m.bg, bd: m.bd },
@@ -1902,7 +1909,7 @@
         function renderCohorts(majorName) {
             const grid = document.getElementById('cohort-grid');
             grid.innerHTML = '';
-            
+
             const kw = noAccent(((document.getElementById('cohort-search') || {}).value || '').trim().toLowerCase());
             let foundCount = 0;
 
@@ -1911,7 +1918,7 @@
                 const searchStr1 = `khoa ${pad2(n)}`;
                 const searchStr2 = `khoa ${n}`;
                 if (kw && !searchStr1.includes(kw) && !searchStr2.includes(kw)) continue;
-                
+
                 foundCount++;
                 const count = ((mockData[majorName] || {})[key] || []).length;
                 const y = cohortStartYear(n);
@@ -1920,7 +1927,7 @@
                     'graduation-cap', `${count} Sinh viên`, cohortColor(n),
                     () => showStudents(key)));
             }
-            
+
             if (foundCount === 0) {
                 grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: var(--text-gray); padding: 40px;">Không tìm thấy khóa nào</div>';
             }

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả đánh giá giảng viên - Hệ Thống Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #0757A6;
+            --primary-dark: #063B75;
+            --primary-light: #CFE6FF;
+            --text-dark: #102A43;
+            --text-gray: #5E7184;
+            --bg-light: #F5F8FC;
+            --border: #DCE8F3;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 64px;
+            height: 64px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .sys-identity {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .emblem {
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-copy .uni {
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        .brand-copy .sys-name {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .user-profile:hover {
+            background: #F8FAFC;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #F0FDF4;
+            color: #166534;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .user-info .name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .user-info .role {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .dashboard-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+        }
+
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .menu-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            padding: 12px 24px 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover {
+            background: #F8FAFC;
+            color: var(--primary);
+        }
+
+        .sidebar-item.active {
+            background: #EAF4FF;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            font-weight: 600;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .toolbar {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 16px;
+            background: #F8FAFC;
+            align-items: center;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .toolbar select {
+            height: 38px;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+        }
+    </style>
+    <!--theme-enhance-->
+    <script>(function () { var t = 'light'; try { t = localStorage.getItem('onenet-theme') || '' } catch (e) { } if (!t && /^onenet-theme=/.test(window.name)) t = window.name.slice(13); document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light') })();</script>
+    <style id="theme-enhance">
+        html[data-theme] {
+            --shadow-sm: 0 1px 2px rgba(16, 42, 67, .06);
+            --shadow-md: 0 4px 16px rgba(16, 42, 67, .07);
+            --shadow-lg: 0 14px 34px rgba(7, 87, 166, .14);
+            --shadow-xl: 0 24px 56px rgba(7, 87, 166, .18);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --bg-soft: #F9FBFD;
+            --info-light: #EFF6FF
+        }
+
+        html[data-theme="dark"] {
+            color-scheme: dark;
+            --primary: #3D93E6;
+            --primary-dark: #2A6FB8;
+            --primary-light: #1E4A7A;
+            --primary-50: #12304F;
+            --text-dark: #E6EDF5;
+            --text-gray: #9FB2C5;
+            --text-light: #6F869C;
+            --bg-light: #0B1522;
+            --bg-white: #111E2E;
+            --bg-soft: #15263A;
+            --border: #27394E;
+            --border-light: #1C2D40;
+            --success: #34D399;
+            --success-light: #0F2E25;
+            --danger: #F87171;
+            --danger-light: #3A1B1F;
+            --warning: #FBBF24;
+            --warning-light: #3A2E12;
+            --info: #60A5FA;
+            --info-light: #12304F;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, .35);
+            --shadow-lg: 0 14px 34px rgba(0, 0, 0, .5)
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-dark)
+        }
+
+        .dashboard-content,
+        .main-content {
+            background: radial-gradient(900px 320px at 100% 0, rgba(7, 87, 166, .07), transparent 65%), var(--bg-light)
+        }
+
+        .dashboard-content>*,
+        .main-content>* {
+            animation: te-rise .45s ease both
+        }
+
+        .dashboard-content>*:nth-child(2),
+        .main-content>*:nth-child(2) {
+            animation-delay: .06s
+        }
+
+        .dashboard-content>*:nth-child(n+3),
+        .main-content>*:nth-child(n+3) {
+            animation-delay: .12s
+        }
+
+        @keyframes te-rise {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .dashboard-content::after,
+        .main-content::after {
+            content: "Đại Học ONENET · Hệ thống quản lý sinh viên";
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-light);
+            padding: 32px 0 4px;
+            letter-spacing: .2px
+        }
+
+        html[data-theme="dark"] input:not([type=checkbox]):not([type=radio]):not([type=range]),
+        html[data-theme="dark"] select,
+        html[data-theme="dark"] textarea {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            border-color: var(--border)
+        }
+
+        html[data-theme="dark"] ::placeholder {
+            color: var(--text-light)
+        }
+
+        html[data-theme="dark"] .dashboard-content,
+        .main-content {
+            background: radial-gradient(900px 320px at 100% 0, rgba(61, 147, 230, .1), transparent 65%), var(--bg-light)
+        }
+
+        /* dark overrides generated from this page */
+        html[data-theme="dark"] .header {
+            background: var(--bg-white) !important
+        }
+
+        html[data-theme="dark"] .user-profile:hover {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .avatar {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .sidebar {
+            background: var(--bg-white) !important
+        }
+
+        html[data-theme="dark"] .sidebar-item:hover {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .sidebar-item.active {
+            background: color-mix(in srgb, #EAF4FF 17%, #0F1B2A) !important
+        }
+
+        html[data-theme="dark"] .card {
+            background: var(--bg-white) !important
+        }
+
+        html[data-theme="dark"] .toolbar {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] [style*="border: 1px solid #E2E8F0"] {
+            border: 1px solid var(--border) !important
+        }
+
+        html[data-theme="dark"] [style*="background: white"] {
+            background: var(--bg-white) !important
+        }
+
+        html[data-theme="dark"] [style*="background-color: #FEF2F2"] {
+            background-color: var(--bg-soft) !important
+        }
+    </style>
+    <style id="content-style">
+        .dashboard-content {
+            --surface: #FFFFFF;
+            --surface-2: #F8FAFC;
+        }
+
+        html[data-theme="dark"] .dashboard-content {
+            --surface: var(--bg-white);
+            --surface-2: var(--bg-soft);
+        }
+
+        /* Hero */
+        .page-header {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            background: linear-gradient(120deg, #063B75 0%, #0757A6 55%, #1B7FD6 100%);
+            border-radius: 20px;
+            padding: 40px 32px 24px;
+            min-height: 110px;
+            box-shadow: var(--shadow-lg);
+            align-items: center !important
+        }
+
+        .page-header::before,
+        .page-header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .07);
+            pointer-events: none
+        }
+
+        .page-header::before {
+            width: 300px;
+            height: 300px;
+            right: -80px;
+            top: -140px
+        }
+
+        .page-header::after {
+            width: 180px;
+            height: 180px;
+            right: 160px;
+            bottom: -110px
+        }
+
+        .page-header>* {
+            position: relative;
+            z-index: 1
+        }
+
+        .page-header .page-title {
+            margin: 0;
+            color: #fff;
+        }
+
+        .page-header .page-subtitle {
+            font-size: 14px;
+            margin-top: 6px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-sm);
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+        }
+
+        .stat:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-label {
+            font-size: 12.5px;
+            color: var(--text-gray);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        .stat-value small {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--text-gray);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon.green {
+            background: color-mix(in srgb, var(--success) 14%, transparent);
+            color: var(--success);
+        }
+
+        .stat-icon.blue {
+            background: color-mix(in srgb, var(--primary) 14%, transparent);
+            color: var(--primary);
+        }
+
+        .stat-icon.amber {
+            background: color-mix(in srgb, var(--warning) 14%, transparent);
+            color: var(--warning);
+        }
+
+        /* specific styles for feedback page */
+        .feedback-item {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface-2);
+            margin-bottom: 16px;
+        }
+
+        .feedback-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress-bg {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .criteria-row {
+            margin-bottom: 20px;
+        }
+
+        .criteria-row:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="MH-00-8-TongQuanGiangVien.html" class="sys-identity">
+            <div class="emblem"><i data-lucide="book-open"></i></div>
+            <div class="brand-copy"><span class="uni">Trường</span><span class="sys-name">Đại Học ONENET</span></div>
+        </a>
+        <div class="header-right" style="display: flex; align-items: center; gap: 16px;">
+            <div class="user-profile" onclick="window.location.href='MH-05-3-QuanLyHoSoGiangVien.html'">
+                <div class="user-info"><span class="name">Lê Văn Bình</span><span class="role">Giảng viên (IT)</span>
+                </div>
+                <div class="avatar">B</div>
+            </div>
+            <button class="logout-btn"
+                onclick="window.location.href='../MH_Chung_Mockup/MH-00-6-DangNhapGiangVien.html'"
+                style="background: transparent; border: 1px solid var(--border); color: var(--text-gray); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;"
+                onmouseover="this.style.background='#FEF2F2'; this.style.borderColor='#FECACA'; this.style.color='#DC2626'"
+                onmouseout="this.style.background='transparent'; this.style.borderColor='var(--border)'; this.style.color='var(--text-gray)'">
+                <i data-lucide="log-out" size="14"></i>
+                Đăng xuất
+            </button>
+        </div>
+    </header>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="menu-group-title">Giảng dạy</div>
+            <a href="MH-00-8-TongQuanGiangVien.html" class="sidebar-item">
+                <i data-lucide="layout-dashboard" size="20"></i> Tổng quan
+            </a>
+            <a href="MH-02-5-LichGiangDayBaoNghi.html" class="sidebar-item">
+                <i data-lucide="calendar-days" size="20"></i> Lịch giảng dạy
+            </a>
+            <a href="MH-03-1-DiemDanhLopHoc.html" class="sidebar-item">
+                <i data-lucide="scan-line" size="20"></i> Điểm danh QR
+            </a>
+            <div class="menu-group-title">Đánh giá</div>
+            <a href="MH-04-1-CapNhatDiemQuaTrinh.html" class="sidebar-item">
+                <i data-lucide="file-spreadsheet" size="20"></i> Quản lý điểm thành phần
+            </a>
+            <a href="MH-04-2-CapNhatDiemThi.html" class="sidebar-item">
+                <i data-lucide="award" size="20"></i> Điểm thi
+            </a>
+            <a href="MH-04-3-XemDanhGiaGiangVien.html" class="sidebar-item active">
+                <i data-lucide="bar-chart-2" size="20"></i> Đánh giá
+            </a>
+        </aside>
+
+        <main class="dashboard-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Kết quả đánh giá giảng viên</h1>
+                    <p class="page-subtitle">Xem điểm khảo sát chất lượng giảng dạy và đóng góp từ sinh viên</p>
+                </div>
+            </div>
+
+            <div class="toolbar" style="margin-bottom: 24px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <label style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Kỳ học:</label>
+                    <select class="form-select" style="min-width: 160px;">
+                        <option selected>Summer 2026 (Kỳ 6)</option>
+                        <option>Spring 2026 (Kỳ 5)</option>
+                        <option>Fall 2025 (Kỳ 4)</option>
+                    </select>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <label style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Môn học - Lớp:</label>
+                    <select class="form-select" style="min-width: 250px;">
+                        <option selected>WDU203c - UI/UX Design (SE2014-NJ)</option>
+                        <option>PRJ301 - Java Web (SE2014-NJ)</option>
+                        <option>SWT301 - Software Testing (SE2003-NET)</option>
+                    </select>
+                </div>
+                <div style="margin-left: auto;">
+                    <button class="btn btn-primary"
+                        style="background: white; color: var(--primary); border: 1px solid var(--primary);">
+                        <i data-lucide="download" size="18"></i> Xuất báo cáo
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-icon blue"><i data-lucide="users" size="22"></i></div>
+                    <div>
+                        <div class="stat-label">Số sinh viên tham gia</div>
+                        <div class="stat-value">28 <small>/ 30 (93%)</small></div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon green"><i data-lucide="star" size="22"></i></div>
+                    <div>
+                        <div class="stat-label">Điểm trung bình chung</div>
+                        <div class="stat-value">4.6 <small>/ 5.0</small></div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon amber"><i data-lucide="award" size="22"></i></div>
+                    <div>
+                        <div class="stat-label">Xếp loại</div>
+                        <div class="stat-value" style="color: var(--success);">Xuất sắc</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="padding: 24px;">
+                <h3 style="margin-bottom: 24px; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="pie-chart" size="20" style="color: var(--primary);"></i> 1. Điểm chi tiết theo nhóm
+                    tiêu chí
+                </h3>
+
+                <div class="criteria-row">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 14px; font-weight: 600; color: var(--text-dark);">1. Năng lực chuyên môn
+                            và kiến thức</span>
+                        <span style="font-size: 14px; font-weight: 700; color: var(--primary);">4.8 / 5.0</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-bar" style="width: 96%;"></div>
+                    </div>
+                </div>
+
+                <div class="criteria-row">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 14px; font-weight: 600; color: var(--text-dark);">2. Phương pháp giảng
+                            dạy và tổ chức lớp học</span>
+                        <span style="font-size: 14px; font-weight: 700; color: var(--primary);">4.5 / 5.0</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-bar" style="width: 90%;"></div>
+                    </div>
+                </div>
+
+                <div class="criteria-row">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 14px; font-weight: 600; color: var(--text-dark);">3. Thái độ sư phạm và
+                            trách nhiệm</span>
+                        <span style="font-size: 14px; font-weight: 700; color: var(--primary);">4.9 / 5.0</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-bar" style="width: 98%;"></div>
+                    </div>
+                </div>
+
+                <div class="criteria-row">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 14px; font-weight: 600; color: var(--text-dark);">4. Đánh giá và tài
+                            liệu học tập</span>
+                        <span style="font-size: 14px; font-weight: 700; color: var(--primary);">4.4 / 5.0</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-bar" style="width: 88%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="padding: 24px; margin-top: 24px;">
+                <h3 style="margin-bottom: 20px; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="message-square" size="20" style="color: var(--primary);"></i> 2. Ý kiến đóng góp
+                    (Câu hỏi mở)
+                </h3>
+
+                <div class="feedback-item">
+                    <p style="font-size: 14px; color: var(--primary); font-weight: 600; margin-bottom: 12px;">5.1 Điều
+                        gì bạn ấn tượng/hài lòng nhất về phương pháp giảng dạy của giảng viên trong học phần này?</p>
+                    <ul
+                        style="font-size: 14px; padding-left: 20px; color: var(--text-dark); display: flex; flex-direction: column; gap: 8px;">
+                        <li>"Thầy giảng rất nhiệt tình, dễ hiểu. Tài liệu cung cấp đầy đủ và bám sát thực tế dự án."
+                        </li>
+                        <li>"Cách thầy lấy ví dụ trực quan về UI/UX giúp em nắm bài nhanh hơn rất nhiều."</li>
+                        <li>"Phong cách dạy cuốn hút, luôn quan tâm xem sinh viên có theo kịp không."</li>
+                        <li>"Thầy trả lời câu hỏi rất cặn kẽ và thường xuyên hỗ trợ ngoài giờ."</li>
+                    </ul>
+                </div>
+
+                <div class="feedback-item">
+                    <p style="font-size: 14px; color: var(--primary); font-weight: 600; margin-bottom: 12px;">5.2 Giảng
+                        viên cần cải thiện điểm gì để nâng cao chất lượng giảng dạy môn học này tốt hơn?</p>
+                    <ul
+                        style="font-size: 14px; padding-left: 20px; color: var(--text-dark); display: flex; flex-direction: column; gap: 8px;">
+                        <li>"Mong thầy cho thêm bài tập thực hành trên lớp thay vì mang về nhà."</li>
+                        <li>"Slide thỉnh thoảng hơi nhiều chữ, thầy tóm tắt lại xíu bằng infographic thì tuyệt vời ạ."
+                        </li>
+                        <li
+                            style="color: var(--text-gray); font-style: italic; list-style: none; margin-left: -20px; margin-top: 8px;">
+                            (Các sinh viên khác không có ý kiến gì thêm)</li>
+                    </ul>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

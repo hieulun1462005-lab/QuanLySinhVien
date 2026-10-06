@@ -1412,11 +1412,48 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; border-radius: 8px !important; margin: 0 !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; box-shadow: none !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+            border-radius: 8px !important;
+            margin: 0 !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 
@@ -1456,12 +1493,23 @@
                         data-lucide="calendar"></i> Thời khóa biểu</div>
                 <div class="menu-item" onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'"><i
                         data-lucide="check-circle"></i> Báo cáo điểm danh</div>
-                <div class="menu-item" onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'"><i
-                        data-lucide="book"></i> Chương trình đào tạo</div>
+
                 <div class="menu-item" onclick="window.location.href='MH-04-3-LichThi.html'"><i data-lucide="clock"></i>
                     Lịch thi</div>
                 <div class="menu-item" onclick="window.location.href='MH-04-2-KetQuaHocTap.html'"><i
                         data-lucide="bar-chart-2"></i> Bảng điểm cá nhân</div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-title">ĐÀO TẠO</div>
+                <div class="menu-item " onclick="window.location.href='MH-03-4-DanhGiaGiangVien.html'">
+                    <i data-lucide="star" size="18"></i> Đánh giá giảng viên
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-02-7-DoiLop.html'">
+                    <i data-lucide="refresh-cw"></i> Đổi lớp
+                </div>
+                <div class="menu-item" onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'">
+                    <i data-lucide="book"></i> Chương trình đào tạo
+                </div>
             </div>
             <div class="menu-group">
                 <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
@@ -1469,6 +1517,9 @@
                         data-lucide="file-text"></i> Nộp đơn từ trực tuyến</div>
                 <div class="menu-item" onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'"><i
                         data-lucide="credit-card"></i> Hóa đơn & Thanh toán</div>
+                <div class="menu-item " onclick="window.location.href='MH-06-3-hocbong.html'" id="navAll">
+                    <i data-lucide="award" size="18"></i> Học bổng
+                </div>
             </div>
         </nav>
         <div class="scrim" id="scrim"></div>
@@ -1945,4 +1996,3 @@
 </body>
 
 </html>
-

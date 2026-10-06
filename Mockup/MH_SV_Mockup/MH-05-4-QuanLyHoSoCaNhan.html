@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -825,11 +825,48 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; border-radius: 8px !important; margin: 0 !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; box-shadow: none !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+            border-radius: 8px !important;
+            margin: 0 !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 
@@ -883,9 +920,7 @@
                 <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
                     <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
                 </div>
-                <div class="menu-item " onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'">
-                    <i data-lucide="book" size="18"></i> Chương trình đào tạo
-                </div>
+
                 <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
                     <i data-lucide="clock" size="18"></i> Lịch thi
                 </div>
@@ -893,7 +928,15 @@
                     <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
                 </div>
             </div>
-
+            <div class="menu-group">
+                <div class="menu-title">ĐÀO TẠO</div>
+                <div class="menu-item " onclick="window.location.href='MH-02-7-DoiLop.html'">
+                    <i data-lucide="refresh-cw"></i> Đổi lớp
+                </div>
+                <div class="menu-item" onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'">
+                    <i data-lucide="book"></i> Chương trình đào tạo
+                </div>
+            </div>
             <div class="menu-group">
                 <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
                 <div class="menu-item " onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'">
@@ -901,6 +944,9 @@
                 </div>
                 <div class="menu-item " onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'">
                     <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
+                </div>
+                <div class="menu-item" onclick="window.location.href='MH-06-3-hocbong.html'" id="navAll">
+                    <i data-lucide="award" size="18"></i> Học bổng
                 </div>
             </div>
         </div>
@@ -941,6 +987,7 @@
                         <div class="tab-btn active" onclick="switchTab('info')">Thông tin Cá nhân</div>
                         <div class="tab-btn" onclick="switchTab('parent')">Thông tin Phụ huynh</div>
                         <div class="tab-btn" onclick="switchTab('security')">Bảo mật & Mật khẩu</div>
+                        <div class="tab-btn" onclick="switchTab('studentid')">Thẻ sinh viên điện tử</div>
                     </div>
 
                     <div style="padding: 24px;">
@@ -1083,6 +1130,39 @@
                                     Mật Khẩu</button>
                             </form>
                         </div>
+
+                        <!-- Tab: Thẻ sinh viên điện tử -->
+                        <div id="tab-studentid" class="tab-content">
+                            <h2 class="section-title"><i data-lucide="qr-code" size="20"></i> Thẻ sinh viên điện tử (E-Student ID)</h2>
+                            <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 24px;">Sử dụng mã QR hoặc Barcode dưới đây để quét khi vào thư viện, vào phòng thi, hoặc tham gia sự kiện thay vì dùng thẻ cứng.</p>
+
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-light); padding: 32px; border-radius: 12px; border: 1px dashed var(--border); margin-bottom: 24px;">
+                                <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); text-align: center; max-width: 350px; width: 100%;">
+                                    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #2563EB;">ĐẠI HỌC ONENET</h3>
+                                    <div style="font-size: 14px; font-weight: 600; margin-bottom: 16px; color: #1E293B;">THẺ SINH VIÊN</div>
+                                    <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 24px;">
+                                        <div style="width: 80px; height: 100px; background: #EFF6FF; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; color: #2563EB; border: 2px solid #BFDBFE; flex-shrink: 0;">K</div>
+                                        <div style="text-align: left;">
+                                            <div style="font-size: 16px; font-weight: 700; color: #1E293B;">Nguyễn Hồng Long Khánh</div>
+                                            <div style="font-size: 13px; color: #64748B; margin-top: 4px;">MSSV: <span style="font-weight: 600; color: #1E293B;">HE190868</span></div>
+                                            <div style="font-size: 13px; color: #64748B; margin-top: 2px;">Ngành: <span style="font-weight: 500; color: #1E293B;">Kỹ thuật phần mềm</span></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="background: white; border: 1px solid #E2E8F0; padding: 12px; border-radius: 8px; display: inline-block;">
+                                        <div style="width: 150px; height: 150px; background: url('https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg') center/cover;"></div>
+                                    </div>
+                                    <div style="margin-top: 16px;">
+                                        <div style="width: 200px; height: 40px; background: repeating-linear-gradient(to right, black, black 2px, white 2px, white 4px, black 4px, black 5px, white 5px, white 8px, black 8px, black 12px, white 12px, white 14px); margin: 0 auto;"></div>
+                                        <div style="font-size: 12px; letter-spacing: 4px; margin-top: 4px; font-weight: 600; color: #64748B;">HE190868</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: center; gap: 12px;">
+                                <button class="btn btn-outline" onclick="showToast('Đang tải xuống thẻ sinh viên...');"><i data-lucide="download" size="18"></i> Tải về</button>
+                                <button class="btn btn-primary" onclick="showToast('Mã QR đã được làm mới!');"><i data-lucide="refresh-cw" size="18"></i> Làm mới mã</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1212,4 +1292,3 @@
 </body>
 
 </html>
-

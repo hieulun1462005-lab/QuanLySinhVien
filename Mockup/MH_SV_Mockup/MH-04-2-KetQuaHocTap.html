@@ -843,11 +843,687 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; border-radius: 8px !important; margin: 0 !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; box-shadow: none !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+            border-radius: 8px !important;
+            margin: 0 !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+            box-shadow: none !important;
+        }
+    </style>
+    <style id="content-style">
+        /* ===== NỘI DUNG TRANG KẾT QUẢ HỌC TẬP ===== */
+        .main-content {
+            --surface: #FFFFFF;
+            --surface-2: #F8FAFC;
+            --track: color-mix(in srgb, var(--text-gray) 20%, transparent);
+        }
+
+        html[data-theme="dark"] .main-content {
+            --surface: var(--bg-white);
+            --surface-2: var(--bg-soft);
+        }
+
+        .page-header .page-subtitle {
+            font-size: 14px;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+
+        .content-section .muted {
+            color: var(--text-gray);
+            opacity: .6;
+        }
+
+        /* Stat cards */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-sm);
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .stat:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-label {
+            font-size: 12.5px;
+            color: var(--text-gray);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .stat-value small {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--text-gray);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon.green {
+            background: color-mix(in srgb, var(--success) 14%, transparent);
+            color: var(--success);
+        }
+
+        .stat-icon.blue {
+            background: color-mix(in srgb, var(--primary) 14%, transparent);
+            color: var(--primary);
+        }
+
+        .stat-icon.red {
+            background: color-mix(in srgb, var(--danger) 14%, transparent);
+            color: var(--danger);
+        }
+
+        .ring {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) calc(var(--p) * 1%), var(--track) 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .ring::before {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            background: var(--surface);
+        }
+
+        .ring span {
+            position: relative;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--primary);
+        }
+
+        /* Status badge */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            white-space: nowrap;
+        }
+
+        .status.ok {
+            background: color-mix(in srgb, var(--success) 14%, transparent);
+            color: var(--success);
+        }
+
+        .status.bad {
+            background: color-mix(in srgb, var(--danger) 14%, transparent);
+            color: var(--danger);
+        }
+
+        .status.mini {
+            margin-top: 6px;
+            padding: 3px 9px;
+            font-size: 11px;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .field label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+
+        .toolbar select,
+        .search input {
+            height: 38px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface-2);
+            color: var(--text-dark);
+            font-size: 13.5px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .toolbar select {
+            padding: 0 12px;
+            min-width: 190px;
+            cursor: pointer;
+        }
+
+        .toolbar select:focus,
+        .search input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent);
+        }
+
+        .seg {
+            display: flex;
+            padding: 3px;
+            gap: 2px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .seg button {
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            transition: .2s;
+        }
+
+        .seg button:hover {
+            color: var(--primary);
+        }
+
+        .seg button.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 6px color-mix(in srgb, var(--primary) 35%, transparent);
+        }
+
+        .search {
+            position: relative;
+            flex: 1;
+            min-width: 220px;
+            margin-left: auto;
+            max-width: 340px;
+        }
+
+        .search svg {
+            position: absolute;
+            left: 12px;
+            top: 11px;
+            color: var(--text-gray);
+            pointer-events: none;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 0 12px 0 36px;
+        }
+
+        .hint {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12.5px;
+            color: var(--text-gray);
+            margin: 14px 4px 18px;
+        }
+
+        /* Term */
+        .term {
+            margin-bottom: 26px;
+        }
+
+        .term-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .term-name {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .term-tag {
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--primary) 12%, transparent);
+            color: var(--primary);
+        }
+
+        .term-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .term-count {
+            font-size: 12.5px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        /* Course */
+        .course {
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .course::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+        }
+
+        .course.ok::before {
+            background: var(--success);
+        }
+
+        .course.bad::before {
+            background: var(--danger);
+        }
+
+        .course:hover {
+            border-color: color-mix(in srgb, var(--primary) 50%, var(--border));
+            box-shadow: var(--shadow-md);
+        }
+
+        .course.open {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .course-head {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 18px 22px 18px 26px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .c-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .c-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .c-code {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .4px;
+            padding: 3px 9px;
+            border-radius: 6px;
+            background: color-mix(in srgb, var(--primary) 12%, transparent);
+            color: var(--primary);
+        }
+
+        .c-class {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12.5px;
+            color: var(--text-gray);
+        }
+
+        .c-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .c-score {
+            width: 120px;
+            text-align: right;
+        }
+
+        .c-label {
+            font-size: 11.5px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .c-num {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .course.ok .c-num {
+            color: var(--success);
+        }
+
+        .course.bad .c-num {
+            color: var(--danger);
+        }
+
+        .c-bar {
+            height: 5px;
+            border-radius: 999px;
+            background: var(--track);
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .c-bar span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+        }
+
+        .course.ok .c-bar span {
+            background: var(--success);
+        }
+
+        .course.bad .c-bar span {
+            background: var(--danger);
+        }
+
+        .chev {
+            color: var(--text-gray);
+            transition: transform .3s;
+            flex-shrink: 0;
+        }
+
+        .course.open .chev {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        /* Detail (expand) */
+        .course-detail {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .35s ease;
+        }
+
+        .course.open .course-detail {
+            grid-template-rows: 1fr;
+        }
+
+        .detail-inner {
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .detail-pad {
+            padding: 4px 22px 22px 26px;
+            border-top: 1px dashed var(--border);
+            padding-top: 18px;
+        }
+
+        .table-wrap {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+
+        .grade-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+            min-width: 620px;
+        }
+
+        .grade-table th {
+            background: var(--surface-2);
+            color: var(--text-gray);
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            text-align: left;
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .grade-table td {
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .grade-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .grade-table td.cat {
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--surface-2);
+            border-right: 1px solid var(--border);
+            width: 21%;
+        }
+
+        .grade-table td.item {
+            color: var(--text-dark);
+        }
+
+        .grade-table tr.row-total td:not(.cat) {
+            background: color-mix(in srgb, var(--primary) 5%, transparent);
+            font-weight: 600;
+        }
+
+        .w {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text-gray);
+        }
+
+        .val {
+            font-weight: 700;
+            font-size: 14.5px;
+        }
+
+        .val.bad {
+            color: var(--danger);
+        }
+
+        .pill {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .pill.bad {
+            background: color-mix(in srgb, var(--danger) 14%, transparent);
+            color: var(--danger);
+        }
+
+        .pill.warn {
+            background: color-mix(in srgb, var(--warning) 18%, transparent);
+            color: var(--warning);
+        }
+
+        .detail-sum {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 14px;
+            padding: 14px 18px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .detail-sum>div {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+        }
+
+        .sum-num {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .sum-num.ok {
+            color: var(--success);
+        }
+
+        .sum-num.bad {
+            color: var(--danger);
+        }
+
+        /* Empty */
+        .empty {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-gray);
+            background: var(--surface);
+            border: 1px dashed var(--border);
+            border-radius: 16px;
+        }
+
+        .empty[hidden] {
+            display: none;
+        }
+
+        .empty div {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 10px 0 4px;
+        }
+
+        .empty span {
+            font-size: 13px;
+        }
+
+        @media (max-width: 1100px) {
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 720px) {
+            .main-content {
+                padding: 20px 16px !important;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .search {
+                max-width: none;
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .course-head {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .c-score {
+                width: auto;
+                text-align: left;
+                order: 3;
+            }
+        }
     </style>
 </head>
 
@@ -902,9 +1578,7 @@
                 <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
                     <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
                 </div>
-                <div class="menu-item " onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'">
-                    <i data-lucide="book" size="18"></i> Chương trình đào tạo
-                </div>
+
                 <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
                     <i data-lucide="clock" size="18"></i> Lịch thi
                 </div>
@@ -912,7 +1586,18 @@
                     <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
                 </div>
             </div>
-
+            <div class="menu-group">
+                <div class="menu-title">ĐÀO TẠO</div>
+                <div class="menu-item " onclick="window.location.href='MH-03-4-DanhGiaGiangVien.html'">
+                    <i data-lucide="star" size="18"></i> Đánh giá giảng viên
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-02-7-DoiLop.html'">
+                    <i data-lucide="refresh-cw"></i> Đổi lớp
+                </div>
+                <div class="menu-item" onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'">
+                    <i data-lucide="book"></i> Chương trình đào tạo
+                </div>
+            </div>
             <div class="menu-group">
                 <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
                 <div class="menu-item " onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'">
@@ -921,6 +1606,9 @@
                 <div class="menu-item " onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'">
                     <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
                 </div>
+                <div class="menu-item" onclick="window.location.href='MH-06-3-hocbong.html'" id="navAll">
+                    <i data-lucide="award" size="18"></i> Học bổng
+                </div>
             </div>
         </div>
 
@@ -928,433 +1616,478 @@
         <!-- MAIN CONTENT -->
         <div class="main-content">
             <h1 class="page-title">Kết quả học tập</h1>
+            <p class="page-subtitle">Theo dõi điểm trung bình, tín chỉ tích lũy và chi tiết điểm thành phần từng môn học
+            </p>
+
             <div class="content-section">
 
-                <div
-                    style="background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; gap: 24px; align-items: center;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <label style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Kỳ học
-                            (Term):</label>
-                        <select class="form-select"
-                            style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; outline: none; width: 200px;">
-                            <option>Tất cả các kỳ</option>
-                            <option selected>Summer 2026 (Kỳ 6)</option>
-                            <option>Spring 2026 (Kỳ 5)</option>
-                            <option>Fall 2025 (Kỳ 4)</option>
-                            <option>Summer 2025 (Kỳ 3)</option>
-                            <option>Spring 2025 (Kỳ 2)</option>
-                            <option>Fall 2024 (Kỳ 1)</option>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="ring" style="--p:78"><span>7.8</span></div>
+                        <div>
+                            <div class="stat-label">Điểm TBC tích lũy (hệ 10)</div>
+                            <div class="stat-value">7.8 <small>/ 10.0</small></div>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon green"><i data-lucide="graduation-cap" size="22"></i></div>
+                        <div>
+                            <div class="stat-label">Số tín chỉ tích lũy</div>
+                            <div class="stat-value">120 <small>tín chỉ</small></div>
+                            <span class="status ok mini"><i data-lucide="check-circle" size="12"></i>Bình thường</span>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon blue"><i data-lucide="award" size="22"></i></div>
+                        <div>
+                            <div class="stat-label">Môn đã đạt</div>
+                            <div class="stat-value">3 <small>/ 4 môn</small></div>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon red"><i data-lucide="alert-triangle" size="22"></i></div>
+                        <div>
+                            <div class="stat-label">Môn chưa đạt</div>
+                            <div class="stat-value">1 <small>môn · MAD101</small></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toolbar">
+                    <div class="field">
+                        <label for="termSelect">Kỳ học</label>
+                        <select id="termSelect" onchange="applyFilter()">
+                            <option value="all" selected>Tất cả các kỳ</option>
+                            <option value="summer2026">Summer 2026 (Kỳ 6)</option>
+                            <option value="spring2026">Spring 2026 (Kỳ 5)</option>
+                            <option value="fall2025">Fall 2025 (Kỳ 4)</option>
+                            <option value="summer2025">Summer 2025 (Kỳ 3)</option>
+                            <option value="spring2025">Spring 2025 (Kỳ 2)</option>
+                            <option value="fall2024">Fall 2024 (Kỳ 1)</option>
                         </select>
                     </div>
-                </div>
-
-                <div class="grid-2" style="margin-bottom: 24px;">
-                    <div class="card" style="margin-bottom: 0; display: flex; align-items: center; gap: 16px;">
-                        <div
-                            style="width: 64px; height: 64px; border-radius: 50%; border: 4px solid var(--primary); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--primary);">
-                            7.8
-                        </div>
-                        <div>
-                            <div style="font-size: 14px; color: var(--text-gray);">Điểm TBC Tích lũy (Hệ 10)</div>
-                            <div style="font-size: 18px; font-weight: 600;">7.8 / 10.0</div>
-                        </div>
+                    <div class="seg" id="statusSeg">
+                        <button class="active" data-v="all" onclick="setStatus(this)">Tất cả</button>
+                        <button data-v="ok" onclick="setStatus(this)">Đạt</button>
+                        <button data-v="bad" onclick="setStatus(this)">Chưa đạt</button>
                     </div>
-                    <div class="card" style="margin-bottom: 0; display: flex; align-items: center; gap: 16px;">
-                        <div
-                            style="width: 64px; height: 64px; border-radius: 50%; border: 4px solid var(--success); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--success);">
-                            120
-                        </div>
-                        <div>
-                            <div style="font-size: 14px; color: var(--text-gray);">Số tín chỉ tích lũy</div>
-                            <div style="font-size: 18px; font-weight: 600;">Trạng thái: Bình thường</div>
-                        </div>
+                    <div class="search">
+                        <i data-lucide="search" size="16"></i>
+                        <input id="searchInput" type="text" placeholder="Tìm mã hoặc tên môn học..."
+                            oninput="applyFilter()">
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header" style="margin-bottom: 8px;">
-                        <div class="card-title">Bảng điểm các môn học</div>
-                    </div>
-                    <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 20px;">Bấm vào tên môn học để xem
-                        chi tiết điểm thành phần.</p>
-
-                    <!-- SUMMER 2026 -->
-                    <h3
-                        style="font-size: 16px; color: var(--text-dark); margin-bottom: 12px; margin-top: 24px; font-weight: 600;">
-                        Kỳ Summer 2026</h3>
-                    <div class="course-list">
-                        <!-- MAD101 -->
-                        <div>
-                            <div class="course-card" onclick="toggleDetail('mad101-detail')">
-                                <div class="card-status-bar not-passed"></div>
-                                <div class="course-info">
-                                    <div class="course-header">
-                                        <div class="course-title"><strong>MAD101</strong> - Discrete Mathematics</div>
-                                        <div class="badge badge-danger" style="text-transform: uppercase;">Not Passed
-                                        </div>
-                                    </div>
-                                    <div class="course-meta">Class name: SE2003-NET</div>
-                                    <div class="course-meta">Average: <span class="text-danger">4.3</span></div>
-                                </div>
-                            </div>
-                            <table class="detail-table" id="mad101-detail"
-                                style="display: none; border-radius: 8px; margin-top: 8px; margin-bottom: 16px;">
-                                <thead>
-                                    <tr>
-                                        <th>GRADE CATEGORY</th>
-                                        <th>GRADE ITEM</th>
-                                        <th>WEIGHT</th>
-                                        <th>VALUE</th>
-                                        <th>COMMENT</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="cat-col" rowspan="3">Progress test</td>
-                                        <td class="item-col">Progress test 1</td>
-                                        <td>5.0 %</td>
-                                        <td>3</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Progress test 2</td>
-                                        <td>5.0 %</td>
-                                        <td>5</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>10.0 %</td>
-                                        <td>4</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cat-col" rowspan="3">Assignment</td>
-                                        <td class="item-col">Assignment 1</td>
-                                        <td>7.5 %</td>
-                                        <td>1</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Assignment 2</td>
-                                        <td>7.5 %</td>
-                                        <td>3</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>15.0 %</td>
-                                        <td>2</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cat-col" rowspan="2">Group Project</td>
-                                        <td class="item-col">Group Project</td>
-                                        <td>20.0 %</td>
-                                        <td>1</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>20.0 %</td>
-                                        <td>1</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cat-col" rowspan="3">Final exam</td>
-                                        <td class="item-col">FE: Practical Exam</td>
-                                        <td>25.0 %</td>
-                                        <td>0</td>
-                                        <td>Không thi</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">FE: Theoretical Exam</td>
-                                        <td>30.0 %</td>
-                                        <td>0</td>
-                                        <td>Không thi</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>55.0 %</td>
-                                        <td>0</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cat-col" rowspan="4">Final exam Resit</td>
-                                        <td class="item-col">FE: Practical Exam Resit</td>
-                                        <td>25.0 %</td>
-                                        <td>4.8</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">FE: Theoretical Exam Resit</td>
-                                        <td>30.0 %</td>
-                                        <td>7.2</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Resit Total</td>
-                                        <td>55.0 %</td>
-                                        <td>6.1</td>
-                                        <td>Need: 7.455 to pass</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>55.0 %</td>
-                                        <td>6.1</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="fpt-bg">
-                                        <td><strong style="font-size: 14px;">COURSE TOTAL</strong></td>
-                                        <td><strong style="font-size: 14px;">AVERAGE</strong></td>
-                                        <td colspan="3" class="grade-total">4.3</td>
-                                    </tr>
-                                    <tr class="fpt-bg">
-                                        <td></td>
-                                        <td><strong style="font-size: 14px;">STATUS</strong></td>
-                                        <td colspan="3" class="status-notpassed">NOT PASSED</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- DBI202 -->
-                        <div>
-                            <div class="course-card" onclick="toggleDetail('dbi202-detail')">
-                                <div class="card-status-bar passed"></div>
-                                <div class="course-info">
-                                    <div class="course-header">
-                                        <div class="course-title"><strong>DBI202</strong> - Database Systems</div>
-                                        <div class="badge badge-success" style="text-transform: uppercase;">Passed</div>
-                                    </div>
-                                    <div class="course-meta">Class name: SE2003-NET</div>
-                                    <div class="course-meta">Average: <span class="text-success">7.6</span></div>
-                                </div>
-                            </div>
-                            <table class="detail-table" id="dbi202-detail"
-                                style="display: none; border-radius: 8px; margin-top: 8px; margin-bottom: 16px;">
-                                <thead>
-                                    <tr>
-                                        <th>GRADE CATEGORY</th>
-                                        <th>GRADE ITEM</th>
-                                        <th>WEIGHT</th>
-                                        <th>VALUE</th>
-                                        <th>COMMENT</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="cat-col" rowspan="2">Progress test</td>
-                                        <td class="item-col">Progress test 1</td>
-                                        <td>20.0 %</td>
-                                        <td>9.0</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>20.0 %</td>
-                                        <td>9.0</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cat-col" rowspan="2">Assignment</td>
-                                        <td class="item-col">Assignment 1</td>
-                                        <td>20.0 %</td>
-                                        <td>7.0</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>20.0 %</td>
-                                        <td>7.0</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cat-col" rowspan="2">Final exam</td>
-                                        <td class="item-col">FE: Practical Exam</td>
-                                        <td>60.0 %</td>
-                                        <td>7.5</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>60.0 %</td>
-                                        <td>7.5</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="fpt-bg">
-                                        <td><strong style="font-size: 14px;">COURSE TOTAL</strong></td>
-                                        <td><strong style="font-size: 14px;">AVERAGE</strong></td>
-                                        <td colspan="3" class="grade-total">7.6</td>
-                                    </tr>
-                                    <tr class="fpt-bg">
-                                        <td></td>
-                                        <td><strong style="font-size: 14px;">STATUS</strong></td>
-                                        <td colspan="3" class="status-passed">PASSED</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- SPRING 2026 -->
-                    <h3
-                        style="font-size: 16px; color: var(--text-dark); margin-bottom: 12px; margin-top: 32px; font-weight: 600;">
-                        Kỳ Spring 2026</h3>
-                    <div class="course-list">
-                        <!-- PRJ301 -->
-                        <div>
-                            <div class="course-card" onclick="toggleDetail('prj301-detail')">
-                                <div class="card-status-bar passed"></div>
-                                <div class="course-info">
-                                    <div class="course-header">
-                                        <div class="course-title"><strong>PRJ301</strong> - Java Web Development</div>
-                                        <div class="badge badge-success" style="text-transform: uppercase;">Passed</div>
-                                    </div>
-                                    <div class="course-meta">Class name: SE2003-NET</div>
-                                    <div class="course-meta">Average: <span class="text-success">9.0</span></div>
-                                </div>
-                            </div>
-                            <table class="detail-table" id="prj301-detail"
-                                style="display: none; border-radius: 8px; margin-top: 8px; margin-bottom: 16px;">
-                                <thead>
-                                    <tr>
-                                        <th>GRADE CATEGORY</th>
-                                        <th>GRADE ITEM</th>
-                                        <th>WEIGHT</th>
-                                        <th>VALUE</th>
-                                        <th>COMMENT</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="cat-col" rowspan="2">Progress test</td>
-                                        <td class="item-col">Progress test 1</td>
-                                        <td>10.0 %</td>
-                                        <td>8.5</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>10.0 %</td>
-                                        <td>8.5</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cat-col" rowspan="2">Assignment</td>
-                                        <td class="item-col">Assignment 1</td>
-                                        <td>20.0 %</td>
-                                        <td>9.0</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>20.0 %</td>
-                                        <td>9.0</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cat-col" rowspan="2">Group Project</td>
-                                        <td class="item-col">Group Project</td>
-                                        <td>20.0 %</td>
-                                        <td>8.5</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>20.0 %</td>
-                                        <td>8.5</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cat-col" rowspan="2">Final exam</td>
-                                        <td class="item-col">FE: Practical Exam</td>
-                                        <td>50.0 %</td>
-                                        <td>9.2</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>50.0 %</td>
-                                        <td>9.2</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="fpt-bg">
-                                        <td><strong style="font-size: 14px;">COURSE TOTAL</strong></td>
-                                        <td><strong style="font-size: 14px;">AVERAGE</strong></td>
-                                        <td colspan="3" class="grade-total">9.0</td>
-                                    </tr>
-                                    <tr class="fpt-bg">
-                                        <td></td>
-                                        <td><strong style="font-size: 14px;">STATUS</strong></td>
-                                        <td colspan="3" class="status-passed">PASSED</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- FALL 2025 -->
-                    <h3
-                        style="font-size: 16px; color: var(--text-dark); margin-bottom: 12px; margin-top: 32px; font-weight: 600;">
-                        Kỳ Fall 2025</h3>
-                    <div class="course-list">
-                        <!-- CSI104 -->
-                        <div>
-                            <div class="course-card" onclick="toggleDetail('csi104-detail')">
-                                <div class="card-status-bar passed"></div>
-                                <div class="course-info">
-                                    <div class="course-header">
-                                        <div class="course-title"><strong>CSI104</strong> - Introduction to Computing
-                                        </div>
-                                        <div class="badge badge-success" style="text-transform: uppercase;">Passed</div>
-                                    </div>
-                                    <div class="course-meta">Class name: SE1901</div>
-                                    <div class="course-meta">Average: <span class="text-success">8.0</span></div>
-                                </div>
-                            </div>
-                            <table class="detail-table" id="csi104-detail"
-                                style="display: none; border-radius: 8px; margin-top: 8px; margin-bottom: 16px;">
-                                <thead>
-                                    <tr>
-                                        <th>GRADE CATEGORY</th>
-                                        <th>GRADE ITEM</th>
-                                        <th>WEIGHT</th>
-                                        <th>VALUE</th>
-                                        <th>COMMENT</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="cat-col" rowspan="2">Final exam</td>
-                                        <td class="item-col">FE: Practical Exam</td>
-                                        <td>100.0 %</td>
-                                        <td>8.0</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="item-col">Total</td>
-                                        <td>100.0 %</td>
-                                        <td>8.0</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="fpt-bg">
-                                        <td><strong style="font-size: 14px;">COURSE TOTAL</strong></td>
-                                        <td><strong style="font-size: 14px;">AVERAGE</strong></td>
-                                        <td colspan="3" class="grade-total">8.0</td>
-                                    </tr>
-                                    <tr class="fpt-bg">
-                                        <td></td>
-                                        <td><strong style="font-size: 14px;">STATUS</strong></td>
-                                        <td colspan="3" class="status-passed">PASSED</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
+                <div class="hint"><i data-lucide="info" size="14"></i>Bấm vào môn học để xem chi tiết điểm thành phần.
                 </div>
 
+                <section class="term" data-term-section="summer2026">
+                    <div class="term-head">
+                        <span class="term-name">Summer 2026</span>
+                        <span class="term-tag">Kỳ 6</span>
+                        <span class="term-line"></span>
+                        <span class="term-count">1/2 môn đạt</span>
+                    </div>
+
+                    <article class="course bad" data-term="summer2026" data-status="bad"
+                        data-search="mad101 discrete mathematics">
+                        <div class="course-head" onclick="toggleCourse(this.parentNode)">
+                            <div class="c-main">
+                                <div class="c-top"><span class="c-code">MAD101</span><span class="c-class"><i
+                                            data-lucide="users" size="13"></i>SE2003-NET</span></div>
+                                <div class="c-title">Discrete Mathematics</div>
+                            </div>
+                            <div class="c-score">
+                                <div class="c-label">Điểm TB</div>
+                                <div class="c-num">4.3</div>
+                                <div class="c-bar"><span style="width:43.0%"></span></div>
+                            </div>
+                            <span class="status bad"><i data-lucide="x-circle" size="14"></i>Not Passed</span>
+                            <i data-lucide="chevron-down" size="20" class="chev"></i>
+                        </div>
+                        <div class="course-detail">
+                            <div class="detail-inner">
+                                <div class="detail-pad">
+                                    <div class="table-wrap">
+                                        <table class="grade-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Hạng mục</th>
+                                                    <th>Thành phần</th>
+                                                    <th>Trọng số</th>
+                                                    <th>Điểm</th>
+                                                    <th>Nhận xét</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="cat" rowspan="3">Progress test</td>
+                                                    <td class="item">Progress test 1</td>
+                                                    <td><span class="w">5.0 %</span></td>
+                                                    <td class="val bad">3</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item">Progress test 2</td>
+                                                    <td><span class="w">5.0 %</span></td>
+                                                    <td class="val">5</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">10.0 %</span></td>
+                                                    <td class="val bad">4</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cat" rowspan="3">Assignment</td>
+                                                    <td class="item">Assignment 1</td>
+                                                    <td><span class="w">7.5 %</span></td>
+                                                    <td class="val bad">1</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item">Assignment 2</td>
+                                                    <td><span class="w">7.5 %</span></td>
+                                                    <td class="val bad">3</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">15.0 %</span></td>
+                                                    <td class="val bad">2</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cat" rowspan="2">Group Project</td>
+                                                    <td class="item">Group Project</td>
+                                                    <td><span class="w">20.0 %</span></td>
+                                                    <td class="val bad">1</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">20.0 %</span></td>
+                                                    <td class="val bad">1</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cat" rowspan="3">Final exam</td>
+                                                    <td class="item">FE: Practical Exam</td>
+                                                    <td><span class="w">25.0 %</span></td>
+                                                    <td class="val bad">0</td>
+                                                    <td><span class="pill bad">Không thi</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item">FE: Theoretical Exam</td>
+                                                    <td><span class="w">30.0 %</span></td>
+                                                    <td class="val bad">0</td>
+                                                    <td><span class="pill bad">Không thi</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">55.0 %</span></td>
+                                                    <td class="val bad">0</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cat" rowspan="4">Final exam Resit</td>
+                                                    <td class="item">FE: Practical Exam Resit</td>
+                                                    <td><span class="w">25.0 %</span></td>
+                                                    <td class="val bad">4.8</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item">FE: Theoretical Exam Resit</td>
+                                                    <td><span class="w">30.0 %</span></td>
+                                                    <td class="val">7.2</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Resit Total</td>
+                                                    <td><span class="w">55.0 %</span></td>
+                                                    <td class="val">6.1</td>
+                                                    <td><span class="pill warn">Need: 7.455 to pass</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">55.0 %</span></td>
+                                                    <td class="val">6.1</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="detail-sum">
+                                        <div><span class="c-label">Course total · Average</span><b
+                                                class="sum-num bad">4.3</b></div>
+                                        <span class="status bad"><i data-lucide="x-circle" size="14"></i>Not
+                                            Passed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="course ok" data-term="summer2026" data-status="ok"
+                        data-search="dbi202 database systems">
+                        <div class="course-head" onclick="toggleCourse(this.parentNode)">
+                            <div class="c-main">
+                                <div class="c-top"><span class="c-code">DBI202</span><span class="c-class"><i
+                                            data-lucide="users" size="13"></i>SE2003-NET</span></div>
+                                <div class="c-title">Database Systems</div>
+                            </div>
+                            <div class="c-score">
+                                <div class="c-label">Điểm TB</div>
+                                <div class="c-num">7.6</div>
+                                <div class="c-bar"><span style="width:76.0%"></span></div>
+                            </div>
+                            <span class="status ok"><i data-lucide="check-circle" size="14"></i>Passed</span>
+                            <i data-lucide="chevron-down" size="20" class="chev"></i>
+                        </div>
+                        <div class="course-detail">
+                            <div class="detail-inner">
+                                <div class="detail-pad">
+                                    <div class="table-wrap">
+                                        <table class="grade-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Hạng mục</th>
+                                                    <th>Thành phần</th>
+                                                    <th>Trọng số</th>
+                                                    <th>Điểm</th>
+                                                    <th>Nhận xét</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="cat" rowspan="2">Progress test</td>
+                                                    <td class="item">Progress test 1</td>
+                                                    <td><span class="w">20.0 %</span></td>
+                                                    <td class="val">9.0</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">20.0 %</span></td>
+                                                    <td class="val">9.0</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cat" rowspan="2">Assignment</td>
+                                                    <td class="item">Assignment 1</td>
+                                                    <td><span class="w">20.0 %</span></td>
+                                                    <td class="val">7.0</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">20.0 %</span></td>
+                                                    <td class="val">7.0</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cat" rowspan="2">Final exam</td>
+                                                    <td class="item">FE: Practical Exam</td>
+                                                    <td><span class="w">60.0 %</span></td>
+                                                    <td class="val">7.5</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">60.0 %</span></td>
+                                                    <td class="val">7.5</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="detail-sum">
+                                        <div><span class="c-label">Course total · Average</span><b
+                                                class="sum-num ok">7.6</b></div>
+                                        <span class="status ok"><i data-lucide="check-circle"
+                                                size="14"></i>Passed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <section class="term" data-term-section="spring2026">
+                    <div class="term-head">
+                        <span class="term-name">Spring 2026</span>
+                        <span class="term-tag">Kỳ 5</span>
+                        <span class="term-line"></span>
+                        <span class="term-count">1/1 môn đạt</span>
+                    </div>
+
+                    <article class="course ok" data-term="spring2026" data-status="ok"
+                        data-search="prj301 java web development">
+                        <div class="course-head" onclick="toggleCourse(this.parentNode)">
+                            <div class="c-main">
+                                <div class="c-top"><span class="c-code">PRJ301</span><span class="c-class"><i
+                                            data-lucide="users" size="13"></i>SE2003-NET</span></div>
+                                <div class="c-title">Java Web Development</div>
+                            </div>
+                            <div class="c-score">
+                                <div class="c-label">Điểm TB</div>
+                                <div class="c-num">9.0</div>
+                                <div class="c-bar"><span style="width:90.0%"></span></div>
+                            </div>
+                            <span class="status ok"><i data-lucide="check-circle" size="14"></i>Passed</span>
+                            <i data-lucide="chevron-down" size="20" class="chev"></i>
+                        </div>
+                        <div class="course-detail">
+                            <div class="detail-inner">
+                                <div class="detail-pad">
+                                    <div class="table-wrap">
+                                        <table class="grade-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Hạng mục</th>
+                                                    <th>Thành phần</th>
+                                                    <th>Trọng số</th>
+                                                    <th>Điểm</th>
+                                                    <th>Nhận xét</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="cat" rowspan="2">Progress test</td>
+                                                    <td class="item">Progress test 1</td>
+                                                    <td><span class="w">10.0 %</span></td>
+                                                    <td class="val">8.5</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">10.0 %</span></td>
+                                                    <td class="val">8.5</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cat" rowspan="2">Assignment</td>
+                                                    <td class="item">Assignment 1</td>
+                                                    <td><span class="w">20.0 %</span></td>
+                                                    <td class="val">9.0</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">20.0 %</span></td>
+                                                    <td class="val">9.0</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cat" rowspan="2">Group Project</td>
+                                                    <td class="item">Group Project</td>
+                                                    <td><span class="w">20.0 %</span></td>
+                                                    <td class="val">8.5</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">20.0 %</span></td>
+                                                    <td class="val">8.5</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cat" rowspan="2">Final exam</td>
+                                                    <td class="item">FE: Practical Exam</td>
+                                                    <td><span class="w">50.0 %</span></td>
+                                                    <td class="val">9.2</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">50.0 %</span></td>
+                                                    <td class="val">9.2</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="detail-sum">
+                                        <div><span class="c-label">Course total · Average</span><b
+                                                class="sum-num ok">9.0</b></div>
+                                        <span class="status ok"><i data-lucide="check-circle"
+                                                size="14"></i>Passed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <section class="term" data-term-section="fall2025">
+                    <div class="term-head">
+                        <span class="term-name">Fall 2025</span>
+                        <span class="term-tag">Kỳ 4</span>
+                        <span class="term-line"></span>
+                        <span class="term-count">1/1 môn đạt</span>
+                    </div>
+
+                    <article class="course ok" data-term="fall2025" data-status="ok"
+                        data-search="csi104 introduction to computing">
+                        <div class="course-head" onclick="toggleCourse(this.parentNode)">
+                            <div class="c-main">
+                                <div class="c-top"><span class="c-code">CSI104</span><span class="c-class"><i
+                                            data-lucide="users" size="13"></i>SE1901</span></div>
+                                <div class="c-title">Introduction to Computing</div>
+                            </div>
+                            <div class="c-score">
+                                <div class="c-label">Điểm TB</div>
+                                <div class="c-num">8.0</div>
+                                <div class="c-bar"><span style="width:80.0%"></span></div>
+                            </div>
+                            <span class="status ok"><i data-lucide="check-circle" size="14"></i>Passed</span>
+                            <i data-lucide="chevron-down" size="20" class="chev"></i>
+                        </div>
+                        <div class="course-detail">
+                            <div class="detail-inner">
+                                <div class="detail-pad">
+                                    <div class="table-wrap">
+                                        <table class="grade-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Hạng mục</th>
+                                                    <th>Thành phần</th>
+                                                    <th>Trọng số</th>
+                                                    <th>Điểm</th>
+                                                    <th>Nhận xét</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="cat" rowspan="2">Final exam</td>
+                                                    <td class="item">FE: Practical Exam</td>
+                                                    <td><span class="w">100.0 %</span></td>
+                                                    <td class="val">8.0</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                                <tr class="row-total">
+                                                    <td class="item">Total</td>
+                                                    <td><span class="w">100.0 %</span></td>
+                                                    <td class="val">8.0</td>
+                                                    <td><span class="muted">—</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="detail-sum">
+                                        <div><span class="c-label">Course total · Average</span><b
+                                                class="sum-num ok">8.0</b></div>
+                                        <span class="status ok"><i data-lucide="check-circle"
+                                                size="14"></i>Passed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <div class="empty" id="emptyState" hidden>
+                    <i data-lucide="inbox" size="36"></i>
+                    <div>Không có môn học phù hợp</div>
+                    <span>Thử đổi kỳ học, trạng thái hoặc từ khóa tìm kiếm.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -1365,13 +2098,35 @@
     <script>
         lucide.createIcons();
 
-        function toggleDetail(id) {
-            const el = document.getElementById(id);
-            if (el.style.display === 'none') {
-                el.style.display = 'table';
-            } else {
-                el.style.display = 'none';
-            }
+        function toggleCourse(card) {
+            card.classList.toggle('open');
+        }
+
+        var statusFilter = 'all';
+        function setStatus(btn) {
+            document.querySelectorAll('#statusSeg button').forEach(function (x) { x.classList.remove('active'); });
+            btn.classList.add('active');
+            statusFilter = btn.getAttribute('data-v');
+            applyFilter();
+        }
+
+        function applyFilter() {
+            var term = document.getElementById('termSelect').value;
+            var q = document.getElementById('searchInput').value.trim().toLowerCase();
+            var total = 0;
+            document.querySelectorAll('.term').forEach(function (sec) {
+                var n = 0;
+                sec.querySelectorAll('.course').forEach(function (c) {
+                    var show = (term === 'all' || c.dataset.term === term) &&
+                        (statusFilter === 'all' || c.dataset.status === statusFilter) &&
+                        (!q || c.dataset.search.indexOf(q) > -1);
+                    c.style.display = show ? '' : 'none';
+                    if (show) n++;
+                });
+                sec.style.display = n ? '' : 'none';
+                total += n;
+            });
+            document.getElementById('emptyState').hidden = total > 0;
         }
 
         function showToast(message, type = 'success') {
@@ -1444,4 +2199,3 @@
 </body>
 
 </html>
-

@@ -806,11 +806,45 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+        }
     </style>
 </head>
 
@@ -884,6 +918,12 @@
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            </a>
+            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+            </a>
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
@@ -893,7 +933,8 @@
 
         <main class="dashboard-content" style="padding: 20px 32px; gap: 16px;">
             <!-- Header -->
-            <div class="page-header" style="margin-bottom: 16px; width: 100%; min-height: 80px; padding: 40px 32px 20px 32px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start !important;">
+            <div class="page-header"
+                style="margin-bottom: 16px; width: 100%; min-height: 80px; padding: 40px 32px 20px 32px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start !important;">
                 <h1 class="page-title" style="margin: 0;">
                     <i data-lucide="user-cog" size="24"></i>
                     Cập nhật trạng thái học tập
@@ -901,22 +942,26 @@
             </div>
 
             <div class="layout-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%;">
-                
+
                 <!-- Left Panel: Search & Student Info -->
                 <div class="card" style="margin: 0; max-width: 100%; height: fit-content; padding: 24px;">
-                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-                        <div style="background: var(--primary-50); color: var(--primary); padding: 6px; border-radius: 8px;">
+                    <h3
+                        style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                        <div
+                            style="background: var(--primary-50); color: var(--primary); padding: 6px; border-radius: 8px;">
                             <i data-lucide="search" size="16"></i>
                         </div>
                         Tra cứu thông tin sinh viên
                     </h3>
-                    
+
                     <div class="form-group" style="display: flex; gap: 12px; align-items: flex-end; margin-bottom: 0;">
                         <div style="flex: 1;">
                             <label style="font-size: 13px; margin-bottom: 4px;">Mã Sinh Viên / Họ Tên</label>
-                            <input type="text" id="searchId" placeholder="Nhập VD: HE19201..." style="height: 38px; font-size: 14px; padding: 8px 12px;">
+                            <input type="text" id="searchId" placeholder="Nhập VD: HE19201..."
+                                style="height: 38px; font-size: 14px; padding: 8px 12px;">
                         </div>
-                        <button class="btn btn-primary" onclick="searchStudent()" style="height: 38px; padding: 0 20px; font-size: 14px;">
+                        <button class="btn btn-primary" onclick="searchStudent()"
+                            style="height: 38px; padding: 0 20px; font-size: 14px;">
                             Tìm kiếm
                         </button>
                     </div>
@@ -925,50 +970,67 @@
                     <div id="profileSummary" class="profile-summary" style="margin-top: 20px; padding: 16px;">
                         <div class="profile-header" style="align-items: center; margin-bottom: 0;">
                             <div style="display: flex; gap: 12px; align-items: center;">
-                                <div class="avatar" style="width: 48px !important; height: 48px !important; font-size: 16px !important;">TB</div>
+                                <div class="avatar"
+                                    style="width: 48px !important; height: 48px !important; font-size: 16px !important;">
+                                    TB</div>
                                 <div>
                                     <div class="profile-name" style="font-size: 16px;">Trần Thị Bích</div>
-                                    <div class="profile-id" style="font-size: 13px; margin-top: 2px;">HE19201 • Lớp SE1901</div>
+                                    <div class="profile-id" style="font-size: 13px; margin-top: 2px;">HE19201 • Lớp
+                                        SE1901</div>
                                 </div>
                             </div>
-                            <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E; padding: 4px 10px; font-size: 12px;">Đang học</span>
+                            <span class="status-badge"
+                                style="background: #E6F4EA; color: #1E8E3E; padding: 4px 10px; font-size: 12px;">Đang
+                                học</span>
                         </div>
 
-                        <div style="background: var(--bg-white); border-radius: 8px; padding: 12px 16px; margin-top: 16px; border: 1px solid var(--border);">
-                            <div style="font-size: 13px; color: var(--text-gray); display: flex; flex-direction: column; gap: 10px;">
+                        <div
+                            style="background: var(--bg-white); border-radius: 8px; padding: 12px 16px; margin-top: 16px; border: 1px solid var(--border);">
+                            <div
+                                style="font-size: 13px; color: var(--text-gray); display: flex; flex-direction: column; gap: 10px;">
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="credit-card" size="14"></i> Học phí:</span>
+                                    <span style="display: flex; align-items: center; gap: 6px;"><i
+                                            data-lucide="credit-card" size="14"></i> Học phí:</span>
                                     <span style="font-weight: 600; color: var(--text-dark);">Đã đóng đủ</span>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="library" size="14"></i> Thư viện:</span>
+                                    <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="library"
+                                            size="14"></i> Thư viện:</span>
                                     <span style="font-weight: 600; color: var(--text-dark);">Sách đã mượn (0)</span>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="award" size="14"></i> Điểm rèn luyện:</span>
+                                    <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="award"
+                                            size="14"></i> Điểm rèn luyện:</span>
                                     <span style="font-weight: 600; color: var(--text-dark);">85 (Tốt)</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Simulators at the bottom of left card -->
                     <div style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border);">
-                        <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 10px; font-weight: 500;">Dữ liệu Test (Giả lập ngoại lệ):</p>
+                        <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 10px; font-weight: 500;">Dữ
+                            liệu Test (Giả lập ngoại lệ):</p>
                         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;" onclick="simulateDebt()">SV Nợ phí</button>
-                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;" onclick="simulateNotGraduated()">SV Nợ môn</button>
-                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;" onclick="simulateBaoLuu()">SV Bảo lưu</button>
-                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;" onclick="simulateDinhChi()">SV Đình chỉ</button>
+                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;"
+                                onclick="simulateDebt()">SV Nợ phí</button>
+                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;"
+                                onclick="simulateNotGraduated()">SV Nợ môn</button>
+                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;"
+                                onclick="simulateBaoLuu()">SV Bảo lưu</button>
+                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;"
+                                onclick="simulateDinhChi()">SV Đình chỉ</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right Panel: Actions -->
                 <div class="card" style="margin: 0; max-width: 100%; height: fit-content; padding: 24px;">
-                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between;">
+                    <h3
+                        style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between;">
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <div style="background: var(--warning-light); color: var(--warning); padding: 6px; border-radius: 8px;">
+                            <div
+                                style="background: var(--warning-light); color: var(--warning); padding: 6px; border-radius: 8px;">
                                 <i data-lucide="edit-3" size="16"></i>
                             </div>
                             Xử lý Trạng thái
@@ -1001,7 +1063,8 @@
                             </div>
                         </div>
 
-                        <div id="suspendAlert" class="alert" style="background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309; margin-bottom: 12px; padding: 10px 14px;">
+                        <div id="suspendAlert" class="alert"
+                            style="background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309; margin-bottom: 12px; padding: 10px 14px;">
                             <i data-lucide="info" size="18" style="margin-top: 1px;"></i>
                             <div>
                                 <strong>Lưu ý:</strong> Sẽ gỡ SV khỏi lớp và chặn đăng ký học kỳ sau.
@@ -1013,7 +1076,8 @@
                     <div id="updateForm" style="opacity: 0.5; pointer-events: none;">
                         <div class="form-group" style="margin-bottom: 16px;">
                             <label style="font-size: 13px; margin-bottom: 4px;">Chọn trạng thái mới</label>
-                            <select id="newStatus" onchange="checkRules()" style="height: 38px; font-size: 14px; padding: 8px 12px;">
+                            <select id="newStatus" onchange="checkRules()"
+                                style="height: 38px; font-size: 14px; padding: 8px 12px;">
                                 <option value="">-- Lựa chọn --</option>
                                 <option value="baoluu">Bảo lưu</option>
                                 <option value="thoihoc">Thôi học</option>
@@ -1026,18 +1090,23 @@
 
                         <div class="form-group" style="margin-bottom: 0;">
                             <label style="font-size: 13px; margin-bottom: 4px;">Lý do thay đổi / Mã Quyết định</label>
-                            <textarea id="reason" rows="2" style="font-size: 14px; padding: 8px 12px;" placeholder="Ghi rõ lý do và đính kèm số quyết định xử lý (nếu có)..."></textarea>
+                            <textarea id="reason" rows="2" style="font-size: 14px; padding: 8px 12px;"
+                                placeholder="Ghi rõ lý do và đính kèm số quyết định xử lý (nếu có)..."></textarea>
                         </div>
 
                         <div style="display: flex; gap: 12px; margin-top: 24px;">
-                            <button class="btn btn-outline" style="padding: 10px 20px; font-size: 14px;" onclick="resetForm()">Làm lại</button>
-                            <button class="btn btn-primary" id="submitBtn" style="flex: 1; padding: 10px 20px; font-size: 14px; justify-content: center;" onclick="submitUpdate()">
+                            <button class="btn btn-outline" style="padding: 10px 20px; font-size: 14px;"
+                                onclick="resetForm()">Làm lại</button>
+                            <button class="btn btn-primary" id="submitBtn"
+                                style="flex: 1; padding: 10px 20px; font-size: 14px; justify-content: center;"
+                                onclick="submitUpdate()">
                                 <i data-lucide="check-circle" size="16"></i> Xác nhận lưu hệ thống
                             </button>
                         </div>
-                        
+
                         <div style="text-align: center; margin-top: 16px;">
-                            <button class="btn" onclick="openAuditLog()" style="background: transparent; border: none; color: var(--text-light); font-size: 13px; display: inline-flex; margin: 0 auto; padding: 6px;">
+                            <button class="btn" onclick="openAuditLog()"
+                                style="background: transparent; border: none; color: var(--text-light); font-size: 13px; display: inline-flex; margin: 0 auto; padding: 6px;">
                                 <i data-lucide="history" size="14"></i> Xem lịch sử thay đổi (Audit Log)
                             </button>
                         </div>

@@ -762,6 +762,78 @@
             color: #047857;
         }
 
+        /* ─── Pagination ─── */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-light);
+            background: var(--bg-white, #ffffff);
+        }
+
+        html[data-theme="dark"] .pagination {
+            background: var(--bg-white) !important;
+            border-top-color: var(--border) !important;
+        }
+
+        .pagination-info {
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        .pagination-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .page-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            background: var(--bg-white, #ffffff);
+            color: var(--text-dark);
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        html[data-theme="dark"] .page-btn {
+            background: var(--bg-white) !important;
+            border-color: var(--border) !important;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--bg-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        html[data-theme="dark"] .page-btn:hover:not(:disabled) {
+            background: var(--bg-soft, #1e293b) !important;
+        }
+
+        .page-btn.active {
+            background: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: white !important;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--bg-light);
+        }
+
+        html[data-theme="dark"] .page-btn:disabled {
+            background: var(--bg-light) !important;
+        }
+
         /* ─── Alert ─── */
         .alert-inline {
             background: var(--danger-light);
@@ -1701,6 +1773,12 @@
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            </a>
+            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+            </a>
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
@@ -2124,6 +2202,20 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="pagination">
+                        <div class="pagination-info">
+                            Hiển thị <span style="font-weight: 600;">1</span> đến <span
+                                style="font-weight: 600;">10</span> trong số <span style="font-weight: 600;">24</span>
+                            giảng viên
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="page-btn" disabled><i data-lucide="chevron-left" size="16"></i></button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn"><i data-lucide="chevron-right" size="16"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2151,10 +2243,16 @@
                                 <input type="text" placeholder="Tìm kiếm chuyên ngành..." id="searchMajor"
                                     oninput="filterMajor()">
                             </div>
+                            <select class="filter-select" id="filterMajorDept" onchange="filterMajor()">
+                                <option value="">Tất cả Khoa</option>
+                                <option value="Công nghệ thông tin">Công nghệ thông tin</option>
+                                <option value="Kinh tế">Kinh tế</option>
+                                <option value="Ngôn ngữ Anh">Ngôn ngữ Anh</option>
+                                <option value="Khoa học cơ bản">Khoa học cơ bản</option>
+                            </select>
                         </div>
                         <div class="toolbar-right">
-                            <button class="btn btn-outline"
-                                onclick="document.getElementById('searchMajor').value=''; filterMajor();">
+                            <button class="btn btn-outline" onclick="filterMajorReset()">
                                 <i data-lucide="rotate-ccw" size="14"></i> Đặt lại
                             </button>
                         </div>
@@ -2165,16 +2263,16 @@
                             <tr>
                                 <th>Mã CN</th>
                                 <th>Tên chuyên ngành</th>
-                                <th>Mô tả</th>
+                                <th>Khoa</th>
                                 <th style="text-align: right;">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody id="majorTableBody">
-                            <tr onclick="openMajorClassesModal('SE', 'Kỹ thuật phần mềm (Software Engineering)', event)"
+                            <tr data-khoa="CNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=KTPM'"
                                 style="cursor:pointer;">
-                                <td><span class="code-badge">SE</span></td>
-                                <td style="font-weight: 600;">Kỹ thuật phần mềm (Software Engineering)</td>
-                                <td>Đào tạo kỹ sư phát triển phần mềm chuyên nghiệp</td>
+                                <td><span class="code-badge">KTPM</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật phần mềm</td>
+                                <td>Công nghệ thông tin</td>
                                 <td>
                                     <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
                                                 data-lucide="pencil" size="16"></i></button><button
@@ -2182,11 +2280,11 @@
                                                 size="16"></i></button></div>
                                 </td>
                             </tr>
-                            <tr onclick="openMajorClassesModal('AI', 'Trí tuệ nhân tạo (Artificial Intelligence)', event)"
+                            <tr data-khoa="CNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=CNTT'"
                                 style="cursor:pointer;">
-                                <td><span class="code-badge">AI</span></td>
-                                <td style="font-weight: 600;">Trí tuệ nhân tạo (Artificial Intelligence)</td>
-                                <td>Nghiên cứu ứng dụng AI, Machine Learning</td>
+                                <td><span class="code-badge">CNTT</span></td>
+                                <td style="font-weight: 600;">Công nghệ thông tin</td>
+                                <td>Công nghệ thông tin</td>
                                 <td>
                                     <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
                                                 data-lucide="pencil" size="16"></i></button><button
@@ -2194,11 +2292,11 @@
                                                 size="16"></i></button></div>
                                 </td>
                             </tr>
-                            <tr onclick="openMajorClassesModal('IA', 'An toàn thông tin (Information Assurance)', event)"
+                            <tr data-khoa="CNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=KHMT'"
                                 style="cursor:pointer;">
-                                <td><span class="code-badge">IA</span></td>
-                                <td style="font-weight: 600;">An toàn thông tin (Information Assurance)</td>
-                                <td>Đào tạo chuyên gia bảo mật, an ninh mạng và điều tra số</td>
+                                <td><span class="code-badge">KHMT</span></td>
+                                <td style="font-weight: 600;">Khoa học máy tính</td>
+                                <td>Công nghệ thông tin</td>
                                 <td>
                                     <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
                                                 data-lucide="pencil" size="16"></i></button><button
@@ -2206,11 +2304,11 @@
                                                 size="16"></i></button></div>
                                 </td>
                             </tr>
-                            <tr onclick="openMajorClassesModal('IB', 'Kinh doanh quốc tế (International Business)', event)"
+                            <tr data-khoa="CNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=HTTT'"
                                 style="cursor:pointer;">
-                                <td><span class="code-badge">IB</span></td>
-                                <td style="font-weight: 600;">Kinh doanh quốc tế (International Business)</td>
-                                <td>Đào tạo nhà quản trị kinh doanh, thương mại và tài chính quốc tế</td>
+                                <td><span class="code-badge">HTTT</span></td>
+                                <td style="font-weight: 600;">Hệ thống thông tin</td>
+                                <td>Công nghệ thông tin</td>
                                 <td>
                                     <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
                                                 data-lucide="pencil" size="16"></i></button><button
@@ -2218,11 +2316,11 @@
                                                 size="16"></i></button></div>
                                 </td>
                             </tr>
-                            <tr onclick="openMajorClassesModal('MKT', 'Marketing số (Digital Marketing)', event)"
+                            <tr data-khoa="CNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=TTNT'"
                                 style="cursor:pointer;">
-                                <td><span class="code-badge">MKT</span></td>
-                                <td style="font-weight: 600;">Marketing số (Digital Marketing)</td>
-                                <td>Đào tạo chuyên viên marketing số, truyền thông và quản trị thương hiệu</td>
+                                <td><span class="code-badge">TTNT</span></td>
+                                <td style="font-weight: 600;">Trí tuệ nhân tạo</td>
+                                <td>Công nghệ thông tin</td>
                                 <td>
                                     <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
                                                 data-lucide="pencil" size="16"></i></button><button
@@ -2230,11 +2328,300 @@
                                                 size="16"></i></button></div>
                                 </td>
                             </tr>
-                            <tr onclick="openMajorClassesModal('EL', 'Ngôn ngữ Anh (English Language)', event)"
+                            <tr data-khoa="CNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=ATTT'"
                                 style="cursor:pointer;">
-                                <td><span class="code-badge">EL</span></td>
-                                <td style="font-weight: 600;">Ngôn ngữ Anh (English Language)</td>
-                                <td>Đào tạo cử nhân ngôn ngữ Anh: biên phiên dịch, giảng dạy, tiếng Anh thương mại</td>
+                                <td><span class="code-badge">ATTT</span></td>
+                                <td style="font-weight: 600;">An toàn thông tin</td>
+                                <td>Công nghệ thông tin</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTQT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=QTKD'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">QTKD</span></td>
+                                <td style="font-weight: 600;">Quản trị kinh doanh</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTQT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=KT'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">KT</span></td>
+                                <td style="font-weight: 600;">Kế toán</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTQT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=TCNH'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">TCNH</span></td>
+                                <td style="font-weight: 600;">Tài chính ngân hàng</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTQT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=KDQT'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">KDQT</span></td>
+                                <td style="font-weight: 600;">Kinh doanh quốc tế</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTQT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=LOG'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">LOG</span></td>
+                                <td style="font-weight: 600;">Logistics và QL chuỗi cung ứng</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTQT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=DMK'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">DMK</span></td>
+                                <td style="font-weight: 600;">Digital Marketing</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTQT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=LKT'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">LKT</span></td>
+                                <td style="font-weight: 600;">Luật kinh tế</td>
+                                <td>Kinh tế - Quản trị</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="NNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=NNA'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">NNA</span></td>
+                                <td style="font-weight: 600;">Ngôn ngữ Anh</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="NNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=NNN'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">NNN</span></td>
+                                <td style="font-weight: 600;">Ngôn ngữ Nhật</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="NNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=NNH'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">NNH</span></td>
+                                <td style="font-weight: 600;">Ngôn ngữ Hàn</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="NNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=NNT'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">NNT</span></td>
+                                <td style="font-weight: 600;">Ngôn ngữ Trung</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="NNTT"
+                                onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=TTDPT'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">TTDPT</span></td>
+                                <td style="font-weight: 600;">Truyền thông đa phương tiện</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="NNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=QHCC'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">QHCC</span></td>
+                                <td style="font-weight: 600;">Quan hệ công chúng</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="NNTT" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=TKDH'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">TKDH</span></td>
+                                <td style="font-weight: 600;">Thiết kế đồ họa</td>
+                                <td>Ngoại ngữ - Truyền thông</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTCN" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=DDT'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">DDT</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật điện, điện tử</td>
+                                <td>Kỹ thuật - Công nghệ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTCN" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=CKCT'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">CKCT</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật cơ khí chế tạo</td>
+                                <td>Kỹ thuật - Công nghệ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTCN" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=CNOT'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">CNOT</span></td>
+                                <td style="font-weight: 600;">Công nghệ kỹ thuật ô tô</td>
+                                <td>Kỹ thuật - Công nghệ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTCN" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=KTXD'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">KTXD</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật xây dựng</td>
+                                <td>Kỹ thuật - Công nghệ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="KTCN" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=KTR'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">KTR</span></td>
+                                <td style="font-weight: 600;">Kỹ thuật robot</td>
+                                <td>Kỹ thuật - Công nghệ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="DLDV" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=QTKS'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">QTKS</span></td>
+                                <td style="font-weight: 600;">Quản trị khách sạn</td>
+                                <td>Du lịch - Dịch vụ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="DLDV" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=DLLH'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">DLLH</span></td>
+                                <td style="font-weight: 600;">Du lịch và Lữ hành</td>
+                                <td>Du lịch - Dịch vụ</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="SKXH" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=TLH'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">TLH</span></td>
+                                <td style="font-weight: 600;">Tâm lý học</td>
+                                <td>Sức khỏe - Xã hội</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="SKXH" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=DH'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">DH</span></td>
+                                <td style="font-weight: 600;">Điều dưỡng</td>
+                                <td>Sức khỏe - Xã hội</td>
+                                <td>
+                                    <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
+                                                data-lucide="pencil" size="16"></i></button><button
+                                            class="btn-icon btn-delete" title="Xóa"><i data-lucide="trash-2"
+                                                size="16"></i></button></div>
+                                </td>
+                            </tr>
+                            <tr data-khoa="SKXH" onclick="window.location.href='MH-02-1-3-QuanLyMonHoc.html?major=DD'"
+                                style="cursor:pointer;">
+                                <td><span class="code-badge">DD</span></td>
+                                <td style="font-weight: 600;">Dinh dưỡng</td>
+                                <td>Sức khỏe - Xã hội</td>
                                 <td>
                                     <div class="action-btns"><button class="btn-icon btn-edit" title="Sửa"><i
                                                 data-lucide="pencil" size="16"></i></button><button
@@ -2244,6 +2631,20 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="pagination">
+                        <div class="pagination-info">
+                            Hiển thị <span style="font-weight: 600;">1</span> đến <span
+                                style="font-weight: 600;">10</span> trong số <span style="font-weight: 600;">28</span>
+                            chuyên ngành
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="page-btn" disabled><i data-lucide="chevron-left" size="16"></i></button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn"><i data-lucide="chevron-right" size="16"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2275,12 +2676,48 @@
                             </div>
                             <select class="filter-select" id="filterSubjectMajor" onchange="filterSubject()">
                                 <option value="">Tất cả chuyên ngành</option>
-                                <option value="SE">Kỹ thuật phần mềm (SE)</option>
-                                <option value="AI">Trí tuệ nhân tạo (AI)</option>
-                                <option value="IB">Kinh doanh quốc tế (IB)</option>
-                                <option value="IA">An toàn thông tin (IA)</option>
-                                <option value="MKT">Marketing số (MKT)</option>
-                                <option value="EL">Ngôn ngữ Anh (EL)</option>
+                                <optgroup label="Công nghệ thông tin">
+                                    <option value="KTPM">Kỹ thuật phần mềm</option>
+                                    <option value="CNTT">Công nghệ thông tin</option>
+                                    <option value="KHMT">Khoa học máy tính</option>
+                                    <option value="HTTT">Hệ thống thông tin</option>
+                                    <option value="TTNT">Trí tuệ nhân tạo</option>
+                                    <option value="ATTT">An toàn thông tin</option>
+                                </optgroup>
+                                <optgroup label="Kinh tế - Quản trị">
+                                    <option value="QTKD">Quản trị kinh doanh</option>
+                                    <option value="KT">Kế toán</option>
+                                    <option value="TCNH">Tài chính ngân hàng</option>
+                                    <option value="KDQT">Kinh doanh quốc tế</option>
+                                    <option value="LOG">Logistics và QL chuỗi cung ứng</option>
+                                    <option value="DMK">Digital Marketing</option>
+                                    <option value="LKT">Luật kinh tế</option>
+                                </optgroup>
+                                <optgroup label="Ngoại ngữ - Truyền thông">
+                                    <option value="NNA">Ngôn ngữ Anh</option>
+                                    <option value="NNN">Ngôn ngữ Nhật</option>
+                                    <option value="NNH">Ngôn ngữ Hàn</option>
+                                    <option value="NNT">Ngôn ngữ Trung</option>
+                                    <option value="TTDPT">Truyền thông đa phương tiện</option>
+                                    <option value="QHCC">Quan hệ công chúng</option>
+                                    <option value="TKDH">Thiết kế đồ họa</option>
+                                </optgroup>
+                                <optgroup label="Kỹ thuật - Công nghệ">
+                                    <option value="DDT">Kỹ thuật điện, điện tử</option>
+                                    <option value="CKCT">Kỹ thuật cơ khí chế tạo</option>
+                                    <option value="CNOT">Công nghệ kỹ thuật ô tô</option>
+                                    <option value="KTXD">Kỹ thuật xây dựng</option>
+                                    <option value="KTR">Kỹ thuật robot</option>
+                                </optgroup>
+                                <optgroup label="Du lịch - Dịch vụ">
+                                    <option value="QTKS">Quản trị khách sạn</option>
+                                    <option value="DLLH">Du lịch và Lữ hành</option>
+                                </optgroup>
+                                <optgroup label="Sức khỏe - Xã hội">
+                                    <option value="TLH">Tâm lý học</option>
+                                    <option value="DH">Điều dưỡng</option>
+                                    <option value="DD">Dinh dưỡng</option>
+                                </optgroup>
                             </select>
                             <select class="filter-select" id="filterSubjectCredits" onchange="filterSubject()">
                                 <option value="">Tất cả tín chỉ</option>
@@ -3208,6 +3645,22 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="pagination">
+                        <div class="pagination-info">
+                            Hiển thị <span style="font-weight: 600;">1</span> đến <span
+                                style="font-weight: 600;">10</span> trong số <span style="font-weight: 600;">73</span>
+                            môn học
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="page-btn" disabled><i data-lucide="chevron-left" size="16"></i></button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">...</button>
+                            <button class="page-btn">8</button>
+                            <button class="page-btn"><i data-lucide="chevron-right" size="16"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -3289,8 +3742,16 @@
                     <input type="text" id="majorName" class="form-control" placeholder="Ví dụ: Kỹ thuật phần mềm">
                 </div>
                 <div class="form-group">
-                    <label>Mô tả thêm</label>
-                    <input type="text" id="majorDesc" class="form-control" placeholder="...">
+                    <label>Khoa <span class="req">*</span></label>
+                    <select id="majorDept" class="form-control">
+                        <option value="">-- Chọn Khoa --</option>
+                        <option value="Công nghệ thông tin">Công nghệ thông tin</option>
+                        <option value="Kinh tế - Quản trị">Kinh tế - Quản trị</option>
+                        <option value="Ngoại ngữ - Truyền thông">Ngoại ngữ - Truyền thông</option>
+                        <option value="Kỹ thuật - Công nghệ">Kỹ thuật - Công nghệ</option>
+                        <option value="Du lịch - Dịch vụ">Du lịch - Dịch vụ</option>
+                        <option value="Sức khỏe - Xã hội">Sức khỏe - Xã hội</option>
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -3329,12 +3790,48 @@
                     <div class="form-group">
                         <label>Thuộc chuyên ngành <span class="req">*</span></label>
                         <select class="form-control" id="formMajor">
-                            <option value="SE">Kỹ thuật phần mềm (Software Engineering)</option>
-                            <option value="AI">Trí tuệ nhân tạo (Artificial Intelligence)</option>
-                            <option value="IB">Kinh doanh quốc tế (International Business)</option>
-                            <option value="IA">An toàn thông tin (Information Assurance)</option>
-                            <option value="MKT">Marketing số (Digital Marketing)</option>
-                            <option value="EL">Ngôn ngữ Anh (English Language)</option>
+                            <optgroup label="Công nghệ thông tin">
+                                <option value="KTPM">Kỹ thuật phần mềm</option>
+                                <option value="CNTT">Công nghệ thông tin</option>
+                                <option value="KHMT">Khoa học máy tính</option>
+                                <option value="HTTT">Hệ thống thông tin</option>
+                                <option value="TTNT">Trí tuệ nhân tạo</option>
+                                <option value="ATTT">An toàn thông tin</option>
+                            </optgroup>
+                            <optgroup label="Kinh tế - Quản trị">
+                                <option value="QTKD">Quản trị kinh doanh</option>
+                                <option value="KT">Kế toán</option>
+                                <option value="TCNH">Tài chính ngân hàng</option>
+                                <option value="KDQT">Kinh doanh quốc tế</option>
+                                <option value="LOG">Logistics và QL chuỗi cung ứng</option>
+                                <option value="DMK">Digital Marketing</option>
+                                <option value="LKT">Luật kinh tế</option>
+                            </optgroup>
+                            <optgroup label="Ngoại ngữ - Truyền thông">
+                                <option value="NNA">Ngôn ngữ Anh</option>
+                                <option value="NNN">Ngôn ngữ Nhật</option>
+                                <option value="NNH">Ngôn ngữ Hàn</option>
+                                <option value="NNT">Ngôn ngữ Trung</option>
+                                <option value="TTDPT">Truyền thông đa phương tiện</option>
+                                <option value="QHCC">Quan hệ công chúng</option>
+                                <option value="TKDH">Thiết kế đồ họa</option>
+                            </optgroup>
+                            <optgroup label="Kỹ thuật - Công nghệ">
+                                <option value="DDT">Kỹ thuật điện, điện tử</option>
+                                <option value="CKCT">Kỹ thuật cơ khí chế tạo</option>
+                                <option value="CNOT">Công nghệ kỹ thuật ô tô</option>
+                                <option value="KTXD">Kỹ thuật xây dựng</option>
+                                <option value="KTR">Kỹ thuật robot</option>
+                            </optgroup>
+                            <optgroup label="Du lịch - Dịch vụ">
+                                <option value="QTKS">Quản trị khách sạn</option>
+                                <option value="DLLH">Du lịch và Lữ hành</option>
+                            </optgroup>
+                            <optgroup label="Sức khỏe - Xã hội">
+                                <option value="TLH">Tâm lý học</option>
+                                <option value="DH">Điều dưỡng</option>
+                                <option value="DD">Dinh dưỡng</option>
+                            </optgroup>
                         </select>
                     </div>
                     <div class="form-group">
@@ -3493,30 +3990,108 @@
             setTimeout(() => alertBox.classList.remove('active'), 4000);
         }
 
+        // === Pagination State & Logic ===
+        const paginationState = {
+            lecturer: { page: 1, limit: 10 },
+            major: { page: 1, limit: 10 },
+            subject: { page: 1, limit: 10 }
+        };
+
+        function renderPagination(tableBodyId, stateKey, filteredRows) {
+            const state = paginationState[stateKey];
+            const total = filteredRows.length;
+            const totalPages = Math.ceil(total / state.limit) || 1;
+            if (state.page > totalPages) state.page = totalPages;
+
+            const startIdx = (state.page - 1) * state.limit;
+            const endIdx = Math.min(startIdx + state.limit, total);
+
+            filteredRows.forEach((row, index) => {
+                row.style.display = (index >= startIdx && index < endIdx) ? '' : 'none';
+            });
+
+            const panel = document.getElementById(tableBodyId).closest('.data-panel');
+            if (!panel) return;
+            const infoSpan = panel.querySelector('.pagination-info');
+            if (infoSpan) {
+                const totalDisplay = total > 0 ? `<span style="font-weight: 600;">${startIdx + 1}</span> đến <span style="font-weight: 600;">${endIdx}</span> trong số <span style="font-weight: 600;">${total}</span> mục` : 'Không có dữ liệu';
+                infoSpan.innerHTML = `Hiển thị ${totalDisplay}`;
+            }
+
+            const controls = panel.querySelector('.pagination-controls');
+            if (controls) {
+                let html = '';
+                html += `<button class="page-btn" ${state.page === 1 ? 'disabled' : ''} onclick="changePage('${stateKey}', ${state.page - 1})"><i data-lucide="chevron-left" size="16"></i></button>`;
+
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === 1 || i === totalPages || (i >= state.page - 1 && i <= state.page + 1)) {
+                        html += `<button class="page-btn ${i === state.page ? 'active' : ''}" onclick="changePage('${stateKey}', ${i})">${i}</button>`;
+                    } else if (i === state.page - 2 || i === state.page + 2) {
+                        html += `<button class="page-btn" disabled>...</button>`;
+                    }
+                }
+
+                html += `<button class="page-btn" ${state.page === totalPages ? 'disabled' : ''} onclick="changePage('${stateKey}', ${state.page + 1})"><i data-lucide="chevron-right" size="16"></i></button>`;
+                controls.innerHTML = html;
+                lucide.createIcons();
+            }
+        }
+
+        function changePage(stateKey, newPage) {
+            paginationState[stateKey].page = newPage;
+            if (stateKey === 'lecturer') filterLecturer();
+            if (stateKey === 'major') filterMajor();
+            if (stateKey === 'subject') filterSubject();
+        }
+
         // === Filter: Lecturer ===
         function filterLecturer() {
             const search = document.getElementById('searchLecturer').value.toLowerCase();
             const dept = document.getElementById('filterLecturerDept').value;
             const rows = document.querySelectorAll('#lecturerTableBody tr');
+            const filteredRows = [];
             rows.forEach(row => {
                 const text = row.textContent.toLowerCase();
                 const deptMatch = !dept || row.children[2].textContent.includes(dept);
-                row.style.display = (text.includes(search) && deptMatch) ? '' : 'none';
+                if (text.includes(search) && deptMatch) {
+                    filteredRows.push(row);
+                } else {
+                    row.style.display = 'none';
+                }
             });
+            renderPagination('lecturerTableBody', 'lecturer', filteredRows);
         }
         function filterLecturerReset() {
             document.getElementById('searchLecturer').value = '';
             document.getElementById('filterLecturerDept').value = '';
+            paginationState.lecturer.page = 1;
             filterLecturer();
         }
 
         // === Filter: Major ===
         function filterMajor() {
             const search = document.getElementById('searchMajor').value.toLowerCase();
+            const deptSelect = document.getElementById('filterMajorDept');
+            const dept = deptSelect ? deptSelect.value : '';
             const rows = document.querySelectorAll('#majorTableBody tr');
+            const filteredRows = [];
             rows.forEach(row => {
-                row.style.display = row.textContent.toLowerCase().includes(search) ? '' : 'none';
+                const text = row.textContent.toLowerCase();
+                const deptMatch = !dept || row.children[2].textContent.includes(dept);
+                if (text.includes(search) && deptMatch) {
+                    filteredRows.push(row);
+                } else {
+                    row.style.display = 'none';
+                }
             });
+            renderPagination('majorTableBody', 'major', filteredRows);
+        }
+        function filterMajorReset() {
+            document.getElementById('searchMajor').value = '';
+            const filterDept = document.getElementById('filterMajorDept');
+            if (filterDept) filterDept.value = '';
+            paginationState.major.page = 1;
+            filterMajor();
         }
 
         // === Filter: Subject ===
@@ -3525,6 +4100,7 @@
             const major = document.getElementById('filterSubjectMajor').value;
             const credits = document.getElementById('filterSubjectCredits').value;
             const rows = document.querySelectorAll('#subjectTableBody tr');
+            const filteredRows = [];
             rows.forEach(row => {
                 const text = row.textContent.toLowerCase();
                 const majorData = row.getAttribute('data-major') || '';
@@ -3532,13 +4108,19 @@
                 const matchSearch = text.includes(search);
                 const matchMajor = !major || majorData.includes(major);
                 const matchCredits = !credits || creditsData === credits;
-                row.style.display = (matchSearch && matchMajor && matchCredits) ? '' : 'none';
+                if (matchSearch && matchMajor && matchCredits) {
+                    filteredRows.push(row);
+                } else {
+                    row.style.display = 'none';
+                }
             });
+            renderPagination('subjectTableBody', 'subject', filteredRows);
         }
         function filterSubjectReset() {
             document.getElementById('searchSubject').value = '';
             document.getElementById('filterSubjectMajor').value = '';
             document.getElementById('filterSubjectCredits').value = '';
+            paginationState.subject.page = 1;
             filterSubject();
         }
 
@@ -3702,6 +4284,30 @@
                 setTimeout(() => toast.remove(), 350);
             }, 3500);
         }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Khởi tạo phân trang
+            filterLecturer();
+            filterMajor();
+            filterSubject();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const khoa = urlParams.get('khoa');
+            if (khoa && typeof switchCategory === 'function') {
+                switchCategory('major');
+                const deptSelect = document.getElementById('filterMajorDept');
+                if (deptSelect) {
+                    // Update the select and filter
+                    Array.from(deptSelect.options).forEach(opt => {
+                        if (opt.value === khoa || opt.text === khoa) {
+                            deptSelect.value = opt.value;
+                        }
+                    });
+                    filterMajor();
+                }
+            }
+        });
     </script>
     <script>
         (function () {

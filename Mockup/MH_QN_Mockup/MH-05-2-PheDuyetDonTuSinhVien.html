@@ -929,11 +929,48 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; border-radius: 8px !important; margin: 0 !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; box-shadow: none !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+            border-radius: 8px !important;
+            margin: 0 !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 
@@ -1006,6 +1043,13 @@
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item active">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            </a>
+            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+            </a>
+
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
@@ -1327,4 +1371,3 @@
 </body>
 
 </html>
-

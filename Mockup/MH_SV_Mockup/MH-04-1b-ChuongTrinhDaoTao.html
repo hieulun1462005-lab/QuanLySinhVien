@@ -684,11 +684,48 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; border-radius: 8px !important; margin: 0 !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; box-shadow: none !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+            border-radius: 8px !important;
+            margin: 0 !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 
@@ -742,9 +779,7 @@
                 <div class="menu-item " onclick="window.location.href='MH-03-2-BaoCaoDiemDanh.html'">
                     <i data-lucide="check-circle" size="18"></i> Báo cáo điểm danh
                 </div>
-                <div class="menu-item active" onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'">
-                    <i data-lucide="book" size="18"></i> Chương trình đào tạo
-                </div>
+
                 <div class="menu-item " onclick="window.location.href='MH-04-3-LichThi.html'">
                     <i data-lucide="clock" size="18"></i> Lịch thi
                 </div>
@@ -752,7 +787,18 @@
                     <i data-lucide="bar-chart-2" size="18"></i> Bảng điểm cá nhân
                 </div>
             </div>
-
+            <div class="menu-group">
+                <div class="menu-title">ĐÀO TẠO</div>
+                <div class="menu-item " onclick="window.location.href='MH-03-4-DanhGiaGiangVien.html'">
+                    <i data-lucide="star" size="18"></i> Đánh giá giảng viên
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-02-7-DoiLop.html'">
+                    <i data-lucide="refresh-cw"></i> Đổi lớp
+                </div>
+                <div class="menu-item active" onclick="window.location.href='MH-04-1b-ChuongTrinhDaoTao.html'">
+                    <i data-lucide="book"></i> Chương trình đào tạo
+                </div>
+            </div>
             <div class="menu-group">
                 <div class="menu-title">HÀNH CHÍNH & TÀI CHÍNH</div>
                 <div class="menu-item " onclick="window.location.href='MH-05-5-DichVuHanhChinhMotCua.html'">
@@ -760,6 +806,9 @@
                 </div>
                 <div class="menu-item " onclick="window.location.href='MH-06-2-HoaDonVaThanhToan.html'">
                     <i data-lucide="credit-card" size="18"></i> Hóa đơn & Thanh toán
+                </div>
+                <div class="menu-item " onclick="window.location.href='MH-06-3-hocbong.html'" id="navAll">
+                    <i data-lucide="award" size="18"></i> Học bổng
                 </div>
             </div>
         </div>
@@ -1106,7 +1155,7 @@
             animation: modalSlideUp 0.3s ease;
             overflow: hidden;
         }
-        
+
         .modal-body {
             overflow-y: auto;
             flex: 1;
@@ -1246,10 +1295,15 @@
             background: #F5F8FC;
             color: #0757A6;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes modalSlideUp {
@@ -1257,52 +1311,64 @@
                 opacity: 0;
                 transform: translateY(20px) scale(0.97);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
-        
+
         html[data-theme="dark"] .modal-panel {
             background: #0F172A;
             color: #E2E8F0;
         }
+
         html[data-theme="dark"] .modal-footer {
             background: #1E293B;
             border-color: #334155;
         }
+
         html[data-theme="dark"] .sv-sec h4 {
             color: #F8FAFC;
         }
+
         html[data-theme="dark"] .sv-kv {
             background: #1E293B;
             border-color: #334155;
         }
+
         html[data-theme="dark"] .sv-kv b {
             color: #F8FAFC;
         }
+
         html[data-theme="dark"] .sv-text {
             color: #CBD5E1;
         }
+
         html[data-theme="dark"] .sv-table th {
             color: #94A3B8;
             border-bottom-color: #334155;
         }
+
         html[data-theme="dark"] .sv-table td {
             border-bottom-color: #334155;
             color: #E2E8F0;
         }
+
         html[data-theme="dark"] .btn-ghost {
             color: #E2E8F0;
         }
+
         html[data-theme="dark"] .btn-ghost:hover {
             background: #334155;
             color: #F8FAFC;
         }
+
         html[data-theme="dark"] .btn-outline {
             color: #E2E8F0;
             border-color: #475569;
         }
+
         html[data-theme="dark"] .btn-outline:hover {
             background: #334155;
         }
@@ -1316,7 +1382,8 @@
                     <h3 id="svName"></h3>
                     <p id="svNameEn"></p>
                 </div>
-                <button class="btn-ghost" style="color:#fff" onclick="closeModal('subjectViewModal')"><i data-lucide="x" size="18"></i></button>
+                <button class="btn-ghost" style="color:#fff" onclick="closeModal('subjectViewModal')"><i data-lucide="x"
+                        size="18"></i></button>
             </div>
             <div class="modal-body" id="svBody"></div>
             <div class="modal-footer">
@@ -1421,7 +1488,7 @@
 
         function openModal(id) {
             document.getElementById(id).classList.add('active');
-            if(window.lucide) window.lucide.createIcons();
+            if (window.lucide) window.lucide.createIcons();
         }
         function closeModal(id) {
             document.getElementById(id).classList.remove('active');
@@ -1435,7 +1502,7 @@
             const kv = (k, v) => `<div class="sv-kv"><span>${k}</span><b>${v === '' || v == null ? '—' : esc(v)}</b></div>`;
             const total = s.assess.reduce((a, b) => a + b.weight, 0);
             const typeName = t => t === 'final' ? 'Cuối kỳ' : 'Quá trình';
-            
+
             document.getElementById('svCode').textContent = s.code;
             document.getElementById('svName').textContent = s.name;
             document.getElementById('svNameEn').textContent = s.nameEn || '';
@@ -1452,14 +1519,14 @@
                 <div class="sv-sec"><h4>Chuẩn đầu ra (${s.clos.length})</h4>${s.clos.length ? `<table class="sv-table"><tbody>${s.clos.map((c, i) => `<tr><td style="width:70px"><b style="color:#6D28D9">CLO${i + 1}</b></td><td>${esc(c)}</td></tr>`).join('')}</tbody></table>` : '<div class="sv-empty">Chưa có chuẩn đầu ra.</div>'}</div>
                 <div class="sv-sec"><h4>Nội dung giảng dạy (${s.plan.reduce((a, b) => a + b.sessions, 0)} buổi)</h4>${s.plan.length ? `<table class="sv-table"><thead><tr><th>Chương / Chủ đề</th><th style="width:80px">Số buổi</th><th style="width:80px">CLO</th><th style="width:120px">Tài liệu</th></tr></thead><tbody>${s.plan.map(p => `<tr><td>${esc(p.topic)}</td><td>${p.sessions}</td><td>${esc(p.clo)}</td><td><a href="TaiLieu_HocTap.txt" download="TaiLieu_${s.code}.txt" style="color:#2563EB; text-decoration:none; display:flex; align-items:center; gap:4px; font-weight: 500;"><i data-lucide="download" size="14"></i> Tải tài liệu</a></td></tr>`).join('')}</tbody></table>` : '<div class="sv-empty">Chưa có nội dung giảng dạy.</div>'}</div>
                 <div class="sv-sec"><h4>Đánh giá</h4>${s.assess.length ? `<table class="sv-table"><thead><tr><th>Hạng mục</th><th>Loại</th><th>Trọng số</th><th>Thời lượng</th></tr></thead><tbody>${s.assess.map(a => `<tr><td>${esc(a.name)}</td><td>${typeName(a.type)}</td><td><b>${a.weight}%</b></td><td>${esc(a.duration) || '—'}</td></tr>`).join('')}<tr><td colspan="2"><b>Tổng cộng</b></td><td colspan="2"><b>${total}%</b></td></tr></tbody></table>` : '<div class="sv-empty">Chưa có cơ cấu đánh giá.</div>'}</div>`;
-            
+
             openModal('subjectViewModal');
         }
 
         // Attach events to buttons
         document.querySelectorAll('button.btn-outline').forEach(btn => {
             if (btn.textContent.trim() === 'Chi tiết') {
-                btn.onclick = function() {
+                btn.onclick = function () {
                     const tr = this.closest('tr');
                     const code = tr.querySelector('td:nth-child(2)').textContent.trim();
                     const nameEn = tr.querySelector('td:nth-child(3) div:nth-child(1)').textContent.trim();
@@ -1477,4 +1544,3 @@
 </body>
 
 </html>
-

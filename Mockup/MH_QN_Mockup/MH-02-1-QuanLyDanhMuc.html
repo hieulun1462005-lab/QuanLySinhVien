@@ -413,6 +413,13 @@
             --g: linear-gradient(90deg, #8B5CF6, #A78BFA)
         }
 
+        .card-department {
+            --c: #B45309;
+            --bg: #FEF3C7;
+            --g: linear-gradient(90deg, #D97706, #F59E0B)
+        }
+
+
         .category-card::before {
             background: var(--g)
         }
@@ -771,6 +778,105 @@
             }
         }
 
+        /* ─── Data Panel ─── */
+        .tab-content-area {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .tab-content-area.active {
+            display: block;
+        }
+
+        .data-panel {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            animation: panelFadeIn 0.35s ease forwards;
+        }
+
+        @keyframes panelFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-light);
+            background: #FAFBFD;
+        }
+
+        .panel-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .panel-header-left .panel-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .panel-header-left .panel-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th {
+            text-align: left;
+            padding: 13px 24px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--text-light);
+            border-bottom: 1px solid var(--border-light);
+            background: #F9FBFD;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .table td {
+            padding: 13px 24px;
+            font-size: 13.5px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-dark);
+        }
+
+        .table tbody tr:hover {
+            background: #F8FAFD;
+        }
+
+        .code-badge {
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-50);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            display: inline-block;
+        }
+
         @media(max-width:1100px) {
 
             .category-cards,
@@ -1112,6 +1218,11 @@
             background: var(--bg-white) !important
         }
 
+        html[data-theme="dark"] .data-panel,
+        html[data-theme="dark"] .table th {
+            background: var(--bg-white) !important
+        }
+
         html[data-theme="dark"] .panel-head {
             background: var(--bg-white) !important
         }
@@ -1161,11 +1272,45 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+        }
     </style>
 </head>
 
@@ -1241,6 +1386,12 @@
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            </a>
+            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+            </a>
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
@@ -1257,7 +1408,7 @@
                             danh mục bên dưới để bắt đầu.</p>
                     </div>
                     <div class="hero-stats">
-                        <div class="hstat"><b>3</b><span>Danh mục</span></div>
+                        <div class="hstat"><b>6</b><span>Danh mục</span></div>
                     </div>
                 </section>
 
@@ -1272,7 +1423,7 @@
                                 <div class="category-icon"><i data-lucide="graduation-cap" size="28"></i></div>
                                 <div>
                                     <div class="category-label">Giảng viên</div><span class="category-count"
-                                        id="countLecturer">2 giảng viên</span>
+                                        id="countLecturer">24 giảng viên</span>
                                 </div>
                             </div>
                             <p class="card-desc">Hồ sơ giảng viên, bộ môn phụ trách và thông tin liên hệ phục vụ xếp
@@ -1281,13 +1432,27 @@
                                     size="18"></i></div>
                         </div>
 
+                        <div class="category-card card-department"
+                            onclick="window.location.href='MH-02-1-4-QuanLyKhoa.html'">
+                            <div class="card-top">
+                                <div class="category-icon"><i data-lucide="building" size="28"></i></div>
+                                <div>
+                                    <div class="category-label">Khoa</div><span class="category-count"
+                                        id="countDepartment">6 khoa</span>
+                                </div>
+                            </div>
+                            <p class="card-desc">Quản lý các khoa trong trường và danh sách chuyên ngành trực thuộc.</p>
+                            <div class="card-foot"><span>Quản lý Khoa</span><i data-lucide="arrow-right" size="18"></i>
+                            </div>
+                        </div>
+
                         <div class="category-card card-major"
                             onclick="window.location.href='MH-02-1-2-QuanLyChuyenNganh.html'">
                             <div class="card-top">
                                 <div class="category-icon"><i data-lucide="git-branch" size="28"></i></div>
                                 <div>
                                     <div class="category-label">Chuyên ngành</div><span class="category-count"
-                                        id="countMajor">2 chuyên ngành</span>
+                                        id="countMajor">30 chuyên ngành</span>
                                 </div>
                             </div>
                             <p class="card-desc">Danh sách chuyên ngành đào tạo, mã ngành và liên kết với khung chương
@@ -1302,12 +1467,40 @@
                                 <div class="category-icon"><i data-lucide="book-text" size="28"></i></div>
                                 <div>
                                     <div class="category-label">Môn học</div><span class="category-count"
-                                        id="countSubject">2 môn học</span>
+                                        id="countSubject">73 môn học</span>
                                 </div>
                             </div>
                             <p class="card-desc">Môn học, số tín chỉ, môn tiên quyết và gán giảng viên phụ trách từng
                                 học phần.</p>
                             <div class="card-foot"><span>Quản lý môn học</span><i data-lucide="arrow-right"
+                                    size="18"></i></div>
+                        </div>
+
+                        <div class="category-card card-department"
+                            onclick="window.location.href='MH-02-1-5-QuanLyToaNha.html'">
+                            <div class="card-top">
+                                <div class="category-icon"><i data-lucide="building-2" size="28"></i></div>
+                                <div>
+                                    <div class="category-label">Tòa nhà</div><span class="category-count"
+                                        id="countBuilding">12 tòa nhà</span>
+                                </div>
+                            </div>
+                            <p class="card-desc">Quản lý các tòa nhà, khu vực trong khuôn viên trường.</p>
+                            <div class="card-foot"><span>Quản lý tòa nhà</span><i data-lucide="arrow-right"
+                                    size="18"></i></div>
+                        </div>
+
+                        <div class="category-card card-major"
+                            onclick="window.location.href='MH-02-1-6-QuanLyPhongHoc.html'">
+                            <div class="card-top">
+                                <div class="category-icon"><i data-lucide="door-open" size="28"></i></div>
+                                <div>
+                                    <div class="category-label">Phòng học</div><span class="category-count"
+                                        id="countRoom">150 phòng học</span>
+                                </div>
+                            </div>
+                            <p class="card-desc">Quản lý phòng học, sức chứa, loại hình và trang thiết bị.</p>
+                            <div class="card-foot"><span>Quản lý phòng học</span><i data-lucide="arrow-right"
                                     size="18"></i></div>
                         </div>
                     </div>

@@ -308,8 +308,15 @@
         }
 
         @keyframes alertFadeIn {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .alert.active {
@@ -332,24 +339,42 @@
             border: 1px solid #FECACA;
             color: #991B1B;
         }
-        .alert-danger::before { background: #EF4444; }
-        .alert-danger i { color: #DC2626; }
+
+        .alert-danger::before {
+            background: #EF4444;
+        }
+
+        .alert-danger i {
+            color: #DC2626;
+        }
 
         .alert-warning {
             background: linear-gradient(to right, #FFFBEB, #ffffff);
             border: 1px solid #FDE68A;
             color: #92400E;
         }
-        .alert-warning::before { background: #F59E0B; }
-        .alert-warning i { color: #D97706; }
+
+        .alert-warning::before {
+            background: #F59E0B;
+        }
+
+        .alert-warning i {
+            color: #D97706;
+        }
 
         .alert-info {
             background: linear-gradient(to right, #EFF6FF, #ffffff);
             border: 1px solid #BFDBFE;
             color: #1E40AF;
         }
-        .alert-info::before { background: #3B82F6; }
-        .alert-info i { color: #2563EB; }
+
+        .alert-info::before {
+            background: #3B82F6;
+        }
+
+        .alert-info i {
+            color: #2563EB;
+        }
 
         .user-profile {
             display: flex;
@@ -462,7 +487,7 @@
             background: white;
             border-radius: 16px;
             padding: 40px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
             border: 1px solid var(--border-light);
             display: flex;
             flex-direction: column;
@@ -488,6 +513,7 @@
             display: flex;
             gap: 12px;
         }
+
         .search-section.compact .search-box {
             max-width: 500px;
             margin: 0;
@@ -531,7 +557,7 @@
             font-size: 13px;
             color: var(--text-gray);
         }
-        
+
         .test-triggers button {
             background: var(--bg-light);
             border: 1px solid var(--border);
@@ -542,6 +568,7 @@
             color: var(--text-dark);
             transition: 0.2s;
         }
+
         .test-triggers button:hover {
             background: var(--primary-light);
             border-color: var(--primary);
@@ -556,14 +583,21 @@
         }
 
         @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .student-profile-card {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
             border: 1px solid var(--border-light);
             position: relative;
             overflow: hidden;
@@ -573,7 +607,10 @@
         .student-profile-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 100px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
             background: linear-gradient(135deg, var(--primary), #1B7FD6);
             z-index: 0;
         }
@@ -595,7 +632,7 @@
             border-radius: 50%;
             background: white;
             border: 4px solid white;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -605,9 +642,28 @@
             margin-bottom: 16px;
         }
 
-        .sp-name { font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
-        .sp-id { font-size: 14px; color: var(--text-gray); margin-bottom: 16px; font-weight: 500; }
-        .sp-status { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 20px;}
+        .sp-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .sp-id {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .sp-status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
 
         .sp-stats {
             width: 100%;
@@ -623,20 +679,29 @@
             flex-direction: column;
             gap: 6px;
         }
-        .sp-stat-label { font-size: 12px; color: var(--text-gray); }
-        .sp-stat-value { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+
+        .sp-stat-label {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .sp-stat-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
 
         .transition-form-card {
             background: white;
             border-radius: 16px;
             padding: 32px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
             border: 1px solid var(--border-light);
             height: 100%;
             display: flex;
             flex-direction: column;
         }
-        
+
         .transition-form-card h3 {
             font-size: 18px;
             margin-bottom: 24px;
@@ -697,6 +762,7 @@
             background-position: right 16px center;
             background-size: 16px;
         }
+
         .major-box.new select:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(7, 87, 166, 0.1);
@@ -713,11 +779,12 @@
             align-items: center;
             color: var(--primary);
             flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             position: relative;
         }
-        
-        .transition-arrow::before, .transition-arrow::after {
+
+        .transition-arrow::before,
+        .transition-arrow::after {
             content: '';
             position: absolute;
             height: 2px;
@@ -726,14 +793,21 @@
             z-index: -1;
             width: 30px;
         }
-        .transition-arrow::before { right: 100%; }
-        .transition-arrow::after { left: 100%; }
+
+        .transition-arrow::before {
+            right: 100%;
+        }
+
+        .transition-arrow::after {
+            left: 100%;
+        }
 
         .action-buttons {
             display: flex;
             gap: 12px;
             margin-top: 32px;
         }
+
         .action-buttons .btn {
             flex: 1;
             padding: 14px;
@@ -773,16 +847,18 @@
             border-color: var(--border);
             color: var(--text-dark);
         }
-        
+
         html[data-theme="dark"] .sp-avatar {
             background: var(--bg-white);
             border-color: var(--bg-white);
         }
+
         html[data-theme="dark"] .test-triggers button {
             background: var(--bg-white);
             border-color: var(--border);
             color: var(--text-dark);
         }
+
         html[data-theme="dark"] .test-triggers button:hover {
             background: var(--bg-soft);
         }
@@ -834,12 +910,32 @@
             justify-content: center;
         }
 
-        .toast-success .toast-icon { background: #ECFDF5; color: #10B981; }
-        .toast-error .toast-icon { background: #FEF2F2; color: #EF4444; }
+        .toast-success .toast-icon {
+            background: #ECFDF5;
+            color: #10B981;
+        }
 
-        .toast-content { flex: 1; }
-        .toast-title { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
-        .toast-message { font-size: 13px; color: var(--text-gray); line-height: 1.4; }
+        .toast-error .toast-icon {
+            background: #FEF2F2;
+            color: #EF4444;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.4;
+        }
 
         html[data-theme="dark"] .toast {
             background: var(--bg-white);
@@ -1179,9 +1275,23 @@
             background: var(--bg-soft) !important
         }
 
-        html[data-theme="dark"] .alert-danger { background: rgba(220, 38, 38, 0.1) !important; border-color: rgba(220, 38, 38, 0.2) !important; color: #FCA5A5 !important; }
-        html[data-theme="dark"] .alert-warning { background: rgba(217, 119, 6, 0.1) !important; border-color: rgba(217, 119, 6, 0.2) !important; color: #FCD34D !important; }
-        html[data-theme="dark"] .alert-info { background: rgba(37, 99, 235, 0.1) !important; border-color: rgba(37, 99, 235, 0.2) !important; color: #93C5FD !important; }
+        html[data-theme="dark"] .alert-danger {
+            background: rgba(220, 38, 38, 0.1) !important;
+            border-color: rgba(220, 38, 38, 0.2) !important;
+            color: #FCA5A5 !important;
+        }
+
+        html[data-theme="dark"] .alert-warning {
+            background: rgba(217, 119, 6, 0.1) !important;
+            border-color: rgba(217, 119, 6, 0.2) !important;
+            color: #FCD34D !important;
+        }
+
+        html[data-theme="dark"] .alert-info {
+            background: rgba(37, 99, 235, 0.1) !important;
+            border-color: rgba(37, 99, 235, 0.2) !important;
+            color: #93C5FD !important;
+        }
 
         html[data-theme="dark"] .user-profile:hover {
             background: var(--bg-soft) !important
@@ -1233,11 +1343,45 @@
     </style>
     <style id="menu-style-fix">
         /* Kích thước và cách thiết kế giống MH-01-4 */
-        .sidebar { padding: 16px 0 !important; gap: 2px !important; width: 256px !important; }
-        .group-title, .menu-group-title, .menu-title { font-size: 10px !important; font-weight: 700 !important; text-transform: uppercase !important; padding: 14px 24px 6px !important; letter-spacing: .8px !important; }
-        .side-item, .sidebar-item, .menu-item { display: flex !important; align-items: center !important; gap: 12px !important; padding: 10px 24px !important; font-weight: 500 !important; font-size: 13.5px !important; }
-        .side-item svg, .sidebar-item svg, .menu-item svg { width: 18px !important; height: 18px !important; }
-        .side-item.active, .sidebar-item.active, .menu-item.active { font-weight: 600 !important; }
+        .sidebar {
+            padding: 16px 0 !important;
+            gap: 2px !important;
+            width: 256px !important;
+        }
+
+        .group-title,
+        .menu-group-title,
+        .menu-title {
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            padding: 14px 24px 6px !important;
+            letter-spacing: .8px !important;
+        }
+
+        .side-item,
+        .sidebar-item,
+        .menu-item {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 10px 24px !important;
+            font-weight: 500 !important;
+            font-size: 13.5px !important;
+        }
+
+        .side-item svg,
+        .sidebar-item svg,
+        .menu-item svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        .side-item.active,
+        .sidebar-item.active,
+        .menu-item.active {
+            font-weight: 600 !important;
+        }
     </style>
 </head>
 
@@ -1311,6 +1455,12 @@
             <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            </a>
+            <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
+                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+            </a>
             <div class="menu-group-title">Tài Chính</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
@@ -1320,26 +1470,29 @@
 
         <main class="dashboard-content">
             <div class="chuyen-nganh-container">
-                <div class="page-header" style="width: 100%; min-height: 110px; padding: 40px 32px 24px 32px; display: flex; justify-content: space-between; align-items: center; border-radius: 20px;">
+                <div class="page-header"
+                    style="width: 100%; min-height: 110px; padding: 40px 32px 24px 32px; display: flex; justify-content: space-between; align-items: center; border-radius: 20px;">
                     <h1 class="page-title" style="margin: 0; position: relative; z-index: 1;">
                         <i data-lucide="arrow-right-left" size="24"></i>
                         <span>Chuyển ngành sinh viên</span>
                     </h1>
-                    <button class="btn btn-outline" onclick="openAuditLog()" style="position: relative; z-index: 1;"><i data-lucide="history" size="18"></i> Lịch sử (Audit Log)</button>
+                    <button class="btn btn-outline" onclick="openAuditLog()" style="position: relative; z-index: 1;"><i
+                            data-lucide="history" size="18"></i> Lịch sử (Audit Log)</button>
                 </div>
 
                 <!-- State 1: Search -->
                 <div class="search-section" id="searchSection">
                     <div style="text-align: center; margin-bottom: 8px;" id="searchTitle">
                         <h2 style="font-size: 22px; margin-bottom: 8px;">Tra cứu thông tin sinh viên</h2>
-                        <p style="color: var(--text-gray); font-size: 14px;">Nhập mã sinh viên để kiểm tra điều kiện và thực hiện chuyển ngành</p>
+                        <p style="color: var(--text-gray); font-size: 14px;">Nhập mã sinh viên để kiểm tra điều kiện và
+                            thực hiện chuyển ngành</p>
                     </div>
                     <div class="search-box">
                         <i data-lucide="search" class="search-icon"></i>
                         <input type="text" id="searchId" placeholder="VD: HE19201...">
                         <button class="btn btn-primary" onclick="searchStudent()">Tìm kiếm</button>
                     </div>
-                    
+
                     <div class="test-triggers">
                         <span style="font-weight: 600;">Dành cho Test:</span>
                         <button onclick="simulateDebt()">SV Nợ phí</button>
@@ -1358,7 +1511,7 @@
                                 <div class="sp-name" id="spName">Trần Thị Bích</div>
                                 <div class="sp-id" id="spId">HE19201 • Lớp SE1901</div>
                                 <div class="sp-status" id="spStatus">Đang học</div>
-                                
+
                                 <div class="sp-stats">
                                     <div class="sp-stat-item">
                                         <span class="sp-stat-label">Số tín chỉ tích lũy</span>
@@ -1371,7 +1524,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="validation-status">
                             <div id="alertContainer"></div>
                         </div>
@@ -1381,7 +1534,7 @@
                     <div class="right-panel">
                         <div class="transition-form-card" id="updateForm">
                             <h3>Đăng ký chuyển ngành</h3>
-                            
+
                             <div class="major-transition-visual">
                                 <div class="major-box current">
                                     <span class="label">Ngành hiện tại</span>
@@ -1405,12 +1558,14 @@
 
                             <div class="form-group">
                                 <label>Lý do / Số Quyết định</label>
-                                <textarea id="reason" rows="4" placeholder="Nhập lý do chuyển ngành hoặc mã số quyết định đi kèm..."></textarea>
+                                <textarea id="reason" rows="4"
+                                    placeholder="Nhập lý do chuyển ngành hoặc mã số quyết định đi kèm..."></textarea>
                             </div>
-                            
+
                             <div class="action-buttons">
                                 <button class="btn btn-outline" onclick="resetForm()">Làm mới</button>
-                                <button class="btn btn-primary" id="submitBtn" onclick="submitUpdate()">Xác nhận chuyển ngành</button>
+                                <button class="btn btn-primary" id="submitBtn" onclick="submitUpdate()">Xác nhận chuyển
+                                    ngành</button>
                             </div>
                         </div>
                     </div>
@@ -1442,7 +1597,8 @@
                         CBQN Nguyễn Văn A</div>
                     <div style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Chuyển ngành SV
                         HE18001</div>
-                    <div style="font-size: 14px; color: var(--text-gray); margin-top: 4px;">Từ "Quản trị kinh doanh" -> "Marketing".
+                    <div style="font-size: 14px; color: var(--text-gray); margin-top: 4px;">Từ "Quản trị kinh doanh" ->
+                        "Marketing".
                         Lý do: QĐ số 456/QĐ-CN.</div>
                 </div>
             </div>
@@ -1451,14 +1607,14 @@
 
     <script>
         lucide.createIcons();
-        
+
         function showToast(title, message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
-            
+
             let iconName = type === 'success' ? 'check' : 'alert-circle';
-            
+
             toast.innerHTML = `
                 <div class="toast-icon"><i data-lucide="${iconName}" size="16"></i></div>
                 <div class="toast-content">
@@ -1466,13 +1622,13 @@
                     <div class="toast-message">${message}</div>
                 </div>
             `;
-            
+
             container.appendChild(toast);
             lucide.createIcons();
-            
+
             // Trigger animation
             setTimeout(() => toast.classList.add('show'), 10);
-            
+
             // Auto remove
             setTimeout(() => {
                 toast.classList.remove('show');
@@ -1493,12 +1649,12 @@
             document.getElementById('searchSection').classList.add('compact');
             document.getElementById('searchTitle').style.display = 'none';
             document.getElementById('contentGrid').style.display = 'grid';
-            
+
             // Default normal user
             isDebt = false;
             isEligibleMajorChange = true;
             currentStatus = 'danghoc';
-            
+
             updateProfileUI('Trần Thị Bích', 'HE19201', 'SE1901', 'Kỹ thuật phần mềm (SE)', 45, 'Đang học');
             checkRules();
         }
@@ -1509,10 +1665,10 @@
             document.getElementById('spAvatar').innerText = name.charAt(0);
             document.getElementById('lblCurrentMajor').innerText = major;
             document.getElementById('spCredits').innerText = `${credits} tín chỉ`;
-            
+
             const statusBadge = document.getElementById('spStatus');
             statusBadge.innerText = status;
-            if(status === 'Đang học') {
+            if (status === 'Đang học') {
                 statusBadge.style.color = '#1E8E3E';
                 statusBadge.style.background = '#E6F4EA';
                 statusBadge.style.border = '1px solid #1E8E3E33';
@@ -1552,7 +1708,7 @@
             const major = document.getElementById('newMajor').value;
             const submitBtn = document.getElementById('submitBtn');
             const alertContainer = document.getElementById('alertContainer');
-            
+
             alertContainer.innerHTML = ''; // clear previous alerts
             submitBtn.disabled = false;
             let hasError = false;
@@ -1572,11 +1728,11 @@
                 addAlert('warning', 'Cảnh báo nợ phí', 'Hệ thống chặn chức năng chuyển ngành cho đến khi sinh viên hoàn tất nghĩa vụ tài chính.');
                 hasError = true;
             }
-            
+
             if (hasError || !major) {
                 submitBtn.disabled = true;
             }
-            
+
             lucide.createIcons();
         }
 
@@ -1587,7 +1743,7 @@
                 'warning': 'alert-triangle',
                 'info': 'info'
             };
-            
+
             const html = `
                 <div class="alert alert-${type} alert-item active">
                     <i data-lucide="${icons[type]}" size="22" style="margin-top: 2px;"></i>
