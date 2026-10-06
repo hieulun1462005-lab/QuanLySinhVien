@@ -1,4 +1,4 @@
-**TÀI LIỆU ĐẶC TẢ CHỨC NĂNG**
+﻿**TÀI LIỆU ĐẶC TẢ CHỨC NĂNG**
 
 **FUNCTIONAL SPECIFICATION DOCUMENT (FSD)**
 
@@ -27,7 +27,8 @@ _Tự động hóa & Khách quan · Real-time & Đồng bộ · Truy vết toàn
 | 2.0 | 21/09/2026 | Team Dev | Đặc tả kỹ thuật các luồng chức năng theo BRD v4.0. |
 | 2.1 | 23/09/2026 | BA & Team Dev | Chuẩn hóa FSD theo khuôn 13 chương / mẫu 10 mục của Template chuẩn. Mapping lại toàn bộ mã định danh theo BRD v5.0. |
 | 3.0 | 28/09/2026 | BA & Team Dev | **Cập nhật toàn diện**: Bổ sung đầy đủ 8 nhóm chức năng, đặc tả field-level cho tất cả 36+ màn hình, validation rules chi tiết, error codes, state machines, tích hợp hoàn chỉnh với BRD v5.0 và Mockup. |
-| 3.1 | 02/10/2026 | BA & Team Dev | Đối chiếu FSD với 41 file Mockup: bổ sung MH-01-8-HoSoSinhVien, MH-02-1-1/MH-02-1-2/MH-02-1-3 (trang con danh mục GV/Chuyên ngành/Môn học). Cập nhật đặc tả UI Chương 6 cho 4 MH mới. Đồng bộ với BRD v5.3. |
+| 3.1 | 02/10/2026 | BA & Team Dev | Đối chiếu FSD với 41 file Mockup: bổ sung MH-01-8-HoSoSinhVien, MH-02-1-1/MH-02-1-2/MH-02-1-3. Cập nhật đặc tả UI Chương 6 cho 4 MH mới. Đồng bộ với BRD v5.3. |
+| 3.2 | 06/10/2026 | BA & Team Dev | Cập nhật theo BRD v5.4: Bổ sung đặc tả các màn hình Mockup (Chuyển ngành, Quản lý Khoa/Tòa nhà/Phòng học, Đổi lớp, Đánh giá GV, Kho đề thi, Lịch thi, Học bổng, Phúc khảo, Cập nhật điểm thi). Cập nhật danh sách màn hình và thêm các khối FS tương ứng. |
 
 _Vị trí trong bộ tài liệu: FSD này là cầu nối giữa BRD (nghiệp vụ) và mã nguồn. Mọi ràng buộc (BR), mã lỗi (ERR), luồng ngoại lệ đều được dịch thành quy tắc xử lý phần mềm, đặc biệt tập trung vào máy trạng thái và các thuật toán lõi (QR động, xét điểm tự động)._
 
@@ -932,6 +933,77 @@ Bổ sung:
 
 **④ Xử lý Email**: Background Queue (Hangfire/Quartz.NET). HTML Template. Retry 3 lần nếu SMTP fail. Log mọi email gửi ra.
 
+### **FS-QLSV-01-100-0020 — Chuyển ngành & Đổi lớp**
+
+**① Mô tả & mục đích** Xử lý quy trình sinh viên đổi chuyên ngành hoặc xin đổi lớp học phần.
+**② Tác nhân**: VT-01 Quản nhiệm, VT-03 Sinh viên.
+**③ Logic xử lý**
+1. SV nộp yêu cầu đổi lớp trên MH-02-7. Hoặc QN thao tác chuyển ngành cho SV trên MH-01-7.
+2. Kiểm tra điều kiện:
+   - Đổi lớp: Lớp đích phải còn chỗ (Sĩ số < MaxCapacity).
+   - Chuyển ngành: SV không nợ môn quá số tín chỉ quy định.
+3. QN phê duyệt yêu cầu chuyển ngành.
+4. Hệ thống cập nhật TT-01 (ngành mới) và cập nhật TT-02 (xóa khỏi lớp cũ, thêm vào lớp mới).
+**④ Đặc tả trường dữ liệu**
+- FLD-REQ-TARGET-MAJOR: FK(TT-05) - Ngành đích.
+- FLD-REQ-TARGET-CLASS: FK(TT-02) - Lớp đích.
+**⑤ Quy tắc**: Lớp đích không vượt MaxCapacity.
+
+### **FS-QLSV-03-100-0020 — Đánh giá Giảng viên**
+
+**① Mô tả & mục đích** Khảo sát chất lượng giảng dạy cuối kỳ của GV bằng form ẩn danh.
+**② Tác nhân**: VT-03 SV, VT-02 GV.
+**③ Logic xử lý**
+1. SV truy cập MH-03-4. Hệ thống load danh sách các câu hỏi khảo sát.
+2. SV chọn rating (1-5 sao) và nhập text góp ý.
+3. Nhấn Submit. Hệ thống lưu kết quả (không kèm MSSV). Đánh dấu SV đã hoàn thành đánh giá môn học.
+4. Cuối kỳ, GV truy cập MH-04-3 để xem điểm trung bình và danh sách nhận xét ẩn danh.
+**④ Đặc tả trường dữ liệu**
+- FLD-EVAL-RATING: Int (1-5).
+- FLD-EVAL-COMMENT: String.
+**⑤ Quy tắc**: Ẩn danh tuyệt đối. Mỗi SV chỉ đánh giá 1 lần/môn/kỳ.
+
+### **FS-QLSV-04-100-0030 — Quản lý Kho đề thi & Lịch thi**
+
+**① Mô tả & mục đích** Quản lý ngân hàng đề thi và lên lịch thi cuối kỳ cho sinh viên.
+**② Tác nhân**: VT-01 QN.
+**③ Logic xử lý**
+1. QN upload đề thi (PDF, Word) lên MH-02-5.
+2. Tại MH-02-6, QN tạo ca thi: Chọn môn, chọn ngày giờ, phòng thi, giám thị.
+3. Gắn đề thi vào ca thi. Phân bổ SV đủ điều kiện dự thi (không bị G3).
+**④ Đặc tả trường dữ liệu**
+- FLD-EXAM-FILE: File.
+- FLD-EXAM-DATE: DateTime.
+- FLD-EXAM-ROOM: String.
+**⑤ Quy tắc**: Không trùng phòng, GV gác thi.
+
+### **FS-QLSV-05-100-0030 — Quản lý Phúc khảo**
+
+**① Mô tả & mục đích** Giải quyết yêu cầu phúc khảo bài thi của sinh viên.
+**② Tác nhân**: VT-03 SV, VT-01 QN.
+**③ Logic xử lý**
+1. SV nộp đơn phúc khảo tại MH-05-5, thanh toán lệ phí (nếu có).
+2. QN nhận đơn tại MH-05-4. Tiến hành chấm lại.
+3. QN nhập điểm mới, đánh dấu hoàn thành. Hệ thống update điểm vào TT-09.
+**④ Đặc tả trường dữ liệu**
+- FLD-REGRADE-REASON: String.
+- FLD-REGRADE-NEW-SCORE: Float.
+**⑤ Quy tắc**: Ghi log mọi thay đổi điểm.
+
+### **FS-QLSV-05-100-0040 — Quản lý Học bổng**
+
+**① Mô tả & mục đích** Cấp phát và theo dõi học bổng sinh viên.
+**② Tác nhân**: VT-01 QN, VT-03 SV.
+**③ Logic xử lý**
+1. QN import danh sách cấp học bổng tại MH-05-3.
+2. Hệ thống lưu số tiền. SV có thể xem trên MH-06-3.
+3. Khi xuất hóa đơn học kỳ sau, số tiền học bổng sẽ tự động được cấn trừ (discount).
+**④ Đặc tả trường dữ liệu**
+- FLD-SCHOLARSHIP-AMOUNT: Decimal.
+- FLD-SCHOLARSHIP-SEMESTER: String.
+**⑤ Quy tắc**: Chỉ áp dụng cho kỳ tiếp theo hoặc khấu trừ trực tiếp.
+
+
 # **CHƯƠNG 6. ĐẶC TẢ GIAO DIỆN CHÍNH**
 
 | **Mã MH** | **Đặc tả UI & Hành vi** |
@@ -1167,6 +1239,9 @@ Bổ sung:
 | UC-17.NT01 | Hóa đơn quá hạn → Overdue → Chặn SV xem điểm/đăng ký. | FS-QLSV-06-100, BR-046 |
 
 _Hết tài liệu FSD v3.0._
+
+
+
 
 
 

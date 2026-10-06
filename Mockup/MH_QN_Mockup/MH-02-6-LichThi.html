@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiếp nhận hồ sơ nhập học - Hệ Thống Quản Lý Sinh Viên</title>
+    <title>Lịch thi - Hệ Thống Quản Lý Sinh Viên</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -1719,6 +1719,663 @@
             }
         }
     </style>
+    <style id="kdt-style">
+        .kd-layout {
+            display: grid;
+            grid-template-columns: 310px 1fr;
+            gap: 24px;
+            align-items: start
+        }
+
+        @media(max-width:1100px) {
+            .kd-layout {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .kd-tree {
+            padding: 16px;
+            position: sticky;
+            top: 0;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto
+        }
+
+        .kd-search {
+            width: 100%;
+            height: 40px;
+            padding: 0 12px 0 36px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 13.5px;
+            outline: none;
+            background: var(--bg-white);
+            color: var(--text-dark)
+        }
+
+        .kd-search:focus {
+            border-color: var(--primary)
+        }
+
+        .kd-sw {
+            position: relative;
+            margin-bottom: 12px
+        }
+
+        .kd-sw svg {
+            position: absolute;
+            left: 11px;
+            top: 11px;
+            width: 18px;
+            height: 18px;
+            color: var(--text-light)
+        }
+
+        .t-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-gray);
+            user-select: none
+        }
+
+        .t-row:hover {
+            background: var(--bg-soft, #F8FAFC);
+            color: var(--primary)
+        }
+
+        .t-row svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0
+        }
+
+        .t-row .cnt {
+            margin-left: auto;
+            font-size: 11.5px;
+            font-weight: 600;
+            background: var(--primary-50);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 999px
+        }
+
+        .t-khoa {
+            font-weight: 700;
+            color: var(--text-dark)
+        }
+
+        .t-nganh {
+            margin-left: 16px
+        }
+
+        .t-mon {
+            margin-left: 34px
+        }
+
+        .t-mon.active {
+            background: var(--primary-50);
+            color: var(--primary);
+            font-weight: 600;
+            box-shadow: inset 3px 0 0 var(--primary)
+        }
+
+        .t-chev {
+            transition: transform .15s
+        }
+
+        .t-open>.t-chev {
+            transform: rotate(90deg)
+        }
+
+        .kd-crumb {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-gray);
+            flex-wrap: wrap
+        }
+
+        .kd-crumb b {
+            color: var(--text-dark)
+        }
+
+        .kd-mon-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 6px 0 16px
+        }
+
+        .kd-stats {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 20px
+        }
+
+        @media(max-width:800px) {
+            .kd-stats {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .stat {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            background: var(--bg-soft, #F9FBFD)
+        }
+
+        .stat small {
+            display: block;
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-bottom: 4px
+        }
+
+        .stat b {
+            font-size: 22px
+        }
+
+        .kd-tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px
+        }
+
+        .kd-tab {
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-gray);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px
+        }
+
+        .kd-tab.on {
+            color: var(--primary);
+            border-color: var(--primary)
+        }
+
+        .kd-tools {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+            flex-wrap: wrap
+        }
+
+        .kd-tools input,
+        .kd-tools select,
+        .fld input,
+        .fld select {
+            height: 40px;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            outline: none
+        }
+
+        .kd-tools input {
+            flex: 1;
+            min-width: 180px
+        }
+
+        .kd-tools input:focus,
+        .fld input:focus,
+        .fld select:focus {
+            border-color: var(--primary)
+        }
+
+        .kd-tw {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            max-height: 520px;
+            overflow-y: auto
+        }
+
+        .kd-tw .table th {
+            position: sticky;
+            top: 0;
+            z-index: 1
+        }
+
+        .q-t {
+            font-weight: 500;
+            line-height: 1.45
+        }
+
+        .q-o {
+            font-size: 12.5px;
+            color: var(--text-gray);
+            margin-top: 4px
+        }
+
+        .lv {
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap
+        }
+
+        .lv-D {
+            background: var(--success-light);
+            color: var(--success)
+        }
+
+        .lv-T {
+            background: var(--warning-light);
+            color: var(--warning)
+        }
+
+        .lv-K {
+            background: var(--danger-light);
+            color: var(--danger)
+        }
+
+        .ib {
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px
+        }
+
+        .ib:hover {
+            background: var(--danger-light);
+            color: var(--danger)
+        }
+
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px
+        }
+
+        .exam {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px;
+            background: var(--bg-white)
+        }
+
+        .exam h4 {
+            font-size: 15px;
+            margin-bottom: 8px
+        }
+
+        .exam p {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 4px
+        }
+
+        .exam .acts {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px
+        }
+
+        .exam .btn {
+            padding: 7px 12px;
+            font-size: 13px
+        }
+
+        .empty {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-gray);
+            font-size: 14px
+        }
+
+        .empty svg {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+            color: var(--text-light)
+        }
+
+        .kd-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(2, 8, 16, .55);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px
+        }
+
+        .kd-modal.on {
+            display: flex
+        }
+
+        .kd-box {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            width: 100%;
+            max-width: 640px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl, 0 24px 56px rgba(0, 0, 0, .3))
+        }
+
+        .kd-box.wide {
+            max-width: 820px
+        }
+
+        .kd-mh {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--bg-white);
+            z-index: 2
+        }
+
+        .kd-mh h3 {
+            font-size: 18px
+        }
+
+        .kd-mb {
+            padding: 24px
+        }
+
+        .kd-mf {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 16px 24px;
+            border-top: 1px solid var(--border)
+        }
+
+        .fgrid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 16px
+        }
+
+        .fld {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .fld label,
+        .sec-l {
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .fld.full {
+            grid-column: 1/-1
+        }
+
+        .sec-l {
+            display: block;
+            margin: 6px 0 10px
+        }
+
+        .seg {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px
+        }
+
+        .seg label {
+            flex: 1;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 13.5px;
+            font-weight: 500;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .seg label:has(input:checked) {
+            border-color: var(--primary);
+            background: var(--primary-50);
+            color: var(--primary)
+        }
+
+        .lvgrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 14px
+        }
+
+        .lvgrid small {
+            font-size: 11.5px;
+            color: var(--text-gray)
+        }
+
+        .chk {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            margin-bottom: 14px;
+            font-size: 13.5px
+        }
+
+        .chk label {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            cursor: pointer
+        }
+
+        .sumbox {
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: 13.5px;
+            background: var(--primary-50);
+            color: var(--primary);
+            font-weight: 500
+        }
+
+        .sumbox.bad {
+            background: var(--danger-light);
+            color: var(--danger)
+        }
+
+        .drop {
+            border: 2px dashed var(--border);
+            border-radius: 14px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            color: var(--text-gray);
+            font-size: 14px
+        }
+
+        .drop:hover,
+        .drop.over {
+            border-color: var(--primary);
+            background: var(--primary-50);
+            color: var(--primary)
+        }
+
+        .drop svg {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 8px
+        }
+
+        .pv-q {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 12px
+        }
+
+        .pv-q .o {
+            font-size: 13.5px;
+            padding: 3px 0;
+            color: var(--text-gray)
+        }
+
+        .pv-q .o.ok {
+            color: var(--success);
+            font-weight: 600
+        }
+
+        .kd-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 2000;
+            background: var(--text-dark);
+            color: var(--bg-white);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: .25s;
+            pointer-events: none
+        }
+
+        .kd-toast.on {
+            opacity: 1;
+            transform: none
+        }
+    </style>
+    <style id="lt-style">
+        .lt-cfg {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr) auto;
+            gap: 14px;
+            align-items: end
+        }
+
+        @media(max-width:1100px) {
+            .lt-cfg {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .lt-cfg .btn {
+            height: 40px;
+            justify-content: center
+        }
+
+        .lt-scroll {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 12px
+        }
+
+        .lt-grid {
+            display: grid;
+            min-width: max-content
+        }
+
+        .lt-c {
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 8px;
+            min-height: 92px;
+            font-size: 12px;
+            color: var(--text-gray)
+        }
+
+        .lt-h {
+            background: var(--bg-soft, #F9FBFD);
+            font-weight: 600;
+            text-align: center;
+            min-height: 0;
+            color: var(--text-dark)
+        }
+
+        .lt-h small {
+            display: block;
+            font-weight: 500;
+            color: var(--text-gray)
+        }
+
+        .lt-chip {
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: none;
+            border-left: 3px solid var(--c);
+            background: color-mix(in srgb, var(--c) 13%, var(--bg-white));
+            color: var(--text-dark);
+            border-radius: 6px;
+            padding: 5px 8px;
+            margin-bottom: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            line-height: 1.35
+        }
+
+        .lt-chip:hover {
+            background: color-mix(in srgb, var(--c) 24%, var(--bg-white))
+        }
+
+        .lt-chip small {
+            display: block;
+            color: var(--text-gray);
+            font-size: 11px
+        }
+
+        .lt-u {
+            font-size: 11px;
+            margin-top: 6px
+        }
+
+        .lt-ok {
+            color: var(--success);
+            font-weight: 600
+        }
+
+        .lt-no {
+            color: var(--danger);
+            font-weight: 600
+        }
+
+        .lt-mv {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 14px
+        }
+
+        .lt-mv select {
+            height: 38px;
+            padding: 0 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-white);
+            color: var(--text-dark)
+        }
+    </style>
 </head>
 
 <body>
@@ -1758,7 +2415,7 @@
             <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
                 <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
-            <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item active">
+            <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item">
                 <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
             <div class="menu-group-title">Sinh Viên</div>
@@ -1787,10 +2444,10 @@
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item">
                 <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
-            <a href="MH-02-5-KhoDeThi.html" class="sidebar-item ">
+            <a href="MH-02-5-KhoDeThi.html" class="sidebar-item">
                 <i data-lucide="library-big" size="18"></i> Kho đề thi
             </a>
-            <a href="MH-02-6-LichThi.html" class="sidebar-item ">
+            <a href="MH-02-6-LichThi.html" class="sidebar-item active">
                 <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
             </a>
             <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
@@ -1811,240 +2468,196 @@
             </a>
         </aside>
 
-
         <!-- Main Content -->
         <main class="dashboard-content">
             <div class="page-header">
                 <div>
-                    <h1 class="page-title">Tiếp nhận hồ sơ nhập học</h1>
-                    <p class="page-subtitle">Chọn sinh viên trúng tuyển, bổ sung thông tin nhập học và đối chiếu giấy tờ
-                        nộp.</p>
+                    <h1 class="page-title">Lịch thi</h1>
+                    <p class="page-subtitle">Tạo lịch thi cuối kỳ cho toàn trường: tự chia phòng theo sức chứa, phát số
+                        báo danh và phân công giám thị, không trùng ca với cùng khóa.</p>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="manual()"><i data-lucide="user-plus"
-                        size="18"></i> Thêm SV thủ công</button>
+                <div style="display:flex;gap:12px;flex-wrap:wrap">
+                    <button class="btn btn-outline" onclick="clearAll()"><i data-lucide="eraser" size="18"></i> Xóa
+                        lịch</button>
+                    <button class="btn btn-outline" onclick="exportCsv()"><i data-lucide="file-down" size="18"></i> Xuất
+                        CSV</button>
+                    <button class="btn btn-primary" onclick="gen()"><i data-lucide="calendar-plus" size="18"></i> Tạo
+                        lịch thi</button>
+                </div>
             </div>
-
-            <div class="rc-layout">
-                <div>
-                    <div class="x-card pick">
-                        <div class="pick-row">
-                            <input class="x-inp" id="q" placeholder="Nhập mã trúng tuyển, họ tên hoặc CCCD"
-                                aria-label="Tìm sinh viên" autocomplete="off">
-                            <button type="button" class="btn btn-outline" onclick="search()"><i data-lucide="search"
-                                    size="16"></i> Tìm kiếm</button>
-                        </div>
-                        <div class="hint" id="candHint"></div>
-                        <div class="cand" id="cand"></div>
-                    </div>
-
-                    <form id="profileForm" novalidate>
-                        <fieldset id="fs" disabled>
-                            <div id="secs"></div>
-                        </fieldset>
-                    </form>
+            <div class="kd-stats" id="stats"></div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Cấu hình kỳ thi cuối kỳ · Fall 2026</div>
                 </div>
-
-                <aside class="rc" aria-label="Phiếu tiếp nhận">
-                    <div class="rc-top">
-                        <button type="button" class="ph" id="ph" title="Tải ảnh thẻ 3×4"><i data-lucide="camera"
-                                size="20"></i>Ảnh 3×4</button>
-                        <input type="file" id="phIn" accept="image/*" hidden>
-                        <div class="rc-id"><small>Mã trúng tuyển</small>
-                            <div class="rc-code" id="rcCode">—</div>
-                            <div class="rc-name" id="rcName">Chưa chọn sinh viên</div>
-                        </div>
-                    </div>
-                    <div class="rc-dl">
-                        <div><span>Chuyên ngành</span><b id="rcNg">—</b></div>
-                        <div><span>Xét tuyển</span><b id="rcPt">—</b></div>
-                        <div><span>Khóa / Đợt</span><b id="rcKh">—</b></div>
-                    </div>
-                    <div class="perf"></div>
-                    <div class="rc-pr">
-                        <div class="pct"><span id="pct">0%</span><small id="pctS">hoàn thiện hồ sơ</small></div>
-                        <div class="bar" id="bar"><i></i></div>
-                    </div>
-                    <div class="rc-ms" id="ms">Chọn một sinh viên để bắt đầu tiếp nhận.</div>
-                    <div class="rc-act">
-                        <button type="submit" form="profileForm" class="btn btn-primary" id="sub" disabled><i
-                                data-lucide="check-circle" size="18"></i> Xác nhận nhập hồ sơ</button>
-                        <button type="button" class="btn btn-outline" onclick="resetAll()">Làm mới</button>
-                    </div>
-                </aside>
+                <div class="lt-cfg">
+                    <div class="fld"><label>Ngày bắt đầu</label><input type="date" id="cStart" value="2026-11-16"></div>
+                    <div class="fld"><label>Số ngày thi (không tính CN)</label><select id="cDays">
+                            <option>4</option>
+                            <option>5</option>
+                            <option selected>6</option>
+                            <option>8</option>
+                            <option>10</option>
+                            <option>12</option>
+                        </select></div>
+                    <div class="fld"><label>Giãn cách các môn của 1 SV</label><select id="cGap">
+                            <option value="0">Cho phép cùng ngày (khác ca)</option>
+                            <option value="1" selected>Tối đa 1 môn mỗi ngày</option>
+                            <option value="2">Cách nhau ≥ 1 ngày</option>
+                        </select></div>
+                    <div class="fld"><label>Mật độ phòng thi</label><select id="cRatio">
+                            <option value="1">100% sức chứa</option>
+                            <option value="0.7" selected>70% (giãn chỗ ngồi)</option>
+                            <option value="0.5">50%</option>
+                        </select></div>
+                    <div class="fld"><label>Giám thị mỗi phòng</label><select id="cGv">
+                            <option>1</option>
+                            <option selected>2</option>
+                        </select></div>
+                    <button class="btn btn-primary" onclick="gen()"><i data-lucide="wand-sparkles" size="16"></i> Tạo tự
+                        động</button>
+                </div>
+                <div class="sumbox" id="sum" style="margin-top:16px"></div>
+            </div>
+            <div class="card">
+                <div class="kd-tabs">
+                    <div class="kd-tab on" data-t="grid" onclick="tab='grid';render()">Lịch theo ngày / ca</div>
+                    <div class="kd-tab" data-t="list" onclick="tab='list';render()">Danh sách môn thi</div>
+                </div>
+                <div class="kd-tools">
+                    <select id="fF" onchange="render()">
+                        <option value="">Tất cả khoa</option>
+                    </select>
+                    <select id="fK" onchange="render()">
+                        <option value="">Tất cả khóa</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                    </select>
+                    <input id="fQ" placeholder="Tìm môn thi..." oninput="render()">
+                </div>
+                <div id="view"></div>
             </div>
         </main>
     </div>
 
-    <div class="x-ov" id="okM">
-        <div class="x-modal" style="width:min(440px,100%);text-align:center" role="dialog" aria-modal="true">
-            <div class="x-mb" style="padding:32px 28px 12px">
-                <div class="ok-ic"><i data-lucide="check" size="30"></i></div>
-                <h3 style="font-size:19px" id="okT">Tiếp nhận thành công</h3>
-                <p style="color:var(--text-gray);font-size:14px;line-height:1.55" id="okD"></p>
+    <div class="kd-modal" id="mD">
+        <div class="kd-box wide">
+            <div class="kd-mh">
+                <h3 id="dT"></h3><button class="ib" onclick="closeM()"><i data-lucide="x"></i></button>
             </div>
-            <div class="x-mf" style="justify-content:center;background:none"><a class="btn btn-outline"
-                    style="text-decoration:none" href="MH-01-1-DanhSachTrungTuyen.html">Về danh sách</a><button
-                    class="btn btn-primary" onclick="closeOk()">Tiếp nhận hồ sơ khác</button></div>
+            <div class="kd-mb">
+                <div id="dI" style="font-size:13.5px;color:var(--text-gray);margin-bottom:14px"></div>
+                <div class="lt-mv"><b style="font-size:13px">Chuyển ca thi:</b><select id="mvD"></select><select
+                        id="mvC"></select><button class="btn btn-primary" style="padding:8px 14px"
+                        onclick="mv()">Chuyển</button><button class="btn btn-outline" style="padding:8px 14px"
+                        onclick="unplace()">Gỡ lịch</button></div>
+                <div id="dMsg"></div>
+                <div class="kd-tw">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Phòng</th>
+                                <th>Số báo danh</th>
+                                <th>Số SV</th>
+                                <th>Giám thị 1</th>
+                                <th>Giám thị 2</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dR"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="kd-toast" id="toast"></div>
 
-    <div class="x-toast" id="toast"><i data-lucide="alert-circle" size="22" style="flex-shrink:0"></i><span
-            id="toastText"></span></div>
     <script>
-        lucide.createIcons();
-        const KEY = 'onenet-trungtuyen';
-        const NG = ['Kỹ thuật phần mềm (HE)', 'Quản trị kinh doanh (HS)', 'Thiết kế đồ họa (HA)', 'Trí tuệ nhân tạo (HA)'];
-        const ST = { wait: ['Chưa làm thủ tục', 'b-wait'], ok: ['Đã tiếp nhận', 'b-ok'], miss: ['Thiếu giấy tờ', 'b-miss'] };
-        const SEED = [
-            ['TT-24001', 'Nguyễn Văn Minh', '15/10/2005', 'Nam', '001205012345', NG[0], 'Xét học bạ', 26.4, 'K19', 'Đợt 1', '', '', 'wait'],
-            ['TT-24004', 'Phạm Văn Đức', '12/11/2005', 'Nam', '001205008910', NG[1], 'Xét điểm thi THPT', 24.75, 'K19', 'Đợt 1', '', '', 'wait'],
-            ['TT-24005', 'Lê Thị Hoa', '03/03/2005', 'Nữ', '001305004321', NG[2], 'Xét học bạ', 25.1, 'K19', 'Đợt 1', '0903456721', 'hoa.le@gmail.com', 'ok'],
-            ['TT-24006', 'Trần Thu Hà', '21/07/2005', 'Nữ', '001305007788', NG[3], 'Xét điểm thi THPT', 27.9, 'K19', 'Đợt 1', '0988123456', 'ha.tran@gmail.com', 'miss'],
-            ['TT-24007', 'Hoàng Gia Bảo', '09/01/2005', 'Nam', '001205003456', NG[0], 'Xét điểm thi THPT', 26, 'K19', 'Đợt 2', '', '', 'wait'],
-            ['TT-24008', 'Đặng Ngọc Anh', '30/05/2005', 'Nữ', '001305009911', NG[1], 'Xét học bạ', 23.9, 'K19', 'Đợt 2', '', '', 'wait']
-        ].map(a => ({ ma: a[0], ten: a[1], ns: a[2], gt: a[3], cccd: a[4], nganh: a[5], pt: a[6], diem: a[7], khoa: a[8], dot: a[9], sdt: a[10], email: a[11], status: a[12] }));
-        function load() { try { const v = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(v) && v.length) return v } catch (e) { } return JSON.parse(JSON.stringify(SEED)) }
-        function save(a) { try { localStorage.setItem(KEY, JSON.stringify(a)) } catch (e) { } }
-        const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-        const norm = s => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'd').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-        const badge = k => `<span class="x-badge ${ST[k][1]}">${ST[k][0]}</span>`;
-        let _tt; function toast(m, err) { const t = document.getElementById('toast'); document.getElementById('toastText').textContent = m; t.classList.toggle('err', !!err); t.classList.add('show'); clearTimeout(_tt); _tt = setTimeout(() => t.classList.remove('show'), 5000) }
-        function dl(name, rows) { const c = '\ufeff' + rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(',')).join('\r\n'); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([c], { type: 'text/csv;charset=utf-8' })); a.download = name; a.click(); URL.revokeObjectURL(a.href) }
-        const d2i = s => { const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(s || ''); return m ? `${m[3]}-${m[2]}-${m[1]}` : '' };
-        const i2d = s => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ''); return m ? `${m[3]}/${m[2]}/${m[1]}` : '' };
-
-        const $ = id => document.getElementById(id);
-        const TODAY = new Date().toISOString().slice(0, 10);
-        const PT = ['Xét học bạ', 'Xét điểm thi THPT', 'Xét tuyển thẳng', 'Xét điểm đánh giá năng lực'];
-        /* [id, nhãn, kiểu, tuỳ chọn] — lock: lấy từ danh sách trúng tuyển; req: bắt buộc */
-        const F = [
-            {
-                t: 'Thông tin cá nhân', ic: 'user-round', h: 'Ô màu xám lấy từ danh sách trúng tuyển', f: [
-                    ['ten', 'Họ và tên', 'text', { lock: 1, req: 1 }], ['gt', 'Giới tính', 'select', { o: ['Nam', 'Nữ', 'Khác'], lock: 1, req: 1 }],
-                    ['ns', 'Ngày sinh', 'date', { lock: 1, req: 1 }], ['noisinh', 'Nơi sinh (tỉnh/thành)', 'text', { req: 1 }],
-                    ['cccd', 'Số CCCD', 'text', { lock: 1, req: 1, pat: '[0-9]{12}', ph: '12 chữ số' }], ['ngaycap', 'Ngày cấp CCCD', 'date', { req: 1 }],
-                    ['noicap', 'Nơi cấp', 'text', { ph: 'Cục Cảnh sát QLHC về TTXH' }], ['dantoc', 'Dân tộc', 'text', { req: 1, ph: 'Kinh' }],
-                    ['tongiao', 'Tôn giáo', 'text', { ph: 'Không' }], ['quoctich', 'Quốc tịch', 'text', { def: 'Việt Nam' }]]
-            },
-            {
-                t: 'Liên hệ và địa chỉ', ic: 'map-pin', h: 'Địa chỉ thường trú theo sổ hộ khẩu / CCCD', f: [
-                    ['sdt', 'Số điện thoại', 'tel', { req: 1, pat: '0[0-9]{9}', ph: '10 chữ số' }], ['email', 'Email cá nhân', 'email', { req: 1 }],
-                    ['tinh', 'Tỉnh / Thành phố', 'text', { req: 1 }], ['huyen', 'Quận / Huyện', 'text'], ['xa', 'Phường / Xã', 'text'],
-                    ['diachi', 'Số nhà, đường, thôn / xóm', 'text', { req: 1 }],
-                    ['lhgiong', 'Địa chỉ liên hệ trùng địa chỉ thường trú', 'check', { def: 1 }], ['diachilh', 'Địa chỉ liên hệ hiện tại', 'text', { hide: 1 }]]
-            },
-            {
-                t: 'Gia đình và người liên hệ khẩn cấp', ic: 'users', h: 'Nhà trường dùng khi cần báo tin cho gia đình', f: [
-                    ['cha_ten', 'Họ tên cha', 'text'], ['cha_nn', 'Nghề nghiệp của cha', 'text'], ['cha_sdt', 'SĐT của cha', 'tel'], ['_', '', 'spacer'],
-                    ['me_ten', 'Họ tên mẹ', 'text'], ['me_nn', 'Nghề nghiệp của mẹ', 'text'], ['me_sdt', 'SĐT của mẹ', 'tel'], ['_', '', 'spacer'],
-                    ['lh_ten', 'Người liên hệ khẩn cấp', 'text', { req: 1 }], ['lh_qh', 'Quan hệ với sinh viên', 'select', { o: ['Cha', 'Mẹ', 'Anh / chị', 'Người giám hộ', 'Khác'] }], ['lh_sdt', 'SĐT liên hệ khẩn cấp', 'tel', { req: 1, pat: '0[0-9]{9}' }]]
-            },
-            {
-                t: 'Học vấn và xét tuyển', ic: 'graduation-cap', h: 'Thông tin tốt nghiệp THPT và kết quả xét tuyển', f: [
-                    ['thpt', 'Trường THPT', 'text', { req: 1, span: 1 }], ['thpt_tinh', 'Tỉnh / TP của trường THPT', 'text'],
-                    ['namtn', 'Năm tốt nghiệp', 'number', { req: 1, min: 2000, max: 2100, def: 2026 }], ['sobang', 'Số hiệu bằng / GCN tốt nghiệp tạm thời', 'text'],
-                    ['nganh', 'Chuyên ngành đăng ký', 'select', { o: NG, lock: 1, req: 1 }], ['pt', 'Phương thức xét tuyển', 'select', { o: PT, lock: 1, req: 1 }],
-                    ['diem', 'Điểm xét tuyển', 'number', { lock: 1, step: '0.01' }], ['th', 'Tổ hợp xét tuyển', 'text', { ph: 'A00, D01…' }],
-                    ['utdt', 'Đối tượng ưu tiên', 'select', { o: ['Không', 'Đối tượng 01', 'Đối tượng 02', 'Đối tượng 03', 'Đối tượng 04', 'Đối tượng 05', 'Đối tượng 06', 'Đối tượng 07'] }],
-                    ['kv', 'Khu vực ưu tiên', 'select', { o: ['KV3', 'KV2', 'KV2-NT', 'KV1'] }]]
-            },
-            {
-                t: 'Nhập học và dịch vụ', ic: 'building-2', h: 'Ký túc xá, bảo hiểm y tế và ghi chú của cán bộ tiếp nhận', f: [
-                    ['ngaynh', 'Ngày tiếp nhận', 'date', { req: 1, def: TODAY }], ['hocphi', 'Học phí đợt đầu', 'select', { o: ['Chưa nộp', 'Đã nộp một phần', 'Đã nộp đủ'] }],
-                    ['ktx', 'Nhu cầu ký túc xá', 'select', { o: ['Không', 'Có, đăng ký ở KTX'] }], ['size', 'Cỡ áo đồng phục', 'select', { o: ['S', 'M', 'L', 'XL', 'XXL'] }],
-                    ['bhyt', 'Số thẻ BHYT', 'text'], ['kcb', 'Nơi đăng ký KCB ban đầu', 'text'],
-                    ['ghichu', 'Ghi chú của cán bộ tiếp nhận', 'textarea', { span: 2 }]]
+        const $ = s => document.querySelector(s), esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])), pad = (n, l = 2) => String(n).padStart(l, '0'), fmt = n => n.toLocaleString('vi-VN');
+        const CA = [['07:30', '09:00'], ['09:30', '11:00'], ['13:30', '15:00'], ['15:30', '17:00']], KS = [17, 18, 19, 20], MAXGV = 6, TH = ['CN', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'], FCOL = ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#F43F5E', '#06B6D4'];
+        const FAC = [['IT', 'Công nghệ thông tin', 6, ['Lập trình hướng đối tượng*', 'Cơ sở dữ liệu*', 'Toán rời rạc', 'Kiến trúc máy tính', 'Mạng máy tính', 'Nhập môn trí tuệ nhân tạo']], ['EC', 'Kinh tế - Quản trị', 7, ['Nguyên lý Marketing', 'Kinh tế vi mô', 'Nguyên lý kế toán', 'Pháp luật kinh doanh', 'Phân tích dữ liệu kinh doanh*', 'Quản trị học']], ['LN', 'Ngoại ngữ - Truyền thông', 7, ['Ngữ âm thực hành*', 'Nghe - Nói*', 'Đọc - Viết', 'Văn hóa - Giao tiếp', 'Biên phiên dịch', 'Truyền thông đa phương tiện']], ['EN', 'Kỹ thuật - Công nghệ', 5, ['Vẽ kỹ thuật', 'Cơ học kỹ thuật', 'Vật liệu kỹ thuật', 'Thực hành xưởng*', 'Đo lường - Cảm biến*', 'An toàn lao động']], ['TH', 'Du lịch - Dịch vụ', 2, ['Tổng quan du lịch', 'Nghiệp vụ lễ tân*', 'Tâm lý khách hàng', 'Quản trị dịch vụ', 'Tiếng Anh chuyên ngành', 'Marketing du lịch']], ['HS', 'Sức khỏe - Xã hội', 3, ['Giải phẫu - Sinh lý', 'Thực hành lâm sàng*', 'Tâm lý học đại cương', 'Y đức', 'Hóa học ứng dụng*', 'Dịch tễ học']]];
+        /* Sĩ số khóa theo khoa: cùng công thức với trang Phân bổ lớp / Xếp TKB (tổng đúng 10.000 SV) */
+        const raw = []; let mi = 0; FAC.forEach((F, fi) => { for (let j = 0; j < F[2]; j++, mi++)KS.forEach(k => raw.push({ fi, k, n: 40 + (mi * 37 + k * 11) % 86 })) });
+        { const t = raw.reduce((a, c) => a + c.n, 0); raw.forEach(c => c.n = Math.round(c.n * 10000 / t)); raw[0].n += 10000 - raw.reduce((a, c) => a + c.n, 0) }
+        const FK = {}; raw.forEach(c => FK[c.fi + '|' + c.k] = (FK[c.fi + '|' + c.k] || 0) + c.n);
+        /* Môn thi = (môn, khóa): mỗi khóa của khoa thi 3 môn, toàn bộ SV khoa-khóa đó thi chung */
+        const U = []; FAC.forEach((F, fi) => KS.forEach(k => { for (let j = 0; j < 3; j++) { const i = (k + j * 2) % 6; U.push({ id: F[0] + '10' + (i + 1) + '.' + k, fi, k, code: F[0] + '10' + (i + 1), name: F[3][i].replace('*', ''), n: FK[fi + '|' + k], s: -1, rooms: [], why: '' }) } }));
+        const ROOMS = [];[[8, 150, 'A'], [16, 100, 'B'], [16, 60, 'C']].forEach(([n, c, p]) => { for (let i = 0; i < n; i++)ROOMS.push({ id: 'P.' + p + pad(i + 1), cap: c }) });
+        const HO = ['Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Vũ', 'Đặng', 'Bùi', 'Đỗ', 'Ngô'], DM = ['Văn', 'Thị', 'Minh', 'Quốc', 'Thu', 'Hữu', 'Lan', 'Ngọc', 'Đức', 'Thanh'], TN = ['Hùng', 'Mai', 'Nam', 'Tuấn', 'Hà', 'Huy', 'Anh', 'Lan', 'Bảo', 'Linh', 'Phúc', 'Trang', 'Khoa'];
+        const TEACHERS = []; FAC.forEach((F, fi) => { for (let j = 0; j < 40; j++)TEACHERS.push({ id: 'GV' + (fi * 100 + j + 1), name: (j % 8 === 0 ? 'PGS. ' : j % 3 === 0 ? 'TS. ' : 'ThS. ') + HO[(j * 3 + fi) % 10] + ' ' + DM[(j * 7 + fi) % 10] + ' ' + TN[(j * 5 + fi * 2) % 13], skills: [j % 6, (j + 1) % 6, (j + 3) % 6].map(x => F[0] + '10' + (x + 1)) }) });
+        const TM = new Map(TEACHERS.map(t => [t.id, t])), gname = id => id ? TM.get(id).name : '—';
+        let cfg = {}, tab = 'grid', cu = null;
+        const toast = t => { const e = $('#toast'); e.textContent = t; e.classList.add('on'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('on'), 3500) };
+        const readCfg = () => ({ start: $('#cStart').value || '2026-11-16', days: +$('#cDays').value, gap: +$('#cGap').value, ratio: +$('#cRatio').value, gvr: +$('#cGv').value });
+        function dayList() { const r = []; const d = new Date(cfg.start + 'T00:00:00'); while (r.length < cfg.days) { if (d.getDay() !== 0) r.push({ t: TH[d.getDay()], dm: pad(d.getDate()) + '/' + pad(d.getMonth() + 1) }); d.setDate(d.getDate() + 1) } return r }
+        /* Chỉ mục chiếm dụng theo ca: phòng, giám thị, khóa, số chỗ */
+        function addOcc(o, u) { const s = u.s, gs = o.gv[s] || (o.gv[s] = new Set), rs = o.rooms[s] || (o.rooms[s] = new Set); (o.coh[s] = o.coh[s] || []).push(u); o.seat[s] = (o.seat[s] || 0) + u.n; u.rooms.forEach(r => { rs.add(r.id); r.g.forEach(g => { gs.add(g); o.load[g] = (o.load[g] || 0) + 1 }) }) }
+        const occ = skip => { const o = { rooms: {}, coh: {}, gv: {}, load: {}, seat: {} }; U.forEach(u => { if (u.s >= 0 && u !== skip) addOcc(o, u) }); return o };
+        function tryPlace(u, s, o) {
+            const d = s >> 2;
+            if ((o.coh[s] || []).some(x => x.fi === u.fi && x.k === u.k)) return { why: 'Cùng khóa đã có môn thi ở ca này (SV không thể thi 2 môn cùng lúc)' };
+            if (cfg.gap > 0 && U.some(x => x !== u && x.s >= 0 && x.fi === u.fi && x.k === u.k && Math.abs((x.s >> 2) - d) < cfg.gap)) return { why: 'Vi phạm giãn cách giữa các môn thi của cùng khóa' };
+            const used = o.rooms[s] || new Set, free = ROOMS.filter(r => !used.has(r.id)).map(r => ({ id: r.id, cap: Math.floor(r.cap * cfg.ratio) })).sort((a, b) => b.cap - a.cap), seats = free.reduce((a, r) => a + r.cap, 0);
+            if (seats < u.n) return { why: `Thiếu chỗ thi: ca này còn ${fmt(seats)} chỗ, cần ${fmt(u.n)}` };
+            const pick = []; let rem = u.n; for (const r of free) { if (rem <= 0) break; pick.push(r); rem -= r.cap }
+            const before = u.n - pick.slice(0, -1).reduce((a, r) => a + r.cap, 0), tight = free.filter(r => !pick.includes(r)).reverse().find(r => r.cap >= before); if (tight && tight.cap < pick[pick.length - 1].cap) pick[pick.length - 1] = tight;
+            const sc = pick.reduce((a, r) => a + r.cap, 0); let left = u.n; const rooms = pick.map(r => { const m = Math.min(r.cap, Math.floor(u.n * r.cap / sc)); left -= m; return { id: r.id, cap: r.cap, n: m, g: [] } });
+            for (let i = 0; left > 0; i = (i + 1) % rooms.length)if (rooms[i].n < rooms[i].cap) { rooms[i].n++; left-- }
+            const need = rooms.length * cfg.gvr, busy = o.gv[s] || new Set, cand = TEACHERS.filter(t => !busy.has(t.id) && (o.load[t.id] || 0) < MAXGV && !t.skills.includes(u.code)).sort((a, b) => (o.load[a.id] || 0) - (o.load[b.id] || 0));
+            if (cand.length < need) return { why: `Thiếu giám thị: cần ${need}, còn ${cand.length} người rảnh` };
+            let c = 1; rooms.forEach((r, i) => { r.g = cand.slice(i * cfg.gvr, (i + 1) * cfg.gvr).map(t => t.id); r.a = c; c += r.n; r.b = c - 1 });
+            return { rooms }
+        }
+        function gen() {
+            cfg = readCfg(); U.forEach(u => { u.s = -1; u.rooms = []; u.why = '' }); const o = occ(), S = cfg.days * 4;
+            U.slice().sort((a, b) => b.n - a.n).forEach(u => {
+                let best = null, sc = 1e12; const why = {};
+                for (let s = 0; s < S; s++) { const r = tryPlace(u, s, o); if (!r.rooms) { why[r.why] = (why[r.why] || 0) + 1; continue } const day = [0, 1, 2, 3].reduce((a, c) => a + (o.seat[(s >> 2) * 4 + c] || 0), 0), v = (o.seat[s] || 0) + day * .3 + s * .01; if (v < sc) { sc = v; best = { s, r } } }
+                if (best) { u.s = best.s; u.rooms = best.r.rooms; addOcc(o, u) } else u.why = (Object.entries(why).sort((a, b) => b[1] - a[1])[0] || ['Không có ca phù hợp'])[0]
+            });
+            const ok = U.filter(u => u.s >= 0).length; render(); toast(ok === U.length ? `Đã xếp đủ ${ok}/${U.length} môn thi cho ${fmt(10000)} sinh viên.` : `Mới xếp ${ok}/${U.length} môn thi. Hãy tăng số ngày, giảm giãn cách hoặc tăng mật độ phòng.`)
+        }
+        const clearAll = () => { U.forEach(u => { u.s = -1; u.rooms = []; u.why = '' }); render() };
+        /* ---------- Hiển thị ---------- */
+        const vis = u => (!$('#fF').value || FAC[u.fi][0] === $('#fF').value) && (!$('#fK').value || u.k == $('#fK').value) && (!$('#fQ').value || (u.name + ' ' + u.code).toLowerCase().includes($('#fQ').value.toLowerCase()));
+        const when = u => { const D = dayList(), d = u.s >> 2; return D[d] ? `${D[d].t}, ${D[d].dm}` : '—' };
+        function stats() {
+            const ok = U.filter(u => u.s >= 0), seat = ROOMS.reduce((a, r) => a + Math.floor(r.cap * cfg.ratio), 0), cap = seat * cfg.days * 4, need = U.reduce((a, u) => a + u.n, 0), prc = ok.reduce((a, u) => a + u.rooms.length, 0), gvs = prc * cfg.gvr, gmax = TEACHERS.length * MAXGV, bad = U.length - ok.length;
+            $('#stats').innerHTML = [['Môn thi', U.length], ['Lượt thi', fmt(need)], ['Đã xếp lịch', ok.length + '/' + U.length], ['Phòng-ca đã dùng', prc], ['Lượt giám thị', gvs + '/' + gmax]].map(a => `<div class="stat"><small>${a[0]}</small><b>${a[1]}</b></div>`).join('');
+            const sb = $('#sum'), ratio = Math.round(need / cap * 100); sb.className = 'sumbox' + (bad || need > cap || gvs > gmax ? ' bad' : '');
+            sb.textContent = bad ? `${bad} môn thi chưa xếp được. Nguyên nhân thường gặp: ${U.find(u => u.s < 0).why}.` : `Nhu cầu ${fmt(need)} chỗ thi / năng lực ${fmt(cap)} chỗ (${ratio}%) trong ${cfg.days * 4} ca. Mỗi ca tối đa ${fmt(seat)} SV, ${ROOMS.length} phòng, ${TEACHERS.length} giám thị (tối đa ${MAXGV} ca/người).`
+        }
+        function render() {
+            cfg = readCfg(); if (!$('#fF').options.length || $('#fF').options.length < 2) $('#fF').innerHTML = '<option value="">Tất cả khoa</option>' + FAC.map(f => `<option value="${f[0]}">${f[1]}</option>`).join('');
+            document.querySelectorAll('[data-t]').forEach(e => e.classList.toggle('on', e.dataset.t === tab)); stats();
+            const D = dayList(), L = U.filter(vis);
+            if (tab === 'grid') {
+                let h = `<div class="lt-scroll"><div class="lt-grid" style="grid-template-columns:96px repeat(${D.length},minmax(200px,1fr))"><div class="lt-c lt-h"></div>` + D.map(d => `<div class="lt-c lt-h">${d.t}<small>${d.dm}</small></div>`).join('');
+                const o = occ(); CA.forEach((c, ci) => { h += `<div class="lt-c lt-h">Ca ${ci + 1}<small>${c[0]}–${c[1]}</small></div>`; D.forEach((_, di) => { const s = di * 4 + ci, us = L.filter(u => u.s === s), used = o.seat[s] || 0; h += `<div class="lt-c">${us.map(u => `<button class="lt-chip" style="--c:${FCOL[u.fi]}" onclick="detail('${u.id}')"><b>${esc(u.name)}</b><small>K${u.k} · ${FAC[u.fi][0]} · ${fmt(u.n)} SV · ${u.rooms.length} phòng</small></button>`).join('')}<div class="lt-u">${used ? fmt(used) + ' SV trong ca' : ''}</div></div>` }) });
+                $('#view').innerHTML = h + '</div></div>' + (U.some(u => u.s < 0 && vis(u)) ? `<div class="lt-u lt-no" style="margin-top:10px">Có ${U.filter(u => u.s < 0 && vis(u)).length} môn thi chưa có lịch: xem tab Danh sách môn thi.</div>` : '')
             }
-        ];
-        const DOCS = [['hocba', 'Học bạ THPT (bản sao công chứng)', 1], ['tn', 'Bằng / GCN tốt nghiệp tạm thời', 1], ['cccd', 'CCCD (bản sao)', 1], ['ks', 'Giấy khai sinh (bản sao)', 1], ['anh', 'Ảnh 3×4, 4 ảnh', 1], ['sk', 'Phiếu khám sức khỏe', 1], ['gb', 'Giấy báo trúng tuyển', 1], ['ut', 'Giấy xác nhận đối tượng ưu tiên', 0], ['bhyt', 'Thẻ BHYT (bản sao)', 0]];
-        const LOCK = ['ten', 'gt', 'ns', 'cccd', 'nganh', 'pt', 'diem'];
-
-        function ctl(id, t, o = {}) {
-            const a = `id="${id}" class="x-inp" ${o.req ? 'required' : ''} ${o.pat ? `pattern="${o.pat}"` : ''} ${o.ph ? `placeholder="${o.ph}"` : ''} ${o.lock ? 'disabled data-lock="1"' : ''}`;
-            if (t === 'select') return `<select ${a}>${o.lock ? '<option value="">—</option>' : ''}${o.o.map(x => `<option>${x}</option>`).join('')}</select>`;
-            if (t === 'textarea') return `<textarea ${a} placeholder="Ghi chú thêm (nếu có)"></textarea>`;
-            return `<input type="${t}" ${a} ${o.min ? `min="${o.min}" max="${o.max}"` : ''} ${o.step ? `step="${o.step}"` : ''}>`
+            else { L.sort((a, b) => (a.s < 0 ? 1e9 : a.s) - (b.s < 0 ? 1e9 : b.s)); $('#view').innerHTML = `<div class="kd-tw"><table class="table"><thead><tr><th>Môn thi</th><th>Khoa · Khóa</th><th>SV</th><th>Ngày thi</th><th>Ca</th><th>Phòng</th><th>Trạng thái</th><th></th></tr></thead><tbody>${L.map(u => `<tr><td><div class="q-t">${esc(u.name)}</div><div class="q-o">${u.code}</div></td><td>${FAC[u.fi][1]} · K${u.k}</td><td>${fmt(u.n)}</td><td>${u.s >= 0 ? when(u) : '—'}</td><td>${u.s >= 0 ? `Ca ${(u.s & 3) + 1} (${CA[u.s & 3][0]})` : '—'}</td><td>${u.rooms.length || '—'}</td><td>${u.s >= 0 ? '<span class="lt-ok">Đã xếp</span>' : `<span class="lt-no" title="${esc(u.why)}">Chưa xếp</span>`}</td><td><button class="btn btn-outline" style="padding:6px 12px;font-size:13px" onclick="detail('${u.id}')">Chi tiết</button></td></tr>`).join('') || '<tr><td colspan="8"><div class="empty">Không có môn thi phù hợp.</div></td></tr>'}</tbody></table></div>` }
+            if (window.lucide) lucide.createIcons()
         }
-        $('secs').innerHTML = F.map(s => `<section class="x-card sec"><div class="sec-h"><div class="ic"><i data-lucide="${s.ic}" size="18"></i></div><div><b>${s.t}</b><small>${s.h}</small></div></div><div class="fg">${s.f.map(([id, l, t, o = {}]) => {
-            if (t === 'spacer') return '';
-            if (t === 'check') return `<div class="fl s2"><label class="chk" style="font-weight:500"><input type="checkbox" id="${id}" checked> ${l}</label></div>`;
-            return `<div class="fl ${o.span === 2 || t === 'textarea' ? 's2' : ''}" id="w_${id}" ${o.hide ? 'hidden' : ''}><label for="${id}">${l}${o.req ? '<span class="rq" aria-hidden="true">*</span>' : ''}</label>${ctl(id, t, o)}</div>`
-        }).join('')}</div></section>`).join('')
-            + `<section class="x-card sec"><div class="sec-h"><div class="ic"><i data-lucide="folder-check" size="18"></i></div><div><b>Giấy tờ nộp khi nhập học</b><small>Tích vào giấy tờ đã nhận. Mục màu đỏ là bắt buộc.</small></div></div><div class="docs">${DOCS.map(d => `<label class="doc ${d[2] ? 'r' : ''}"><input type="checkbox" class="dk" value="${d[0]}"> ${d[1]}<small>${d[2] ? 'Bắt buộc' : 'Nếu có'}</small></label>`).join('')}</div></section>`;
-        $('lhgiong').onchange = e => { $('w_diachilh').hidden = e.target.checked };
-
-        let data = load(), cur = null, isNew = false;
-        const el = id => $(id), val = id => el(id).value.trim();
-        function cands(list, hint) { $('candHint').textContent = hint; $('cand').innerHTML = list.length ? list.slice(0, 6).map(r => `<button type="button" class="cd ${cur && cur.ma === r.ma ? 'on' : ''}" onclick="pick('${esc(r.ma)}')"><i>${esc(r.ten.split(' ').pop()[0])}</i><span><b>${esc(r.ten)}</b><small>${esc(r.ma)} · ${esc(r.nganh)}</small></span>${badge(r.status)}</button>`).join('') : '<span style="color:var(--text-gray);font-size:13.5px">Không tìm thấy sinh viên khớp. Dùng <b>Thêm SV thủ công</b> nếu sinh viên chưa có trong danh sách.</span>' }
-        function waiting() { cands(data.filter(r => r.status !== 'ok'), 'Đang chờ tiếp nhận') }
-        function search() { const q = norm(el('q').value); if (!q) { waiting(); return } const l = data.filter(r => norm(r.ma + ' ' + r.ten + ' ' + r.cccd).includes(q)); if (l.length === 1) pick(l[0].ma); else cands(l, `${l.length} kết quả`) }
-        el('q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); search() } });
-
-        function clearForm() {
-            el('profileForm').reset(); document.querySelectorAll('.dk').forEach(c => c.checked = false); el('w_diachilh').hidden = true;
-            F.forEach(s => s.f.forEach(([id, , , o = {}]) => { if (o.def !== undefined && el(id) && el(id).type !== 'checkbox') el(id).value = o.def }));
-            el('ph').style.backgroundImage = ''; el('ph').innerHTML = '<i data-lucide="camera" size="20"></i>Ảnh 3×4'
+        /* ---------- Chi tiết, chuyển ca ---------- */
+        function detail(id) { cu = U.find(u => u.id === id); const D = dayList(); $('#mvD').innerHTML = D.map((d, i) => `<option value="${i}" ${cu.s >= 0 && cu.s >> 2 === i ? 'selected' : ''}>${d.t}, ${d.dm}</option>`).join(''); $('#mvC').innerHTML = CA.map((c, i) => `<option value="${i}" ${cu.s >= 0 && (cu.s & 3) === i ? 'selected' : ''}>Ca ${i + 1} (${c[0]}–${c[1]})</option>`).join(''); paint(); $('#mD').classList.add('on'); if (window.lucide) lucide.createIcons() }
+        function paint(msg) {
+            const u = cu; $('#dT').textContent = u.name + ' · Khóa ' + u.k; $('#dI').textContent = `${FAC[u.fi][1]} · mã ${u.code} · ${fmt(u.n)} sinh viên · ` + (u.s >= 0 ? `${when(u)}, Ca ${(u.s & 3) + 1} (${CA[u.s & 3][0]}–${CA[u.s & 3][1]})` : 'chưa có lịch thi');
+            $('#dMsg').innerHTML = msg ? `<div class="sumbox ${msg[0] ? '' : 'bad'}" style="margin-bottom:14px">${esc(msg[1])}</div>` : (u.s < 0 && u.why ? `<div class="sumbox bad" style="margin-bottom:14px">${esc(u.why)}</div>` : '');
+            $('#dR').innerHTML = u.rooms.map(r => `<tr><td><b>${r.id}</b> <small style="color:var(--text-gray)">(${r.cap} chỗ)</small></td><td>${u.code}.${u.k}-${pad(r.a, 4)} → ${pad(r.b, 4)}</td><td>${r.n}</td><td>${esc(gname(r.g[0]))}</td><td>${esc(gname(r.g[1]))}</td></tr>`).join('') || '<tr><td colspan="5"><div class="empty">Chưa có phòng thi.</div></td></tr>'
         }
-        function lockAll(on) { LOCK.forEach(id => { el(id).disabled = on; }) }
-        function pick(ma) {
-            cur = data.find(r => r.ma === ma); isNew = false; clearForm(); const h = cur.hs || {};
-            Object.keys(h).forEach(k => { if (el(k) && el(k).type !== 'checkbox') el(k).value = h[k] });
-            el('ten').value = cur.ten; el('gt').value = cur.gt; el('ns').value = d2i(cur.ns); el('cccd').value = cur.cccd; el('nganh').value = cur.nganh; el('pt').value = cur.pt; el('diem').value = cur.diem;
-            if (!h.sdt && cur.sdt) el('sdt').value = cur.sdt; if (!h.email && cur.email) el('email').value = cur.email;
-            if (cur.utdt) el('utdt').value = cur.utdt; if (cur.kv) el('kv').value = cur.kv; if (cur.th) el('th').value = cur.th;
-            (cur.docs || []).forEach(d => { const c = document.querySelector(`.dk[value="${d}"]`); if (c) c.checked = true });
-            el('fs').disabled = false; lockAll(true); waiting(); cands(data.filter(r => r.ma === ma), 'Đang tiếp nhận'); paint(); el('sdt').focus({ preventScroll: false }); lucide.createIcons()
+        function mv() { const s = (+$('#mvD').value) * 4 + (+$('#mvC').value), o = occ(cu), r = tryPlace(cu, s, o); if (!r.rooms) return paint([false, 'Không chuyển được: ' + r.why]); cu.s = s; cu.rooms = r.rooms; cu.why = ''; paint([true, 'Đã chuyển lịch thi, phòng và giám thị được xếp lại.']); render() }
+        const unplace = () => { cu.s = -1; cu.rooms = []; paint(); render() }, closeM = () => $('#mD').classList.remove('on');
+        $('#mD').addEventListener('mousedown', e => { if (e.target.id === 'mD') closeM() });
+        function exportCsv() {
+            const D = dayList(), rows = [['Môn thi', 'Mã', 'Khoa', 'Khóa', 'Ngày', 'Ca', 'Giờ', 'Phòng', 'SBD từ', 'SBD đến', 'Số SV', 'Giám thị 1', 'Giám thị 2']];
+            U.forEach(u => { if (u.s < 0) rows.push([u.name, u.code, FAC[u.fi][1], u.k, 'Chưa xếp', '', '', '', '', '', u.n, '', '']); u.rooms.forEach(r => rows.push([u.name, u.code, FAC[u.fi][1], u.k, D[u.s >> 2].dm, 'Ca ' + ((u.s & 3) + 1), CA[u.s & 3].join('-'), r.id, pad(r.a, 4), pad(r.b, 4), r.n, gname(r.g[0]), gname(r.g[1])])) });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\uFEFF' + rows.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\r\n')], { type: 'text/csv;charset=utf-8' })); a.download = 'lich-thi-fall2026.csv'; a.click()
         }
-        function manual() {
-            cur = { ma: 'Sẽ cấp khi lưu', ten: '', nganh: '', pt: '', khoa: 'K19', dot: 'Bổ sung' }; isNew = true; clearForm(); el('fs').disabled = false; lockAll(false);
-            el('nganh').innerHTML = '<option value="">— Chọn chuyên ngành —</option>' + NG.map(n => `<option>${n}</option>`).join(''); el('pt').value = PT[0]; el('q').value = '';
-            $('candHint').textContent = 'Đang nhập thủ công. Mã trúng tuyển được cấp khi lưu.'; $('cand').innerHTML = ''; paint(); el('ten').focus()
-        }
-        function resetAll() { cur = null; isNew = false; clearForm(); el('fs').disabled = true; lockAll(true); el('q').value = ''; waiting(); paint(); lucide.createIcons() }
-
-        function reqIds() { const a = []; F.forEach(s => s.f.forEach(([id, , t, o = {}]) => { if (o.req && !(id === 'diachilh')) a.push(id) })); return a }
-        function paint() {
-            const has = !!cur, r = cur || {};
-            $('rcCode').textContent = has ? r.ma : '—';
-            $('rcName').textContent = has ? (el('ten').value.trim() || 'Chưa nhập họ tên') : 'Chưa chọn sinh viên';
-            $('rcNg').textContent = has && el('nganh').value || '—'; $('rcPt').textContent = has && el('pt').value ? `${el('pt').value}${el('diem').value ? ' · ' + el('diem').value : ''}` : '—';
-            $('rcKh').textContent = has ? `${r.khoa} · ${r.dot}` : '—';
-            const ids = reqIds(), fOk = ids.filter(i => val(i)).length, req = DOCS.filter(d => d[2]), dOk = req.filter(d => document.querySelector(`.dk[value="${d[0]}"]`).checked),
-                tot = ids.length + req.length, p = has ? Math.round((fOk + dOk.length) / tot * 100) : 0;
-            $('pct').textContent = p + '%'; $('bar').firstElementChild.style.width = p + '%'; $('bar').classList.toggle('full', p === 100);
-            $('pctS').textContent = has ? `thông tin ${fOk}/${ids.length} · giấy tờ ${dOk.length}/${req.length}` : 'hoàn thiện hồ sơ';
-            const miss = req.filter(d => !dOk.includes(d));
-            $('ms').innerHTML = !has ? 'Chọn một sinh viên để bắt đầu tiếp nhận.' : miss.length ? `<b>Còn thiếu giấy tờ:</b> ${miss.map(d => d[1].replace(/ \(.*\)|, .*/, '')).join(', ')}.` : 'Đã đủ giấy tờ bắt buộc.';
-            $('sub').disabled = !has
-        }
-        el('profileForm').addEventListener('input', paint); el('profileForm').addEventListener('change', paint);
-
-        el('ph').onclick = () => { if (cur) el('phIn').click() };
-        el('phIn').onchange = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { el('ph').style.backgroundImage = `url(${r.result})`; el('ph').innerHTML = ''; const c = document.querySelector('.dk[value="anh"]'); c.checked = true; paint() }; r.readAsDataURL(f) };
-
-        el('profileForm').addEventListener('submit', e => {
-            e.preventDefault(); if (!cur) return;
-            const f = el('profileForm'); if (!f.checkValidity()) { f.reportValidity(); return }
-            if (isNew && !val('nganh')) { toast('Hãy chọn chuyên ngành đăng ký.', true); return }
-            if (isNew && data.some(r => r.cccd === val('cccd'))) { toast('Số CCCD đã tồn tại trong danh sách (ERR-QLSV-01).', true); return }
-            const hs = {}; F.forEach(s => s.f.forEach(([id, , t]) => { if (t !== 'spacer' && t !== 'check') hs[id] = val(id) }));
-            const docs = [...document.querySelectorAll('.dk:checked')].map(c => c.value), miss = DOCS.filter(d => d[2] && !docs.includes(d[0]));
-            if (isNew) {
-                const n = Math.max(24000, ...data.map(r => parseInt(String(r.ma).replace(/\D/g, '')) || 0)) + 1;
-                cur = { ma: 'TT-' + n, ten: hs.ten, ns: i2d(hs.ns), gt: hs.gt, cccd: hs.cccd, nganh: hs.nganh, pt: hs.pt, diem: hs.diem, khoa: 'K19', dot: 'Bổ sung', status: 'wait' }; data.unshift(cur)
-            }
-            Object.assign(cur, { sdt: hs.sdt, email: hs.email, utdt: hs.utdt, kv: hs.kv, th: hs.th, hs, docs, status: miss.length ? 'miss' : 'ok' }); save(data);
-            $('okT').textContent = miss.length ? 'Đã tiếp nhận, còn thiếu giấy tờ' : 'Tiếp nhận thành công';
-            $('okD').innerHTML = `Hồ sơ <b>${esc(cur.ma)}</b> của <b>${esc(cur.ten)}</b> đã được lưu.` + (miss.length ? `<br>Sinh viên cần bổ sung: ${miss.map(d => esc(d[1])).join(', ')}.` : '<br>Hồ sơ đủ giấy tờ bắt buộc, sẵn sàng phân bổ lớp.');
-            $('okM').classList.add('active')
-        });
-        function closeOk() { $('okM').classList.remove('active'); resetAll() }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') $('okM').classList.remove('active') });
-
-        waiting(); paint(); lucide.createIcons();
-        const code = new URLSearchParams(location.search).get('code'); if (code && data.some(r => r.ma === code)) pick(code);
-
+        gen();
     </script>
+
     <script>
         (function () {
             var h = document.documentElement;
