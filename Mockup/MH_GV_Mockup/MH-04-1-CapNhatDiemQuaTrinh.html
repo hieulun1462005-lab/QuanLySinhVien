@@ -1084,6 +1084,20 @@
             color: var(--text-gray);
         }
 
+        .grade-cell {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .grade-err-msg {
+            font-size: 11px;
+            color: var(--danger);
+            margin-top: 4px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
         .tot {
             min-width: 110px;
         }
@@ -1811,8 +1825,9 @@
                     : s.st === 'g4' ? '<span class="tag amber"><i data-lucide="rotate-ccw" size="12"></i>G4 · Thi lại</span>' : '';
                 var cells = cs.map(function (c, j) {
                     var p = parse(v[i][j]);
-                    return '<td><input type="text" inputmode="decimal" class="grade-input' + (p.bad && !lk ? ' error' : '') + '" data-r="' + i + '" data-c="' + j + '" value="' + esc(v[i][j]) + '"' +
-                        (lk ? ' disabled' : '') + ' aria-label="' + esc(c[0] + ' - ' + s.name) + '"' + (p.bad && !lk ? ' title="Điểm phải từ 0.0 đến 10.0"' : '') + '></td>';
+                    var errHtml = (p.bad && !lk) ? '<span class="grade-err-msg">Không hợp lệ</span>' : '';
+                    return '<td><div class="grade-cell"><input type="text" inputmode="decimal" class="grade-input' + (p.bad && !lk ? ' error' : '') + '" data-r="' + i + '" data-c="' + j + '" value="' + esc(v[i][j]) + '"' +
+                        (lk ? ' disabled' : '') + ' aria-label="' + esc(c[0] + ' - ' + s.name) + '"' + (p.bad && !lk ? ' title="Điểm phải từ 0.0 đến 10.0"' : '') + '>' + errHtml + '</div></td>';
                 }).join('');
                 return '<tr class="' + (s.st ? 'row-' + s.st : '') + '" data-locked="' + (lk ? 1 : 0) + '" data-search="' + esc((s.id + ' ' + s.name).toLowerCase()) + '">' +
                     '<td><span class="mssv">' + s.id + '</span></td>' +
@@ -1886,8 +1901,20 @@
             var i = +el.dataset.r, j = +el.dataset.c;
             work[keyOf()][i][j] = el.value;
             var p = parse(el.value);
-            el.classList.toggle('error', !!p.bad);
-            el.title = p.bad ? 'Điểm phải từ 0.0 đến 10.0' : '';
+            var bad = !!p.bad;
+            el.classList.toggle('error', bad);
+            el.title = bad ? 'Điểm phải từ 0.0 đến 10.0' : '';
+            
+            var cell = el.closest('.grade-cell');
+            if (cell) {
+                var errMsg = cell.querySelector('.grade-err-msg');
+                if (bad && !errMsg) {
+                    cell.insertAdjacentHTML('beforeend', '<span class="grade-err-msg">Không hợp lệ</span>');
+                } else if (!bad && errMsg) {
+                    errMsg.remove();
+                }
+            }
+
             updateTot(el.closest('tr'), i);
             refresh();
         });

@@ -470,7 +470,7 @@
 
         .search input {
             width: 100%;
-            padding: 11px 12px 11px 38px
+            padding: 11px 12px 11px 38px !important;
         }
 
         .search svg {
@@ -1583,6 +1583,7 @@
         const norm = s => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
         const ago = (d, h = 9) => { const x = new Date(); x.setDate(x.getDate() - d); x.setHours(h, 15, 0, 0); return x.toISOString() };
         function addWork(d, n) { d = new Date(d); while (n > 0) { d.setDate(d.getDate() + 1); if (d.getDay() % 6) n-- } return d }
+        const TODAY = new Date(Date.now() - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
         const ME = { mssv: 'HE190868', name: 'Nguyễn Hồng Long Khánh', major: 'Kỹ thuật phần mềm', k: 'K19' };
 
         /* ================= DANH MỤC ĐƠN TỪ ================= */
@@ -1606,114 +1607,117 @@
         const F = (id, cat, n, ic, d, fee, days, dept, o = {}) => ({ id, cat, n, ic, d, fee, days, dept, docs: [], fields: [], att: 0, ...o });
         const DETAIL = area('detail', 'Nội dung chi tiết', 1, { ph: 'Trình bày cụ thể nội dung đề nghị...' });
 
+        const PAST_TERMS = ['Spring 2026', 'Summer 2026', 'Fall 2026'];
+        const CLS = (k = 'cls') => txt(k, 'Lớp', 1, { ph: 'VD: SE1903' });
+        const PH = (k, l, r = 1) => txt(k, l, r, { v: 'phone', ph: 'VD: 0912345678' });
         const FORMS = [
             /* ---- Học vụ ---- */
             F('leave-class', 'hoc-vu', 'Xin nghỉ học có phép', 'calendar-minus', 'Xin nghỉ một hoặc vài buổi học vì ốm đau, việc gia đình hoặc lý do chính đáng.', 0, 1, 'Phòng Đào tạo', {
                 pop: 1, att: 1, attNote: 'Giấy khám bệnh, xác nhận của gia đình hoặc minh chứng khác (nếu có).', docs: ['Minh chứng lý do nghỉ (giấy khám bệnh, xác nhận…)', 'Nộp đơn trước hoặc chậm nhất 3 ngày sau buổi nghỉ'],
-                fields: [sel('course', 'Môn học', COURSES), dat('from', 'Nghỉ từ ngày'), dat('to', 'Đến ngày', 1, { after: 'from' }), sel('reason', 'Lý do', ['Ốm đau / khám chữa bệnh', 'Việc gia đình', 'Tham gia thi, phỏng vấn', 'Lý do khác']), DETAIL]
+                fields: [sel('course', 'Môn học', COURSES), CLS(), dat('from', 'Nghỉ từ ngày'), dat('to', 'Đến ngày', 1, { after: 'from' }), num('sessions', 'Số buổi nghỉ', 1, 30, 1, { ph: 'VD: 2' }), sel('reason', 'Lý do', ['Ốm đau / khám chữa bệnh', 'Việc gia đình', 'Tham gia thi, phỏng vấn', 'Lý do khác']), DETAIL]
             }),
             F('exam-absent', 'hoc-vu', 'Xin hoãn thi / thi bù', 'file-clock', 'Vắng mặt kỳ thi có lý do chính đáng và xin được sắp xếp thi bù.', 0, 3, 'Phòng Khảo thí', {
                 pop: 1, att: 2, attNote: 'Bắt buộc có minh chứng (giấy khám bệnh có dấu, giấy xác nhận…).', docs: ['Minh chứng hợp lệ có xác nhận của cơ quan', 'Nộp trong 3 ngày làm việc kể từ ngày thi'],
-                fields: [sel('course', 'Môn học', COURSES), dat('date', 'Ngày thi bị vắng'), sel('type', 'Loại bài thi', ['Progress Test', 'Practical Exam', 'Theoretical Exam', 'Final Exam']), sel('reason', 'Lý do', ['Ốm đau, tai nạn', 'Việc gia đình đột xuất', 'Trùng lịch thi', 'Lý do khác']), DETAIL]
+                fields: [sel('kind', 'Nội dung đề nghị', ['Hoãn thi (chưa thi)', 'Thi bù (đã vắng mặt)']), sel('course', 'Môn học', COURSES), CLS(), dat('date', 'Ngày thi', 1, { past: 0 }), sel('type', 'Loại bài thi', ['Progress Test', 'Practical Exam', 'Theoretical Exam', 'Final Exam']), sel('reason', 'Lý do', ['Ốm đau, tai nạn', 'Việc gia đình đột xuất', 'Trùng lịch thi', 'Lý do khác']), DETAIL]
             }),
             F('attendance', 'hoc-vu', 'Khiếu nại điểm danh', 'scan-line', 'Đã có mặt nhưng bị ghi vắng, hoặc điểm danh QR không ghi nhận.', 0, 2, 'Phòng Đào tạo', {
                 pop: 1, att: 1, attNote: 'Ảnh chụp màn hình lỗi, tin nhắn lớp… (nếu có).', docs: ['Gửi trong vòng 3 ngày kể từ buổi học', 'Phòng Đào tạo sẽ đối chiếu với giảng viên'],
-                fields: [sel('course', 'Môn học', COURSES), dat('date', 'Ngày học'), sel('slot', 'Ca học', SLOTS), sel('reason', 'Nguyên nhân', ['Đã quét QR nhưng không ghi nhận', 'Lỗi ứng dụng / mất mạng', 'Giảng viên điểm danh nhầm', 'Khác']), DETAIL]
+                fields: [sel('course', 'Môn học', COURSES), CLS(), txt('lec', 'Giảng viên phụ trách', 0, { ph: 'Họ tên giảng viên' }), dat('date', 'Ngày học', 1, { past: 1 }), sel('slot', 'Ca học', SLOTS), sel('reason', 'Nguyên nhân', ['Đã quét QR nhưng không ghi nhận', 'Lỗi ứng dụng / mất mạng', 'Giảng viên điểm danh nhầm', 'Khác']), DETAIL]
             }),
             F('regrade', 'hoc-vu', 'Phúc khảo điểm', 'file-search', 'Đề nghị chấm lại bài thi hoặc đầu điểm khi chưa đồng ý với kết quả.', 50000, 5, 'Phòng Khảo thí', {
                 pop: 1, docs: ['Phúc khảo trong 5 ngày làm việc kể từ khi công bố điểm', 'Lệ phí 50.000 đ cho mỗi đầu điểm', 'Điểm sau phúc khảo là điểm cuối cùng'],
-                fields: [sel('course', 'Môn học', COURSES), sel('comp', 'Đầu điểm cần phúc khảo', ['Progress Test', 'Assignment', 'Group Project', 'Practical Exam', 'Theoretical Exam']), num('score', 'Điểm hiện tại', 0, 10, 1, { step: 0.1 }), area('detail', 'Lý do phúc khảo', 1, { ph: 'Nêu rõ lý do cho rằng điểm chưa chính xác...' })]
+                fields: [sel('term', 'Kỳ học', PAST_TERMS), sel('course', 'Môn học', COURSES), sel('comp', 'Đầu điểm cần phúc khảo', ['Progress Test', 'Assignment', 'Group Project', 'Practical Exam', 'Theoretical Exam', 'Final Exam']), num('score', 'Điểm hiện tại', 0, 10, 1, { step: 0.1 }), area('detail', 'Lý do phúc khảo', 1, { ph: 'Nêu rõ lý do cho rằng điểm chưa chính xác...' })]
             }),
             F('improve', 'hoc-vu', 'Đăng ký thi cải thiện điểm', 'trending-up', 'Đăng ký thi lại môn đã đạt để cải thiện điểm trung bình.', 800000, 5, 'Phòng Khảo thí', {
                 docs: ['Chỉ áp dụng cho môn đã đạt (PASSED)', 'Lệ phí thi cải thiện nộp trước kỳ thi'],
-                fields: [sel('course', 'Môn học', COURSES), sel('term', 'Kỳ thi', TERMS), area('detail', 'Ghi chú', 0, { ph: 'Ghi chú thêm (nếu có)...' })]
+                fields: [sel('course', 'Môn học', COURSES), num('score', 'Điểm hiện tại của môn', 0, 10, 1, { step: 0.1 }), sel('times', 'Lần thi cải thiện', ['Lần 1', 'Lần 2']), sel('term', 'Kỳ thi', TERMS), area('detail', 'Lý do cải thiện', 0, { ph: 'VD: cần nâng GPA xét học bổng / tốt nghiệp...' })]
             }),
             F('early', 'hoc-vu', 'Đăng ký học vượt', 'fast-forward', 'Đăng ký học trước môn thuộc kỳ sau nếu đủ điều kiện tiên quyết.', 0, 5, 'Phòng Đào tạo', {
                 docs: ['Đã hoàn thành các môn tiên quyết', 'Học phí thu theo môn học vượt'],
-                fields: [sel('course', 'Môn muốn học vượt', COURSES), sel('term', 'Kỳ đăng ký', TERMS), area('detail', 'Lý do', 1, { ph: 'Lý do đăng ký học vượt...' })]
+                fields: [sel('course', 'Môn muốn học vượt', COURSES), sel('term', 'Kỳ đăng ký', TERMS), txt('prereq', 'Môn tiên quyết đã hoàn thành', 1, { ph: 'VD: PRJ301, DBI202' }), num('gpa', 'GPA tích lũy hiện tại (hệ 10)', 0, 10, 1, { step: 0.01 }), area('detail', 'Lý do', 1, { ph: 'Lý do đăng ký học vượt...' })]
             }),
             F('change-class', 'hoc-vu', 'Xin chuyển lớp / đổi ca học', 'repeat', 'Đề nghị chuyển sang lớp khác khi trùng lịch hoặc có lý do chính đáng.', 0, 3, 'Phòng Đào tạo', {
                 att: 1, attNote: 'Minh chứng (lịch làm thêm, giấy xác nhận…) nếu có.', docs: ['Lớp muốn chuyển đến phải còn chỗ', 'Việc chuyển lớp tùy thuộc vào sĩ số lớp'],
-                fields: [sel('course', 'Môn học', COURSES), txt('cur', 'Lớp hiện tại', 1, { ph: 'VD: SE1903' }), txt('tar', 'Lớp muốn chuyển đến', 1, { ph: 'VD: SE1905' }), sel('reason', 'Lý do', ['Trùng lịch học', 'Lịch làm thêm / thực tập', 'Sức khỏe, đi lại', 'Lý do khác']), DETAIL]
+                fields: [sel('term', 'Kỳ học', TERMS), sel('course', 'Môn học', COURSES), txt('cur', 'Lớp hiện tại', 1, { ph: 'VD: SE1903' }), txt('tar', 'Lớp muốn chuyển đến', 1, { ph: 'VD: SE1905', ne: 'cur' }), sel('reason', 'Lý do', ['Trùng lịch học', 'Lịch làm thêm / thực tập', 'Sức khỏe, đi lại', 'Lý do khác']), DETAIL]
             }),
             F('change-major', 'hoc-vu', 'Xin chuyển ngành', 'arrow-right-left', 'Đề nghị chuyển sang chuyên ngành khác trong trường.', 500000, 10, 'Phòng Đào tạo', {
                 att: 1, attNote: 'Bảng điểm, minh chứng năng lực… (nếu có).', docs: ['Đã hoàn thành tối thiểu 1 học kỳ', 'Lệ phí xét chuyển ngành 500.000 đ', 'Kết quả theo hội đồng xét duyệt'],
-                fields: [txt('curm', 'Ngành hiện tại', 1, { val: ME.major, dis: 1 }), sel('tarm', 'Ngành muốn chuyển đến', MAJORS.filter(m => m !== ME.major)), area('detail', 'Lý do chuyển ngành', 1, { ph: 'Nguyện vọng, định hướng nghề nghiệp...' })]
+                fields: [txt('curm', 'Ngành hiện tại', 1, { val: ME.major, dis: 1 }), sel('tarm', 'Ngành muốn chuyển đến', MAJORS.filter(m => m !== ME.major)), num('sems', 'Số học kỳ đã học', 1, 12, 1), num('gpa', 'GPA tích lũy hiện tại (hệ 10)', 0, 10, 1, { step: 0.01 }), area('detail', 'Lý do chuyển ngành', 1, { ph: 'Nguyện vọng, định hướng nghề nghiệp...' })]
             }),
             F('leave-term', 'hoc-vu', 'Xin nghỉ học tạm thời (bảo lưu)', 'calendar-off', 'Bảo lưu kết quả học tập trong một hoặc hai học kỳ.', 0, 5, 'Phòng Đào tạo', {
                 pop: 1, att: 1, attNote: 'Giấy tờ chứng minh (giấy khám bệnh, giấy gọi nhập ngũ, hồ sơ du học…).', docs: ['Hoàn tất nghĩa vụ học phí của kỳ hiện tại', 'Thời gian bảo lưu tối đa theo quy chế'],
-                fields: [sel('term', 'Kỳ bắt đầu nghỉ', TERMS), sel('dur', 'Thời gian nghỉ', ['1 học kỳ', '2 học kỳ']), sel('reason', 'Lý do', ['Sức khỏe', 'Hoàn cảnh gia đình', 'Đi làm / khởi nghiệp', 'Du học', 'Nghĩa vụ quân sự', 'Lý do khác']), DETAIL]
+                fields: [sel('term', 'Kỳ bắt đầu nghỉ', TERMS), sel('dur', 'Thời gian nghỉ', ['1 học kỳ', '2 học kỳ']), sel('reason', 'Lý do', ['Sức khỏe', 'Hoàn cảnh gia đình', 'Đi làm / khởi nghiệp', 'Du học', 'Nghĩa vụ quân sự', 'Lý do khác']), txt('addr', 'Địa chỉ liên hệ trong thời gian nghỉ', 1, { ph: 'Số nhà, đường, phường/xã, tỉnh/thành' }), DETAIL]
             }),
             F('return', 'hoc-vu', 'Xin học tiếp sau bảo lưu', 'undo-2', 'Đăng ký quay lại học sau thời gian nghỉ tạm thời.', 0, 5, 'Phòng Đào tạo', {
-                docs: ['Nộp đơn trước kỳ học ít nhất 4 tuần'],
-                fields: [sel('term', 'Kỳ muốn học lại', TERMS), area('detail', 'Ghi chú', 0, { ph: 'Thông tin bổ sung (nếu có)...' })]
+                att: 1, attNote: 'Giấy xác nhận hết lý do bảo lưu (giấy khám sức khỏe, giấy xuất ngũ…) nếu có.', docs: ['Nộp đơn trước kỳ học ít nhất 4 tuần'],
+                fields: [sel('prev', 'Kỳ đã bắt đầu bảo lưu', PAST_TERMS), txt('rcode', 'Mã đơn bảo lưu trước đó', 0, { ph: 'VD: DT-2026-0100' }), sel('term', 'Kỳ muốn học lại', TERMS), area('detail', 'Ghi chú', 0, { ph: 'Thông tin bổ sung (nếu có)...' })]
             }),
             F('drop', 'hoc-vu', 'Xin thôi học', 'log-out', 'Đề nghị chấm dứt việc học tại trường.', 0, 7, 'Phòng Đào tạo', {
                 att: 1, attNote: 'Giấy tờ liên quan (nếu có).', docs: ['Hoàn tất học phí và trả thẻ sinh viên', 'Sinh viên cần đọc kỹ quy định trước khi nộp đơn'],
-                fields: [sel('reason', 'Lý do', ['Chuyển trường', 'Hoàn cảnh gia đình', 'Không phù hợp ngành học', 'Lý do khác']), DETAIL]
+                fields: [sel('last', 'Kỳ học cuối cùng', ['Fall 2026', 'Spring 2027']), dat('date', 'Ngày dự kiến thôi học', 1, { future: 1 }), sel('reason', 'Lý do', ['Chuyển trường', 'Hoàn cảnh gia đình', 'Không phù hợp ngành học', 'Lý do khác']), txt('next', 'Dự định sau khi thôi học', 0, { ph: 'VD: chuyển sang trường khác, đi làm...' }), DETAIL]
             }),
             F('graduation', 'hoc-vu', 'Đăng ký xét tốt nghiệp', 'award', 'Đăng ký xét công nhận tốt nghiệp khi đã hoàn thành chương trình.', 0, 10, 'Phòng Đào tạo', {
-                docs: ['Hoàn thành đủ tín chỉ, chứng chỉ đầu ra', 'Không còn nợ học phí, thư viện'],
-                fields: [sel('term', 'Kỳ xét tốt nghiệp', TERMS), area('detail', 'Ghi chú', 0)]
+                att: 1, attNote: 'Chứng chỉ ngoại ngữ / tin học đầu ra (nếu có).', docs: ['Hoàn thành đủ tín chỉ, chứng chỉ đầu ra', 'Không còn nợ học phí, thư viện'],
+                fields: [sel('term', 'Kỳ xét tốt nghiệp', TERMS), num('credits', 'Tổng số tín chỉ đã tích lũy', 1, 300, 1), num('gpa', 'GPA tích lũy (hệ 10)', 0, 10, 1, { step: 0.01 }), sel('eng', 'Chứng chỉ ngoại ngữ đầu ra', ['Đã đạt', 'Chưa đạt / đang chờ kết quả']), sel('recv', 'Hình thức nhận bằng', ['Nhận trực tiếp tại Phòng Đào tạo', 'Nhờ người nhận hộ (có giấy ủy quyền)']), area('detail', 'Ghi chú', 0)]
             }),
             /* ---- Giấy tờ ---- */
             F('transcript', 'giay-to', 'Cấp bảng điểm', 'file-text', 'Cấp bảng điểm toàn khóa hoặc theo kỳ, tiếng Việt hoặc tiếng Anh.', { unit: 20000, by: 'copies', label: 'bản' }, 2, 'Phòng Đào tạo', {
                 pop: 1, docs: ['Lệ phí 20.000 đ/bản', 'Bản điện tử có chữ ký số, giá trị như bản giấy'],
-                fields: [sel('lang', 'Ngôn ngữ', ['Tiếng Việt', 'Tiếng Anh', 'Cả hai']), num('copies', 'Số bản', 1, 10, 1, { val: 1 }), sel('recv', 'Hình thức nhận', RECV), sel('purpose', 'Mục đích', ['Xin việc', 'Xin học bổng / du học', 'Nộp hồ sơ khác', 'Lưu giữ cá nhân'])]
+                fields: [sel('scope', 'Phạm vi bảng điểm', ['Toàn khóa', 'Theo từng kỳ']), sel('term', 'Kỳ cần cấp', PAST_TERMS, 1, { if: ['scope', 'Theo từng kỳ'] }), sel('lang', 'Ngôn ngữ', ['Tiếng Việt', 'Tiếng Anh', 'Cả hai']), num('copies', 'Số bản', 1, 10, 1, { val: 1 }), sel('recv', 'Hình thức nhận', RECV), sel('purpose', 'Mục đích', ['Xin việc', 'Xin học bổng / du học', 'Nộp hồ sơ khác', 'Lưu giữ cá nhân'])]
             }),
             F('cert-student', 'giay-to', 'Giấy xác nhận sinh viên', 'badge-check', 'Xác nhận đang theo học dùng cho ngân hàng, visa, xin việc, tạm trú…', { unit: 10000, by: 'copies', label: 'bản' }, 1, 'Phòng Công tác sinh viên', {
                 pop: 1, docs: ['Lệ phí 10.000 đ/bản', 'Nhận bản điện tử ngay trong ngày làm việc'],
-                fields: [sel('purpose', 'Mục đích sử dụng', ['Vay vốn ngân hàng', 'Xin visa / du học', 'Đăng ký tạm trú', 'Xin việc làm thêm / thực tập', 'Khác']), sel('lang', 'Ngôn ngữ', ['Tiếng Việt', 'Tiếng Anh']), num('copies', 'Số bản', 1, 10, 1, { val: 1 }), sel('recv', 'Hình thức nhận', RECV)]
+                fields: [sel('purpose', 'Mục đích sử dụng', ['Vay vốn ngân hàng', 'Xin visa / du học', 'Đăng ký tạm trú', 'Xin việc làm thêm / thực tập', 'Khác']), area('detail', 'Mục đích cụ thể', 1, { if: ['purpose', 'Khác'], ph: 'Nêu rõ nơi sử dụng giấy xác nhận...' }), txt('org', 'Đơn vị tiếp nhận giấy xác nhận', 0, { ph: 'VD: Ngân hàng Vietcombank, Đại sứ quán...' }), sel('lang', 'Ngôn ngữ', ['Tiếng Việt', 'Tiếng Anh']), num('copies', 'Số bản', 1, 10, 1, { val: 1 }), sel('recv', 'Hình thức nhận', RECV)]
             }),
             F('loan', 'giay-to', 'Xác nhận vay vốn sinh viên', 'landmark', 'Giấy xác nhận để vay vốn tín dụng ưu đãi cho sinh viên.', 0, 3, 'Phòng Công tác sinh viên', {
                 att: 1, attNote: 'Bản chụp CCCD, giấy chứng nhận hộ nghèo/cận nghèo (nếu có).', docs: ['Mang theo CCCD bản gốc khi nhận', 'Mẫu theo quy định của ngân hàng chính sách'],
-                fields: [sel('bank', 'Đơn vị cho vay', ['Ngân hàng Chính sách xã hội', 'Ngân hàng thương mại']), sel('year', 'Năm học', ['2026 - 2027', '2025 - 2026']), sel('recv', 'Hình thức nhận', RECV)]
+                fields: [sel('bank', 'Đơn vị cho vay', ['Ngân hàng Chính sách xã hội', 'Ngân hàng thương mại']), sel('year', 'Năm học', ['2026 - 2027', '2025 - 2026']), txt('cccd', 'Số CCCD / CMND của sinh viên', 1, { v: 'cccd', ph: '9 hoặc 12 chữ số' }), txt('addr', 'Địa chỉ thường trú', 1, { ph: 'Số nhà, đường, phường/xã, tỉnh/thành' }), txt('guardian', 'Họ tên phụ huynh / người bảo lãnh'), PH('gphone', 'SĐT phụ huynh / người bảo lãnh'), sel('recv', 'Hình thức nhận', RECV)]
             }),
             F('military', 'giay-to', 'Xác nhận hoãn nghĩa vụ quân sự', 'shield-check', 'Giấy xác nhận đang học để hoãn gọi nhập ngũ.', 0, 2, 'Phòng Công tác sinh viên', {
                 att: 1, attNote: 'Giấy gọi nhập ngũ / thông báo của địa phương (nếu có).', docs: ['Cần ghi rõ cơ quan quân sự địa phương'],
-                fields: [txt('unit', 'Ban chỉ huy quân sự (quận / huyện)', 1, { ph: 'VD: Ban CHQS Quận Cầu Giấy' }), sel('recv', 'Hình thức nhận', RECV)]
+                fields: [txt('cccd', 'Số CCCD / CMND', 1, { v: 'cccd', ph: '9 hoặc 12 chữ số' }), txt('unit', 'Ban chỉ huy quân sự (quận / huyện)', 1, { ph: 'VD: Ban CHQS Quận Cầu Giấy' }), txt('order', 'Số giấy gọi nhập ngũ / thông báo', 0), dat('grad', 'Ngày dự kiến tốt nghiệp', 1, { future: 1 }), sel('recv', 'Hình thức nhận', RECV)]
             }),
             F('intern', 'giay-to', 'Giấy giới thiệu thực tập / OJT', 'briefcase', 'Giấy giới thiệu gửi doanh nghiệp tiếp nhận thực tập hoặc OJT.', 0, 2, 'Phòng Hợp tác doanh nghiệp', {
                 docs: ['Cung cấp đúng tên và địa chỉ doanh nghiệp'],
-                fields: [txt('company', 'Tên doanh nghiệp'), txt('addr', 'Địa chỉ doanh nghiệp'), dat('from', 'Bắt đầu thực tập'), dat('to', 'Kết thúc', 1, { after: 'from' }), txt('pos', 'Vị trí thực tập', 0), sel('recv', 'Hình thức nhận', RECV)]
+                fields: [sel('type', 'Hình thức', ['Thực tập (Internship)', 'OJT']), txt('company', 'Tên doanh nghiệp'), txt('addr', 'Địa chỉ doanh nghiệp'), txt('contact', 'Người liên hệ tại doanh nghiệp', 0), txt('cinfo', 'Email / SĐT doanh nghiệp', 0), dat('from', 'Bắt đầu thực tập', 1, { future: 1 }), dat('to', 'Kết thúc', 1, { after: 'from' }), txt('pos', 'Vị trí thực tập', 0), sel('recv', 'Hình thức nhận', RECV)]
             }),
             F('card', 'giay-to', 'Cấp lại thẻ sinh viên', 'contact', 'Cấp lại thẻ khi bị mất, hỏng hoặc thay đổi thông tin.', 50000, 5, 'Phòng Công tác sinh viên', {
                 pop: 1, att: 1, attNote: 'Ảnh chân dung 3x4 nền trắng (nếu cần đổi ảnh).', docs: ['Lệ phí 50.000 đ', 'Nhận thẻ tại Phòng Công tác sinh viên'],
-                fields: [sel('reason', 'Lý do', ['Mất thẻ', 'Thẻ bị hỏng', 'Thay đổi thông tin / ảnh']), area('detail', 'Ghi chú', 0)]
+                fields: [sel('reason', 'Lý do', ['Mất thẻ', 'Thẻ bị hỏng', 'Thay đổi thông tin / ảnh']), dat('lost', 'Ngày mất thẻ', 1, { past: 1, if: ['reason', 'Mất thẻ'] }), txt('old', 'Số thẻ cũ (nếu nhớ)', 0), area('detail', 'Ghi chú', 0)]
             }),
             F('personal', 'giay-to', 'Điều chỉnh thông tin cá nhân', 'user-cog', 'Sửa họ tên, ngày sinh, CCCD, số điện thoại… trong hồ sơ sinh viên.', 0, 3, 'Phòng Công tác sinh viên', {
                 att: 2, attNote: 'Bắt buộc: bản chụp CCCD hoặc giấy khai sinh có thông tin đúng.', docs: ['Thông tin mới phải khớp giấy tờ gốc'],
-                fields: [sel('field', 'Thông tin cần sửa', ['Họ và tên', 'Ngày sinh', 'Số CCCD / CMND', 'Giới tính', 'Dân tộc', 'Số điện thoại', 'Email', 'Địa chỉ thường trú']), txt('old', 'Thông tin hiện tại', 0), txt('new', 'Thông tin đúng cần cập nhật'), area('detail', 'Ghi chú', 0)]
+                fields: [sel('field', 'Thông tin cần sửa', ['Họ và tên', 'Ngày sinh', 'Số CCCD / CMND', 'Giới tính', 'Dân tộc', 'Số điện thoại', 'Email', 'Địa chỉ thường trú']), txt('old', 'Thông tin hiện tại (đang sai)'), txt('new', 'Thông tin đúng cần cập nhật'), sel('reason', 'Lý do điều chỉnh', ['Nhập sai khi nhập học', 'Thay đổi theo giấy tờ mới', 'Lý do khác']), area('detail', 'Ghi chú', 0)]
             }),
             /* ---- Tài chính ---- */
             F('waiver', 'tai-chinh', 'Miễn giảm học phí', 'piggy-bank', 'Đề nghị miễn hoặc giảm học phí theo chính sách đối với đối tượng được hưởng.', 0, 7, 'Phòng Tài chính', {
                 att: 2, attNote: 'Bắt buộc: giấy xác nhận đối tượng chính sách (hộ nghèo, thương binh…).', docs: ['Giấy xác nhận do cơ quan có thẩm quyền cấp', 'Nộp trước hạn đóng học phí của kỳ'],
-                fields: [sel('obj', 'Đối tượng', ['Hộ nghèo', 'Hộ cận nghèo', 'Dân tộc thiểu số vùng khó khăn', 'Con thương binh / liệt sĩ', 'Mồ côi cha mẹ', 'Người khuyết tật', 'Khác']), sel('term', 'Kỳ đề nghị', TERMS), DETAIL]
+                fields: [sel('obj', 'Đối tượng', ['Hộ nghèo', 'Hộ cận nghèo', 'Dân tộc thiểu số vùng khó khăn', 'Con thương binh / liệt sĩ', 'Mồ côi cha mẹ', 'Người khuyết tật', 'Khác']), sel('level', 'Mức đề nghị', ['Miễn 100%', 'Giảm 70%', 'Giảm 50%']), txt('doc', 'Số giấy xác nhận / cơ quan cấp', 1, { ph: 'VD: Số 123/UBND, UBND xã A' }), sel('term', 'Kỳ đề nghị', TERMS), DETAIL]
             }),
             F('installment', 'tai-chinh', 'Gia hạn / chia đợt học phí', 'calendar-clock', 'Xin nộp học phí muộn hoặc chia nhỏ thành nhiều đợt.', 0, 3, 'Phòng Tài chính', {
                 pop: 1, docs: ['Nộp đơn trước hạn đóng học phí', 'Không tính phí phạt nếu được chấp thuận'],
-                fields: [sel('term', 'Kỳ học', TERMS), num('amount', 'Số tiền xin gia hạn (đ)', 0, 100000000, 1, { step: 100000 }), sel('plan', 'Phương án', ['Chia 2 đợt', 'Chia 3 đợt', 'Gia hạn đến một ngày cụ thể']), dat('until', 'Ngày dự kiến hoàn tất nộp'), area('detail', 'Lý do', 1, { ph: 'Hoàn cảnh khó khăn, thời điểm có thể nộp...' })]
+                fields: [sel('term', 'Kỳ học', TERMS), num('amount', 'Số tiền xin gia hạn (đ)', 100000, 100000000, 1, { step: 100000 }), sel('plan', 'Phương án', ['Chia 2 đợt', 'Chia 3 đợt', 'Gia hạn đến một ngày cụ thể']), dat('until', 'Ngày dự kiến hoàn tất nộp', 1, { future: 1 }), area('detail', 'Lý do', 1, { ph: 'Hoàn cảnh khó khăn, thời điểm có thể nộp...' })]
             }),
             F('refund', 'tai-chinh', 'Hoàn trả học phí', 'banknote', 'Đề nghị hoàn lại khoản đã nộp thừa, nộp nhầm hoặc do thôi học.', 0, 7, 'Phòng Tài chính', {
                 att: 2, attNote: 'Bắt buộc: biên lai / ảnh chụp giao dịch đã nộp.', docs: ['Cung cấp chính xác số tài khoản nhận tiền', 'Chuyển khoản về tài khoản mang tên sinh viên'],
-                fields: [sel('reason', 'Lý do', ['Nộp thừa', 'Nộp nhầm', 'Thôi học / bảo lưu', 'Khác']), num('amount', 'Số tiền đề nghị hoàn (đ)', 1000, 100000000, 1, { step: 1000 }), txt('inv', 'Mã hóa đơn / giao dịch'), txt('bank', 'Ngân hàng'), txt('acc', 'Số tài khoản', 1, { ph: 'Chỉ gồm chữ số' }), txt('holder', 'Chủ tài khoản')]
+                fields: [sel('reason', 'Lý do', ['Nộp thừa', 'Nộp nhầm', 'Thôi học / bảo lưu', 'Khác']), num('amount', 'Số tiền đề nghị hoàn (đ)', 1000, 100000000, 1, { step: 1000 }), txt('inv', 'Mã hóa đơn / giao dịch'), dat('paid', 'Ngày đã nộp tiền', 1, { past: 1 }), txt('bank', 'Ngân hàng'), txt('acc', 'Số tài khoản', 1, { ph: 'Chỉ gồm chữ số' }), txt('holder', 'Chủ tài khoản', 1, { ph: 'Họ tên in hoa, không dấu' }), area('detail', 'Ghi chú', 0)]
             }),
             F('scholar', 'tai-chinh', 'Xét học bổng khuyến khích học tập', 'trophy', 'Đăng ký xét học bổng theo kết quả học tập và rèn luyện.', 0, 10, 'Phòng Công tác sinh viên', {
                 att: 1, attNote: 'Giấy khen, chứng chỉ, minh chứng thành tích (nếu có).', docs: ['GPA và điểm rèn luyện theo quy chế của kỳ xét'],
-                fields: [sel('term', 'Kỳ xét', TERMS), num('gpa', 'GPA kỳ gần nhất (hệ 10)', 0, 10, 1, { step: 0.01 }), num('drl', 'Điểm rèn luyện', 0, 100, 1), area('detail', 'Thành tích nổi bật', 0)]
+                fields: [sel('term', 'Kỳ xét', TERMS), num('credits', 'Số tín chỉ đã học trong kỳ', 1, 40, 1), num('gpa', 'GPA kỳ gần nhất (hệ 10)', 0, 10, 1, { step: 0.01 }), num('drl', 'Điểm rèn luyện', 0, 100, 1), sel('fail', 'Có môn chưa đạt (Not passed) trong kỳ?', ['Không', 'Có']), area('detail', 'Thành tích nổi bật', 0)]
             }),
             /* ---- Đời sống & khác ---- */
             F('dorm', 'khac', 'Đăng ký ký túc xá', 'bed-double', 'Đăng ký chỗ ở nội trú tại ký túc xá của trường.', 0, 5, 'Ban quản lý KTX', {
                 pop: 0, att: 1, attNote: 'Giấy xác nhận diện ưu tiên (nếu có).', docs: ['Phí KTX thu riêng sau khi được xếp phòng'],
-                fields: [sel('term', 'Kỳ đăng ký', TERMS), sel('room', 'Loại phòng', ['Phòng 4 người', 'Phòng 6 người', 'Phòng 8 người']), sel('pri', 'Diện ưu tiên', ['Không', 'Hộ nghèo / cận nghèo', 'Nhà xa trường (tỉnh khác)', 'Chính sách khác']), area('detail', 'Ghi chú', 0)]
+                fields: [sel('term', 'Kỳ đăng ký', TERMS), sel('months', 'Thời gian ở', ['1 học kỳ', '2 học kỳ', 'Cả năm học']), sel('gender', 'Giới tính', ['Nam', 'Nữ']), sel('room', 'Loại phòng', ['Phòng 4 người', 'Phòng 6 người', 'Phòng 8 người']), txt('addr', 'Địa chỉ thường trú', 1, { ph: 'Số nhà, đường, phường/xã, tỉnh/thành' }), sel('pri', 'Diện ưu tiên', ['Không', 'Hộ nghèo / cận nghèo', 'Nhà xa trường (tỉnh khác)', 'Chính sách khác']), txt('ec', 'Người liên hệ khẩn cấp', 1, { ph: 'Họ tên và quan hệ, VD: Nguyễn Văn A (bố)' }), PH('ecp', 'SĐT người liên hệ khẩn cấp'), area('detail', 'Ghi chú', 0)]
             }),
             F('account', 'khac', 'Cấp lại tài khoản / mật khẩu', 'key-round', 'Quên mật khẩu hoặc bị khóa tài khoản email, LMS, wifi trường.', 0, 1, 'Phòng IT', {
                 docs: ['Mật khẩu mới gửi về email cá nhân đã đăng ký'],
-                fields: [sel('sys', 'Hệ thống', ['Email sinh viên', 'LMS / EduNext', 'Wifi trường', 'Tất cả']), sel('reason', 'Lý do', ['Quên mật khẩu', 'Tài khoản bị khóa', 'Nghi ngờ bị lộ tài khoản']), area('detail', 'Ghi chú', 0)]
+                fields: [sel('sys', 'Hệ thống', ['Email sinh viên', 'LMS / EduNext', 'Wifi trường', 'Tất cả']), sel('reason', 'Lý do', ['Quên mật khẩu', 'Tài khoản bị khóa', 'Nghi ngờ bị lộ tài khoản']), txt('mail', 'Email cá nhân nhận mật khẩu mới', 1, { v: 'email', ph: 'VD: ten@gmail.com' }), area('detail', 'Ghi chú', 0)]
             }),
             F('complaint', 'khac', 'Khiếu nại / kiến nghị', 'megaphone', 'Phản ánh về giảng dạy, cơ sở vật chất hoặc dịch vụ của nhà trường.', 0, 5, 'Phòng Công tác sinh viên', {
                 att: 1, attNote: 'Hình ảnh, tài liệu liên quan (nếu có).', docs: ['Thông tin được bảo mật, chỉ dùng để xử lý'],
-                fields: [sel('target', 'Nội dung liên quan đến', ['Giảng viên / môn học', 'Cơ sở vật chất', 'Dịch vụ, phòng ban', 'Khác']), txt('title', 'Tiêu đề'), DETAIL]
+                fields: [sel('target', 'Nội dung liên quan đến', ['Giảng viên / môn học', 'Cơ sở vật chất', 'Dịch vụ, phòng ban', 'Khác']), txt('title', 'Tiêu đề'), dat('date', 'Thời điểm xảy ra', 0, { past: 1 }), DETAIL, area('want', 'Mong muốn giải quyết', 0, { ph: 'Đề xuất hướng xử lý của bạn...' }), sel('reply', 'Hình thức nhận phản hồi', ['Qua email', 'Qua điện thoại'])]
             }),
             F('other', 'khac', 'Đơn khác', 'file-plus-2', 'Các nội dung khác chưa có trong danh mục.', 0, 3, 'Phòng Công tác sinh viên', {
                 att: 1, attNote: 'Tài liệu liên quan (nếu có).',
@@ -1806,8 +1810,8 @@
             let inp = '';
             if (x.t === 'select') inp = `<select id="${id}"><option value="">- Chọn -</option>${x.o.map(o => `<option>${esc(o)}</option>`).join('')}</select>`;
             else if (x.t === 'textarea') inp = `<textarea id="${id}" placeholder="${esc(x.ph || '')}"></textarea>`;
-            else inp = `<input id="${id}" type="${x.t}" ${x.min != null ? `min="${x.min}" max="${x.max}"` : ''} ${x.step ? `step="${x.step}"` : ''} value="${esc(x.val ?? '')}" ${x.dis ? 'disabled' : ''} placeholder="${esc(x.ph || '')}">`;
-            return `<div class="fld ${x.full ? 'full' : ''}" data-k="${x.k}"><label class="l" for="${id}">${x.l} ${req}</label>${inp}<div class="em"></div></div>`;
+            else inp = `<input id="${id}" type="${x.t}" ${x.min != null ? `min="${x.min}" max="${x.max}"` : ''} ${x.step ? `step="${x.step}"` : ''} ${x.past ? `max="${TODAY}"` : ''} ${x.future ? `min="${TODAY}"` : ''} value="${esc(x.val ?? '')}" ${x.dis ? 'disabled' : ''} placeholder="${esc(x.ph || '')}">`;
+            return `<div class="fld ${x.full ? 'full' : ''}" data-k="${x.k}" ${x.if ? `data-if="${esc(x.if[0])}=${esc(x.if[1])}" hidden` : ''}><label class="l" for="${id}">${x.l} ${req}</label>${inp}<div class="em"></div></div>`;
         }
         function renderForm() {
             const f = FM[ui.form], c = CATS.find(x => x.id === f.cat);
@@ -1836,8 +1840,9 @@
     <div class="kv"><span>Đơn vị xử lý</span><b>${f.dept}</b></div></div>
     ${f.docs.length ? `<div class="card"><h4>Cần lưu ý</h4><div class="docs">${f.docs.map(d => `<div><i data-lucide="check-circle-2"></i><span>${d}</span></div>`).join('')}</div></div>` : ''}
   </aside></div>`;
-            ui.files = []; updateFee(); renderFiles();
+            ui.files = []; updateFee(); applyIf(); renderFiles();
         }
+        function applyIf() { document.querySelectorAll('#form .fld[data-if]').forEach(w => { const i = w.dataset.if.indexOf('='), e = $('f_' + w.dataset.if.slice(0, i)); w.hidden = !(e && e.value === w.dataset.if.slice(i + 1)) }) }
         function updateFee() { const f = FM[ui.form], v = {}; f.fields.forEach(x => { const e = $('f_' + x.k); if (e) v[x.k] = e.value }); const n = feeOf(f, v); $('feeNow').textContent = n ? money(n) : 'Miễn phí' }
         function renderFiles() {
             $('flist').innerHTML = ui.files.map((x, i) => `<div class="fi"><i data-lucide="paperclip" width="15"></i><span>${esc(x.name)}</span><small>${(x.size / 1024 < 1024 ? Math.max(1, Math.round(x.size / 1024)) + ' KB' : (x.size / 1048576).toFixed(1) + ' MB')}</small><button type="button" data-rm="${i}" aria-label="Xóa tệp"><i data-lucide="x"></i></button></div>`).join(''); lucide.createIcons();
@@ -1860,7 +1865,14 @@
             const ph = $('f_phone'); if (!/^0\d{9}$/.test(ph.value.trim())) bad(ph, 'Nhập số điện thoại gồm 10 chữ số, bắt đầu bằng 0');
             f.fields.forEach(x => {
                 const el = $('f_' + x.k), val = el.value.trim(); v[x.k] = val;
+                if (el.closest('.fld').hidden) { v[x.k] = ''; return }
                 if (x.r && !val) return bad(el, 'Vui lòng điền thông tin này');
+                if (val && x.v === 'phone' && !/^0\d{9}$/.test(val)) return bad(el, 'Số điện thoại gồm 10 chữ số, bắt đầu bằng 0');
+                if (val && x.v === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return bad(el, 'Email không hợp lệ');
+                if (val && x.v === 'cccd' && !/^(\d{9}|\d{12})$/.test(val)) return bad(el, 'Số CCCD / CMND gồm 9 hoặc 12 chữ số');
+                if (val && x.ne && val.toLowerCase() === $('f_' + x.ne).value.trim().toLowerCase()) return bad(el, 'Phải khác giá trị đã nhập ở trên');
+                if (val && x.past && val > TODAY) return bad(el, 'Ngày không được ở tương lai');
+                if (val && x.future && val < TODAY) return bad(el, 'Ngày phải từ hôm nay trở đi');
                 if (x.t === 'number' && val && (+val < x.min || +val > x.max)) return bad(el, `Giá trị phải từ ${x.min} đến ${x.max}`);
                 if (x.after && val && $('f_' + x.after).value && val < $('f_' + x.after).value) return bad(el, 'Ngày kết thúc phải sau ngày bắt đầu');
                 if (x.k === 'acc' && val && !/^\d{6,20}$/.test(val)) return bad(el, 'Số tài khoản chỉ gồm 6-20 chữ số');
@@ -1968,10 +1980,10 @@
         $('view').addEventListener('input', e => {
             if (e.target.id === 'q') { ui.q = e.target.value; ui.focusQ = true; renderCatalog(); lucide.createIcons() }
             else if (e.target.id === 'hq') { ui.hq = e.target.value; ui.focusQ = true; renderHist(); lucide.createIcons() }
-            else if (ui.form) updateFee();
+            else if (ui.form) { updateFee(); applyIf() }
             const w = e.target.closest('.fld'); w && w.classList.remove('err');
         });
-        $('view').addEventListener('change', e => { if (e.target.id === 'file') { addFiles([...e.target.files]); e.target.value = '' } if (e.target.id === 'agree') $('agreeErr').style.display = 'none'; if (ui.form) updateFee() });
+        $('view').addEventListener('change', e => { if (e.target.id === 'file') { addFiles([...e.target.files]); e.target.value = '' } if (e.target.id === 'agree') $('agreeErr').style.display = 'none'; if (ui.form) { updateFee(); applyIf() } });
         $('view').addEventListener('submit', e => { e.preventDefault(); submitForm() });
         $('view').addEventListener('keydown', e => { if (e.target.id === 'drop' && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); $('file').click() } });
         $('view').addEventListener('dragover', e => { if (e.target.closest('#drop')) { e.preventDefault(); $('drop').classList.add('over') } });

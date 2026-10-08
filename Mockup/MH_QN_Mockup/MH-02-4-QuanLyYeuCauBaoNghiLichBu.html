@@ -199,7 +199,7 @@
         .page-title {
             font-size: 24px;
             font-weight: 700;
-            
+
         }
 
         /* Card & Table */
@@ -784,6 +784,7 @@
         .menu-item.active {
             font-weight: 600 !important;
         }
+
         html[data-theme="dark"] .sidebar-item:hover {
             background: var(--bg-soft) !important
         }
@@ -791,6 +792,79 @@
         html[data-theme="dark"] .sidebar-item.active {
             background: var(--primary-50) !important;
             box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
+        }
+    </style>
+    <style id="mini-stats-style">
+        .mini-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .mini-stat {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: var(--text);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .03);
+        }
+
+        .mini-stat .ms-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mini-stat .ms-num {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .mini-stat .ms-label {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .ms-icon.c-blue {
+            background: color-mix(in srgb, #1D4ED8 14%, transparent);
+            color: #3B82F6;
+        }
+
+        .ms-icon.c-amber {
+            background: color-mix(in srgb, #D97706 16%, transparent);
+            color: #D97706;
+        }
+
+        .ms-icon.c-green {
+            background: color-mix(in srgb, #059669 16%, transparent);
+            color: #059669;
+        }
+
+        .ms-icon.c-red {
+            background: color-mix(in srgb, #DC2626 14%, transparent);
+            color: #DC2626;
+        }
+
+        .ms-icon.c-purple {
+            background: color-mix(in srgb, #6D28D9 14%, transparent);
+            color: #8B5CF6;
+        }
+
+        @media (max-width: 1100px) {
+            .mini-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -889,6 +963,38 @@
                 <h1 class="page-title">Quản lý Yêu cầu Báo nghỉ & Lịch bù</h1>
                 <button class="btn btn-primary" onclick="openModal()"><i data-lucide="plus" size="16"></i> Tạo yêu cầu
                     báo nghỉ</button>
+            </div>
+
+            <!-- Thống kê nhanh -->
+            <div class="mini-stats">
+                <div class="mini-stat">
+                    <div class="ms-icon c-blue"><i data-lucide="file-text" size="22"></i></div>
+                    <div>
+                        <div class="ms-num" id="stAll">0</div>
+                        <div class="ms-label">Tổng yêu cầu</div>
+                    </div>
+                </div>
+                <div class="mini-stat">
+                    <div class="ms-icon c-amber"><i data-lucide="clock" size="22"></i></div>
+                    <div>
+                        <div class="ms-num" id="stPending">0</div>
+                        <div class="ms-label">Chờ duyệt</div>
+                    </div>
+                </div>
+                <div class="mini-stat">
+                    <div class="ms-icon c-green"><i data-lucide="check-circle-2" size="22"></i></div>
+                    <div>
+                        <div class="ms-num" id="stApproved">0</div>
+                        <div class="ms-label">Đã duyệt</div>
+                    </div>
+                </div>
+                <div class="mini-stat">
+                    <div class="ms-icon c-red"><i data-lucide="x-circle" size="22"></i></div>
+                    <div>
+                        <div class="ms-num" id="stRejected">0</div>
+                        <div class="ms-label">Từ chối</div>
+                    </div>
+                </div>
             </div>
 
             <div class="card">
@@ -1037,14 +1143,16 @@
         })();
 
     </script>
+    <script>
+        (function () {
+            function c(sel) { return document.querySelectorAll('main ' + sel).length; }
+            var p = c('.badge-pending'), a = c('.badge-approved'), r = c('.badge-rejected');
+            document.getElementById('stAll').textContent = p + a + r;
+            document.getElementById('stPending').textContent = p;
+            document.getElementById('stApproved').textContent = a;
+            document.getElementById('stRejected').textContent = r;
+        })();
+    </script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-

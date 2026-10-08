@@ -1174,8 +1174,23 @@
         .sub-score {
             grid-area: score;
             display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        
+        .sub-score-inner {
+            display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .grade-err-msg {
+            font-size: 11px;
+            color: var(--danger);
+            margin-top: 4px;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
         .sub-score .out {
@@ -1912,22 +1927,32 @@
                 '<div class="file-meta"><span class="file-name" title="' + f.name + '">' + f.name + '</span>' +
                 '<span class="file-sub">' + f.size + ' · Nộp ' + f.time + '</span></div>' +
                 '<button type="button" class="btn-dl" data-dl="' + m + '"><i data-lucide="download" size="15"></i>Tải về</button></div>' +
-                '<div class="sub-score"><input type="text" inputmode="decimal" class="grade-input" maxlength="5" ' +
+                '<div class="sub-score"><div class="sub-score-inner"><input type="text" inputmode="decimal" class="grade-input" maxlength="5" ' +
                 'aria-label="Điểm bài làm ' + m + '" placeholder="--" value="' + (state[cur].grades[m] || '') + '">' +
-                '<span class="out">/ 10</span></div>' +
+                '<span class="out">/ 10</span></div></div>' +
                 '<div class="sub-status"><span class="chip"></span></div></li>';
         }
 
         function updateRow(li) {
             var m = li.dataset.mssv, input = li.querySelector('.grade-input'), chip = li.querySelector('.chip');
             var p = parseGrade(input.value);
-            input.classList.toggle('error', !p.empty && p.bad);
-            input.title = (!p.empty && p.bad) ? 'Điểm phải từ 0.0 đến 10.0' : '';
-            li.classList.toggle('err', !p.empty && p.bad);
+            var bad = !p.empty && p.bad;
+            input.classList.toggle('error', bad);
+            input.title = bad ? 'Điểm phải từ 0.0 đến 10.0' : '';
+            li.classList.toggle('err', bad);
             li.classList.toggle('done', !p.empty && !p.bad);
             li.dataset.state = p.empty ? 'todo' : (p.bad ? 'bad' : 'done');
             chip.className = 'chip' + (p.empty ? '' : (p.bad ? ' bad' : ' ok'));
             chip.innerHTML = p.empty ? 'Chưa chấm' : (p.bad ? '<i data-lucide="alert-circle" size="12"></i>Không hợp lệ' : '<i data-lucide="check" size="12"></i>Đã chấm');
+            
+            var scoreDiv = li.querySelector('.sub-score');
+            var errMsg = scoreDiv.querySelector('.grade-err-msg');
+            if (bad && !errMsg) {
+                scoreDiv.insertAdjacentHTML('beforeend', '<span class="grade-err-msg">Không hợp lệ</span>');
+            } else if (!bad && errMsg) {
+                errMsg.remove();
+            }
+
             lucide.createIcons();
         }
 

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lịch sử giao dịch - Hệ Thống Quản Lý Sinh Viên</title>
+    <title>Hoàn tiền - Hệ Thống Quản Lý Sinh Viên</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -801,79 +801,490 @@
             box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
         }
     </style>
-    <style id="mini-stats-style">
-        .mini-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 24px;
+    <style id="refund-style">
+        .gate-box {
+            display: none;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 1px solid #FDE68A;
+            border-radius: 10px;
+            background: var(--warning-light);
+            color: var(--warning);
+            font-size: 14px;
+            margin-bottom: 16px;
         }
 
-        .mini-stat {
+        .gate-box a {
+            display: inline-block;
+            margin-top: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .kn {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%
+        }
+
+        .kn-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 20px;
+            align-items: start
+        }
+
+        .kn-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 18px;
+            box-shadow: var(--shadow-md, 0 4px 16px rgba(7, 87, 166, .06));
+            overflow: hidden
+        }
+
+        .kn-sticky {
+            position: sticky;
+            top: 0
+        }
+
+        .kn-h {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-light)
+        }
+
+        .kn-h h3 {
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .kn-h h3 svg {
+            color: var(--primary)
+        }
+
+        .badge {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--c) 14%, var(--bg-white));
+            color: var(--c);
+            border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+            white-space: nowrap
+        }
+
+        .b-pending {
+            --c: var(--warning)
+        }
+
+        .b-done {
+            --c: var(--success)
+        }
+
+        .b-rej {
+            --c: var(--danger)
+        }
+
+        .kn-sec {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-light)
+        }
+
+        .kn-sec:last-child {
+            border-bottom: 0
+        }
+
+        .kn-sec>small {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 8px
+        }
+
+        .stu {
+            display: flex;
             gap: 14px;
-            padding: 16px 18px;
-            background: var(--bg-white);
+            align-items: center
+        }
+
+        .stu .av {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--primary-50);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 20px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0
+        }
+
+        .stu b {
+            font-size: 16px;
+            display: block
+        }
+
+        .stu span {
+            font-size: 12.5px;
+            color: var(--gray);
+            display: block;
+            margin-top: 2px
+        }
+
+        .kv {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 14px;
+            margin-top: 14px
+        }
+
+        .kv div {
+            font-size: 12px;
+            color: var(--gray)
+        }
+
+        .kv b {
+            display: block;
+            font-size: 13.5px;
+            color: var(--text);
+            margin-top: 2px;
+            font-weight: 600
+        }
+
+        .disp {
             border: 1px solid var(--border);
             border-radius: 14px;
-            color: var(--text);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .03);
+            padding: 14px;
+            background: var(--bg-soft, var(--bg-light))
         }
 
-        .mini-stat .ms-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+        .disp b {
+            font-size: 15px
+        }
+
+        .disp p {
+            font-size: 12.5px;
+            color: var(--gray);
+            margin-top: 3px
+        }
+
+        .flow {
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            gap: 10px;
+            margin-top: 12px
         }
 
-        .mini-stat .ms-num {
-            font-size: 24px;
-            font-weight: 700;
-            line-height: 1.1;
-        }
-
-        .mini-stat .ms-label {
-            font-size: 13px;
+        .flow svg {
             color: var(--gray);
-            margin-top: 2px;
+            width: 16px;
+            height: 16px
         }
 
-        .ms-icon.c-blue {
-            background: color-mix(in srgb, #1D4ED8 14%, transparent);
-            color: #3B82F6;
+        .quote {
+            font-size: 13.5px;
+            line-height: 1.6;
+            padding: 12px 14px;
+            border-left: 3px solid var(--primary);
+            background: var(--primary-50);
+            border-radius: 0 10px 10px 0
         }
 
-        .ms-icon.c-amber {
-            background: color-mix(in srgb, #D97706 16%, transparent);
-            color: #D97706;
+        .chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
         }
 
-        .ms-icon.c-green {
-            background: color-mix(in srgb, #059669 16%, transparent);
-            color: #059669;
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-white)
         }
 
-        .ms-icon.c-red {
-            background: color-mix(in srgb, #DC2626 14%, transparent);
-            color: #DC2626;
+        .chip svg {
+            width: 14px;
+            height: 14px;
+            color: var(--primary)
         }
 
-        .ms-icon.c-purple {
-            background: color-mix(in srgb, #6D28D9 14%, transparent);
-            color: #8B5CF6;
+        .chk {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: 13.5px;
+            padding: 7px 0;
+            cursor: pointer
         }
 
-        @media (max-width: 1100px) {
-            .mini-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .chk input {
+            width: 17px;
+            height: 17px;
+            margin-top: 1px;
+            accent-color: var(--primary)
+        }
+
+        .kn textarea {
+            width: 100%;
+            min-height: 76px;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 13.5px;
+            background: var(--bg-white);
+            color: var(--text);
+            resize: vertical;
+            outline: none
+        }
+
+        .kn textarea:focus,
+        .kn input[type=search]:focus {
+            border-color: var(--primary)
+        }
+
+        .acts {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px
+        }
+
+        .acts .btn {
+            flex: 1;
+            justify-content: center
+        }
+
+        .btn-danger {
+            background: var(--bg-white);
+            border: 1px solid #FECACA;
+            color: var(--danger)
+        }
+
+        .btn-danger:hover {
+            background: var(--danger-light)
+        }
+
+        .kn-note {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 8px
+        }
+
+        .kn-top {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) 150px;
+            gap: 12px;
+            padding: 16px 20px;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light)
+        }
+
+        .dd-stat {
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 1px solid color-mix(in srgb, var(--c) 28%, transparent);
+            background: color-mix(in srgb, var(--c) 9%, var(--bg-white))
+        }
+
+        .dd-stat b {
+            display: block;
+            font-size: 22px;
+            color: var(--c);
+            margin: 4px 0 0
+        }
+
+        .dd-stat span {
+            font-size: 12px;
+            color: var(--gray);
+            font-weight: 600
+        }
+
+        .dd-stat svg {
+            color: var(--c);
+            width: 16px;
+            height: 16px
+        }
+
+        .s-P {
+            --c: var(--success)
+        }
+
+        .s-L {
+            --c: var(--warning)
+        }
+
+        .s-A {
+            --c: var(--danger)
+        }
+
+        .s-E {
+            --c: var(--info)
+        }
+
+        .rate {
+            text-align: center
+        }
+
+        .rate b {
+            font-size: 26px;
+            color: var(--primary)
+        }
+
+        .rate span {
+            display: block;
+            font-size: 12px;
+            color: var(--gray)
+        }
+
+        .bar {
+            height: 6px;
+            border-radius: 9px;
+            background: var(--border-light);
+            margin-top: 6px;
+            overflow: hidden
+        }
+
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--primary);
+            transition: width .4s
+        }
+
+        .kn-tools {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-light)
+        }
+
+        .dl {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 8px 14px;
+            font-size: 14px;
+            margin-top: 14px
+        }
+
+        .dl dt {
+            color: var(--gray)
+        }
+
+        .dl dd {
+            font-weight: 500;
+            overflow-wrap: anywhere
+        }
+
+        .cmp {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px
+        }
+
+        .cmp>div {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            background: var(--bg-soft, #F9FBFD)
+        }
+
+        .cmp small {
+            display: block;
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 2px
+        }
+
+        .cmp b {
+            font-size: 15px
+        }
+
+        .alert {
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-top: 10px
+        }
+
+        .alert.warn {
+            background: var(--warning-light);
+            color: var(--warning)
+        }
+
+        .alert.danger {
+            background: var(--danger-light);
+            color: var(--danger)
+        }
+
+        .alert.ok {
+            background: var(--success-light);
+            color: var(--success)
+        }
+
+        .fld-err {
+            display: none;
+            color: var(--danger);
+            font-size: 12px;
+            margin-top: 2px
+        }
+
+        .has-err .form-control {
+            border-color: var(--danger)
+        }
+
+        .has-err .fld-err {
+            display: block
+        }
+
+        .stack {
+            display: grid;
+            gap: 12px
+        }
+
+        .m-body {
+            padding: 18px 22px
+        }
+
+        .m-body h5 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            color: var(--gray);
+            margin: 18px 0 10px
+        }
+
+        .m-body .form-control {
+            width: 100%
+        }
+
+        .m-body textarea.form-control {
+            height: auto;
+            min-height: 84px;
+            padding: 10px 12px;
+            line-height: 1.5;
+            resize: vertical;
+            width: 100%
         }
     </style>
+
 </head>
 
 <body>
@@ -929,7 +1340,7 @@
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
+            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item active">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
             <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
@@ -960,249 +1371,212 @@
                 <i data-lucide="file-search" size="18"></i> Phúc khảo điểm
             </a>
             <div class="menu-group-title">Tài chính - Kế toán</div>
-            <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item active">
+            <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
             </a>
 
         </aside>
 
-
-
         <!-- Main Content -->
         <main class="dashboard-content">
-            <div class="page-header">
-                <h1 class="page-title"><i data-lucide="receipt" color="var(--primary)"></i> Lịch sử giao dịch</h1>
-            </div>
-
-            <!-- Thống kê nhanh -->
-            <div class="mini-stats">
-                <div class="mini-stat">
-                    <div class="ms-icon c-blue"><i data-lucide="receipt" size="22"></i></div>
-                    <div>
-                        <div class="ms-num" id="stTotal">1,204</div>
-                        <div class="ms-label">Tổng giao dịch</div>
-                    </div>
+            <div class="kn">
+                <div class="page-header"
+                    style="width:100%;min-height:110px;padding:40px 32px 24px 32px;display:flex;justify-content:space-between;align-items:center;border-radius:20px;">
+                    <h1 class="page-title" style="margin:0;position:relative;z-index:1;"><i data-lucide="undo-2"
+                            size="24"></i><span>Xử lý hoàn tiền</span></h1>
                 </div>
-                <div class="mini-stat">
-                    <div class="ms-icon c-green"><i data-lucide="banknote" size="22"></i></div>
-                    <div>
-                        <div class="ms-num" id="stMoney">0 ₫</div>
-                        <div class="ms-label">Đã thu (<span id="stOkCount">0</span> GD thành công, trang này)</div>
-                    </div>
+                <div id="gateBox" class="gate-box" style="max-width:none;margin:0;"><i data-lucide="lock" size="20"
+                        style="margin-top:1px;flex-shrink:0;"></i>
+                    <div><strong>Không thể dùng đơn này!</strong><br><span id="gateText"></span><br><a
+                            href="MH-05-2-PheDuyetDonTuSinhVien.html">&rarr; Đến trang Phê duyệt đơn từ</a></div>
                 </div>
-                <div class="mini-stat">
-                    <div class="ms-icon c-red"><i data-lucide="x-circle" size="22"></i></div>
-                    <div>
-                        <div class="ms-num" id="stFail">0</div>
-                        <div class="ms-label">Thất bại (trang này)</div>
-                    </div>
-                </div>
-                <div class="mini-stat">
-                    <div class="ms-icon c-amber"><i data-lucide="clock" size="22"></i></div>
-                    <div>
-                        <div class="ms-num" id="stWait">0</div>
-                        <div class="ms-label">Chờ xử lý (trang này)</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Filters -->
-            <div class="card">
-                <div class="filter-toolbar">
-                    <div class="form-group" style="flex: 1.5;">
-                        <label>Tìm kiếm (Mã GD / Mã SV / Tên)</label>
-                        <div style="position: relative;">
-                            <i data-lucide="search" size="16"
-                                style="position: absolute; left: 12px; top: 11px; color: var(--gray);"></i>
-                            <input type="text" class="form-control" placeholder="Nhập từ khóa..."
-                                style="padding-left: 36px; width: 100%;">
+                <div class="kn-grid">
+                    <aside class="kn-card kn-sticky" id="casePanel"></aside>
+                    <section class="kn-card" id="processPanel">
+                        <div class="kn-h">
+                            <h3><i data-lucide="check-square" size="18"></i> Thẩm định & Xác nhận</h3>
+                            <span class="badge b-pending" id="dirtyBadge" style="display:none"></span>
                         </div>
-                    </div>
-
-                    <div class="form-group" style="flex: 1;">
-                        <label>Hạng mục</label>
-                        <select class="form-control" style="width: 100%;">
-                            <option value="all">Tất cả hạng mục</option>
-                            <option value="hocphi">Học phí kỳ</option>
-                            <option value="phihanhchinh">Phí đơn từ/hành chính</option>
-                            <option value="phibaohiem">Phí bảo hiểm Y tế</option>
-                            <option value="phinhaphoc">Phí nhập học</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" style="flex: 1;">
-                        <label>Trạng thái Giao dịch</label>
-                        <select class="form-control" style="width: 100%;">
-                            <option value="all">Tất cả trạng thái</option>
-                            <option value="success">Thành công</option>
-                            <option value="pending">Chờ xử lý</option>
-                            <option value="failed">Thất bại</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" style="flex: 1;">
-                        <label>Từ ngày</label>
-                        <input type="date" class="form-control" style="width: 100%;">
-                    </div>
-
-                    <div class="form-group" style="flex: 1;">
-                        <label>Đến ngày</label>
-                        <input type="date" class="form-control" style="width: 100%;">
-                    </div>
-                </div>
-
-                <!-- Transaction Table -->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Mã GD</th>
-                            <th>Thông tin sinh viên</th>
-                            <th>Hạng mục phí</th>
-                            <th>Số tiền</th>
-                            <th>Thời gian GD</th>
-                            <th>Phương thức</th>
-                            <th>Trạng thái GD</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Record 1 -->
-                        <tr>
-                            <td><span class="transaction-id">TXN-88192345</span></td>
-                            <td>
-                                <div style="font-weight: 600;">Lê Minh Hoàng</div>
-                                <div style="font-size: 13px; color: var(--gray);">HE192005 • Kỹ thuật phần mềm
-                                </div>
-                            </td>
-                            <td>Học phí kỳ Fall 2026</td>
-                            <td class="amount">12,500,000 ₫</td>
-                            <td>
-                                <div>24/09/2026</div>
-                                <div style="font-size: 12px; color: var(--gray);">14:35:12</div>
-                            </td>
-                            <td>Chuyển khoản VNPAY</td>
-                            <td><span class="status-badge status-success"><i data-lucide="check-circle-2" size="14"></i>
-                                    Thành công</span></td>
-                            <td>
-                                <button class="btn btn-outline btn-sm" title="Xem chi tiết & In biên lai"
-                                    onclick="alert('Đang tạo Biên lai điện tử PDF...')">
-                                    <i data-lucide="file-text" size="14"></i> Biên lai
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Record 2 -->
-                        <tr>
-                            <td><span class="transaction-id">TXN-88192342</span></td>
-                            <td>
-                                <div style="font-weight: 600;">Trần Thị Hoa</div>
-                                <div style="font-size: 13px; color: var(--gray);">HS193012 • Quản trị kinh doanh
-                                </div>
-                            </td>
-                            <td>Phí đơn từ (Xin cấp bảng điểm)</td>
-                            <td class="amount">50,000 ₫</td>
-                            <td>
-                                <div>24/09/2026</div>
-                                <div style="font-size: 12px; color: var(--gray);">10:15:00</div>
-                            </td>
-                            <td>Tiền mặt (Tại quầy)</td>
-                            <td><span class="status-badge status-success"><i data-lucide="check-circle-2" size="14"></i>
-                                    Thành công</span></td>
-                            <td>
-                                <button class="btn btn-outline btn-sm"
-                                    onclick="alert('Đang tạo Biên lai điện tử PDF...')">
-                                    <i data-lucide="file-text" size="14"></i> Biên lai
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Record 3 -->
-                        <tr>
-                            <td><span class="transaction-id">TXN-88192311</span></td>
-                            <td>
-                                <div style="font-weight: 600;">Nguyễn Khắc Hiếu</div>
-                                <div style="font-size: 13px; color: var(--gray);">HE191612 • Kỹ thuật phần mềm
-                                </div>
-                            </td>
-                            <td>Bảo hiểm Y tế (1 năm)</td>
-                            <td class="amount">850,500 ₫</td>
-                            <td>
-                                <div>23/09/2026</div>
-                                <div style="font-size: 12px; color: var(--gray);">16:45:22</div>
-                            </td>
-                            <td>Thanh toán thẻ VISA</td>
-                            <td><span class="status-badge status-failed"><i data-lucide="x-circle" size="14"></i> Thất
-                                    bại</span>
-                                <div style="font-size: 11px; color: var(--gray); margin-top: 2px;">Lỗi ngân hàng
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-outline btn-sm" disabled style="opacity: 0.5;">
-                                    <i data-lucide="file-text" size="14"></i> Biên lai
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Record 4 -->
-                        <tr>
-                            <td><span class="transaction-id">TXN-88192305</span></td>
-                            <td>
-                                <div style="font-weight: 600;">Phạm Văn Đức</div>
-                                <div style="font-size: 13px; color: var(--gray);">HA194021 • Ngôn ngữ Anh</div>
-                            </td>
-                            <td>Phí đơn từ (Giấy xác nhận SV)</td>
-                            <td class="amount">20,000 ₫</td>
-                            <td>
-                                <div>23/09/2026</div>
-                                <div style="font-size: 12px; color: var(--gray);">09:12:45</div>
-                            </td>
-                            <td>Chuyển khoản (QR Code)</td>
-                            <td><span class="status-badge status-pending"><i data-lucide="clock" size="14"></i> Chờ xử
-                                    lý</span></td>
-                            <td>
-                                <button class="btn btn-outline btn-sm"
-                                    style="color: var(--primary); border-color: var(--primary);"
-                                    onclick="promptApproval('TXN-88192305')">
-                                    <i data-lucide="check" size="14"></i> Duyệt
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Pagination -->
-                <div class="pagination">
-                    <div class="page-info">
-                        Hiển thị 1 - 4 của 1,204 giao dịch
-                    </div>
-                    <div class="page-controls">
-                        <button class="page-btn" disabled><i data-lucide="chevron-left" size="16"></i></button>
-                        <button class="page-btn active">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">3</button>
-                        <button class="page-btn">...</button>
-                        <button class="page-btn">301</button>
-                        <button class="page-btn"><i data-lucide="chevron-right" size="16"></i></button>
-                    </div>
+                        <div class="m-body" id="mBody" style="padding: 20px;">
+                        </div>
+                        <div class="foot"
+                            style="padding: 14px 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                            <small id="savedInfo" style="color:var(--gray); font-size:12.5px"></small>
+                            <div style="display:flex;gap:10px" id="mFoot">
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </main>
     </div>
+    <div id="toastContainer" class="toast-container"></div>
+
 
     <script>
-        lucide.createIcons();
+        const PAGE_REQ = 'MH-05-2-PheDuyetDonTuSinhVien.html';
+        const $ = id => document.getElementById(id);
+        const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const pad = n => String(n).padStart(2, '0');
+        const money = n => Number(n).toLocaleString('en-US') + ' ₫';
+        const fd = d => { d = new Date(d); return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() };
+        const fdt = d => { d = new Date(d); return fd(d) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) };
+        const ymd = d => { d = new Date(d); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) };
+        const ago = (d, h) => { const x = new Date(); x.setDate(x.getDate() - d); x.setHours(h == null ? 9 : h, 15, 0, 0); return x.toISOString() };
+        function addWork(d, n) { d = new Date(d); while (n > 0) { d.setDate(d.getDate() + 1); if (d.getDay() % 6) n-- } return d }
+        const TODAY = ymd(new Date()), SLA = 7;
+        const store = { get: k => { try { return localStorage.getItem(k) } catch (e) { return null } }, set: (k, v) => { try { localStorage.setItem(k, v) } catch (e) { } } };
 
-        function promptApproval(txnId) {
-            const reason = prompt(`Nhập lý do/Log phê duyệt cho giao dịch ${txnId} (Bắt buộc theo BR-035):`);
-            if (reason) {
-                if (reason.trim() === '') {
-                    alert('Lỗi: Bạn phải nhập lý do!');
-                } else {
-                    alert('Xác nhận thành công giao dịch. Lý do đã được lưu vào hệ thống.');
-                }
+        const q = new URLSearchParams(location.search);
+        const reqId = q.get('reqId') || 'REQ-005';
+        let isForward = !!q.get('reqId');
+
+        const CASE = {
+            code: reqId, mssv: q.get('mssv') || 'HE150005', name: q.get('name') || 'Lê Văn C', cls: q.get('cls') || 'SE1503', major: 'Kỹ thuật phần mềm · K15', phone: '0901234567',
+            reason: 'Nộp thừa học phí kỳ Fall 2026', amount: 2500000, paid: 15000000, txn: 'TXN-88192345', paidAt: '28/09/2026', bank: 'Vietcombank', acc: '0071000123456', holder: 'LE VAN C',
+            detail: 'Em nộp thừa học phí kỳ Fall 2026, mong nhà trường hoàn lại số tiền chênh lệch vào tài khoản trên. Em xin đính kèm biên lai chuyển tiền.',
+            files: q.get('file') ? [q.get('file')] : ['bien-lai.pdf'],
+            at: q.get('date') ? q.get('date').replace(' ', 'T') + ':00Z' : ago(2),
+            status: 'wait', note: '', approved: null, ev: [{ t: q.get('date') ? q.get('date').replace(' ', 'T') + ':00Z' : ago(2), l: 'Sinh viên gửi yêu cầu hoàn tiền' }]
+        };
+
+        const ST = {
+            wait: { t: 'Chờ duyệt', c: 'b-pending', i: 'clock' },
+            proc: { t: 'Đã duyệt - chờ chi', c: 'b-done', i: 'badge-check' },
+            done: { t: 'Đã hoàn tiền', c: 'b-done', i: 'check-circle-2' },
+            rej: { t: 'Từ chối', c: 'b-rej', i: 'x-circle' }
+        };
+
+        const stKey = 'onenet-refund-' + CASE.code;
+        function state() {
+            let s = store.get(stKey);
+            if (s) {
+                try { Object.assign(CASE, JSON.parse(s)); } catch (e) { }
             }
+            return CASE.status;
         }
+
+        let logs = [];
+        const due = r => addWork(r.at, SLA);
+        const isOpen = r => r.status === 'wait' || r.status === 'proc';
+        function now() { return new Date().toISOString() }
+
+        function checkGate() {
+            if (!isForward) return false;
+            const gate = $('gateBox'), text = $('gateText');
+            if (CASE.status !== 'wait' && CASE.status !== 'proc') {
+                gate.style.display = 'flex';
+                $('processPanel').style.display = 'none';
+                text.textContent = 'Đơn ' + CASE.code + ' đã được xử lý (trạng thái: ' + ST[CASE.status].t + ').';
+                return true;
+            }
+            return false;
+        }
+
+        function casePanel() {
+            const stt = state(), s = ST[stt], lock = stt === 'done' || stt === 'rej';
+            $('casePanel').innerHTML = `
+ <div class="kn-h"><h3><i data-lucide="message-square-warning" size="18"></i> Đơn ${CASE.code}</h3><span class="badge ${s.c}">${s.t}</span></div>
+ <div class="kn-sec"><div class="stu"><div class="av">${CASE.name.trim().slice(-1)}</div><div><b>${CASE.name}</b><span>${CASE.mssv} · Lớp ${CASE.cls}</span></div></div>
+  <div class="kv"><div>Ngành / Khóa<b>${CASE.major}</b></div><div>Số điện thoại<b>${CASE.phone}</b></div><div>Ngày gửi<b>${fdt(CASE.at)}</b></div><div>Hạn xử lý<b>${fd(due(CASE))}</b></div></div></div>
+ <div class="kn-sec"><small>Chi tiết hoàn tiền</small><div class="disp"><b>${CASE.reason}</b><p>Số tiền đề nghị: <b style="color:var(--primary)">${money(CASE.amount)}</b></p></div></div>
+ <div class="kn-sec"><small>Nội dung chi tiết</small><div class="quote">${CASE.detail}</div></div>
+ <div class="kn-sec"><small>Tài khoản nhận tiền</small><div class="kv"><div>Ngân hàng<b>${CASE.bank}</b></div><div>Số tài khoản<b>${CASE.acc}</b></div><div>Chủ tài khoản<b>${CASE.holder}</b></div></div></div>
+ <div class="kn-sec"><small>Tài liệu đính kèm</small><div class="chips">${CASE.files.map(f => `<span class="chip"><i data-lucide="${/png|jpg/.test(f) ? 'image' : 'file-text'}"></i>${f}</span>`).join('')}</div></div>
+ <div class="kn-sec"><small>Tiến trình xử lý</small><ul style="list-style:none;padding:0;margin:10px 0 0;font-size:13.5px;color:var(--gray)">${CASE.ev.map(e => `<li style="margin-bottom:8px"><div><b style="color:var(--text)">${esc(e.l)}</b></div><small>${fdt(e.t)}</small></li>`).join('')}</ul></div>`;
+        }
+
+        function err(id, msg) { const g = $(id); g.classList.add('has-err'); g.querySelector('.fld-err').textContent = msg }
+
+        function processPanel() {
+            const r = CASE;
+            let alerts = '';
+            if (r.paid != null && r.amount > r.paid) alerts += `<div class="alert danger">Số tiền đề nghị (${money(r.amount)}) lớn hơn số tiền giao dịch gốc (${money(r.paid)}). Không thể duyệt vượt số đã nộp.</div>`;
+
+            let html = `
+<h5>Đối soát giao dịch gốc</h5>
+<div class="cmp"><div><small>Giao dịch gốc</small><b class="transaction-id" style="font-size:14px">${esc(r.txn || '—')}</b><div class="td-sub">Nộp ngày ${esc(r.paidAt || '—')}</div></div>
+<div><small>Số tiền đã nộp</small><b>${r.paid != null ? money(r.paid) : '—'}</b></div>
+<div><small>Số tiền đề nghị hoàn</small><b style="color:var(--primary)">${money(r.amount)}</b></div></div>${alerts}`;
+
+            let foot = `<button class="btn btn-outline" onclick="restore()">Làm lại</button>`;
+
+            if (r.status === 'wait') {
+                html += `<h5>Xử lý yêu cầu</h5><div class="stack">
+<div class="form-group" id="gAmt"><label for="mAmt">Số tiền duyệt hoàn (₫)</label><input id="mAmt" type="number" class="form-control" min="1000" step="1000" value="${r.amount}"><div class="fld-err"></div></div>
+<div class="form-group" id="gNote"><label for="mNote">Lý do / ghi chú xử lý <span style="color:var(--danger)">*</span></label><textarea id="mNote" class="form-control" placeholder="Bắt buộc ghi lý do duyệt hoặc từ chối (BR-035)..."></textarea><div class="fld-err"></div></div></div>`;
+                foot += `<button class="btn btn-danger" onclick="act('reject')"><i data-lucide="x-circle" size="16"></i> Từ chối</button><button class="btn btn-primary" onclick="act('approve')"><i data-lucide="check" size="16"></i> Duyệt hoàn tiền</button>`;
+            } else if (r.status === 'proc') {
+                html += `<h5>Xác nhận chi trả</h5>
+<div class="alert ok">Số tiền cần chuyển: <b>${money(r.approved != null ? r.approved : r.amount)}</b> về <b>${esc(r.bank)} · ${esc(r.acc)}</b> (${esc(r.holder)})</div><div class="stack" style="margin-top:12px">
+<div class="form-group" id="gRef"><label for="mRef">Mã giao dịch chuyển khoản hoàn <span style="color:var(--danger)">*</span></label><input id="mRef" type="text" class="form-control" placeholder="VD: RF-20261008-01"><div class="fld-err"></div></div>
+<div class="form-group" id="gDate"><label for="mDate">Ngày chuyển tiền <span style="color:var(--danger)">*</span></label><input id="mDate" type="date" class="form-control" value="${TODAY}" max="${TODAY}"><div class="fld-err"></div></div></div>`;
+                foot += `<button class="btn btn-primary" onclick="act('pay')" style="background:var(--success);border-color:var(--success)"><i data-lucide="send" size="16"></i> Xác nhận đã chuyển tiền</button>`;
+            } else {
+                html += `<h5>Kết quả xử lý</h5><div class="alert ${r.status === 'done' ? 'ok' : 'danger'}">Đơn này đã được xử lý. <br><b>${r.note}</b></div>`;
+                foot = ``;
+            }
+
+            $('mBody').innerHTML = html;
+            $('mFoot').innerHTML = foot;
+        }
+
+        window.act = function (a) {
+            const r = CASE;
+            document.querySelectorAll('#mBody .has-err').forEach(x => x.classList.remove('has-err'));
+            const t = now();
+            if (a === 'approve') {
+                const amt = +$('mAmt').value, note = $('mNote').value.trim(); let bad = false;
+                if (!amt || amt <= 0) { err('gAmt', 'Nhập số tiền hợp lệ'); bad = true }
+                else if (amt > r.amount) { err('gAmt', 'Không vượt số tiền sinh viên đề nghị (' + money(r.amount) + ')'); bad = true }
+                else if (r.paid != null && amt > r.paid) { err('gAmt', 'Không vượt số tiền giao dịch gốc (' + money(r.paid) + ')'); bad = true }
+                if (!note) { err('gNote', 'Bạn phải nhập lý do / ghi chú'); bad = true }
+                if (bad) return;
+                r.status = 'proc'; r.approved = amt; r.ev.push({ t: t, l: 'Đã duyệt hoàn ' + money(amt) + ' · ' + note });
+                store.set(stKey, JSON.stringify(r)); render(); showToast('Thành công', 'Đã duyệt. Chuyển sang bước chi trả.');
+            }
+            if (a === 'reject') {
+                const note = $('mNote').value.trim();
+                if (!note) return err('gNote', 'Bạn phải nhập lý do từ chối');
+                r.status = 'rej'; r.note = note; r.ev.push({ t: t, l: 'Từ chối: ' + note, k: 'rej' });
+                store.set(stKey, JSON.stringify(r)); render(); showToast('Từ chối', 'Đã từ chối đơn hoàn tiền.', 'error');
+                if (isForward) setTimeout(() => location.href = PAGE_REQ + '?done=' + encodeURIComponent(r.code), 1500);
+            }
+            if (a === 'pay') {
+                const ref = $('mRef').value.trim(), date = $('mDate').value; let bad = false;
+                if (!/^[A-Za-z0-9._-]{6,40}$/.test(ref)) { err('gRef', 'Mã GD gồm 6-40 ký tự'); bad = true }
+                if (!date) { err('gDate', 'Chọn ngày chuyển tiền'); bad = true } else if (date > TODAY) { err('gDate', 'Ngày chuyển không được ở tương lai'); bad = true }
+                if (bad) return;
+                const amt = r.approved != null ? r.approved : r.amount;
+                r.status = 'done'; r.note = 'Đã chuyển khoản ' + money(amt) + ' về TK ' + r.bank + ' ' + r.acc + ' (mã GD ' + ref + ').';
+                r.ev.push({ t: t, l: 'Đã chuyển khoản hoàn tiền (mã GD ' + ref + ', ngày ' + fd(date) + ')', k: 'ok' });
+                store.set(stKey, JSON.stringify(r)); render(); showToast('Thành công', 'Đã xác nhận hoàn tiền cho sinh viên.');
+                if (isForward) setTimeout(() => location.href = PAGE_REQ + '?done=' + encodeURIComponent(r.code), 1500);
+            }
+        };
+
+        function render() {
+            if (checkGate()) return;
+            casePanel();
+            processPanel();
+            lucide.createIcons();
+        }
+
+        window.restore = function () {
+            store.set(stKey, '');
+            location.reload();
+        };
+
+        function showToast(title, message, type = 'success') {
+            const t = document.createElement('div'); t.className = 'toast toast-' + type;
+            t.innerHTML = `<div class="toast-icon"><i data-lucide="${type === 'success' ? 'check' : 'alert-circle'}" size="16"></i></div><div class="toast-content"><div class="toast-title">${title}</div><div class="toast-message">${message}</div></div>`;
+            $('toastContainer').appendChild(t); lucide.createIcons(); setTimeout(() => t.classList.add('show'), 10);
+            setTimeout(() => { t.classList.remove('show'); t.classList.add('hiding'); setTimeout(() => t.remove(), 400) }, 3500)
+        }
+
+        render();
     </script>
+
     <script>
         (function () {
             var h = document.documentElement;
@@ -1250,21 +1624,6 @@
             apply(h.getAttribute('data-theme') || 'light', false);
         })();
 
-    </script>
-    <script>
-        (function () {
-            var rows = document.querySelectorAll('main tbody tr'), ok = 0, sum = 0, fail = 0, wait = 0;
-            rows.forEach(function (r) {
-                var td = r.querySelectorAll('td'); if (td.length < 7) return;
-                if (r.querySelector('.status-success')) { ok++; sum += parseInt(td[3].textContent.replace(/\D/g, ''), 10) || 0; }
-                else if (r.querySelector('.status-failed')) fail++;
-                else if (r.querySelector('.status-pending')) wait++;
-            });
-            document.getElementById('stOkCount').textContent = ok;
-            document.getElementById('stMoney').textContent = sum.toLocaleString('en-US') + ' ₫';
-            document.getElementById('stFail').textContent = fail;
-            document.getElementById('stWait').textContent = wait;
-        })();
     </script>
 </body>
 

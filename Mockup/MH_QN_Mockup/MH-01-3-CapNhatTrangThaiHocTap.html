@@ -168,7 +168,7 @@
         .page-title {
             font-size: 20px;
             font-weight: 700;
-            
+
             margin-bottom: 24px;
             display: flex;
             align-items: center;
@@ -839,6 +839,7 @@
         .menu-item.active {
             font-weight: 600 !important;
         }
+
         html[data-theme="dark"] .sidebar-item:hover {
             background: var(--bg-soft) !important
         }
@@ -889,7 +890,7 @@
                 <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
             <div class="menu-group-title">Công tác Sinh viên</div>
-            <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item active">
+            <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item ">
                 <i data-lucide="contact-2" size="18"></i> Hồ sơ sinh viên
             </a>
             <a href="MH-01-9-BangXepLoaiHocLuc.html" class="sidebar-item">
@@ -901,7 +902,7 @@
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
+            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item active">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
             <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
@@ -1156,8 +1157,7 @@
         <div style="background: white; padding: 32px; border-radius: 16px; width: 600px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h3 style="font-size: 18px; font-weight: 700;">Lịch sử thay đổi hệ thống (Audit Log)</h3>
-                <i data-lucide="x" size="20" style="cursor: pointer; color: var(--gray);"
-                    onclick="closeAuditLog()"></i>
+                <i data-lucide="x" size="20" style="cursor: pointer; color: var(--gray);" onclick="closeAuditLog()"></i>
             </div>
 
             <div style="max-height: 400px; overflow-y: auto;">
@@ -1475,11 +1475,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-

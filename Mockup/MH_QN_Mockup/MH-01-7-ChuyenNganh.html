@@ -168,7 +168,7 @@
         .page-title {
             font-size: 20px;
             font-weight: 700;
-            
+
             margin-bottom: 24px;
             display: flex;
             align-items: center;
@@ -1376,6 +1376,7 @@
         .menu-item.active {
             font-weight: 600 !important;
         }
+
         html[data-theme="dark"] .sidebar-item:hover {
             background: var(--bg-soft) !important
         }
@@ -1438,14 +1439,14 @@
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
+            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item active">
                 <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
             <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
                 <i data-lucide="award" size="18"></i> Quản lý học bổng
             </a>
             <div class="menu-group-title">Quản lý Đào tạo</div>
-            <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item active">
+            <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item ">
                 <i data-lucide="server" size="18"></i> Quản lý danh mục
             </a>
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item">
@@ -1612,8 +1613,7 @@
         <div style="background: white; padding: 32px; border-radius: 16px; width: 600px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h3 style="font-size: 18px; font-weight: 700;">Lịch sử chuyển ngành (Audit Log)</h3>
-                <i data-lucide="x" size="20" style="cursor: pointer; color: var(--gray);"
-                    onclick="closeAuditLog()"></i>
+                <i data-lucide="x" size="20" style="cursor: pointer; color: var(--gray);" onclick="closeAuditLog()"></i>
             </div>
 
             <div style="max-height: 400px; overflow-y: auto;">
@@ -1894,11 +1894,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
