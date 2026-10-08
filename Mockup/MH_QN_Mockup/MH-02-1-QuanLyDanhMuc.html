@@ -11,13 +11,14 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
+            --bg-white: #FFFFFF;
             --primary: #0757A6;
             --primary-dark: #063B75;
             --primary-light: #CFE6FF;
             --primary-50: #EAF4FF;
-            --text-dark: #102A43;
-            --text-gray: #5E7184;
-            --text-light: #8FA4B8;
+            --text: #102A43;
+            --gray: #5E7184;
+            --light: #8FA4B8;
             --bg-light: #F5F8FC;
             --border: #DCE8F3;
             --border-light: #EDF2F7;
@@ -39,7 +40,7 @@
 
         body {
             background: var(--bg-light);
-            color: var(--text-dark);
+            color: var(--text);
             overflow-x: hidden
         }
 
@@ -47,9 +48,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 48px;
-            height: 64px;
-            background: #fff;
+            padding: 0 24px;
+            height: 60px;
+            background: var(--bg-white);
             box-shadow: 0 1px 0 var(--border), var(--shadow-sm);
             z-index: 100;
             position: sticky;
@@ -86,7 +87,7 @@
             font-weight: 600;
             font-size: 10px;
             text-transform: uppercase;
-            color: var(--text-light);
+            color: var(--light);
             letter-spacing: .5px
         }
 
@@ -138,7 +139,7 @@
 
         .user-info .role {
             font-size: 11px;
-            color: var(--text-light)
+            color: var(--light)
         }
 
         .dashboard-layout {
@@ -148,9 +149,9 @@
 
         .sidebar {
             width: 256px;
-            background: #fff;
-            border-right: 1px solid var(--border-light);
-            padding: 20px 0;
+            background: var(--bg-white);
+            border-right: 1px solid var(--border);
+            padding: 16px 0;
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -161,9 +162,9 @@
         .menu-group-title {
             font-size: 10px;
             font-weight: 700;
-            color: var(--text-light);
+            color: var(--light);
             text-transform: uppercase;
-            padding: 16px 24px 6px;
+            padding: 14px 24px 6px;
             letter-spacing: .8px
         }
 
@@ -172,7 +173,7 @@
             align-items: center;
             gap: 12px;
             padding: 10px 24px;
-            color: var(--text-gray);
+            color: var(--text);
             font-weight: 500;
             font-size: 13.5px;
             text-decoration: none;
@@ -180,16 +181,8 @@
             transition: .15s
         }
 
-        .sidebar-item:hover {
-            background: #F8FAFC;
-            color: var(--primary)
-        }
-
         .sidebar-item.active {
-            background: var(--primary-50);
-            color: var(--primary);
-            border-left-color: var(--primary);
-            font-weight: 600
+            font-weight: 600;
         }
 
         .dashboard-content {
@@ -331,7 +324,7 @@
 
         .sec-title small {
             font-size: 12px;
-            color: var(--text-light)
+            color: var(--light)
         }
 
         /* Category cards */
@@ -471,7 +464,7 @@
         .card-desc {
             font-size: 13px;
             line-height: 1.6;
-            color: var(--text-gray);
+            color: var(--gray);
             position: relative;
             z-index: 1
         }
@@ -515,7 +508,7 @@
 
         .mini .meta {
             font-size: 11.5px;
-            color: var(--text-light)
+            color: var(--light)
         }
 
         .card-foot {
@@ -541,7 +534,7 @@
         }
 
         .card-foot span.hint {
-            color: var(--text-light);
+            color: var(--light);
             font-weight: 500;
             font-size: 12px
         }
@@ -656,7 +649,7 @@
         .tl-body .t {
             display: block;
             font-size: 11.5px;
-            color: var(--text-light);
+            color: var(--light);
             margin-top: 2px
         }
 
@@ -707,7 +700,7 @@
             border: 1px solid var(--border-light);
             border-radius: 12px;
             text-decoration: none;
-            color: var(--text-dark);
+            color: var(--text);
             font-size: 13px;
             font-weight: 600;
             transition: .2s
@@ -734,12 +727,12 @@
             display: block;
             font-weight: 400;
             font-size: 11.5px;
-            color: var(--text-light)
+            color: var(--light)
         }
 
         .qa .go {
             margin-left: auto;
-            color: var(--text-light)
+            color: var(--light)
         }
 
         .tip {
@@ -836,7 +829,7 @@
         .panel-header-left .panel-title {
             font-size: 15px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .table {
@@ -849,7 +842,7 @@
             padding: 13px 24px;
             font-size: 11.5px;
             font-weight: 700;
-            color: var(--text-light);
+            color: var(--light);
             border-bottom: 1px solid var(--border-light);
             background: #F9FBFD;
             text-transform: uppercase;
@@ -860,7 +853,7 @@
             padding: 13px 24px;
             font-size: 13.5px;
             border-bottom: 1px solid var(--border-light);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .table tbody tr:hover {
@@ -912,9 +905,9 @@
             --primary-dark: #2A6FB8;
             --primary-light: #1E4A7A;
             --primary-50: #12304F;
-            --text-dark: #E6EDF5;
-            --text-gray: #9FB2C5;
-            --text-light: #6F869C;
+            --text: #E6EDF5;
+            --gray: #9FB2C5;
+            --light: #6F869C;
             --bg-light: #0B1522;
             --bg-white: #111E2E;
             --bg-soft: #15263A;
@@ -935,7 +928,7 @@
 
         body {
             background: var(--bg-light);
-            color: var(--text-dark)
+            color: var(--text)
         }
 
         .dashboard-content,
@@ -976,7 +969,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--light);
             padding: 32px 0 4px;
             letter-spacing: .2px
         }
@@ -1017,12 +1010,12 @@
         html[data-theme="dark"] select,
         html[data-theme="dark"] textarea {
             background-color: var(--bg-white);
-            color: var(--text-dark);
+            color: var(--text);
             border-color: var(--border)
         }
 
         html[data-theme="dark"] ::placeholder {
-            color: var(--text-light)
+            color: var(--light)
         }
 
         html[data-theme="dark"] .dashboard-content,
@@ -1096,42 +1089,6 @@
             background: rgba(255, 255, 255, .55)
         }
 
-        html[data-theme] .page-header .page-title,
-        html[data-theme] .page-header .page-title span,
-        html[data-theme] .page-header .page-title svg {
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .page-title span {
-            color: #BFE0FF !important
-        }
-
-        html[data-theme] .page-header .page-subtitle,
-        html[data-theme] .page-header .page-subtitle span {
-            color: rgba(255, 255, 255, .78) !important
-        }
-
-        html[data-theme] .page-header .page-subtitle .dot {
-            background: rgba(255, 255, 255, .55) !important
-        }
-
-        html[data-theme] .page-header .btn-outline {
-            background: rgba(255, 255, 255, .14) !important;
-            border: 1px solid rgba(255, 255, 255, .32) !important;
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .btn-outline:hover {
-            background: rgba(255, 255, 255, .24) !important
-        }
-
-        html[data-theme] .page-header .btn-primary,
-        html[data-theme] .page-header .btn-success {
-            background: #fff !important;
-            color: #063B75 !important;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, .18) !important
-        }
-
         /* Theme toggle */
         .theme-toggle {
             width: 38px;
@@ -1139,7 +1096,7 @@
             border-radius: 50%;
             border: 1px solid var(--border);
             background: var(--bg-white);
-            color: var(--text-gray);
+            color: var(--gray);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1194,17 +1151,6 @@
         }
 
         /* dark overrides generated from this page */
-        html[data-theme="dark"] .header {
-            background: var(--bg-white) !important
-        }
-
-        html[data-theme="dark"] .sidebar {
-            background: var(--bg-white) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item:hover {
-            background: var(--bg-soft) !important
-        }
 
         html[data-theme="dark"] .dashboard-content::-webkit-scrollbar-thumb {
             background: color-mix(in srgb, #CBD5E1 17%, #0F1B2A) !important
@@ -1212,6 +1158,26 @@
 
         html[data-theme="dark"] .category-card {
             background: var(--bg-white) !important
+        }
+
+        html[data-theme="dark"] .card-lecturer {
+            --bg: color-mix(in srgb, #DBEAFE 15%, #111E2E) !important;
+            --c: color-mix(in srgb, #1D4ED8 45%, #fff) !important;
+        }
+
+        html[data-theme="dark"] .card-major {
+            --bg: color-mix(in srgb, #D1FAE5 15%, #111E2E) !important;
+            --c: color-mix(in srgb, #047857 45%, #fff) !important;
+        }
+
+        html[data-theme="dark"] .card-subject {
+            --bg: color-mix(in srgb, #EDE9FE 15%, #111E2E) !important;
+            --c: color-mix(in srgb, #6D28D9 45%, #fff) !important;
+        }
+
+        html[data-theme="dark"] .card-department {
+            --bg: color-mix(in srgb, #FEF3C7 15%, #111E2E) !important;
+            --c: color-mix(in srgb, #B45309 45%, #fff) !important;
         }
 
         html[data-theme="dark"] .panel {
@@ -1311,6 +1277,15 @@
         .menu-item.active {
             font-weight: 600 !important;
         }
+
+        html[data-theme="dark"] .sidebar-item:hover {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .sidebar-item.active {
+            background: var(--primary-50) !important;
+            box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
+        }
     </style>
 </head>
 
@@ -1343,66 +1318,66 @@
     <div class="dashboard-layout">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="menu-group-title">Menu Chính</div>
+            <div class="menu-group-title">Tổng quan</div>
             <a href="MH-00-7-DashboardBaoCao.html" class="sidebar-item">
-                <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                <i data-lucide="layout-dashboard" size="18"></i> Dashboard / Thống kê chung
             </a>
-            <div class="menu-group-title">Tuyển Sinh</div>
-            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
-                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
-            </a>
+            <div class="menu-group-title">Tuyển sinh & Nhập học</div>
             <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item">
                 <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
-            <div class="menu-group-title">Sinh Viên</div>
-            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
-                <i data-lucide="list" size="20"></i> Danh sách lớp
+            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
+            <div class="menu-group-title">Công tác Sinh viên</div>
             <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
-                <i data-lucide="contact-2" size="20"></i> Hồ sơ sinh viên
+                <i data-lucide="contact-2" size="18"></i> Hồ sơ sinh viên
+            </a>
+            <a href="MH-01-9-BangXepLoaiHocLuc.html" class="sidebar-item">
+                <i data-lucide="medal" size="18"></i> Xếp loại học lực
+            </a>
+            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
+                <i data-lucide="list" size="18"></i> Danh sách lớp
             </a>
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
-                <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
+            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
+                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
-            <a href="MH-01-7-ChuyenNganh.html" class="sidebar-item">
-                <i data-lucide="arrow-right-left" size="18"></i> Chuyển ngành
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="award" size="18"></i> Quản lý học bổng
             </a>
-            <div class="menu-group-title">Đào Tạo</div>
+            <div class="menu-group-title">Quản lý Đào tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item active">
                 <i data-lucide="server" size="18"></i> Quản lý danh mục
             </a>
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="18"></i> Chương trình học
             </a>
-            <a href="MH-02-5-KhoDeThi.html" class="sidebar-item ">
-                <i data-lucide="library-big" size="18"></i> Kho đề thi
-            </a>
-            <a href="MH-02-6-LichThi.html" class="sidebar-item ">
-                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
-            </a>
+            <div class="menu-group-title">Tổ chức Giảng dạy</div>
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item">
                 <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
             <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="18"></i> Lịch báo nghỉ/bù
             </a>
-            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
-                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
+            <div class="menu-group-title">Khảo thí & Điểm số</div>
+            <a href="MH-02-5-Khodethi.html" class="sidebar-item">
+                <i data-lucide="library-big" size="18"></i> Kho đề thi
             </a>
-            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            <a href="MH-02-6-LichThi.html" class="sidebar-item">
+                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
             </a>
             <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+                <i data-lucide="file-search" size="18"></i> Phúc khảo điểm
             </a>
-            <div class="menu-group-title">Tài Chính</div>
+            <div class="menu-group-title">Tài chính - Kế toán</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
             </a>
         </aside>
+
 
         <main class="dashboard-content">
             <div class="wrap">

@@ -13,9 +13,9 @@
             --primary-dark: #063B75;
             --primary-light: #CFE6FF;
             --primary-50: #EAF4FF;
-            --text-dark: #102A43;
-            --text-gray: #5E7184;
-            --text-light: #8FA4B8;
+            --text: #102A43;
+            --gray: #5E7184;
+            --light: #8FA4B8;
             --bg-light: #F5F8FC;
             --bg-white: #FFFFFF;
             --border: #DCE8F3;
@@ -38,7 +38,7 @@
 
         body {
             background-color: var(--bg-light);
-            color: var(--text-dark);
+            color: var(--text);
             overflow-x: hidden;
         }
 
@@ -47,9 +47,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 64px;
-            height: 64px;
-            background: white;
+            padding: 0 24px;
+            height: 60px;
+            background: var(--bg-white);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             z-index: 100;
         }
@@ -81,7 +81,7 @@
             font-weight: 600;
             font-size: 11px;
             text-transform: uppercase;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .brand-copy .sys-name {
@@ -118,12 +118,12 @@
         .user-info .name {
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .user-info .role {
             font-size: 12px;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         /* Layout */
@@ -135,9 +135,9 @@
         /* ─── Sidebar ─── */
         .sidebar {
             width: 256px;
-            background: white;
-            border-right: 1px solid var(--border-light, #EDF2F7);
-            padding: 20px 0;
+            background: var(--bg-white);
+            border-right: 1px solid var(--border);
+            padding: 16px 0;
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -157,9 +157,9 @@
         .menu-group-title {
             font-size: 10px;
             font-weight: 700;
-            color: var(--text-light, #8FA4B8);
+            color: var(--light, #8FA4B8);
             text-transform: uppercase;
-            padding: 16px 24px 6px;
+            padding: 14px 24px 6px;
             letter-spacing: 0.8px;
         }
 
@@ -168,7 +168,7 @@
             align-items: center;
             gap: 12px;
             padding: 10px 24px;
-            color: var(--text-gray);
+            color: var(--text);
             font-weight: 500;
             font-size: 13.5px;
             cursor: pointer;
@@ -177,15 +177,7 @@
             transition: all 0.15s ease;
         }
 
-        .sidebar-item:hover {
-            background: #F8FAFC;
-            color: var(--primary);
-        }
-
         .sidebar-item.active {
-            background: var(--primary-50, #EAF4FF);
-            color: var(--primary);
-            border-left-color: var(--primary);
             font-weight: 600;
         }
 
@@ -207,7 +199,7 @@
         .page-title {
             font-size: 24px;
             font-weight: 700;
-            color: var(--text-dark);
+            
         }
 
         /* Card & Table */
@@ -239,7 +231,7 @@
             padding: 14px 24px;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             border-bottom: 1px solid var(--border);
             background: white;
         }
@@ -247,7 +239,7 @@
         .table td {
             padding: 14px 24px;
             font-size: 14px;
-            color: var(--text-dark);
+            color: var(--text);
             border-bottom: 1px solid var(--border);
             vertical-align: top;
         }
@@ -349,7 +341,7 @@
             display: block;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             margin-bottom: 8px;
         }
 
@@ -413,12 +405,12 @@
         .user-info .name {
             font-size: 14px !important;
             font-weight: 600 !important;
-            color: var(--text-dark) !important;
+            color: var(--text) !important;
         }
 
         .user-info .role {
             font-size: 12px !important;
-            color: var(--text-gray) !important;
+            color: var(--gray) !important;
         }
     </style>
     <!--theme-enhance-->
@@ -443,9 +435,9 @@
             --primary-dark: #2A6FB8;
             --primary-light: #1E4A7A;
             --primary-50: #12304F;
-            --text-dark: #E6EDF5;
-            --text-gray: #9FB2C5;
-            --text-light: #6F869C;
+            --text: #E6EDF5;
+            --gray: #9FB2C5;
+            --light: #6F869C;
             --bg-light: #0B1522;
             --bg-white: #111E2E;
             --bg-soft: #15263A;
@@ -466,7 +458,7 @@
 
         body {
             background: var(--bg-light);
-            color: var(--text-dark)
+            color: var(--text)
         }
 
         .dashboard-content,
@@ -507,7 +499,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--light);
             padding: 32px 0 4px;
             letter-spacing: .2px
         }
@@ -548,12 +540,12 @@
         html[data-theme="dark"] select,
         html[data-theme="dark"] textarea {
             background-color: var(--bg-white);
-            color: var(--text-dark);
+            color: var(--text);
             border-color: var(--border)
         }
 
         html[data-theme="dark"] ::placeholder {
-            color: var(--text-light)
+            color: var(--light)
         }
 
         html[data-theme="dark"] .dashboard-content,
@@ -627,42 +619,6 @@
             background: rgba(255, 255, 255, .55)
         }
 
-        html[data-theme] .page-header .page-title,
-        html[data-theme] .page-header .page-title span,
-        html[data-theme] .page-header .page-title svg {
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .page-title span {
-            color: #BFE0FF !important
-        }
-
-        html[data-theme] .page-header .page-subtitle,
-        html[data-theme] .page-header .page-subtitle span {
-            color: rgba(255, 255, 255, .78) !important
-        }
-
-        html[data-theme] .page-header .page-subtitle .dot {
-            background: rgba(255, 255, 255, .55) !important
-        }
-
-        html[data-theme] .page-header .btn-outline {
-            background: rgba(255, 255, 255, .14) !important;
-            border: 1px solid rgba(255, 255, 255, .32) !important;
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .btn-outline:hover {
-            background: rgba(255, 255, 255, .24) !important
-        }
-
-        html[data-theme] .page-header .btn-primary,
-        html[data-theme] .page-header .btn-success {
-            background: #fff !important;
-            color: #063B75 !important;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, .18) !important
-        }
-
         /* Theme toggle */
         .theme-toggle {
             width: 38px;
@@ -670,7 +626,7 @@
             border-radius: 50%;
             border: 1px solid var(--border);
             background: var(--bg-white);
-            color: var(--text-gray);
+            color: var(--gray);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -725,29 +681,13 @@
         }
 
         /* dark overrides generated from this page */
-        html[data-theme="dark"] .header {
-            background: var(--bg-white) !important
-        }
 
         html[data-theme="dark"] .avatar {
             background: color-mix(in srgb, #EAF4FF 17%, #0F1B2A) !important
         }
 
-        html[data-theme="dark"] .sidebar {
-            background: var(--bg-white) !important;
-            border-right: 1px solid var(--border-light, var(--border)) !important
-        }
-
         html[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb {
             background: color-mix(in srgb, #CBD5E1 17%, #0F1B2A) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item:hover {
-            background: var(--bg-soft) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item.active {
-            background: var(--primary-50, color-mix(in srgb, #EAF4FF 17%, #0F1B2A)) !important
         }
 
         html[data-theme="dark"] .card {
@@ -789,10 +729,6 @@
         html[data-theme="dark"] .alert-modal {
             background: var(--bg-soft) !important;
             color: color-mix(in srgb, #991B1B 38%, #fff) !important
-        }
-
-        html[data-theme="dark"] .user-profile:hover {
-            background: var(--bg-soft) !important
         }
 
         html[data-theme="dark"] .avatar {
@@ -848,6 +784,14 @@
         .menu-item.active {
             font-weight: 600 !important;
         }
+        html[data-theme="dark"] .sidebar-item:hover {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .sidebar-item.active {
+            background: var(--primary-50) !important;
+            box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
+        }
     </style>
 </head>
 
@@ -878,67 +822,66 @@
 
     <div class="dashboard-layout">
         <aside class="sidebar">
-            <div class="menu-group-title">Menu Chính</div>
+            <div class="menu-group-title">Tổng quan</div>
             <a href="MH-00-7-DashboardBaoCao.html" class="sidebar-item">
-                <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                <i data-lucide="layout-dashboard" size="18"></i> Dashboard / Thống kê chung
             </a>
-            <div class="menu-group-title">Tuyển Sinh</div>
-            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
-                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
-            </a>
+            <div class="menu-group-title">Tuyển sinh & Nhập học</div>
             <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item">
                 <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
-            <div class="menu-group-title">Sinh Viên</div>
-            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
-                <i data-lucide="list" size="20"></i> Danh sách lớp
+            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
+            <div class="menu-group-title">Công tác Sinh viên</div>
             <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
-                <i data-lucide="contact-2" size="20"></i> Hồ sơ sinh viên
+                <i data-lucide="contact-2" size="18"></i> Hồ sơ sinh viên
+            </a>
+            <a href="MH-01-9-BangXepLoaiHocLuc.html" class="sidebar-item">
+                <i data-lucide="medal" size="18"></i> Xếp loại học lực
+            </a>
+            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
+                <i data-lucide="list" size="18"></i> Danh sách lớp
             </a>
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
-                <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
+            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
+                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
-            <a href="MH-01-7-ChuyenNganh.html" class="sidebar-item">
-                <i data-lucide="arrow-right-left" size="18"></i> Chuyển ngành
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="award" size="18"></i> Quản lý học bổng
             </a>
-            <div class="menu-group-title">Đào Tạo</div>
+            <div class="menu-group-title">Quản lý Đào tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item">
                 <i data-lucide="server" size="18"></i> Quản lý danh mục
             </a>
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="18"></i> Chương trình học
             </a>
-            <a href="MH-02-5-KhoDeThi.html" class="sidebar-item ">
-                <i data-lucide="library-big" size="18"></i> Kho đề thi
-            </a>
-            <a href="MH-02-6-LichThi.html" class="sidebar-item ">
-                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
-            </a>
+            <div class="menu-group-title">Tổ chức Giảng dạy</div>
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item">
                 <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
             <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item active">
                 <i data-lucide="calendar-clock" size="18"></i> Lịch báo nghỉ/bù
             </a>
-            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
-                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
+            <div class="menu-group-title">Khảo thí & Điểm số</div>
+            <a href="MH-02-5-Khodethi.html" class="sidebar-item">
+                <i data-lucide="library-big" size="18"></i> Kho đề thi
             </a>
-            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            <a href="MH-02-6-LichThi.html" class="sidebar-item">
+                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
             </a>
             <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+                <i data-lucide="file-search" size="18"></i> Phúc khảo điểm
             </a>
-
-            <div class="menu-group-title">Tài Chính</div>
+            <div class="menu-group-title">Tài chính - Kế toán</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
             </a>
         </aside>
+
 
 
         <main class="dashboard-content">
@@ -970,7 +913,7 @@
                     <tbody>
                         <tr>
                             <td><strong>TS. Nguyễn Văn Hùng</strong><br><span
-                                    style="color:var(--text-gray); font-size: 13px;">GV001</span></td>
+                                    style="color:var(--gray); font-size: 13px;">GV001</span></td>
                             <td>Lớp: SE1901 - PRO192<br>Ngày: 10/09/2024 (Slot 2)<br>Lý do: Bận đi công tác</td>
                             <td>Ngày: 14/09/2024 (Slot 5)<br>Phòng: Cần xếp phòng</td>
                             <td><span class="badge badge-pending">Chờ duyệt</span></td>
@@ -982,12 +925,12 @@
                         </tr>
                         <tr>
                             <td><strong>ThS. Trần Thị Mai</strong><br><span
-                                    style="color:var(--text-gray); font-size: 13px;">GV002</span></td>
+                                    style="color:var(--gray); font-size: 13px;">GV002</span></td>
                             <td>Lớp: HS1901 - ECO111<br>Ngày: 05/09/2024 (Slot 4)<br>Lý do: Ốm đột xuất</td>
                             <td>Ngày: 08/09/2024 (Slot 1)<br>Phòng: AL-102</td>
                             <td><span class="badge badge-approved">Đã duyệt</span></td>
                             <td style="text-align: right;">
-                                <span style="font-size: 13px; color: var(--text-gray);">Đã cập nhật TKB</span>
+                                <span style="font-size: 13px; color: var(--gray);">Đã cập nhật TKB</span>
                             </td>
                         </tr>
                     </tbody>
@@ -1042,7 +985,7 @@
         }
 
         function approveReq(btn) {
-            btn.parentElement.innerHTML = '<span style="font-size: 13px; color: var(--text-gray);"><i data-lucide="check-circle-2" size="14" style="color:#1E8E3E"></i> Đã đồng bộ Email & TKB</span>';
+            btn.parentElement.innerHTML = '<span style="font-size: 13px; color: var(--gray);"><i data-lucide="check-circle-2" size="14" style="color:#1E8E3E"></i> Đã đồng bộ Email & TKB</span>';
             lucide.createIcons();
         }
     </script>
@@ -1097,3 +1040,11 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+

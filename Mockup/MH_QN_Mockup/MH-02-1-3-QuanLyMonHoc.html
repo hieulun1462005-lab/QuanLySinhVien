@@ -15,9 +15,9 @@
             --primary-dark: #063B75;
             --primary-light: #CFE6FF;
             --primary-50: #EAF4FF;
-            --text-dark: #102A43;
-            --text-gray: #5E7184;
-            --text-light: #8FA4B8;
+            --text: #102A43;
+            --gray: #5E7184;
+            --light: #8FA4B8;
             --bg-light: #F5F8FC;
             --bg-white: #FFFFFF;
             --border: #DCE8F3;
@@ -40,7 +40,7 @@
 
         body {
             background-color: var(--bg-light);
-            color: var(--text-dark);
+            color: var(--text);
             overflow-x: hidden;
         }
 
@@ -49,9 +49,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 48px;
-            height: 64px;
-            background: white;
+            padding: 0 24px;
+            height: 60px;
+            background: var(--bg-white);
             box-shadow: 0 1px 0 var(--border), var(--shadow-sm);
             z-index: 100;
             position: sticky;
@@ -88,7 +88,7 @@
             font-weight: 600;
             font-size: 10px;
             text-transform: uppercase;
-            color: var(--text-light);
+            color: var(--light);
             letter-spacing: 0.5px;
         }
 
@@ -136,12 +136,12 @@
         .user-info .name {
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .user-info .role {
             font-size: 11px;
-            color: var(--text-light);
+            color: var(--light);
         }
 
         /* ─── Layout ─── */
@@ -153,9 +153,9 @@
         /* ─── Sidebar ─── */
         .sidebar {
             width: 256px;
-            background: white;
-            border-right: 1px solid var(--border-light, #EDF2F7);
-            padding: 20px 0;
+            background: var(--bg-white);
+            border-right: 1px solid var(--border);
+            padding: 16px 0;
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -175,9 +175,9 @@
         .menu-group-title {
             font-size: 10px;
             font-weight: 700;
-            color: var(--text-light, #8FA4B8);
+            color: var(--light, #8FA4B8);
             text-transform: uppercase;
-            padding: 16px 24px 6px;
+            padding: 14px 24px 6px;
             letter-spacing: 0.8px;
         }
 
@@ -186,7 +186,7 @@
             align-items: center;
             gap: 12px;
             padding: 10px 24px;
-            color: var(--text-gray);
+            color: var(--text);
             font-weight: 500;
             font-size: 13.5px;
             cursor: pointer;
@@ -195,15 +195,7 @@
             transition: all 0.15s ease;
         }
 
-        .sidebar-item:hover {
-            background: #F8FAFC;
-            color: var(--primary);
-        }
-
         .sidebar-item.active {
-            background: var(--primary-50, #EAF4FF);
-            color: var(--primary);
-            border-left-color: var(--primary);
             font-weight: 600;
         }
 
@@ -231,7 +223,7 @@
         .page-title {
             font-size: 22px;
             font-weight: 800;
-            color: var(--text-dark);
+
             letter-spacing: -0.3px;
         }
 
@@ -239,7 +231,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-light);
+            color: var(--light);
             font-size: 13px;
         }
 
@@ -247,7 +239,7 @@
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            background: var(--text-light);
+            background: var(--light);
         }
 
         /* ─── Category Cards Grid ─── */
@@ -373,7 +365,7 @@
         .category-label {
             font-size: 16px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .category-count {
@@ -495,7 +487,7 @@
         .panel-header-left .panel-title {
             font-size: 15px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .panel-header-right {
@@ -546,7 +538,7 @@
         }
 
         .search-box i {
-            color: var(--text-light);
+            color: var(--light);
         }
 
         .search-box input {
@@ -555,11 +547,11 @@
             font-size: 13px;
             flex: 1;
             background: transparent;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .search-box input::placeholder {
-            color: var(--text-light);
+            color: var(--light);
         }
 
         .filter-select {
@@ -568,7 +560,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             font-size: 13px;
-            color: var(--text-dark);
+            color: var(--text);
             background: white;
             outline: none;
             cursor: pointer;
@@ -608,7 +600,7 @@
         .btn-outline {
             background: white;
             border: 1px solid var(--border);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .btn-outline:hover {
@@ -639,7 +631,7 @@
 
         .btn-ghost {
             background: transparent;
-            color: var(--text-gray);
+            color: var(--gray);
             padding: 8px;
             border-radius: 8px;
             border: none;
@@ -705,7 +697,7 @@
             padding: 13px 24px;
             font-size: 11.5px;
             font-weight: 700;
-            color: var(--text-light);
+            color: var(--light);
             border-bottom: 1px solid var(--border-light);
             background: #F9FBFD;
             text-transform: uppercase;
@@ -716,7 +708,7 @@
             padding: 13px 24px;
             font-size: 13.5px;
             border-bottom: 1px solid var(--border-light);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .table tbody tr {
@@ -875,7 +867,7 @@
         .form-group label {
             font-size: 12px;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
@@ -891,7 +883,7 @@
             font-size: 13.5px;
             outline: none;
             transition: all 0.2s;
-            color: var(--text-dark);
+            color: var(--text);
             background: white;
             width: 100%;
         }
@@ -962,7 +954,7 @@
             transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .toast.show {
@@ -1025,7 +1017,7 @@
         .empty-state {
             text-align: center;
             padding: 60px 24px;
-            color: var(--text-light);
+            color: var(--light);
         }
 
         .empty-state .empty-icon {
@@ -1037,13 +1029,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-light);
+            color: var(--light);
         }
 
         .empty-state h4 {
             font-size: 16px;
             font-weight: 700;
-            color: var(--text-gray);
+            color: var(--gray);
             margin-bottom: 6px;
         }
 
@@ -1102,7 +1094,7 @@
             padding: 13px 16px;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             cursor: pointer;
             border: none;
             background: none;
@@ -1155,7 +1147,7 @@
 
         .sj-hint {
             font-size: 11.5px;
-            color: var(--text-light);
+            color: var(--light);
             margin-top: 4px;
         }
 
@@ -1164,7 +1156,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: .5px;
-            color: var(--text-gray);
+            color: var(--gray);
             margin: 4px 0 12px;
             display: flex;
             align-items: center;
@@ -1195,7 +1187,7 @@
         .dyn-chk {
             text-transform: none !important;
             letter-spacing: 0 !important;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .check-row label {
@@ -1241,7 +1233,7 @@
             gap: 8px;
             font-size: 11px;
             font-weight: 700;
-            color: var(--text-light);
+            color: var(--light);
             text-transform: uppercase;
             margin-bottom: 6px;
         }
@@ -1274,7 +1266,7 @@
             justify-content: center;
             gap: 4px;
             font-size: 12px;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .btn-add-row {
@@ -1324,7 +1316,7 @@
 
         .sub-en {
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--light);
             margin-top: 2px;
             font-weight: 400;
         }
@@ -1418,7 +1410,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .sv-sec h4::before {
@@ -1445,7 +1437,7 @@
         .sv-kv span {
             display: block;
             font-size: 11.5px;
-            color: var(--text-light);
+            color: var(--light);
             margin-bottom: 3px;
         }
 
@@ -1457,7 +1449,7 @@
         .sv-text {
             font-size: 13.5px;
             line-height: 1.65;
-            color: var(--text-gray);
+            color: var(--gray);
             white-space: pre-line;
         }
 
@@ -1471,7 +1463,7 @@
             text-align: left;
             font-size: 11.5px;
             text-transform: uppercase;
-            color: var(--text-light);
+            color: var(--light);
             padding: 8px 10px;
             border-bottom: 1px solid var(--border);
         }
@@ -1484,7 +1476,7 @@
 
         .sv-empty {
             font-size: 13px;
-            color: var(--text-light);
+            color: var(--light);
             font-style: italic;
         }
 
@@ -1546,9 +1538,9 @@
             --primary-dark: #2A6FB8;
             --primary-light: #1E4A7A;
             --primary-50: #12304F;
-            --text-dark: #E6EDF5;
-            --text-gray: #9FB2C5;
-            --text-light: #6F869C;
+            --text: #E6EDF5;
+            --gray: #9FB2C5;
+            --light: #6F869C;
             --bg-light: #0B1522;
             --bg-white: #111E2E;
             --bg-soft: #15263A;
@@ -1569,7 +1561,7 @@
 
         body {
             background: var(--bg-light);
-            color: var(--text-dark)
+            color: var(--text)
         }
 
         .dashboard-content,
@@ -1610,7 +1602,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--light);
             padding: 32px 0 4px;
             letter-spacing: .2px
         }
@@ -1651,12 +1643,12 @@
         html[data-theme="dark"] select,
         html[data-theme="dark"] textarea {
             background-color: var(--bg-white);
-            color: var(--text-dark);
+            color: var(--text);
             border-color: var(--border)
         }
 
         html[data-theme="dark"] ::placeholder {
-            color: var(--text-light)
+            color: var(--light)
         }
 
         html[data-theme="dark"] .dashboard-content,
@@ -1730,42 +1722,6 @@
             background: rgba(255, 255, 255, .55)
         }
 
-        html[data-theme] .page-header .page-title,
-        html[data-theme] .page-header .page-title span,
-        html[data-theme] .page-header .page-title svg {
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .page-title span {
-            color: #BFE0FF !important
-        }
-
-        html[data-theme] .page-header .page-subtitle,
-        html[data-theme] .page-header .page-subtitle span {
-            color: rgba(255, 255, 255, .78) !important
-        }
-
-        html[data-theme] .page-header .page-subtitle .dot {
-            background: rgba(255, 255, 255, .55) !important
-        }
-
-        html[data-theme] .page-header .btn-outline {
-            background: rgba(255, 255, 255, .14) !important;
-            border: 1px solid rgba(255, 255, 255, .32) !important;
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .btn-outline:hover {
-            background: rgba(255, 255, 255, .24) !important
-        }
-
-        html[data-theme] .page-header .btn-primary,
-        html[data-theme] .page-header .btn-success {
-            background: #fff !important;
-            color: #063B75 !important;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, .18) !important
-        }
-
         /* Theme toggle */
         .theme-toggle {
             width: 38px;
@@ -1773,7 +1729,7 @@
             border-radius: 50%;
             border: 1px solid var(--border);
             background: var(--bg-white);
-            color: var(--text-gray);
+            color: var(--gray);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1828,25 +1784,9 @@
         }
 
         /* dark overrides generated from this page */
-        html[data-theme="dark"] .header {
-            background: var(--bg-white) !important
-        }
-
-        html[data-theme="dark"] .sidebar {
-            background: var(--bg-white) !important;
-            border-right: 1px solid var(--border-light, var(--border)) !important
-        }
 
         html[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb {
             background: color-mix(in srgb, #CBD5E1 17%, #0F1B2A) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item:hover {
-            background: var(--bg-soft) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item.active {
-            background: var(--primary-50, color-mix(in srgb, #EAF4FF 17%, #0F1B2A)) !important
         }
 
         html[data-theme="dark"] .category-card {
@@ -2125,6 +2065,75 @@
             background: color-mix(in srgb, #E0E7FF 17%, #0F1B2A) !important;
             color: color-mix(in srgb, #3730A3 38%, #fff) !important
         }
+
+        html[data-theme="dark"] .sidebar-item:hover {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .sidebar-item.active {
+            background: var(--primary-50) !important;
+            box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
+        }
+    </style>
+    <style id="mini-stats-style">
+        .mini-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .mini-stat {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .03);
+            transition: border-color .2s, box-shadow .2s, transform .2s;
+        }
+
+        .mini-stat:hover {
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .mini-stat.current {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent);
+        }
+
+        .mini-stat .ms-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mini-stat .ms-num {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .mini-stat .ms-label {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        @media (max-width: 1100px) {
+            .mini-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 
@@ -2156,66 +2165,66 @@
     <div class="dashboard-layout">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="menu-group-title">Menu Chính</div>
+            <div class="menu-group-title">Tổng quan</div>
             <a href="MH-00-7-DashboardBaoCao.html" class="sidebar-item">
-                <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                <i data-lucide="layout-dashboard" size="18"></i> Dashboard / Thống kê chung
             </a>
-            <div class="menu-group-title">Tuyển Sinh</div>
-            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
-                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
-            </a>
+            <div class="menu-group-title">Tuyển sinh & Nhập học</div>
             <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item">
                 <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
-            <div class="menu-group-title">Sinh Viên</div>
-            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
-                <i data-lucide="list" size="20"></i> Danh sách lớp
+            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
+            <div class="menu-group-title">Công tác Sinh viên</div>
             <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
-                <i data-lucide="contact-2" size="20"></i> Hồ sơ sinh viên
+                <i data-lucide="contact-2" size="18"></i> Hồ sơ sinh viên
+            </a>
+            <a href="MH-01-9-BangXepLoaiHocLuc.html" class="sidebar-item">
+                <i data-lucide="medal" size="18"></i> Xếp loại học lực
+            </a>
+            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
+                <i data-lucide="list" size="18"></i> Danh sách lớp
             </a>
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
-                <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
+            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
+                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
-            <a href="MH-01-7-ChuyenNganh.html" class="sidebar-item">
-                <i data-lucide="arrow-right-left" size="18"></i> Chuyển ngành
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="award" size="18"></i> Quản lý học bổng
             </a>
-            <div class="menu-group-title">Đào Tạo</div>
+            <div class="menu-group-title">Quản lý Đào tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item active">
                 <i data-lucide="server" size="18"></i> Quản lý danh mục
             </a>
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="18"></i> Chương trình học
             </a>
-            <a href="MH-02-5-KhoDeThi.html" class="sidebar-item ">
-                <i data-lucide="library-big" size="18"></i> Kho đề thi
-            </a>
-            <a href="MH-02-6-LichThi.html" class="sidebar-item ">
-                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
-            </a>
+            <div class="menu-group-title">Tổ chức Giảng dạy</div>
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item">
                 <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
             <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="18"></i> Lịch báo nghỉ/bù
             </a>
-            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
-                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
+            <div class="menu-group-title">Khảo thí & Điểm số</div>
+            <a href="MH-02-5-Khodethi.html" class="sidebar-item">
+                <i data-lucide="library-big" size="18"></i> Kho đề thi
             </a>
-            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            <a href="MH-02-6-LichThi.html" class="sidebar-item">
+                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
             </a>
             <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+                <i data-lucide="file-search" size="18"></i> Phúc khảo điểm
             </a>
-            <div class="menu-group-title">Tài Chính</div>
+            <div class="menu-group-title">Tài chính - Kế toán</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
             </a>
         </aside>
+
 
 
         <!-- Main Content -->
@@ -2223,7 +2232,7 @@
             <div class="page-header">
                 <div class="page-header-left" style="flex-direction: row; align-items: center; gap: 16px;">
                     <a href="MH-02-1-QuanLyDanhMuc.html" class="btn-icon"
-                        style="background: white; border: 1px solid var(--border); width: 40px; height: 40px; color: var(--text-dark); box-shadow: 0 1px 2px rgba(0,0,0,0.05);"
+                        style="background: white; border: 1px solid var(--border); width: 40px; height: 40px; color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,0.05);"
                         title="Quay lại danh mục">
                         <i data-lucide="arrow-left" size="20"></i>
                     </a>
@@ -2239,6 +2248,42 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Thống kê nhanh danh mục -->
+            <div class="mini-stats">
+                <a class="mini-stat" href="MH-02-1-1-QuanLyGiangVien.html" title="Quản lý giảng viên">
+                    <div class="ms-icon" style="background: #DBEAFE; color: #1D4ED8;"><i data-lucide="graduation-cap"
+                            size="22"></i></div>
+                    <div>
+                        <div class="ms-num">24</div>
+                        <div class="ms-label">giảng viên</div>
+                    </div>
+                </a>
+                <a class="mini-stat" href="MH-02-1-4-QuanLyKhoa.html" title="Quản lý khoa">
+                    <div class="ms-icon" style="background: #FEF3C7; color: #D97706;"><i data-lucide="building"
+                            size="22"></i></div>
+                    <div>
+                        <div class="ms-num">4</div>
+                        <div class="ms-label">khoa</div>
+                    </div>
+                </a>
+                <a class="mini-stat" href="MH-02-1-2-QuanLyChuyenNganh.html" title="Quản lý chuyên ngành">
+                    <div class="ms-icon" style="background: #D1FAE5; color: #047857;"><i data-lucide="layers"
+                            size="22"></i></div>
+                    <div>
+                        <div class="ms-num">6</div>
+                        <div class="ms-label">chuyên ngành</div>
+                    </div>
+                </a>
+                <a class="mini-stat current" href="MH-02-1-3-QuanLyMonHoc.html" title="Quản lý môn học">
+                    <div class="ms-icon" style="background: #EDE9FE; color: #6D28D9;"><i data-lucide="book-text"
+                            size="22"></i></div>
+                    <div>
+                        <div class="ms-num">73</div>
+                        <div class="ms-label">môn học</div>
+                    </div>
+                </a>
             </div>
 
             <!-- Category Selection Cards -->
@@ -3447,7 +3492,7 @@
             <div class="confirm-body">
                 <div class="confirm-ico"><i data-lucide="trash-2" size="24"></i></div>
                 <h3 style="font-size:17px;margin-bottom:8px">Xóa môn học?</h3>
-                <p style="font-size:13.5px;color:var(--text-gray);line-height:1.6" id="confirmText"></p>
+                <p style="font-size:13.5px;color:var(--gray);line-height:1.6" id="confirmText"></p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline" onclick="closeModal('confirmDeleteModal')">Hủy bỏ</button>
@@ -3721,7 +3766,7 @@
                     <td><div style="font-weight:600">${esc(s.name)}</div>${s.nameEn ? `<div class="sub-en">${esc(s.nameEn)}</div>` : ''}</td>
                     <td>${s.credits}</td>
                     <td>${s.majors.map(m => `<span class="major-badge ${m.toLowerCase()}">${m}</span>`).join(' ')}</td>
-                    <td>${s.prereq.length ? s.prereq.map(p => `<span class="pre-chip">${esc(p)}</span>`).join('') : '<span style="color:var(--text-light)">—</span>'}</td>
+                    <td>${s.prereq.length ? s.prereq.map(p => `<span class="pre-chip">${esc(p)}</span>`).join('') : '<span style="color:var(--light)">—</span>'}</td>
                     <td><span class="st-badge ${s.status}">${s.status === 'on' ? 'Hoạt động' : 'Ngừng'}</span></td>
                     <td><div class="action-btns">
                         <button class="btn-icon btn-view" title="Xem chi tiết" onclick="viewSubject('${s.code}')"><i data-lucide="eye" size="16"></i></button>

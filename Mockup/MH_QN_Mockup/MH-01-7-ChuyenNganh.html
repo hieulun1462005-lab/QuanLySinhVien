@@ -14,9 +14,9 @@
             --primary-dark: #063B75;
             --primary-light: #CFE6FF;
             --primary-50: #EAF4FF;
-            --text-dark: #102A43;
-            --text-gray: #5E7184;
-            --text-light: #8FA4B8;
+            --text: #102A43;
+            --gray: #5E7184;
+            --light: #8FA4B8;
             --bg-light: #F5F8FC;
             --bg-white: #FFFFFF;
             --border: #DCE8F3;
@@ -39,7 +39,7 @@
 
         body {
             background-color: var(--bg-light);
-            color: var(--text-dark);
+            color: var(--text);
             overflow-x: hidden;
         }
 
@@ -48,9 +48,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 64px;
-            height: 64px;
-            background: white;
+            padding: 0 24px;
+            height: 60px;
+            background: var(--bg-white);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             z-index: 100;
         }
@@ -82,7 +82,7 @@
             font-weight: 600;
             font-size: 11px;
             text-transform: uppercase;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .brand-copy .sys-name {
@@ -99,9 +99,9 @@
         /* ─── Sidebar ─── */
         .sidebar {
             width: 256px;
-            background: white;
-            border-right: 1px solid var(--border-light, #EDF2F7);
-            padding: 20px 0;
+            background: var(--bg-white);
+            border-right: 1px solid var(--border);
+            padding: 16px 0;
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -121,9 +121,9 @@
         .menu-group-title {
             font-size: 10px;
             font-weight: 700;
-            color: var(--text-light, #8FA4B8);
+            color: var(--light, #8FA4B8);
             text-transform: uppercase;
-            padding: 16px 24px 6px;
+            padding: 14px 24px 6px;
             letter-spacing: 0.8px;
         }
 
@@ -132,7 +132,7 @@
             align-items: center;
             gap: 12px;
             padding: 10px 24px;
-            color: var(--text-gray);
+            color: var(--text);
             font-weight: 500;
             font-size: 13.5px;
             cursor: pointer;
@@ -141,15 +141,7 @@
             transition: all 0.15s ease;
         }
 
-        .sidebar-item:hover {
-            background: #F8FAFC;
-            color: var(--primary);
-        }
-
         .sidebar-item.active {
-            background: var(--primary-50, #EAF4FF);
-            color: var(--primary);
-            border-left-color: var(--primary);
             font-weight: 600;
         }
 
@@ -176,7 +168,7 @@
         .page-title {
             font-size: 20px;
             font-weight: 700;
-            color: var(--text-dark);
+            
             margin-bottom: 24px;
             display: flex;
             align-items: center;
@@ -212,7 +204,7 @@
         .btn-outline {
             background: white;
             border: 1px solid var(--border);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .form-group {
@@ -223,7 +215,7 @@
             display: block;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             margin-bottom: 8px;
         }
 
@@ -280,7 +272,7 @@
 
         .profile-id {
             font-size: 13px;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .status-badge {
@@ -388,7 +380,7 @@
         }
 
         .user-profile:hover {
-            background: #F8FAFC;
+            background: var(--bg-soft);
             border-color: var(--border);
         }
 
@@ -416,12 +408,12 @@
         .user-info .name {
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .user-info .role {
             font-size: 12px;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .user-profile {
@@ -464,12 +456,12 @@
         .user-info .name {
             font-size: 14px !important;
             font-weight: 600 !important;
-            color: var(--text-dark) !important;
+            color: var(--text) !important;
         }
 
         .user-info .role {
             font-size: 12px !important;
-            color: var(--text-gray) !important;
+            color: var(--gray) !important;
         }
 
         /* REDESIGN STYLES */
@@ -541,7 +533,7 @@
             left: 16px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .search-box .btn {
@@ -555,7 +547,7 @@
             gap: 12px;
             align-items: center;
             font-size: 13px;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .test-triggers button {
@@ -565,7 +557,7 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 12px;
-            color: var(--text-dark);
+            color: var(--text);
             transition: 0.2s;
         }
 
@@ -645,13 +637,13 @@
         .sp-name {
             font-size: 20px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text);
             margin-bottom: 4px;
         }
 
         .sp-id {
             font-size: 14px;
-            color: var(--text-gray);
+            color: var(--gray);
             margin-bottom: 16px;
             font-weight: 500;
         }
@@ -682,13 +674,13 @@
 
         .sp-stat-label {
             font-size: 12px;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .sp-stat-value {
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .transition-form-card {
@@ -705,7 +697,7 @@
         .transition-form-card h3 {
             font-size: 18px;
             margin-bottom: 24px;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .major-transition-visual {
@@ -729,13 +721,13 @@
         .major-box .label {
             font-size: 12px;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             text-transform: uppercase;
         }
 
         .major-box.current strong {
             font-size: 15px;
-            color: var(--text-dark);
+            color: var(--text);
             padding: 14px 16px;
             background: white;
             border-radius: 10px;
@@ -751,7 +743,7 @@
             border: 2px solid var(--border);
             font-size: 15px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
             background: white;
             cursor: pointer;
             outline: none;
@@ -832,7 +824,7 @@
         html[data-theme="dark"] .search-box input {
             background: var(--bg-soft);
             border-color: var(--border);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         html[data-theme="dark"] .major-transition-visual {
@@ -845,7 +837,7 @@
         html[data-theme="dark"] .major-box.new select {
             background: var(--bg-white);
             border-color: var(--border);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         html[data-theme="dark"] .sp-avatar {
@@ -856,7 +848,7 @@
         html[data-theme="dark"] .test-triggers button {
             background: var(--bg-white);
             border-color: var(--border);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         html[data-theme="dark"] .test-triggers button:hover {
@@ -927,19 +919,81 @@
         .toast-title {
             font-size: 14px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text);
             margin-bottom: 4px;
         }
 
         .toast-message {
             font-size: 13px;
-            color: var(--text-gray);
+            color: var(--gray);
             line-height: 1.4;
         }
 
         html[data-theme="dark"] .toast {
             background: var(--bg-white);
             border-color: var(--border);
+        }
+
+        /* Đơn từ căn cứ + chặn khi không có đơn */
+        .app-ref {
+            padding: 14px 16px;
+            border: 1px solid var(--primary-light);
+            border-left: 4px solid var(--primary);
+            border-radius: 10px;
+            background: var(--primary-50);
+            margin-bottom: 16px;
+        }
+
+        .app-ref .app-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .app-ref .app-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 13px;
+            padding: 3px 0;
+            color: var(--gray);
+        }
+
+        .app-ref .app-row b {
+            color: var(--text);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .app-ref a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .gate-box {
+            display: none;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 1px solid #FDE68A;
+            border-radius: 10px;
+            background: var(--warning-light);
+            color: var(--warning);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .gate-box a {
+            display: inline-block;
+            margin-top: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
         }
     </style>
     <!--theme-enhance-->
@@ -964,9 +1018,9 @@
             --primary-dark: #2A6FB8;
             --primary-light: #1E4A7A;
             --primary-50: #12304F;
-            --text-dark: #E6EDF5;
-            --text-gray: #9FB2C5;
-            --text-light: #6F869C;
+            --text: #E6EDF5;
+            --gray: #9FB2C5;
+            --light: #6F869C;
             --bg-light: #0B1522;
             --bg-white: #111E2E;
             --bg-soft: #15263A;
@@ -987,7 +1041,7 @@
 
         body {
             background: var(--bg-light);
-            color: var(--text-dark)
+            color: var(--text)
         }
 
         .dashboard-content {
@@ -1027,7 +1081,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--light);
             padding: 32px 0 4px;
             letter-spacing: .2px
         }
@@ -1038,7 +1092,7 @@
         }
 
         .sidebar-item.active {
-            box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
+            font-weight: 600;
         }
 
         .card,
@@ -1066,12 +1120,12 @@
         html[data-theme="dark"] select,
         html[data-theme="dark"] textarea {
             background-color: var(--bg-white);
-            color: var(--text-dark);
+            color: var(--text);
             border-color: var(--border)
         }
 
         html[data-theme="dark"] ::placeholder {
-            color: var(--text-light)
+            color: var(--light)
         }
 
         html[data-theme="dark"] .dashboard-content {
@@ -1144,42 +1198,6 @@
             background: rgba(255, 255, 255, .55)
         }
 
-        html[data-theme] .page-header .page-title,
-        html[data-theme] .page-header .page-title span,
-        html[data-theme] .page-header .page-title svg {
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .page-title span {
-            color: #BFE0FF !important
-        }
-
-        html[data-theme] .page-header .page-subtitle,
-        html[data-theme] .page-header .page-subtitle span {
-            color: rgba(255, 255, 255, .78) !important
-        }
-
-        html[data-theme] .page-header .page-subtitle .dot {
-            background: rgba(255, 255, 255, .55) !important
-        }
-
-        html[data-theme] .page-header .btn-outline {
-            background: rgba(255, 255, 255, .14) !important;
-            border: 1px solid rgba(255, 255, 255, .32) !important;
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .btn-outline:hover {
-            background: rgba(255, 255, 255, .24) !important
-        }
-
-        html[data-theme] .page-header .btn-primary,
-        html[data-theme] .page-header .btn-success {
-            background: #fff !important;
-            color: #063B75 !important;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, .18) !important
-        }
-
         /* Theme toggle */
         .theme-toggle {
             width: 38px;
@@ -1187,7 +1205,7 @@
             border-radius: 50%;
             border: 1px solid var(--border);
             background: var(--bg-white);
-            color: var(--text-gray);
+            color: var(--gray);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1233,25 +1251,9 @@
         }
 
         /* dark overrides generated from this page */
-        html[data-theme="dark"] .header {
-            background: var(--bg-white) !important
-        }
-
-        html[data-theme="dark"] .sidebar {
-            background: var(--bg-white) !important;
-            border-right: 1px solid var(--border-light, var(--border)) !important
-        }
 
         html[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb {
             background: color-mix(in srgb, #CBD5E1 17%, #0F1B2A) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item:hover {
-            background: var(--bg-soft) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item.active {
-            background: var(--primary-50, color-mix(in srgb, #EAF4FF 17%, #0F1B2A)) !important
         }
 
         html[data-theme="dark"] .card {
@@ -1293,16 +1295,8 @@
             color: #93C5FD !important;
         }
 
-        html[data-theme="dark"] .user-profile:hover {
-            background: var(--bg-soft) !important
-        }
-
         html[data-theme="dark"] .avatar {
             background: color-mix(in srgb, #EAF4FF 17%, #0F1B2A) !important
-        }
-
-        html[data-theme="dark"] .user-profile:hover {
-            background: var(--bg-soft) !important
         }
 
         html[data-theme="dark"] .avatar {
@@ -1338,7 +1332,7 @@
         }
 
         html[data-theme="dark"] [style*="color: #4B5563"] {
-            color: var(--text-gray) !important
+            color: var(--gray) !important
         }
     </style>
     <style id="menu-style-fix">
@@ -1382,6 +1376,14 @@
         .menu-item.active {
             font-weight: 600 !important;
         }
+        html[data-theme="dark"] .sidebar-item:hover {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .sidebar-item.active {
+            background: var(--primary-50) !important;
+            box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
+        }
     </style>
 </head>
 
@@ -1412,66 +1414,66 @@
 
     <div class="dashboard-layout">
         <aside class="sidebar">
-            <div class="menu-group-title">Menu Chính</div>
+            <div class="menu-group-title">Tổng quan</div>
             <a href="MH-00-7-DashboardBaoCao.html" class="sidebar-item">
-                <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                <i data-lucide="layout-dashboard" size="18"></i> Dashboard / Thống kê chung
             </a>
-            <div class="menu-group-title">Tuyển Sinh</div>
-            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
-                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
-            </a>
+            <div class="menu-group-title">Tuyển sinh & Nhập học</div>
             <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item">
                 <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
-            <div class="menu-group-title">Sinh Viên</div>
-            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
-                <i data-lucide="list" size="20"></i> Danh sách lớp
+            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
+            <div class="menu-group-title">Công tác Sinh viên</div>
             <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
-                <i data-lucide="contact-2" size="20"></i> Hồ sơ sinh viên
+                <i data-lucide="contact-2" size="18"></i> Hồ sơ sinh viên
+            </a>
+            <a href="MH-01-9-BangXepLoaiHocLuc.html" class="sidebar-item">
+                <i data-lucide="medal" size="18"></i> Xếp loại học lực
+            </a>
+            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
+                <i data-lucide="list" size="18"></i> Danh sách lớp
             </a>
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
-                <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
+            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
+                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
-            <a href="MH-01-7-ChuyenNganh.html" class="sidebar-item active">
-                <i data-lucide="arrow-right-left" size="18"></i> Chuyển ngành
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="award" size="18"></i> Quản lý học bổng
             </a>
-            <div class="menu-group-title">Đào Tạo</div>
-            <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item">
+            <div class="menu-group-title">Quản lý Đào tạo</div>
+            <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item active">
                 <i data-lucide="server" size="18"></i> Quản lý danh mục
             </a>
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="18"></i> Chương trình học
             </a>
-            <a href="MH-02-5-KhoDeThi.html" class="sidebar-item ">
-                <i data-lucide="library-big" size="18"></i> Kho đề thi
-            </a>
-            <a href="MH-02-6-LichThi.html" class="sidebar-item ">
-                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
-            </a>
+            <div class="menu-group-title">Tổ chức Giảng dạy</div>
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item">
                 <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
             <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="18"></i> Lịch báo nghỉ/bù
             </a>
-            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
-                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
+            <div class="menu-group-title">Khảo thí & Điểm số</div>
+            <a href="MH-02-5-Khodethi.html" class="sidebar-item">
+                <i data-lucide="library-big" size="18"></i> Kho đề thi
             </a>
-            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            <a href="MH-02-6-LichThi.html" class="sidebar-item">
+                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
             </a>
             <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+                <i data-lucide="file-search" size="18"></i> Phúc khảo điểm
             </a>
-            <div class="menu-group-title">Tài Chính</div>
+            <div class="menu-group-title">Tài chính - Kế toán</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
             </a>
         </aside>
+
 
 
         <main class="dashboard-content">
@@ -1490,16 +1492,25 @@
                 <div class="search-section" id="searchSection">
                     <div style="text-align: center; margin-bottom: 8px;" id="searchTitle">
                         <h2 style="font-size: 22px; margin-bottom: 8px;">Tra cứu thông tin sinh viên</h2>
-                        <p style="color: var(--text-gray); font-size: 14px;">Nhập mã sinh viên để kiểm tra điều kiện và
+                        <p style="color: var(--gray); font-size: 14px;">Nhập mã sinh viên để kiểm tra điều kiện và
                             thực hiện chuyển ngành</p>
+                    </div>
+                    <div id="gateBox" class="gate-box" style="max-width: 640px; margin: 0 auto 8px; text-align: left;">
+                        <i data-lucide="lock" size="20" style="margin-top: 1px; flex-shrink: 0;"></i>
+                        <div>
+                            <strong>Chưa có đơn xin chuyển ngành!</strong><br>
+                            <span id="gateText">Chỉ được chuyển ngành từ một đơn xin chuyển ngành của sinh viên đã chọn
+                                tại trang Phê duyệt đơn từ.</span><br>
+                            <a href="MH-05-2-PheDuyetDonTuSinhVien.html">&rarr; Đến trang Phê duyệt đơn từ</a>
+                        </div>
                     </div>
                     <div class="search-box">
                         <i data-lucide="search" class="search-icon"></i>
-                        <input type="text" id="searchId" placeholder="VD: HE19201...">
-                        <button class="btn btn-primary" onclick="searchStudent()">Tìm kiếm</button>
+                        <input type="text" id="searchId" placeholder="Tự điền theo đơn từ">
+                        <button class="btn btn-primary" id="searchBtn" onclick="searchStudent()">Tìm kiếm</button>
                     </div>
 
-                    <div class="test-triggers">
+                    <div class="test-triggers" id="testTriggers">
                         <span style="font-weight: 600;">Dành cho Test:</span>
                         <button onclick="simulateDebt()">SV Nợ phí</button>
                         <button onclick="simulateNotActive()">SV Bảo lưu</button>
@@ -1538,6 +1549,18 @@
 
                     <!-- Right Column: Transition Form -->
                     <div class="right-panel">
+                        <div id="appRef" class="app-ref" style="display: none;">
+                            <div class="app-title"><i data-lucide="file-check-2" size="16"></i> Đơn căn cứ chuyển ngành
+                            </div>
+                            <div class="app-row"><span>Mã đơn</span><b id="refNo"></b></div>
+                            <div class="app-row"><span>Loại đơn</span><b>Xin chuyển ngành</b></div>
+                            <div class="app-row"><span>Ngày nộp</span><b id="refDate"></b></div>
+                            <div class="app-row"><span>File đính kèm</span><b><i data-lucide="paperclip" size="13"
+                                        style="vertical-align: text-bottom;"></i> <span id="refFile"></span></b></div>
+                            <div class="app-row"><span></span><a href="MH-05-2-PheDuyetDonTuSinhVien.html">Quay lại
+                                    trang đơn từ</a></div>
+                        </div>
+
                         <div class="transition-form-card" id="updateForm">
                             <h3>Đăng ký chuyển ngành</h3>
 
@@ -1589,7 +1612,7 @@
         <div style="background: white; padding: 32px; border-radius: 16px; width: 600px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h3 style="font-size: 18px; font-weight: 700;">Lịch sử chuyển ngành (Audit Log)</h3>
-                <i data-lucide="x" size="20" style="cursor: pointer; color: var(--text-gray);"
+                <i data-lucide="x" size="20" style="cursor: pointer; color: var(--gray);"
                     onclick="closeAuditLog()"></i>
             </div>
 
@@ -1599,13 +1622,13 @@
                     <div
                         style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; position: absolute; left: -6px; top: 4px;">
                     </div>
-                    <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">15/09/2026 10:15:22 -
+                    <div style="font-size: 12px; color: var(--gray); margin-bottom: 4px;">15/09/2026 10:15:22 -
                         CBQN Nguyễn Văn A</div>
-                    <div style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Chuyển ngành SV
+                    <div style="font-size: 14px; font-weight: 600; color: var(--text);">Chuyển ngành SV
                         HE18001</div>
-                    <div style="font-size: 14px; color: var(--text-gray); margin-top: 4px;">Từ "Quản trị kinh doanh" ->
+                    <div style="font-size: 14px; color: var(--gray); margin-top: 4px;">Từ "Quản trị kinh doanh" ->
                         "Marketing".
-                        Lý do: QĐ số 456/QĐ-CN.</div>
+                        Lý do: QĐ số 456/QĐ-CN. Căn cứ đơn REQ-240812 (nộp ngày 10/09/2026).</div>
                 </div>
             </div>
         </div>
@@ -1646,22 +1669,69 @@
         let isDebt = false;
         let isEligibleMajorChange = true;
         let currentStatus = 'danghoc';
+        let app = null; // đơn xin chuyển ngành, lấy từ trang Phê duyệt đơn từ
 
+        const PAGE_REQ = 'MH-05-2-PheDuyetDonTuSinhVien.html';
+
+        function isProcessed(reqId) {
+            try { return localStorage.getItem('onenet-processed-' + reqId) === '1'; } catch (e) { return false; }
+        }
+        function markProcessed(reqId) {
+            try { localStorage.setItem('onenet-processed-' + reqId, '1'); } catch (e) { }
+        }
+
+        function showGate(msg) {
+            if (msg) document.getElementById('gateText').innerText = msg;
+            document.getElementById('gateBox').style.display = 'flex';
+            document.getElementById('searchId').disabled = true;
+            document.getElementById('searchBtn').disabled = true;
+            const t = document.getElementById('testTriggers');
+            t.style.opacity = '0.5'; t.style.pointerEvents = 'none';
+            lucide.createIcons();
+        }
+
+        function initFromApplication() {
+            const q = new URLSearchParams(window.location.search);
+            const reqId = q.get('reqId');
+            const type = q.get('type');
+
+            if (!reqId || type !== 'chuyennganh') { showGate(); return; }
+            if (isProcessed(reqId)) { showGate('Đơn ' + reqId + ' đã được xử lý trước đó, không thể dùng lại để chuyển ngành.'); return; }
+
+            app = {
+                reqId: reqId,
+                mssv: q.get('mssv') || '', name: q.get('name') || '', cls: q.get('cls') || '',
+                file: q.get('file') || '', date: q.get('date') || ''
+            };
+
+            document.getElementById('refNo').innerText = app.reqId;
+            document.getElementById('refDate').innerText = app.date;
+            document.getElementById('refFile').innerText = app.file;
+            document.getElementById('appRef').style.display = 'block';
+
+            const sid = document.getElementById('searchId');
+            sid.value = app.mssv;
+            sid.readOnly = true;
+            document.getElementById('searchBtn').disabled = true;
+
+            searchStudent();
+            lucide.createIcons();
+        }
+
+        // Nạp sinh viên theo đơn (chỉ chạy khi có đơn hợp lệ)
         function searchStudent() {
-            const id = document.getElementById('searchId').value;
-            if (!id) { showToast('Lỗi', 'Vui lòng nhập mã sinh viên!', 'error'); return; }
+            if (!app) { showToast('Lỗi', 'Vui lòng chọn đơn chuyển ngành từ trang Phê duyệt đơn từ!', 'error'); return; }
 
             // Change UI state
             document.getElementById('searchSection').classList.add('compact');
             document.getElementById('searchTitle').style.display = 'none';
             document.getElementById('contentGrid').style.display = 'grid';
 
-            // Default normal user
             isDebt = false;
             isEligibleMajorChange = true;
             currentStatus = 'danghoc';
 
-            updateProfileUI('Trần Thị Bích', 'HE19201', 'SE1901', 'Kỹ thuật phần mềm (SE)', 45, 'Đang học');
+            updateProfileUI(app.name, app.mssv, app.cls, 'Kỹ thuật phần mềm (SE)', 45, 'Đang học');
             checkRules();
         }
 
@@ -1686,27 +1756,26 @@
         }
 
         function simulateDebt() {
-            document.getElementById('searchId').value = 'HE19999';
+            if (!app) return;
             searchStudent();
             isDebt = true;
-            updateProfileUI('Vương Đình Nợ', 'HE19999', 'SE1903', 'Kỹ thuật phần mềm (SE)', 50, 'Đang học');
             checkRules();
         }
 
         function simulateNotActive() {
-            document.getElementById('searchId').value = 'HE19001';
+            if (!app) return;
             searchStudent();
             isEligibleMajorChange = false;
             currentStatus = 'baoluu';
-            updateProfileUI('Nguyễn Văn Bảo Lưu', 'HE19001', 'SE1900', 'Kỹ thuật phần mềm (SE)', 30, 'Bảo lưu');
+            updateProfileUI(app.name, app.mssv, app.cls, 'Kỹ thuật phần mềm (SE)', 30, 'Bảo lưu');
             checkRules();
         }
 
         function simulateLowCredits() {
-            document.getElementById('searchId').value = 'HE19002';
+            if (!app) return;
             searchStudent();
             isEligibleMajorChange = false;
-            updateProfileUI('Lê Đình Nhỏ', 'HE19002', 'SE1902', 'Kỹ thuật phần mềm (SE)', 12, 'Đang học');
+            updateProfileUI(app.name, app.mssv, app.cls, 'Kỹ thuật phần mềm (SE)', 12, 'Đang học');
             checkRules();
         }
 
@@ -1735,7 +1804,7 @@
                 hasError = true;
             }
 
-            if (hasError || !major) {
+            if (hasError || !major || !app) {
                 submitBtn.disabled = true;
             }
 
@@ -1763,19 +1832,21 @@
         }
 
         function resetForm() {
-            document.getElementById('searchId').value = '';
+            if (!app) return;
+            searchStudent(); // nạp lại SV theo đơn
             document.getElementById('newMajor').value = '';
             document.getElementById('reason').value = '';
-            document.getElementById('searchSection').classList.remove('compact');
-            document.getElementById('searchTitle').style.display = 'block';
-            document.getElementById('contentGrid').style.display = 'none';
+            checkRules();
         }
 
         function submitUpdate() {
+            if (!app) { showToast('Lỗi', 'Không có đơn từ căn cứ. Vui lòng thực hiện từ trang Phê duyệt đơn từ!', 'error'); return; }
             const major = document.getElementById('newMajor').value;
             if (!major) { showToast('Lỗi', 'Vui lòng chọn ngành mới muốn chuyển!', 'error'); return; }
-            showToast('Thành công', 'Yêu cầu chuyển ngành đã được ghi nhận. Sinh viên sẽ được chuyển sang ngành mới sau khi hoàn tất xét duyệt.', 'success');
-            resetForm();
+
+            markProcessed(app.reqId);
+            showToast('Thành công', 'Yêu cầu chuyển ngành đã được ghi nhận (căn cứ đơn ' + app.reqId + '). Đang quay lại trang Phê duyệt đơn từ...', 'success');
+            setTimeout(() => { window.location.href = PAGE_REQ + '?done=' + encodeURIComponent(app.reqId); }, 1500);
         }
 
         function openAuditLog() {
@@ -1784,6 +1855,8 @@
         function closeAuditLog() {
             document.getElementById('auditLogModal').style.display = 'none';
         }
+
+        initFromApplication();
     </script>
     <script>
         (function () {
@@ -1821,3 +1894,11 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+

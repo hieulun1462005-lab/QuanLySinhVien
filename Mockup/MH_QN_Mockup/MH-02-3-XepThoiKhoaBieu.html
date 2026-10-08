@@ -15,9 +15,9 @@
             --primary-dark: #063B75;
             --primary-light: #CFE6FF;
             --primary-50: #EAF4FF;
-            --text-dark: #102A43;
-            --text-gray: #5E7184;
-            --text-light: #8FA4B8;
+            --text: #102A43;
+            --gray: #5E7184;
+            --light: #8FA4B8;
             --bg-light: #F5F8FC;
             --bg-white: #FFFFFF;
             --border: #DCE8F3;
@@ -49,7 +49,7 @@
 
         body {
             background-color: var(--bg-light);
-            color: var(--text-dark);
+            color: var(--text);
             overflow-x: hidden;
         }
 
@@ -58,9 +58,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 48px;
-            height: 64px;
-            background: white;
+            padding: 0 24px;
+            height: 60px;
+            background: var(--bg-white);
             box-shadow: 0 1px 0 var(--border), var(--shadow-sm);
             z-index: 100;
             position: sticky;
@@ -97,7 +97,7 @@
             font-weight: 600;
             font-size: 10px;
             text-transform: uppercase;
-            color: var(--text-light);
+            color: var(--light);
             letter-spacing: 0.5px;
         }
 
@@ -145,12 +145,12 @@
         .user-info .name {
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .user-info .role {
             font-size: 11px;
-            color: var(--text-light);
+            color: var(--light);
         }
 
         /* ─── Layout ─── */
@@ -162,9 +162,9 @@
         /* ─── Sidebar ─── */
         .sidebar {
             width: 256px;
-            background: white;
-            border-right: 1px solid var(--border-light);
-            padding: 20px 0;
+            background: var(--bg-white);
+            border-right: 1px solid var(--border);
+            padding: 16px 0;
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -184,9 +184,9 @@
         .menu-group-title {
             font-size: 10px;
             font-weight: 700;
-            color: var(--text-light);
+            color: var(--light);
             text-transform: uppercase;
-            padding: 16px 24px 6px;
+            padding: 14px 24px 6px;
             letter-spacing: 0.8px;
         }
 
@@ -195,7 +195,7 @@
             align-items: center;
             gap: 12px;
             padding: 10px 24px;
-            color: var(--text-gray);
+            color: var(--text);
             font-weight: 500;
             font-size: 13.5px;
             cursor: pointer;
@@ -204,15 +204,7 @@
             transition: all 0.15s ease;
         }
 
-        .sidebar-item:hover {
-            background: #F8FAFC;
-            color: var(--primary);
-        }
-
         .sidebar-item.active {
-            background: var(--primary-50);
-            color: var(--primary);
-            border-left-color: var(--primary);
             font-weight: 600;
         }
 
@@ -240,7 +232,7 @@
         .page-title {
             font-size: 22px;
             font-weight: 800;
-            color: var(--text-dark);
+
             letter-spacing: -0.3px;
         }
 
@@ -248,7 +240,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-light);
+            color: var(--light);
             font-size: 13px;
         }
 
@@ -256,7 +248,7 @@
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            background: var(--text-light);
+            background: var(--light);
         }
 
         .header-actions {
@@ -293,7 +285,7 @@
         .btn-outline {
             background: white;
             border: 1px solid var(--border);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .btn-outline:hover {
@@ -324,7 +316,7 @@
 
         .btn-ghost {
             background: transparent;
-            color: var(--text-gray);
+            color: var(--gray);
             padding: 8px;
             border-radius: 8px;
             border: none;
@@ -383,7 +375,7 @@
         .filter-card-header h3 {
             font-size: 14px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .filter-grid {
@@ -402,7 +394,7 @@
         .form-group label {
             font-size: 12px;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
@@ -418,7 +410,7 @@
             font-size: 13.5px;
             outline: none;
             transition: all 0.2s;
-            color: var(--text-dark);
+            color: var(--text);
             background: white;
             height: 40px;
         }
@@ -540,7 +532,7 @@
 
         .stat-card-top .stat-label {
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--light);
             font-weight: 500;
         }
 
@@ -553,12 +545,12 @@
         .stat-value-row .value {
             font-size: 26px;
             font-weight: 800;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .stat-value-row .unit {
             font-size: 13px;
-            color: var(--text-light);
+            color: var(--light);
             font-weight: 500;
         }
 
@@ -636,12 +628,12 @@
         .panel-header-left .panel-title {
             font-size: 15px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .panel-header-left .panel-desc {
             font-size: 11px;
-            color: var(--text-light);
+            color: var(--light);
         }
 
         /* Filter toolbar in panels */
@@ -673,7 +665,7 @@
         }
 
         .panel-filter .search-box i {
-            color: var(--text-light);
+            color: var(--light);
             flex-shrink: 0;
         }
 
@@ -683,12 +675,12 @@
             font-size: 12.5px;
             flex: 1;
             background: transparent;
-            color: var(--text-dark);
+            color: var(--text);
             min-width: 0;
         }
 
         .panel-filter .search-box input::placeholder {
-            color: var(--text-light);
+            color: var(--light);
         }
 
         .panel-filter .filter-select {
@@ -697,7 +689,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             font-size: 12.5px;
-            color: var(--text-dark);
+            color: var(--text);
             background: white;
             outline: none;
             cursor: pointer;
@@ -762,13 +754,13 @@
         .list-item .item-name {
             font-size: 13.5px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
             margin-bottom: 2px;
         }
 
         .list-item .item-meta {
             font-size: 11.5px;
-            color: var(--text-light);
+            color: var(--light);
             display: flex;
             align-items: center;
             gap: 6px;
@@ -890,7 +882,7 @@
         .bottom-action-bar .bar-title {
             font-size: 16px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -898,7 +890,7 @@
 
         .bottom-action-bar .bar-desc {
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--light);
         }
 
         .bottom-action-bar .bar-actions {
@@ -924,7 +916,7 @@
         .view-toggle-bar .left h3 {
             font-size: 15px;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -969,7 +961,7 @@
             font-weight: 600;
             border: none;
             background: white;
-            color: var(--text-gray);
+            color: var(--gray);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -1026,7 +1018,7 @@
             background: #F7FAFD;
             font-weight: 700;
             font-size: 12px;
-            color: var(--text-gray);
+            color: var(--gray);
             text-transform: uppercase;
             letter-spacing: 0.3px;
             min-height: 44px;
@@ -1035,7 +1027,7 @@
         .timetable-grid .cell-slot {
             background: #FAFBFD;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             flex-direction: column;
             gap: 2px;
             font-size: 11.5px;
@@ -1043,7 +1035,7 @@
 
         .timetable-grid .cell-slot .slot-time {
             font-size: 10px;
-            color: var(--text-light);
+            color: var(--light);
             font-weight: 400;
         }
 
@@ -1145,7 +1137,7 @@
             padding: 13px 16px;
             font-size: 11.5px;
             font-weight: 700;
-            color: var(--text-light);
+            color: var(--light);
             border-bottom: 1px solid var(--border-light);
             background: #F9FBFD;
             text-transform: uppercase;
@@ -1156,7 +1148,7 @@
             padding: 13px 16px;
             font-size: 13.5px;
             border-bottom: 1px solid var(--border-light);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .table tbody tr {
@@ -1208,7 +1200,7 @@
             font-size: 11px;
             font-weight: 600;
             background: var(--bg-light);
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .table .days-chip span.active {
@@ -1248,7 +1240,7 @@
         .table .capacity-bar .label {
             font-size: 12px;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             white-space: nowrap;
         }
 
@@ -1446,7 +1438,7 @@
 
         .loading-steps .step {
             font-size: 13px;
-            color: var(--text-light);
+            color: var(--light);
             font-weight: 500;
             display: flex;
             align-items: center;
@@ -1515,7 +1507,7 @@
             transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
             max-width: 380px;
         }
 
@@ -1595,9 +1587,9 @@
             --primary-dark: #2A6FB8;
             --primary-light: #1E4A7A;
             --primary-50: #12304F;
-            --text-dark: #E6EDF5;
-            --text-gray: #9FB2C5;
-            --text-light: #6F869C;
+            --text: #E6EDF5;
+            --gray: #9FB2C5;
+            --light: #6F869C;
             --bg-light: #0B1522;
             --bg-white: #111E2E;
             --bg-soft: #15263A;
@@ -1618,7 +1610,7 @@
 
         body {
             background: var(--bg-light);
-            color: var(--text-dark)
+            color: var(--text)
         }
 
         .dashboard-content,
@@ -1659,7 +1651,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--light);
             padding: 32px 0 4px;
             letter-spacing: .2px
         }
@@ -1700,12 +1692,12 @@
         html[data-theme="dark"] select,
         html[data-theme="dark"] textarea {
             background-color: var(--bg-white);
-            color: var(--text-dark);
+            color: var(--text);
             border-color: var(--border)
         }
 
         html[data-theme="dark"] ::placeholder {
-            color: var(--text-light)
+            color: var(--light)
         }
 
         html[data-theme="dark"] .dashboard-content,
@@ -1779,42 +1771,6 @@
             background: rgba(255, 255, 255, .55)
         }
 
-        html[data-theme] .page-header .page-title,
-        html[data-theme] .page-header .page-title span,
-        html[data-theme] .page-header .page-title svg {
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .page-title span {
-            color: #BFE0FF !important
-        }
-
-        html[data-theme] .page-header .page-subtitle,
-        html[data-theme] .page-header .page-subtitle span {
-            color: rgba(255, 255, 255, .78) !important
-        }
-
-        html[data-theme] .page-header .page-subtitle .dot {
-            background: rgba(255, 255, 255, .55) !important
-        }
-
-        html[data-theme] .page-header .btn-outline {
-            background: rgba(255, 255, 255, .14) !important;
-            border: 1px solid rgba(255, 255, 255, .32) !important;
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .btn-outline:hover {
-            background: rgba(255, 255, 255, .24) !important
-        }
-
-        html[data-theme] .page-header .btn-primary,
-        html[data-theme] .page-header .btn-success {
-            background: #fff !important;
-            color: #063B75 !important;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, .18) !important
-        }
-
         /* Theme toggle */
         .theme-toggle {
             width: 38px;
@@ -1822,7 +1778,7 @@
             border-radius: 50%;
             border: 1px solid var(--border);
             background: var(--bg-white);
-            color: var(--text-gray);
+            color: var(--gray);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1877,20 +1833,9 @@
         }
 
         /* dark overrides generated from this page */
-        html[data-theme="dark"] .header {
-            background: var(--bg-white) !important
-        }
-
-        html[data-theme="dark"] .sidebar {
-            background: var(--bg-white) !important
-        }
 
         html[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb {
             background: color-mix(in srgb, #CBD5E1 17%, #0F1B2A) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item:hover {
-            background: var(--bg-soft) !important
         }
 
         html[data-theme="dark"] .btn-outline {
@@ -2100,7 +2045,7 @@
         .btn-outline {
             background: var(--bg-white);
             border: 1px solid var(--border);
-            color: var(--text-dark)
+            color: var(--text)
         }
 
         .btn-outline:hover {
@@ -2143,7 +2088,7 @@
             border: 1px solid var(--border);
             border-radius: 10px;
             background: var(--bg-white);
-            color: var(--text-dark);
+            color: var(--text);
             font-size: 14px;
             outline: none;
             transition: border-color .15s, box-shadow .15s
@@ -2162,7 +2107,7 @@
 
         .x-inp:disabled {
             background: var(--bg-soft);
-            color: var(--text-light);
+            color: var(--light);
             cursor: not-allowed
         }
 
@@ -2187,7 +2132,7 @@
 
         .b-wait {
             background: var(--bg-soft);
-            color: var(--text-gray)
+            color: var(--gray)
         }
 
         .b-ok {
@@ -2263,7 +2208,7 @@
         .x-x {
             background: none;
             border: 0;
-            color: var(--text-gray);
+            color: var(--gray);
             cursor: pointer;
             display: flex
         }
@@ -2304,7 +2249,7 @@
 
         .table td small {
             display: block;
-            color: var(--text-gray);
+            color: var(--gray);
             font-size: 12px;
             margin-top: 2px
         }
@@ -2344,7 +2289,7 @@
         .tk-meta {
             margin-left: auto;
             font-size: 13px;
-            color: var(--text-gray);
+            color: var(--gray);
             line-height: 1.55;
             text-align: right
         }
@@ -2374,7 +2319,7 @@
 
         .tk-st span {
             font-size: 13px;
-            color: var(--text-gray)
+            color: var(--gray)
         }
 
         .tk-two {
@@ -2418,7 +2363,7 @@
             padding: 10px 12px;
             margin-bottom: 8px;
             background: var(--bg-white);
-            color: var(--text-dark);
+            color: var(--text);
             cursor: pointer;
             font-size: 13.5px
         }
@@ -2442,7 +2387,7 @@
 
         .tk-row small {
             display: block;
-            color: var(--text-gray);
+            color: var(--gray);
             font-size: 12.5px;
             margin: 2px 0 6px
         }
@@ -2470,7 +2415,7 @@
 
         .tk-eh small {
             display: block;
-            color: var(--text-gray);
+            color: var(--gray);
             font-size: 13px;
             margin-top: 3px
         }
@@ -2507,7 +2452,7 @@
 
         .tk-is.info {
             background: var(--bg-soft);
-            color: var(--text-gray)
+            color: var(--gray)
         }
 
         .tk-fg {
@@ -2538,7 +2483,7 @@
         .tk-ch {
             border: 1px solid var(--border);
             background: var(--bg-white);
-            color: var(--text-dark);
+            color: var(--text);
             border-radius: 99px;
             padding: 5px 12px;
             font-size: 12.5px;
@@ -2553,7 +2498,7 @@
         }
 
         .tk-ch:not(.ok) {
-            color: var(--text-light);
+            color: var(--light);
             cursor: not-allowed
         }
 
@@ -2567,13 +2512,13 @@
             background: var(--bg-soft);
             border-radius: 0 0 18px 18px;
             font-size: 12.5px;
-            color: var(--text-gray)
+            color: var(--gray)
         }
 
         .tk-empty {
             padding: 60px 20px;
             text-align: center;
-            color: var(--text-gray)
+            color: var(--gray)
         }
 
         .tk-gh {
@@ -2611,7 +2556,7 @@
             padding: 7px 14px;
             border: 0;
             background: var(--bg-white);
-            color: var(--text-gray);
+            color: var(--gray);
             font-weight: 600;
             font-size: 13px;
             cursor: pointer
@@ -2650,7 +2595,7 @@
         .tk-c.h small {
             display: block;
             font-weight: 500;
-            color: var(--text-gray);
+            color: var(--gray);
             font-size: 12px
         }
 
@@ -2667,7 +2612,7 @@
         }
 
         .tk-c.s small {
-            color: var(--text-gray);
+            color: var(--gray);
             font-weight: 500;
             font-size: 12px
         }
@@ -2694,7 +2639,7 @@
             font-size: 11.5px;
             line-height: 1.4;
             background: color-mix(in srgb, var(--c) 15%, var(--bg-white));
-            color: var(--text-dark);
+            color: var(--text);
             cursor: pointer
         }
 
@@ -2718,7 +2663,7 @@
         .tk-lg {
             padding: 10px 18px;
             font-size: 12.5px;
-            color: var(--text-gray);
+            color: var(--gray);
             display: flex;
             gap: 16px;
             flex-wrap: wrap
@@ -2793,7 +2738,7 @@
 
         .cap-top span {
             font-size: 12px;
-            color: var(--text-gray)
+            color: var(--gray)
         }
 
         .cap-g {
@@ -2865,7 +2810,7 @@
 
         .cap-t th {
             text-align: left;
-            color: var(--text-gray);
+            color: var(--gray);
             font-weight: 600;
             padding: 8px 10px;
             border-bottom: 1px solid var(--border)
@@ -2908,14 +2853,14 @@
             align-items: center;
             justify-content: center;
             font-size: 11px;
-            color: var(--text-gray);
+            color: var(--gray);
             border-radius: 8px;
             background: color-mix(in srgb, var(--primary) var(--p), transparent)
         }
 
         .tk-hm b {
             font-size: 16px;
-            color: var(--text-dark)
+            color: var(--text)
         }
 
         .tk-more {
@@ -2929,6 +2874,389 @@
             .cap-top,
             .cap-g {
                 grid-template-columns: 1fr 1fr
+            }
+        }
+
+        html[data-theme="dark"] .sidebar-item:hover {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .sidebar-item.active {
+            background: var(--primary-50) !important;
+            box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
+        }
+    </style>
+
+    <style id="tk-new">
+        .t2-bar {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr)) 1.3fr;
+            gap: 14px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            align-items: end
+        }
+
+        .t2-bar label,
+        .t2-f label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 5px
+        }
+
+        .t2-meta {
+            font-size: 12.5px;
+            color: var(--gray);
+            line-height: 1.6;
+            border-left: 3px solid var(--primary);
+            padding-left: 12px
+        }
+
+        .t2-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 16px
+        }
+
+        .t2-st {
+            padding: 14px 18px
+        }
+
+        .t2-st .lb {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: .3px
+        }
+
+        .t2-st .vl {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 2px
+        }
+
+        .t2-st .sb {
+            font-size: 12px;
+            color: var(--gray)
+        }
+
+        .t2-two {
+            display: grid;
+            grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+            align-items: start
+        }
+
+        .t2-lh {
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .t2-rows {
+            max-height: 560px;
+            overflow-y: auto
+        }
+
+        .t2-row {
+            display: flex;
+            gap: 10px;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            align-items: flex-start
+        }
+
+        .t2-row:hover {
+            background: var(--bg-soft)
+        }
+
+        .t2-row.on {
+            background: var(--primary-50);
+            box-shadow: inset 3px 0 0 var(--primary)
+        }
+
+        .t2-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-top: 5px;
+            flex-shrink: 0;
+            background: var(--warning)
+        }
+
+        .t2-dot.ok {
+            background: var(--success)
+        }
+
+        .t2-row b {
+            font-size: 13.5px
+        }
+
+        .t2-row small {
+            display: block;
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 2px
+        }
+
+        .t2-more {
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray);
+            padding: 12px
+        }
+
+        .t2-ed {
+            padding: 20px
+        }
+
+        .t2-eh {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 14px
+        }
+
+        .t2-eh h2 {
+            font-size: 18px
+        }
+
+        .t2-eh p {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 3px
+        }
+
+        .t2-tag {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 99px;
+            background: var(--primary-50);
+            color: var(--primary);
+            height: fit-content
+        }
+
+        .t2-tag.lab {
+            background: var(--warning-light);
+            color: var(--warning)
+        }
+
+        .t2-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px
+        }
+
+        .t2-form .full {
+            grid-column: 1/-1
+        }
+
+        .t2-chk {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 16px;
+            margin: 16px 0;
+            padding: 12px 14px;
+            background: var(--bg-soft);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 13px
+        }
+
+        .t2-chk span.ok {
+            color: var(--success)
+        }
+
+        .t2-chk span.no {
+            color: var(--danger)
+        }
+
+        .t2-chk span.na {
+            color: var(--light)
+        }
+
+        .t2-err {
+            background: var(--danger-light);
+            color: var(--danger);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 13px;
+            margin-bottom: 12px
+        }
+
+        .t2-act {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .t2-empty {
+            padding: 48px 24px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.8
+        }
+
+        .t2-empty ol {
+            display: inline-block;
+            text-align: left;
+            margin-top: 10px
+        }
+
+        .t2-gh {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .t2-gh select {
+            width: auto;
+            min-width: 240px
+        }
+
+        .t2-gh .sp {
+            margin-left: auto;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600
+        }
+
+        .t2-seg {
+            display: flex;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden
+        }
+
+        .t2-seg button {
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray);
+            background: var(--bg-white)
+        }
+
+        .t2-seg button.on {
+            background: var(--primary);
+            color: #fff
+        }
+
+        .t2-gw {
+            overflow-x: auto
+        }
+
+        .t2-g {
+            display: grid;
+            grid-template-columns: 96px repeat(6, minmax(130px, 1fr));
+            min-width: 900px
+        }
+
+        .t2-g>div {
+            border-right: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+            padding: 6px;
+            min-height: 78px
+        }
+
+        .t2-g .hd {
+            background: var(--bg-soft);
+            min-height: 0;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gray);
+            text-align: center;
+            padding: 8px
+        }
+
+        .t2-g .tm {
+            background: var(--bg-soft);
+            font-size: 12px;
+            color: var(--gray);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center
+        }
+
+        .t2-g .tm b {
+            color: var(--text)
+        }
+
+        .t2-c {
+            border-radius: 8px;
+            padding: 6px 8px;
+            font-size: 12px;
+            line-height: 1.4;
+            background: color-mix(in srgb, var(--primary) 13%, transparent);
+            border-left: 3px solid var(--primary);
+            margin-bottom: 4px
+        }
+
+        .t2-c.lab {
+            background: color-mix(in srgb, var(--warning) 15%, transparent);
+            border-left-color: var(--warning)
+        }
+
+        .t2-c.sel {
+            box-shadow: 0 0 0 2px var(--primary)
+        }
+
+        .t2-c b {
+            display: block
+        }
+
+        .t2-c small {
+            color: var(--gray);
+            display: block
+        }
+
+        .t2-gn {
+            padding: 10px 20px;
+            font-size: 12.5px;
+            color: var(--gray);
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap
+        }
+
+        @media(max-width:1100px) {
+            .t2-bar {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .t2-two {
+                grid-template-columns: 1fr
+            }
+
+            .t2-stats {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media print {
+
+            .header,
+            .sidebar,
+            .page-header,
+            .t2-bar,
+            .t2-stats,
+            .t2-two {
+                display: none !important
             }
         }
     </style>
@@ -2961,168 +3289,155 @@
 
     <div class="dashboard-layout">
         <aside class="sidebar">
-            <div class="menu-group-title">Menu Chính</div>
+            <div class="menu-group-title">Tổng quan</div>
             <a href="MH-00-7-DashboardBaoCao.html" class="sidebar-item">
-                <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                <i data-lucide="layout-dashboard" size="18"></i> Dashboard / Thống kê chung
             </a>
-            <div class="menu-group-title">Tuyển Sinh</div>
-            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
-                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
-            </a>
+            <div class="menu-group-title">Tuyển sinh & Nhập học</div>
             <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item">
                 <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
-            <div class="menu-group-title">Sinh Viên</div>
-            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
-                <i data-lucide="list" size="20"></i> Danh sách lớp
+            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
+            <div class="menu-group-title">Công tác Sinh viên</div>
             <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
-                <i data-lucide="contact-2" size="20"></i> Hồ sơ sinh viên
+                <i data-lucide="contact-2" size="18"></i> Hồ sơ sinh viên
+            </a>
+            <a href="MH-01-9-BangXepLoaiHocLuc.html" class="sidebar-item">
+                <i data-lucide="medal" size="18"></i> Xếp loại học lực
+            </a>
+            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
+                <i data-lucide="list" size="18"></i> Danh sách lớp
             </a>
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
-                <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
+            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
+                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
-            <a href="MH-01-7-ChuyenNganh.html" class="sidebar-item">
-                <i data-lucide="arrow-right-left" size="18"></i> Chuyển ngành
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="award" size="18"></i> Quản lý học bổng
             </a>
-            <div class="menu-group-title">Đào Tạo</div>
+            <div class="menu-group-title">Quản lý Đào tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item">
                 <i data-lucide="server" size="18"></i> Quản lý danh mục
             </a>
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="18"></i> Chương trình học
             </a>
-            <a href="MH-02-5-KhoDeThi.html" class="sidebar-item ">
-                <i data-lucide="library-big" size="18"></i> Kho đề thi
-            </a>
-            <a href="MH-02-6-LichThi.html" class="sidebar-item ">
-                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
-            </a>
+            <div class="menu-group-title">Tổ chức Giảng dạy</div>
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item active">
                 <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
             <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="18"></i> Lịch báo nghỉ/bù
             </a>
-            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
-                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
+            <div class="menu-group-title">Khảo thí & Điểm số</div>
+            <a href="MH-02-5-Khodethi.html" class="sidebar-item">
+                <i data-lucide="library-big" size="18"></i> Kho đề thi
             </a>
-            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
-                <i data-lucide="award" size="18"></i> Học bổng
+            <a href="MH-02-6-LichThi.html" class="sidebar-item">
+                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
             </a>
             <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+                <i data-lucide="file-search" size="18"></i> Phúc khảo điểm
             </a>
-
-            <div class="menu-group-title">Tài Chính</div>
+            <div class="menu-group-title">Tài chính - Kế toán</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
             </a>
         </aside>
 
+
+
         <main class="dashboard-content">
             <div class="page-header">
                 <div>
                     <h1 class="page-title">Xếp thời khóa biểu</h1>
-                    <p class="page-subtitle">Chọn khoa → ngành → khóa, rồi gán giảng viên, phòng và lịch cho từng lớp
-                        học phần; hệ thống kiểm tra trùng lịch, chuyên môn và sức chứa trên toàn trường. Quy mô 10.000
-                        sinh viên: lớp học phần được ghép theo sĩ số, xếp tự động theo lô.</p>
+                    <p class="page-subtitle">Mỗi lớp học phần cần đủ 4 thông tin: giảng viên, lịch học, ca học và phòng.
+                        Hệ thống tự kiểm tra trùng lịch giảng viên, phòng, lớp và sức chứa.</p>
                 </div>
                 <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
-                    <button class="btn btn-outline" id="bUndo" onclick="undo()" disabled><i data-lucide="undo-2"
-                            size="16"></i> Hoàn tác</button>
-                    <button class="btn btn-outline" onclick="exportCsv()"><i data-lucide="file-down" size="16"></i> Xuất
+                    <button class="btn btn-outline" id="bUndo" disabled><i data-lucide="undo-2" size="16"></i> Hoàn
+                        tác</button>
+                    <button class="btn btn-outline" id="bCsv"><i data-lucide="file-down" size="16"></i> Xuất
                         CSV</button>
-                    <button class="btn btn-outline" onclick="saveTKB()"><i data-lucide="save" size="16"></i> Lưu
-                        TKB</button>
-                    <button class="btn btn-outline" id="bAutoAll"
-                        title="Xếp mọi lớp học phần còn thiếu trên toàn trường, bỏ qua bộ lọc"
-                        onclick="autoRun(true)"><i data-lucide="zap" size="16"></i> Xếp toàn trường</button>
+                    <button class="btn btn-outline" id="bSave"><i data-lucide="save" size="16"></i> Lưu TKB</button>
+                    <button class="btn btn-outline" id="bAll"
+                        title="Xếp mọi lớp học phần còn thiếu trên toàn trường, bỏ qua bộ lọc"><i data-lucide="zap"
+                            size="16"></i> Xếp toàn trường</button>
                     <button class="btn btn-primary" id="bAuto"
-                        title="Chỉ xếp các lớp học phần còn thiếu, giữ nguyên phần đã xếp" onclick="autoRun()"><i
-                            data-lucide="wand-2" size="16"></i> Xếp tự động</button>
+                        title="Chỉ xếp các lớp chưa có lịch trong bộ lọc hiện tại"><i data-lucide="wand-2"
+                            size="16"></i> Xếp tự động</button>
                 </div>
             </div>
-
-            <div class="x-card tk-bar">
-                <div><label for="fSem">Học kỳ</label><select class="x-inp" id="fSem">
+            <div class="x-card t2-bar">
+                <div><label>Học kỳ</label><select class="x-inp" id="fSem">
                         <option>Fall 2026</option>
                         <option disabled>Spring 2027 (chưa mở xếp lịch)</option>
                     </select></div>
-                <div><label for="fFac">Khoa</label><select class="x-inp" id="fFac"></select></div>
-                <div><label for="fMajor">Chuyên ngành</label><select class="x-inp" id="fMajor"></select></div>
-                <div><label for="fK">Khóa</label><select class="x-inp" id="fK">
+                <div><label>Khoa</label><select class="x-inp" id="fFac"></select></div>
+                <div><label>Chuyên ngành</label><select class="x-inp" id="fMaj"></select></div>
+                <div><label>Khóa</label><select class="x-inp" id="fK">
                         <option value="">Cả 4 khóa đang học</option>
-                        <option value="20">Khóa 20</option>
-                        <option value="19">Khóa 19</option>
-                        <option value="18">Khóa 18</option>
-                        <option value="17">Khóa 17</option>
+                        <option>20</option>
+                        <option>19</option>
+                        <option>18</option>
+                        <option>17</option>
                     </select></div>
-                <div class="tk-meta">Mỗi môn học <b>30 buổi</b>: 3 buổi/tuần × 10 tuần<br>Tuần học 07/09 – 15/11/2026 ·
-                    Slot 90 phút</div>
+                <div class="t2-meta">Mỗi môn <b>30 buổi</b> = 3 buổi/tuần × 10 tuần<br>Tuần học 07/09 – 15/11/2026 · ca
+                    90 phút</div>
             </div>
-
-            <div class="x-card tk-st" id="stats"></div>
-            <div id="prog" class="tk-prog"><span id="progT">Đang xếp…</span>
-                <div class="cb"><i id="progB" style="width:0"></i></div><button class="btn btn-outline btn-sm"
-                    onclick="stopAuto=true">Dừng</button>
-            </div>
-            <div class="x-card tk-cap" id="cap"></div>
-
-            <div class="tk-two">
-                <div class="x-card tk-list">
-                    <div class="tk-lh">
-                        <input class="x-inp" id="q" placeholder="Tìm lớp hoặc môn" aria-label="Tìm lớp học phần"
-                            style="flex:1">
-                        <select class="x-inp" id="fSt" aria-label="Lọc trạng thái" style="width:auto">
+            <div class="t2-stats" id="stats"></div>
+            <div class="t2-two">
+                <div class="x-card" style="overflow:hidden">
+                    <div class="t2-lh"><input class="x-inp" id="q" placeholder="Tìm lớp hoặc môn học"
+                            style="flex:1"><select class="x-inp" id="fSt" style="width:auto">
                             <option value="">Tất cả</option>
-                            <option value="todo">Cần xử lý</option>
-                            <option value="err">Có xung đột</option>
-                            <option value="ok">Hoàn chỉnh</option>
-                        </select>
-                    </div>
-                    <div class="tk-rows" id="rows"></div>
+                            <option value="todo">Chưa xếp</option>
+                            <option value="ok">Đã xếp</option>
+                        </select></div>
+                    <div class="t2-rows" id="rows"></div>
                 </div>
-                <div class="x-card" id="ed"></div>
+                <div class="x-card t2-ed" id="ed"></div>
             </div>
-
             <div class="x-card" style="overflow:hidden">
-                <div class="tk-gh">
-                    <div class="seg" id="seg"><button data-v="cls" class="on">Theo lớp</button><button data-v="gv">Theo
-                            giảng viên</button><button data-v="room">Theo phòng</button></div>
-                    <select class="x-inp" id="ent" aria-label="Chọn đối tượng xem"></select>
-                    <div class="sp"><button class="btn btn-outline btn-sm" onclick="wk(-1)" aria-label="Tuần trước"><i
+                <div class="t2-gh">
+                    <div class="t2-seg" id="seg"><button data-v="cls" class="on">Theo lớp</button><button
+                            data-v="gv">Theo giảng viên</button><button data-v="room">Theo phòng</button></div>
+                    <select class="x-inp" id="ent"></select>
+                    <div class="sp"><button class="btn btn-outline btn-sm" id="wPrev" aria-label="Tuần trước"><i
                                 data-lucide="chevron-left" size="16"></i></button><span id="wl"></span><button
-                            class="btn btn-outline btn-sm" onclick="wk(1)" aria-label="Tuần sau"><i
-                                data-lucide="chevron-right" size="16"></i></button>
-                        <button class="btn btn-outline btn-sm" onclick="window.print()"><i data-lucide="printer"
-                                size="16"></i> In</button>
-                    </div>
+                            class="btn btn-outline btn-sm" id="wNext" aria-label="Tuần sau"><i
+                                data-lucide="chevron-right" size="16"></i></button><button
+                            class="btn btn-outline btn-sm" onclick="window.print()"><i data-lucide="printer"
+                                size="16"></i> In</button></div>
                 </div>
-                <div style="overflow-x:auto">
-                    <div class="tk-grid" id="grid"></div>
+                <div class="t2-gw">
+                    <div class="t2-g" id="grid"></div>
                 </div>
-                <div class="tk-lg"><span>Ô xanh: có thể xếp lớp đang chọn vào đây mà không xung đột (bấm để áp
-                        dụng).</span><span style="color:var(--danger)">Viền đỏ: lớp học phần đang xung đột.</span><span
-                        id="hmNote" style="display:none">Đang hiển thị mật độ số lớp học phần theo từng ô. Chọn một lớp,
-                        giảng viên hoặc phòng để xem chi tiết.</span></div>
+                <div class="t2-gn"><span><i
+                            style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--primary);margin-right:5px"></i>Lý
+                        thuyết</span><span><i
+                            style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--warning);margin-right:5px"></i>Thực
+                        hành (Lab)</span><span>Lịch lặp lại hằng tuần; số “Buổi” cho biết buổi thứ mấy trong 30
+                        buổi.</span></div>
             </div>
         </main>
     </div>
     <div class="x-toast" id="toast"><i data-lucide="check-circle" size="22" style="flex-shrink:0"></i><span
             id="toastText"></span></div>
+
+
     <script>
         lucide.createIcons();
         const $ = id => document.getElementById(id);
         const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
         const norm = s => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
         let _t; function toast(m, err) { const t = $('toast'); $('toastText').textContent = m; t.classList.toggle('err', !!err); t.classList.add('show'); clearTimeout(_t); _t = setTimeout(() => t.classList.remove('show'), 5500) }
-        /* ===== Dữ liệu danh mục ===== */
         const SLOTS = [['07:30', '09:00'], ['09:10', '10:40'], ['10:50', '12:20'], ['12:50', '14:20'], ['14:30', '16:00'], ['16:10', '17:40']];
-        const PAT = { '246': 'T2-4-6', '357': 'T3-5-7' }, START = new Date(2026, 8, 7), WEEKS = 10, PER = 3, TKEY = 'onenet-tkb-fall2026-v3';
+        const PAT = { '246': 'T2-4-6', '357': 'T3-5-7' }, PDAY = { '246': [0, 2, 4], '357': [1, 3, 5] }, START = new Date(2026, 8, 7), TKEY = 'onenet-tkb-fall2026-v4';
         const FACS = [
             ['IT', 'Công nghệ thông tin', [['KTPM', 'Kỹ thuật phần mềm'], ['CNTT', 'Công nghệ thông tin'], ['KHMT', 'Khoa học máy tính'], ['HTTT', 'Hệ thống thông tin'], ['TTNT', 'Trí tuệ nhân tạo'], ['ATTT', 'An toàn thông tin']], ['Lập trình hướng đối tượng*', 'Cơ sở dữ liệu*', 'Toán rời rạc', 'Kiến trúc máy tính', 'Mạng máy tính', 'Nhập môn trí tuệ nhân tạo']],
             ['EC', 'Kinh tế - Quản trị', [['QTKD', 'Quản trị kinh doanh'], ['KT', 'Kế toán'], ['TCNH', 'Tài chính - Ngân hàng'], ['KDQT', 'Kinh doanh quốc tế'], ['LOG', 'Logistics & Chuỗi cung ứng'], ['DMK', 'Digital Marketing'], ['LKT', 'Luật kinh tế']], ['Nguyên lý Marketing', 'Kinh tế vi mô', 'Nguyên lý kế toán', 'Pháp luật kinh doanh', 'Phân tích dữ liệu kinh doanh*', 'Quản trị học']],
@@ -3136,175 +3451,124 @@
         const TEACHERS = []; FACS.forEach((F, fi) => { for (let j = 0; j < 40; j++) { const part = j % 9 === 8, sat = j % 7 === 6; TEACHERS.push({ id: 'GV' + (fi * 100 + j + 1), f: F[0], name: (j % 8 === 0 ? 'PGS. ' : j % 3 === 0 ? 'TS. ' : 'ThS. ') + HO[(j * 3 + fi) % 10] + ' ' + DM[(j * 7 + fi) % 10] + ' ' + TN[(j * 5 + fi * 2) % 13], skills: [j % 6, (j + 1) % 6, (j + 3) % 6].map(x => F[0] + '10' + (x + 1)), busySlots: part ? [1, 2, 3] : [], busyDays: sat ? ['7'] : [], max: part ? 6 : 15, note: part ? 'giảng viên thỉnh giảng, chỉ dạy buổi chiều' : sat ? 'không dạy thứ 7' : '' }) } });
         const GVS = {}; TEACHERS.forEach(t => t.skills.forEach(m => (GVS[m] = GVS[m] || []).push(t)));
         const ROOMS = [];[[8, 150, 'A'], [16, 100, 'B'], [16, 60, 'C']].forEach(([n, c, p]) => { for (let i = 0; i < n; i++)ROOMS.push({ id: 'P.' + p + String(i + 1).padStart(2, '0'), type: 'LT', cap: c }) }); for (let i = 0; i < 30; i++)ROOMS.push({ id: 'P.Lab' + String(i + 1).padStart(2, '0'), type: 'Lab', cap: 40 });
-        const RB = { LT: ROOMS.filter(r => r.type === 'LT').sort((a, b) => a.cap - b.cap), Lab: ROOMS.filter(r => r.type === 'Lab') };
-        /* ===== Quy mô 10.000 sinh viên: chia lớp sinh hoạt (<=40 SV), ghép lớp học phần ===== */
-        const SVN = 10000, pad = (n, l = 2) => String(n).padStart(l, '0'), CB = (sl, p) => (sl - 1) * 2 + (p === '246' ? 0 : 1);
-        const COH = []; MAJ.forEach((m, mi) => [17, 18, 19, 20].forEach(k => COH.push({ m, k, n: 40 + (mi * 37 + k * 11) % 86 })));
-        { const tot = COH.reduce((a, c) => a + c.n, 0); COH.forEach(c => c.n = Math.round(c.n * SVN / tot)); COH[0].n += SVN - COH.reduce((a, c) => a + c.n, 0) }
-        COH.forEach(c => { const nc = Math.ceil(c.n / 40), b = c.n / nc | 0, x = c.n % nc; c.cls = []; for (let i = 0; i < nc; i++)c.cls.push({ code: c.m.c + c.k + pad(i + 1), size: b + (i < x ? 1 : 0) }) });
-        const NCLS = COH.reduce((a, c) => a + c.cls.length, 0);
-        /* Chỉ mục xung đột: đếm theo (đối tượng, tổ hợp slot+ngày) để kiểm tra O(1) */
-        const A = (m, k) => m[k] || (m[k] = new Uint8Array(12)), hit = (m, k, b) => m[k] && m[k][b] > 0;
-        function ixAdd(I, s, d) { if (s.gv) I.l[s.gv] = (I.l[s.gv] || 0) + PER * d; if (!(s.slot && s.pat)) return; const b = CB(s.slot, s.pat); if (s.gv) A(I.g, s.gv)[b] += d; if (s.room) A(I.r, s.room)[b] += d; s.cl.forEach(c => A(I.c, c)[b] += d) }
-        const mkIdx = list => { const I = { g: {}, r: {}, c: {}, l: {} }; list.forEach(s => ixAdd(I, s, 1)); return I };
-        function place(s, I) {
-            const lab = MONS[s.mon][1] === 'Lab', fix = !!s.gv, gvs = fix ? [T(s.gv)] : (GVS[s.mon] || []).slice().sort((a, b) => (I.l[a.id] || 0) - (I.l[b.id] || 0));
-            const rooms = s.room ? [R(s.room)] : RB[lab ? 'Lab' : 'LT'].filter(r => r.cap >= s.size), off = [...s.id].reduce((a, c) => a + c.charCodeAt(0), 0) % 12;
-            for (let q = 0; q < 12; q++) {
-                const i = (q + off) % 12, sl = (i >> 1) + 1, p = i % 2 ? '357' : '246';
-                if (s.slot && s.slot !== sl || s.pat && s.pat !== p || s.cl.some(c => hit(I.c, c, i))) continue;
-                for (const g of gvs) { if (hit(I.g, g.id, i) || g.busySlots.includes(sl) || g.busyDays.some(d => p.includes(d)) || !fix && (I.l[g.id] || 0) + PER > g.max) continue; for (const r of rooms) if (!hit(I.r, r.id, i)) return { slot: sl, pat: p, gv: g.id, room: r.id } }
-            } return null
-        }
-        function buildSecs() {
-            const out = []; FACS.forEach(F => [17, 18, 19, 20].forEach(k => { const co = COH.filter(c => c.m.f === F[0] && c.k === k); for (let j = 0; j < 3; j++) { const code = F[0] + '10' + (1 + (k + j * 2) % 6), cap = MONS[code][1] === 'Lab' ? 40 : 100, grp = []; let g = null; co.forEach(c => c.cls.forEach(cl => { if (!g || g.size + cl.size > cap) { g = { cl: [], majors: [], size: 0 }; grp.push(g) } g.cl.push(cl.code); if (!g.majors.includes(c.m.c)) g.majors.push(c.m.c); g.size += cl.size })); grp.forEach((g, i) => { const id = code + '.' + k + '-' + pad(i + 1); out.push({ id, cls: id, cl: g.cl, majors: g.majors, major: g.majors[0], mon: code, f: F[0], k, size: g.size, gv: '', room: '', slot: 0, pat: '' }) }) } })); return out
-        }
-        /* ~60% lớp học phần được xếp sẵn, phần còn lại để cán bộ xếp tay hoặc bấm Xếp tự động */
-        function buildInit() { const L = buildSecs(), I = mkIdx([]); L.forEach((s, i) => { if ((i * 7) % 10 < 6) { const c = place(s, I); if (c) { Object.assign(s, c); ixAdd(I, s, 1) } } }); return L }
-        const COL = ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#F43F5E'], ccol = c => COL[[...c].reduce((a, ch) => a + ch.charCodeAt(0), 0) % 5];
-        const TM = new Map(TEACHERS.map(t => [t.id, t])), RM = new Map(ROOMS.map(r => [r.id, r])), T = id => TM.get(id), R = id => RM.get(id);
-        const INIT = buildInit();
-        const short = n => { const p = n.split(' '); return p[0] + ' ' + p[p.length - 1] };
-        const clone = o => JSON.parse(JSON.stringify(o));
-        let S; try { S = JSON.parse(localStorage.getItem(TKEY)) } catch (e) { } if (!Array.isArray(S)) S = clone(INIT);
-        let sel = null, view = 'cls', ent = '', fFac = 'IT', fMajor = 'KTPM', fK = '', fSt = '', q = '', prev = null;
-        const inScope = s => (!fFac || s.f === fFac) && (!fMajor || s.majors.includes(fMajor)) && (!fK || s.k == fK);
-        function fillOpts(all) {
-            const cnt = {}; S.forEach((s, i) => { if (all[i] !== 'ok') s.majors.forEach(m => cnt[m] = (cnt[m] || 0) + 1) });
-            $('fFac').innerHTML = '<option value="">Tất cả khoa</option>' + FACS.map(F => `<option value="${F[0]}" ${F[0] === fFac ? 'selected' : ''}>${F[1]}</option>`).join('');
-            $('fMajor').innerHTML = `<option value="">Tất cả ngành${fFac ? ' trong khoa' : ''}</option>` + MAJ.filter(m => !fFac || m.f === fFac).map(m => `<option value="${m.c}" ${m.c === fMajor ? 'selected' : ''}>${m.n} (${m.c})${cnt[m.c] ? ' · ' + cnt[m.c] + ' chưa xong' : ' · ✓'}</option>`).join(''); $('fK').value = fK
-        }
-        const nowW = Math.min(WEEKS, Math.max(1, Math.floor((new Date() - START) / 6048e5) + 1)); let week = nowW;
-        /* ===== Kiểm tra ràng buộc ===== */
-        const overlap = (a, b) => a.slot && b.slot && a.slot === b.slot && a.pat && b.pat && [...a.pat].some(d => b.pat.includes(d));
-        const load = (g, list, skip) => list.filter(s => s.gv === g && s.id !== skip).reduce((n, s) => n + (s.pat ? s.pat.length : PER), 0);
-        function check(s, list = S) {
-            const o = [], add = (lv, k, m) => o.push({ lv, k, m }), g = s.gv && T(s.gv), r = s.room && R(s.room), lab = MONS[s.mon][1] === 'Lab';
-            list.forEach(x => {
-                if (x.id === s.id || !overlap(s, x)) return;
-                const cc = s.cl.find(c => x.cl.includes(c)); if (cc) add('err', 'cx', `Lớp ${cc} đang học ${x.mon} cùng lúc (${x.cls})`);
-                if (s.gv && x.gv === s.gv) add('err', 'gx', `${g.name} đang dạy ${x.cls}-${x.mon} cùng lúc`);
-                if (s.room && x.room === s.room) add('err', 'rx', `Phòng ${s.room} đang dùng cho ${x.cls}-${x.mon}`)
-            });
-            if (g) {
-                if (!g.skills.includes(s.mon)) add('warn', 'skill', `${g.name} chưa đăng ký dạy môn ${s.mon}`);
-                if (s.slot && g.busySlots.includes(s.slot)) add('err', 'gx', `${g.name} không nhận slot ${s.slot} (${g.note})`);
-                if (s.pat && g.busyDays.some(d => s.pat.includes(d))) add('err', 'gx', `${g.name} ${g.note}`);
-                const L = load(g.id, list, s.id) + (s.pat ? s.pat.length : PER); if (L > g.max) add('warn', 'load', `${g.name} vượt tải: ${L}/${g.max} slot mỗi tuần`)
-            }
-            if (r) {
-                if (r.cap < s.size) add('err', 'rc', `${r.id} có ${r.cap} chỗ, lớp có ${s.size} sinh viên`);
-                if (lab && r.type !== 'Lab') add('err', 'rc', `Môn ${s.mon} thực hành, cần phòng Lab`)
-            }
-            return o
-        }
-        const miss = s => [!s.gv && 'giảng viên', !s.room && 'phòng', !(s.slot && s.pat) && 'lịch học'].filter(Boolean);
-        function status(s) { const i = check(s); if (i.some(x => x.lv === 'err')) return 'err'; if (miss(s).length) return 'part'; return i.length ? 'warn' : 'ok' }
-        const SL = { ok: ['Hoàn chỉnh', 'b-ok', '--success'], warn: ['Cảnh báo', 'b-miss', '--warning'], err: ['Xung đột', 'b-err', '--danger'], part: ['Chưa đủ', 'b-wait', '--text-light'] };
-        const cur = () => S.find(s => s.id === sel);
-        function upd(k, v) { const s = cur(); if (!s) return; s[k] = k === 'slot' ? (+v || 0) : v; render() }
-        function clearSel() { const s = cur(); Object.assign(s, { gv: '', room: '', slot: 0, pat: '' }); render() }
-        /* ===== Hiển thị ===== */
-        let ST = {}, lim = 60, fsig = '';
-        const rowHtml = s => { const k = ST[s.id], g = s.gv && T(s.gv); return `<button class="tk-row ${s.id === sel ? 'on' : ''}" style="--c:var(${SL[k][2]})" data-id="${s.id}"><div class="tk-r1"><b>${s.cls}</b><span class="x-badge ${SL[k][1]}">${SL[k][0]}</span></div><small>${MONS[s.mon][0]} · ${s.size} SV · ${s.cl.length} lớp SH · ${MONS[s.mon][1] === 'Lab' ? 'Thực hành' : 'Lý thuyết'}</small><div class="tk-r3"><span class="${g ? '' : 'miss'}">${g ? short(g.name) : 'Chưa gán GV'}</span><span class="${s.room ? '' : 'miss'}">${s.room || 'Chưa chọn phòng'}</span><span class="${s.slot && s.pat ? '' : 'miss'}">${s.slot && s.pat ? `Slot ${s.slot} · ${PAT[s.pat]}` : 'Chưa xếp lịch'}</span></div></button>` };
-        function renderCap() {
-            const F = {}, ad = (f, k, v) => (F[f] = F[f] || { sv: 0, hp: 0, ok: 0, ld: 0, cap: 0 })[k] += v;
-            COH.forEach(c => ad(c.m.f, 'sv', c.n)); S.forEach(s => { ad(s.f, 'hp', 1); if (ST[s.id] === 'ok' || ST[s.id] === 'warn') ad(s.f, 'ok', 1); if (s.gv) ad(s.f, 'ld', PER) }); TEACHERS.forEach(t => ad(t.f, 'cap', t.max));
-            const nl = S.filter(s => MONS[s.mon][1] === 'Lab').length, nt = S.length - nl, rl = RB.Lab.length * 12, rt = RB.LT.length * 12, gc = TEACHERS.reduce((a, t) => a + t.max, 0), gd = S.length * PER;
-            const cls = p => p > 100 ? 'bad' : p > 85 ? 'warn' : '', bar = (d, c, l) => { const p = Math.round(d / c * 100); return `<div><div class="cp-h"><span>${l}</span><b class="${cls(p)}">${d}/${c} · ${p}%</b></div><div class="cb"><i class="${cls(p)}" style="width:${Math.min(100, p)}%"></i></div></div>` };
-            const need = [nt > rt && `${Math.ceil((nt - rt) / 12)} phòng lý thuyết`, nl > rl && `${Math.ceil((nl - rl) / 12)} phòng Lab`, gd > gc && `${Math.ceil((gd - gc) / 15)} giảng viên`].filter(Boolean), nf = x => x.toLocaleString('vi-VN');
-            $('cap').innerHTML = `<div class="cap-top"><div><b>${nf(SVN)}</b><span>sinh viên · ${nf(SVN * 3)} lượt đăng ký môn/kỳ</span></div><div><b>${NCLS}</b><span>lớp sinh hoạt (≤ 40 SV)</span></div><div><b>${S.length}</b><span>lớp học phần: ${nt} lý thuyết (≤ 100 SV, ghép lớp) · ${nl} thực hành (≤ 40 SV)</span></div><div><b>${ROOMS.length} · ${TEACHERS.length}</b><span>phòng · giảng viên</span></div></div>
-<div class="cap-g">${bar(nt, rt, 'Phòng lý thuyết: slot cần/có mỗi tuần')}${bar(nl, rl, 'Phòng Lab: slot cần/có mỗi tuần')}${bar(gd, gc, 'Giảng viên: slot cần/tối đa mỗi tuần')}</div>
-<div class="cap-v ${need.length ? 'bad' : ''}">${need.length ? `Nguồn lực chưa đủ cho ${nf(SVN)} sinh viên: cần bổ sung ít nhất ${need.join(', ')}.` : `Nguồn lực đủ cho ${nf(SVN)} sinh viên. Xếp tự động sẽ ưu tiên giảng viên ít tải và phòng nhỏ nhất vừa sức chứa.`}</div>
-<table class="cap-t"><thead><tr><th>Khoa (bấm để lọc)</th><th>SV</th><th>Lớp HP</th><th style="width:30%">Đã xếp đủ</th><th>Tải GV</th></tr></thead><tbody>${FACS.map(f => { const x = F[f[0]], p = Math.round(x.ok / x.hp * 100), l = Math.round(x.ld / x.cap * 100); return `<tr data-f="${f[0]}"><td><b>${f[1]}</b></td><td>${nf(x.sv)}</td><td>${x.hp}</td><td><div class="cp-h"><span>${x.ok}/${x.hp}</span><b>${p}%</b></div><div class="cb"><i style="width:${p}%"></i></div></td><td><b class="${cls(l)}" style="font-size:13px">${l}%</b></td></tr>` }).join('')}</tbody></table>`
-        }
-        function render() {
-            const all = S.map(s => ST[s.id] = status(s)); ST = Object.fromEntries(S.map((s, i) => [s.id, all[i]]));
-            const sc = S.filter(inScope), st = sc.map(s => ST[s.id]), n = k => st.filter(x => x === k).length, sig = [fFac, fMajor, fK, fSt, q].join('|'); if (sig !== fsig) { fsig = sig; lim = 60 }
-            $('stats').innerHTML = [[n('ok') + n('warn'), `/ ${st.length} lớp học phần đã xếp đủ`], [n('part'), 'còn thiếu GV, phòng hoặc lịch'], [n('err'), 'lớp học phần đang xung đột'], [n('warn'), 'có cảnh báo (vượt tải, trái chuyên môn)']].map(a => `<div><b>${a[0]}</b><span>${a[1]}</span></div>`).join('');
-            const vis = sc.filter(s => (!q || norm(s.cls + ' ' + s.cl.join(' ') + ' ' + MONS[s.mon][0]).includes(q)) && (!fSt || (fSt === 'todo' ? ['part', 'err', 'warn'].includes(ST[s.id]) : ST[s.id] === fSt)));
-            $('rows').innerHTML = vis.slice(0, lim).map(rowHtml).join('') + (vis.length > lim ? `<button class="btn btn-outline btn-sm tk-more" data-more="1">Xem thêm (còn ${vis.length - lim} / ${vis.length} lớp học phần)</button>` : '') || '<div class="tk-empty">Không có lớp học phần phù hợp bộ lọc.</div>';
-            fillOpts(all); renderCap(); $('bUndo').disabled = !prev; edit(); grid(); lucide.createIcons()
-        }
-        function edit() {
-            const s = cur(), el = $('ed');
-            if (!s) { el.innerHTML = '<div class="tk-empty"><i data-lucide="mouse-pointer-click" size="36" style="opacity:.4"></i><br>Chọn một lớp học phần ở bên trái để xếp giảng viên, phòng và lịch.</div>'; return }
-            const iss = check(s), m = miss(s), lab = MONS[s.mon][1] === 'Lab', sc = (k, v) => check({ ...s, [k]: v }).filter(x => ['gx', 'rx', 'cx'].includes(x.k)).length;
-            const gvs = TEACHERS.filter(t => t.f === s.f).sort((a, b) => b.skills.includes(s.mon) - a.skills.includes(s.mon)), rooms = ROOMS.filter(r => true).sort((a, b) => (b.type === (lab ? 'Lab' : 'LT')) - (a.type === (lab ? 'Lab' : 'LT')));
-            const gOpt = t => { const bad = check({ ...s, gv: t.id }).some(x => x.k === 'gx'), ok = t.skills.includes(s.mon); return `<option value="${t.id}" ${s.gv === t.id ? 'selected' : ''}>${t.name} · ${load(t.id, S, s.id)}/${t.max} slot${bad ? ' · xung đột' : !ok ? ' · chưa đăng ký môn' : ''}</option>` };
-            const rOpt = r => { const bad = check({ ...s, room: r.id }).some(x => x.k === 'rx' || x.k === 'rc'); return `<option value="${r.id}" ${s.room === r.id ? 'selected' : ''}>${r.id} · ${r.type === 'Lab' ? 'Lab' : 'Lý thuyết'} · ${r.cap} chỗ${bad ? ' · trùng/sai' : ''}</option>` };
-            el.innerHTML = `<div class="tk-eh"><b>${s.cls} · ${s.mon}</b><small>${MONS[s.mon][0]} · ${s.size} sinh viên (${s.cl.length} lớp SH: ${s.cl.join(', ')}) · ${lab ? 'Thực hành, cần phòng Lab' : 'Lý thuyết'} · 30 buổi</small></div>
- <div class="tk-iss">${iss.map(i => `<div class="tk-is ${i.lv}"><i data-lucide="${i.lv === 'err' ? 'x-circle' : 'alert-triangle'}" size="16" style="flex-shrink:0;margin-top:1px"></i><span>${esc(i.m)}</span></div>`).join('')}${m.length ? `<div class="tk-is info"><i data-lucide="info" size="16" style="flex-shrink:0;margin-top:1px"></i><span>Còn thiếu: ${m.join(', ')}.</span></div>` : ''}${!iss.length && !m.length ? '<div class="tk-is ok"><i data-lucide="check-circle" size="16"></i><span>Không có xung đột. Lịch này sẵn sàng để lưu.</span></div>' : ''}</div>
- <div class="tk-fg">
-  <div style="grid-column:1/-1"><label for="eG">Giảng viên</label><select class="x-inp" id="eG" onchange="upd('gv',this.value)"><option value="">— Chưa gán —</option>${gvs.map(gOpt).join('')}</select></div>
-  <div><label for="eR">Phòng học</label><select class="x-inp" id="eR" onchange="upd('room',this.value)"><option value="">— Chưa chọn —</option>${rooms.map(rOpt).join('')}</select></div>
-  <div><label for="eS">Slot</label><select class="x-inp" id="eS" onchange="upd('slot',this.value)"><option value="0">— Chưa chọn —</option>${SLOTS.map((t, i) => `<option value="${i + 1}" ${s.slot === i + 1 ? 'selected' : ''}>Slot ${i + 1} (${t[0]}–${t[1]})${sc('slot', i + 1) ? ' · xung đột' : ''}</option>`).join('')}</select></div>
-  <div style="grid-column:1/-1"><label for="eP">Ngày học trong tuần</label><select class="x-inp" id="eP" onchange="upd('pat',this.value)"><option value="">— Chưa chọn —</option>${Object.keys(PAT).map(p => `<option value="${p}" ${s.pat === p ? 'selected' : ''}>${PAT[p]} · 3 buổi/tuần</option>`).join('')}</select></div>
- </div>
- <div class="tk-sg"><label>Giảng viên đăng ký dạy môn ${s.mon}</label><div class="row">${TEACHERS.filter(t => t.skills.includes(s.mon)).map(t => { const bad = check({ ...s, gv: t.id }).find(x => x.k === 'gx' || x.lv === 'warn'); return `<button type="button" class="tk-ch ${bad ? '' : 'ok'}" ${bad ? `title="${esc(bad.m)}" disabled` : `onclick="upd('gv','${t.id}')"`}>${short(t.name)} · ${load(t.id, S, s.id)}/${t.max}</button>` }).join('') || '<span style="font-size:13px;color:var(--text-gray)">Chưa có giảng viên đăng ký môn này.</span>'}</div></div>
- <div class="tk-ef"><span>Mọi thay đổi áp dụng ngay lên lưới. Nhớ bấm Lưu TKB.</span><button class="btn btn-outline btn-sm" onclick="clearSel()"><i data-lucide="eraser" size="14"></i> Gỡ lịch lớp này</button></div>`}
-        const keyOf = s => view === 'cls' ? s.cl : view === 'gv' ? (s.gv ? [s.gv] : []) : (s.room ? [s.room] : []);
-        function grid() {
-            const vis = S.filter(inScope), ents = [...new Set(vis.flatMap(keyOf))].sort(), lab = v => view === 'gv' ? T(v).name : v;
-            $('ent').innerHTML = `<option value="">${{ cls: 'Tất cả lớp', gv: 'Tất cả giảng viên', room: 'Tất cả phòng' }[view]}</option>` + ents.map(v => `<option value="${v}" ${v === ent ? 'selected' : ''}>${esc(lab(v))}</option>`).join('');
-            const shown = vis.filter(s => s.slot && s.pat && (!ent || keyOf(s).includes(ent))), heat = !ent && shown.length > 60, mon = new Date(START.getTime() + (week - 1) * 6048e5), dd = d => { const x = new Date(mon.getTime() + (d - 2) * 864e5); return String(x.getDate()).padStart(2, '0') + '/' + String(x.getMonth() + 1).padStart(2, '0') };
-            $('wl').textContent = `Tuần ${week} · ${dd(2)} – ${dd(8)}`; $('hmNote').style.display = heat ? '' : 'none'; const td = new Date(), s0 = cur(), at = (k, d) => shown.filter(s => s.slot === k && s.pat.includes(String(d)));
-            const HM = heat ? Math.max(1, ...SLOTS.flatMap((_, i) => [2, 3, 4, 5, 6, 7].map(d => at(i + 1, d).length))) : 1;
-            let h = '<div class="tk-c h"></div>' + [2, 3, 4, 5, 6, 7].map(d => { const x = new Date(mon.getTime() + (d - 2) * 864e5); return `<div class="tk-c h ${x.toDateString() === td.toDateString() ? 'today' : ''}">Thứ ${d}<small>${dd(d)}</small></div>` }).join('');
-            SLOTS.forEach((t, i) => {
-                const k = i + 1; h += `<div class="tk-c s">Slot ${k}<small>${t[0]}–${t[1]}</small></div>`;
-                [2, 3, 4, 5, 6, 7].forEach(d => {
-                    const bl = at(k, d), pat = d % 2 ? '357' : '246';
-                    if (heat) { h += `<div class="tk-c"><div class="tk-hm" style="--p:${Math.round(bl.length / HM * 65)}%"><b>${bl.length}</b>lớp HP</div></div>`; return }
-                    const free = s0 && !bl.some(b => b.id === s0.id) && !check({ ...s0, slot: k, pat }).some(x => ['gx', 'rx', 'cx'].includes(x.k)) && (!ent || keyOf(s0).includes(ent)), f = free && !bl.length;
-                    h += `<div class="tk-c ${f ? 'free' : ''}" ${f ? `data-slot="${k}" data-pat="${pat}" role="button" tabindex="0" title="Xếp ${s0.cls} vào Slot ${k}, ${PAT[pat]}"` : ''}>${f ? '+ Xếp vào đây' : bl.map(b => {
-                        const g = b.gv && T(b.gv), no = Math.floor((week - 1) * PER + b.pat.indexOf(String(d)) + 1);
-                        return `<button type="button" class="tk-b ${check(b).some(x => x.lv === 'err') ? 'bad' : ''} ${b.id === sel ? 'on' : ''}" style="--c:${ccol(b.cls)}" data-id="${b.id}"><b>${b.mon}</b> · ${b.cls}<br>${b.room ? esc(b.room) : '<span class="m">Chưa có phòng</span>'} · ${g ? esc(short(g.name)) : '<span class="m">Chưa có GV</span>'}<br>Buổi ${no}/30</button>`
-                    }).join('')}</div>`
-                })
-            });
-            $('grid').innerHTML = h
-        }
-        /* ===== Tương tác ===== */
-        $('rows').onclick = e => { if (e.target.closest('[data-more]')) { lim += 60; render(); return } const b = e.target.closest('.tk-row'); if (b) { sel = b.dataset.id; render() } };
-        $('grid').onclick = e => {
-            const b = e.target.closest('.tk-b'); if (b) { sel = b.dataset.id; render(); return }
-            const c = e.target.closest('.tk-c.free'); if (c && sel) { const s = cur(); s.slot = +c.dataset.slot; s.pat = c.dataset.pat; toast(`Đã xếp ${s.cls}-${s.mon} vào Slot ${s.slot}, ${PAT[s.pat]}.`); render() }
-        };
-        $('grid').onkeydown = e => { if (e.key === 'Enter' && e.target.classList.contains('free')) e.target.click() };
-        $('seg').onclick = e => { const b = e.target.closest('button'); if (!b) return; view = b.dataset.v; ent = ''; document.querySelectorAll('#seg button').forEach(x => x.classList.toggle('on', x === b)); grid(); lucide.createIcons() };
-        $('ent').onchange = e => { ent = e.target.value; grid() }; $('fFac').onchange = e => { fFac = e.target.value; fMajor = ''; ent = ''; render() }; $('fMajor').onchange = e => { fMajor = e.target.value; ent = ''; render() }; $('fK').onchange = e => { fK = e.target.value; ent = ''; render() }; $('fSt').onchange = e => { fSt = e.target.value; render() };
-        $('q').oninput = e => { q = norm(e.target.value); render() };
-        function wk(d) { week = Math.min(WEEKS, Math.max(1, week + d)); grid(); lucide.createIcons() }
-        function undo() { if (prev) { S = prev; prev = null; render(); toast('Đã hoàn tác lần xếp tự động.') } }
-        function saveTKB() {
-            const e = S.filter(s => status(s) === 'err').length, p = S.filter(s => status(s) === 'part').length;
-            if (e) return toast(`Còn ${e} lớp học phần xung đột. Hãy xử lý trước khi lưu.`, true);
-            try { localStorage.setItem(TKEY, JSON.stringify(S)) } catch (x) { } toast(p ? `Đã lưu TKB Fall 2026. Còn ${p} lớp học phần chưa xếp đủ.` : 'Đã lưu TKB Fall 2026.')
-        }
-        function exportCsv() {
-            const rows = [['Lớp học phần', 'Các lớp SH', 'Môn', 'Tên môn', 'Sĩ số', 'Giảng viên', 'Phòng', 'Slot', 'Giờ học', 'Ngày học', 'Trạng thái'], ...S.filter(inScope).map(s => [s.cls, s.cl.join(' '), s.mon, MONS[s.mon][0], s.size, s.gv ? T(s.gv).name : '', s.room, s.slot || '', s.slot ? SLOTS[s.slot - 1].join('-') : '', PAT[s.pat] || '', SL[status(s)][0]])];
-            const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\ufeff' + rows.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\r\n')], { type: 'text/csv;charset=utf-8' })); a.download = 'TKB_Fall2026_' + (fMajor || fFac || 'ALL') + '.csv'; a.click(); URL.revokeObjectURL(a.href)
-        }
-        /* ===== Xếp tự động: chạy theo lô 20 lớp, có thanh tiến trình và nút Dừng ===== */
-        let stopAuto = false;
-        function autoRun(all) {
-            const b = $('bAuto'); if (b.disabled) return;
-            const list = clone(S), todo = list.filter(s => (all || inScope(s)) && status(s) === 'part').sort((a, b) => (MONS[b.mon][1] === 'Lab') - (MONS[a.mon][1] === 'Lab') || b.size - a.size);
-            if (!todo.length) return toast('Không có lớp học phần nào còn thiếu để xếp.');
-            const I = mkIdx(list), fail = [], t0 = performance.now(); let i = 0; stopAuto = false; b.disabled = $('bAutoAll').disabled = true; $('prog').style.display = 'flex';
-            (function step() {
-                for (const e = Math.min(todo.length, i + 20); i < e && !stopAuto; i++) { const s = todo[i]; ixAdd(I, s, -1); const c = place(s, I) || place({ ...s, slot: 0, pat: '' }, I); if (c) Object.assign(s, c); else fail.push(s.cls); ixAdd(I, s, 1) }
-                $('progB').style.width = Math.round(i / todo.length * 100) + '%'; $('progT').textContent = `Đang xếp ${i}/${todo.length} lớp học phần…`;
-                if (i < todo.length && !stopAuto) return setTimeout(step, 0);
-                prev = S; S = list; if (!sel || !cur()) sel = todo[0].id; b.disabled = $('bAutoAll').disabled = false; $('prog').style.display = 'none'; render();
-                const ok = i - fail.length, ms = Math.round(performance.now() - t0);
-                toast(`${stopAuto ? 'Đã dừng. ' : ''}Đã xếp ${ok}/${todo.length} lớp học phần trong ${ms} ms.` + (fail.length ? ` Chưa xếp được ${fail.length} lớp (${fail.slice(0, 4).join(', ')}${fail.length > 4 ? '…' : ''}): hết tổ hợp giảng viên, phòng, slot phù hợp, xem mục Nguồn lực ở trên.` : ' Các lớp đang xung đột (nếu có) cần xử lý thủ công.'), !!fail.length)
-            })()
-        }
-        $('cap').onclick = e => { const r = e.target.closest('[data-f]'); if (r) { fFac = r.dataset.f; fMajor = ''; ent = ''; render() } };
-        sel = (S.filter(inScope).find(s => status(s) !== 'ok') || S[0]).id; render();
 
+        const GV = {}; TEACHERS.forEach(t => { t.busy = t.busySlots.map(x => x - 1); t.noSat = t.busyDays.includes('7'); GV[t.id] = t });
+        const RM = {}; ROOMS.forEach(r => RM[r.id] = r);
+        const hash = s => { let h = 7; for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h };
+        /* ---- Lớp học phần ---- */
+        const LHP = [], BY = {};
+        MAJ.forEach((m, i) => [20, 19, 18, 17].forEach(k => {
+            const size = 40 + ((i * 37 + k * 19) % 61);
+            [k % 6, (k + 2) % 6, (k + 4) % 6].forEach(j => {
+                const mc = m.f + '10' + (j + 1), [nm, ty] = MONS[mc], ng = Math.ceil(size / (ty === 'Lab' ? 40 : 60));
+                for (let g = 0; g < ng; g++) { const L = String.fromCharCode(65 + g), l = { code: `${m.c}${k}-${mc.slice(2)}-${L}`, maj: m.c, mn: m.n, f: m.f, k, mc, name: nm, type: ty, size: Math.ceil(size / ng), gk: `${m.c}${k}-${L}`, gv: null, pat: null, slot: null, room: null }; LHP.push(l); BY[l.code] = l }
+            });
+        }));
+        const occ = { gv: {}, room: {}, grp: {} }, load = {}; TEACHERS.forEach(t => load[t.id] = 0);
+        const placed = l => l.pat !== null;
+        function place(l) { const t = `|${l.pat}|${l.slot}`; occ.gv[l.gv + t] = l.code; occ.room[l.room + t] = l.code; occ.grp[l.gk + t] = l.code; load[l.gv]++ }
+        function unplace(l) { if (!placed(l)) return; const t = `|${l.pat}|${l.slot}`; delete occ.gv[l.gv + t]; delete occ.room[l.room + t]; delete occ.grp[l.gk + t]; load[l.gv]--; l.gv = l.pat = l.slot = l.room = null }
+        function set(l, gv, pat, slot, room) { unplace(l); l.gv = gv; l.pat = pat; l.slot = slot; l.room = room; place(l) }
+        /* Kiểm tra xung đột; chỉ xét những trường đã chọn */
+        function check(l, gv, pat, slot, room) {
+            const e = [], t = pat && slot !== null ? `|${pat}|${slot}` : null; let o;
+            if (gv) { const g = GV[gv]; if (slot !== null && g.busy.includes(slot)) e.push({ t: 'gv', m: 'chỉ dạy buổi chiều' }); if (pat === '357' && g.noSat) e.push({ t: 'gv', m: 'không dạy thứ 7' }); if (t && (o = occ.gv[gv + t]) && o !== l.code) e.push({ t: 'gv', m: 'đang dạy ' + o }); if (load[gv] - (l.gv === gv ? 1 : 0) >= g.max) e.push({ t: 'gv', m: 'đã đủ ' + g.max + ' lớp' }) }
+            if (room) { const r = RM[room]; if (r.cap < l.size) e.push({ t: 'room', m: `chỉ ${r.cap} chỗ` }); if (t && (o = occ.room[room + t]) && o !== l.code) e.push({ t: 'room', m: 'đang dùng ' + o }) }
+            if (t && (o = occ.grp[l.gk + t]) && o !== l.code) e.push({ t: 'grp', m: 'lớp đã học ' + o + ' cùng ca' });
+            return e;
+        }
+        const suited = l => ROOMS.filter(r => r.type === l.type && r.cap >= l.size).sort((a, b) => a.cap - b.cap);
+        function autoOne(l, pref) {
+            const gvs = (pref ? [GV[pref]] : GVS[l.mc].slice().sort((a, b) => load[a.id] - load[b.id])), rooms = suited(l), h = hash(l.code), combos = [];
+            for (let i = 0; i < 12; i++) { const c = (i + h) % 12; combos.push([c < 6 ? '246' : '357', c % 6]) }
+            for (const [p, s] of combos) { if (check(l, null, p, s, null).length) continue; for (const g of gvs) { if (check(l, g.id, p, s, null).length) continue; const r = rooms.find(r => !occ.room[r.id + `|${p}|${s}`]); if (r) { set(l, g.id, p, s, r.id); return true } } }
+            return false;
+        }
+        /* ---- Lưu / hoàn tác ---- */
+        const snapAll = () => LHP.map(l => [l.gv, l.pat, l.slot, l.room]);
+        function restore(a) { LHP.forEach(unplace); LHP.forEach((l, i) => { if (a[i][1] !== null) set(l, ...a[i]) }) }
+        let undoSnap = null; const snap = () => { undoSnap = snapAll(); $('bUndo').disabled = false };
+        try { const s = JSON.parse(localStorage.getItem(TKEY) || 'null'); if (s && s.length === LHP.length) restore(s); else throw 0 } catch (e) { LHP.forEach((l, i) => { if (i % 3 === 0) autoOne(l) }) }
+        /* ---- Giao diện ---- */
+        const ui = { fac: '', maj: '', k: '', q: '', st: '', sel: null, view: 'cls', ent: '', week: 0, d: {} };
+        const filtered = () => { const q = norm(ui.q); return LHP.filter(l => (!ui.fac || l.f === ui.fac) && (!ui.maj || l.maj === ui.maj) && (!ui.k || l.k === +ui.k) && (!ui.st || (ui.st === 'ok') === placed(l)) && (!q || norm(l.code + ' ' + l.name + ' ' + l.mn).includes(q))) };
+        function renderFilters() {
+            $('fFac').innerHTML = '<option value="">Tất cả khoa</option>' + FACS.map(F => `<option value="${F[0]}" ${ui.fac === F[0] ? 'selected' : ''}>${F[1]}</option>`).join('');
+            $('fMaj').innerHTML = '<option value="">Tất cả chuyên ngành</option>' + MAJ.filter(m => !ui.fac || m.f === ui.fac).map(m => `<option value="${m.c}" ${ui.maj === m.c ? 'selected' : ''}>${m.n}</option>`).join('');
+        }
+        function renderStats() {
+            const F = filtered(), ok = F.filter(placed).length, use = ty => { const tot = ROOMS.filter(r => r.type === ty).length * 12; return Math.round(Object.keys(occ.room).filter(k => RM[k.split('|')[0]].type === ty).length / tot * 100) };
+            const busy = TEACHERS.filter(t => load[t.id]).length;
+            $('stats').innerHTML = [['Lớp học phần', F.length, 'Trong bộ lọc hiện tại'], ['Đã xếp lịch', ok, F.length ? Math.round(ok / F.length * 100) + '% hoàn thành' : '—'], ['Chưa xếp', F.length - ok, 'Cần giảng viên, lịch, phòng'], ['Tài nguyên', `${busy}/${TEACHERS.length} GV`, `Phòng LT ${use('LT')}% · Lab ${use('Lab')}% công suất`]].map(c => `<div class="x-card t2-st"><div class="lb">${c[0]}</div><div class="vl">${c[1]}</div><div class="sb">${c[2]}</div></div>`).join('');
+        }
+        function renderRows() {
+            const F = filtered(), show = F.slice(0, 150);
+            $('rows').innerHTML = show.map(l => `<div class="t2-row ${ui.sel === l.code ? 'on' : ''}" data-c="${l.code}"><span class="t2-dot ${placed(l) ? 'ok' : ''}"></span><div><b>${l.code}</b> · ${esc(l.name)}<small>${esc(l.mn)} · Khóa ${l.k} · ${l.size} SV · ${l.type === 'Lab' ? 'Thực hành' : 'Lý thuyết'}</small><small>${placed(l) ? `${PAT[l.pat]} · Ca ${l.slot + 1} · ${l.room} · ${esc(GV[l.gv].name)}` : 'Chưa xếp lịch'}</small></div></div>`).join('') + (F.length > 150 ? `<div class="t2-more">Hiển thị 150/${F.length} lớp. Hãy lọc theo khoa, ngành hoặc khóa để thu hẹp.</div>` : '') || '<div class="t2-more">Không có lớp học phần phù hợp</div>';
+        }
+        const opt = (v, label, sel, dis) => `<option value="${v}" ${sel ? 'selected' : ''} ${dis ? 'disabled' : ''}>${label}${dis ? ' · ' + dis : ''}</option>`;
+        function renderEd() {
+            const l = BY[ui.sel]; if (!l) { $('ed').innerHTML = '<div class="t2-empty"><b>Chọn một lớp học phần ở danh sách bên trái</b><br><ol><li>Chọn giảng viên đúng chuyên môn</li><li>Chọn lịch học (T2-4-6 hoặc T3-5-7) và ca học</li><li>Chọn phòng phù hợp sức chứa</li><li>Bấm “Lưu xếp lịch”, hoặc để hệ thống gợi ý tự động</li></ol></div>'; return }
+            const d = ui.d, e = check(l, d.gv, d.pat, d.slot, d.room), has = t => e.some(x => x.t === t), full = d.gv && d.pat && d.slot !== null && d.room;
+            const gvs = GVS[l.mc].slice().sort((a, b) => load[a.id] - load[b.id]);
+            const st = (t, ok, no, na) => `<span class="${has(t) ? 'no' : na ? 'na' : 'ok'}">${has(t) ? '✗ ' + no : na ? '– ' + ok : '✓ ' + ok}</span>`;
+            $('ed').innerHTML = `<div class="t2-eh"><div><h2>${l.code} · ${esc(l.name)}</h2><p>${esc(l.mn)} · Khóa ${l.k} · Nhóm ${l.gk.slice(-1)} · <b>${l.size} sinh viên</b></p></div><span class="t2-tag ${l.type === 'Lab' ? 'lab' : ''}">${l.type === 'Lab' ? 'THỰC HÀNH' : 'LÝ THUYẾT'}</span></div>
+    <div class="t2-form t2-f">
+      <div class="full"><label>Giảng viên (đúng chuyên môn môn học, xếp theo tải giảng)</label><select class="x-inp" data-f="gv">${opt('', '— Chọn giảng viên —', !d.gv)}${gvs.map(g => { const c = check(l, g.id, d.pat, d.slot, null)[0]; return opt(g.id, `${esc(g.name)} · ${load[g.id]}/${g.max} lớp${g.note ? ' · ' + g.note : ''}`, d.gv === g.id, c && c.m) }).join('')}</select></div>
+      <div><label>Lịch học (3 buổi/tuần)</label><select class="x-inp" data-f="pat">${opt('', '— Chọn lịch —', !d.pat)}${Object.keys(PAT).map(p => opt(p, PAT[p], d.pat === p, d.gv && check(l, d.gv, p, null, null)[0] && check(l, d.gv, p, null, null)[0].m)).join('')}</select></div>
+      <div><label>Ca học (90 phút)</label><select class="x-inp" data-f="slot">${opt('', '— Chọn ca —', d.slot === null)}${SLOTS.map((s, i) => { const c = d.pat ? check(l, d.gv, d.pat, i, null)[0] : null; return opt(i, `Ca ${i + 1} · ${s[0]}–${s[1]}`, d.slot === i, c && c.m) }).join('')}</select></div>
+      <div class="full"><label>Phòng (${l.type === 'Lab' ? 'phòng Lab' : 'phòng lý thuyết'}, sức chứa ≥ ${l.size})</label><select class="x-inp" data-f="room">${opt('', '— Chọn phòng —', !d.room)}${suited(l).map(r => { const c = check(l, null, d.pat, d.slot, r.id)[0]; return opt(r.id, `${r.id} · ${r.cap} chỗ`, d.room === r.id, c && c.m) }).join('')}</select></div>
+    </div>
+    <div class="t2-chk"><span class="ok">✓ Giảng viên đúng chuyên môn</span>${st('gv', 'GV không trùng lịch / đủ tải', 'GV bị trùng hoặc vượt tải', !d.gv)}${st('room', 'Phòng đủ chỗ, không trùng', 'Phòng thiếu chỗ hoặc bị trùng', !d.room)}${st('grp', 'Lớp không trùng môn khác', 'Lớp đã có môn khác cùng ca', d.slot === null)}</div>
+    ${e.length ? `<div class="t2-err">${e.map(x => esc(x.m)).join(' · ')}</div>` : ''}
+    <div class="t2-act"><button class="btn btn-primary" data-a="save" ${full && !e.length ? '' : 'disabled'}><i data-lucide="check" size="16"></i> Lưu xếp lịch</button><button class="btn btn-outline" data-a="suggest"><i data-lucide="sparkles" size="16"></i> Gợi ý tự động</button><button class="btn btn-outline" data-a="clear" ${placed(l) ? '' : 'disabled'}><i data-lucide="trash-2" size="16"></i> Gỡ xếp</button></div>`;
+            lucide.createIcons();
+        }
+        function pickLhp(code) { ui.sel = code; const l = BY[code]; ui.d = placed(l) ? { gv: l.gv, pat: l.pat, slot: l.slot, room: l.room } : { gv: null, pat: null, slot: null, room: null }; if (ui.view === 'cls') ui.ent = l.gk; renderRows(); renderEd(); renderGrid() }
+        function entities() {
+            if (ui.view === 'cls') return [...new Set(filtered().map(l => l.gk))].map(g => [g, `${g} · ${LHP.find(l => l.gk === g).mn}`]);
+            if (ui.view === 'gv') return TEACHERS.filter(t => !ui.fac || t.f === ui.fac).map(t => [t.id, `${t.name} (${load[t.id]} lớp)`]);
+            return ROOMS.map(r => [r.id, `${r.id} · ${r.cap} chỗ (${Object.keys(occ.room).filter(k => k.startsWith(r.id + '|')).length} ca/tuần)`]);
+        }
+        function renderGrid() {
+            const E = entities(); if (!E.some(x => x[0] === ui.ent)) ui.ent = E.length ? E[0][0] : '';
+            $('ent').innerHTML = E.map(x => `<option value="${x[0]}" ${x[0] === ui.ent ? 'selected' : ''}>${esc(x[1])}</option>`).join('');
+            const w0 = new Date(START); w0.setDate(w0.getDate() + ui.week * 7); const fd = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return String(x.getDate()).padStart(2, '0') + '/' + String(x.getMonth() + 1).padStart(2, '0') };
+            $('wl').textContent = `Tuần ${ui.week + 1}/10 · ${fd(w0, 0)} – ${fd(w0, 5)}`;
+            const L = LHP.filter(l => placed(l) && (ui.view === 'cls' ? l.gk === ui.ent : ui.view === 'gv' ? l.gv === ui.ent : l.room === ui.ent));
+            let h = '<div class="hd"></div>' + ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'].map((n, i) => `<div class="hd">${n}<br>${fd(w0, i)}</div>`).join('');
+            SLOTS.forEach((s, si) => { h += `<div class="tm"><b>Ca ${si + 1}</b>${s[0]}–${s[1]}</div>`; for (let d = 0; d < 6; d++) h += '<div>' + L.filter(l => l.slot === si && PDAY[l.pat].includes(d)).map(l => `<div class="t2-c ${l.type === 'Lab' ? 'lab' : ''} ${l.code === ui.sel ? 'sel' : ''}" title="${esc(l.name + ' · ' + GV[l.gv].name + ' · ' + l.room)}"><b>${esc(ui.view === 'cls' ? l.name : l.code)}</b><small>${ui.view === 'gv' ? l.room + ' · ' + l.mn : ui.view === 'room' ? esc(GV[l.gv].name) : l.room + ' · ' + esc(GV[l.gv].name)}</small><small>Buổi ${ui.week * 3 + (d >> 1) + 1}/30</small></div>`).join('') + '</div>' });
+            $('grid').innerHTML = h;
+        }
+        const refresh = () => { renderStats(); renderRows(); renderEd(); renderGrid() };
+        /* ---- Sự kiện ---- */
+        $('fFac').onchange = e => { ui.fac = e.target.value; ui.maj = ''; renderFilters(); refresh() }; $('fMaj').onchange = e => { ui.maj = e.target.value; refresh() }; $('fK').onchange = e => { ui.k = e.target.value; refresh() };
+        $('q').oninput = e => { ui.q = e.target.value; renderStats(); renderRows(); renderGrid() }; $('fSt').onchange = e => { ui.st = e.target.value; renderRows() };
+        $('rows').onclick = e => { const r = e.target.closest('[data-c]'); if (r) pickLhp(r.dataset.c) };
+        $('ed').onchange = e => { const f = e.target.dataset.f; if (!f) return; const v = e.target.value; ui.d[f] = v === '' ? null : f === 'slot' ? +v : v; renderEd() };
+        $('ed').onclick = e => {
+            const b = e.target.closest('[data-a]'); if (!b) return; const l = BY[ui.sel], a = b.dataset.a;
+            if (a === 'save') { snap(); set(l, ui.d.gv, ui.d.pat, ui.d.slot, ui.d.room); toast(`Đã xếp ${l.code}: ${PAT[l.pat]}, ca ${l.slot + 1}, ${l.room}`) }
+            else if (a === 'clear') { snap(); unplace(l); ui.d = { gv: null, pat: null, slot: null, room: null }; toast('Đã gỡ lịch của ' + l.code) }
+            else { snap(); const keep = placed(l) ? [l.gv, l.pat, l.slot, l.room] : null; unplace(l); if (autoOne(l, ui.d.gv)) { ui.d = { gv: l.gv, pat: l.pat, slot: l.slot, room: l.room }; toast('Đã gợi ý lịch cho ' + l.code + ', bấm “Lưu TKB” để lưu lại') } else { if (keep) set(l, ...keep); toast('Không tìm được ca trống phù hợp, hãy đổi giảng viên', true) } }
+            refresh();
+        };
+        $('seg').onclick = e => { const b = e.target.closest('button'); if (!b) return; ui.view = b.dataset.v; ui.ent = ui.view === 'cls' && ui.sel ? BY[ui.sel].gk : ''; document.querySelectorAll('#seg button').forEach(x => x.classList.toggle('on', x === b)); renderGrid() };
+        $('ent').onchange = e => { ui.ent = e.target.value; renderGrid() };
+        $('wPrev').onclick = () => { ui.week = Math.max(0, ui.week - 1); renderGrid() }; $('wNext').onclick = () => { ui.week = Math.min(9, ui.week + 1); renderGrid() };
+        function auto(all) {
+            const L = (all ? LHP : filtered()).filter(l => !placed(l)); if (!L.length) return toast('Không còn lớp nào cần xếp trong phạm vi này');
+            snap(); let ok = 0; L.forEach(l => { if (autoOne(l)) ok++ }); refresh();
+            toast(`Đã xếp ${ok}/${L.length} lớp` + (ok < L.length ? `. ${L.length - ok} lớp chưa xếp được vì hết ca trống, hãy xếp tay hoặc đổi giảng viên` : ''), ok < L.length);
+        }
+        $('bAuto').onclick = () => auto(false); $('bAll').onclick = () => auto(true);
+        $('bUndo').onclick = () => { if (!undoSnap) return; restore(undoSnap); undoSnap = null; $('bUndo').disabled = true; if (ui.sel) pickLhp(ui.sel); refresh(); toast('Đã hoàn tác thao tác gần nhất') };
+        $('bSave').onclick = () => { try { localStorage.setItem(TKEY, JSON.stringify(snapAll())); toast('Đã lưu thời khóa biểu vào trình duyệt') } catch (e) { toast('Không lưu được: trình duyệt chặn bộ nhớ', true) } };
+        $('bCsv').onclick = () => {
+            const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"', F = filtered();
+            const lines = [['Mã lớp HP', 'Môn học', 'Loại', 'Chuyên ngành', 'Khóa', 'Sĩ số', 'Giảng viên', 'Lịch', 'Ca', 'Giờ', 'Phòng', 'Trạng thái'].map(q).join(',')].concat(F.map(l => [l.code, l.name, l.type, l.mn, l.k, l.size, placed(l) ? GV[l.gv].name : '', placed(l) ? PAT[l.pat] : '', placed(l) ? l.slot + 1 : '', placed(l) ? SLOTS[l.slot].join('-') : '', l.room, placed(l) ? 'Đã xếp' : 'Chưa xếp'].map(q).join(',')));
+            const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' })); a.download = 'thoi-khoa-bieu-fall-2026.csv'; a.click(); toast(`Đã xuất ${F.length} lớp học phần`);
+        };
+        renderFilters(); refresh();
     </script>
     <script>
         (function () {

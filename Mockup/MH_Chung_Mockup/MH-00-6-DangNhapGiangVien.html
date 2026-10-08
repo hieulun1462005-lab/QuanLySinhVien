@@ -126,7 +126,6 @@
             left: 0;
             width: 100%;
             z-index: 100;
-            animation: slideDown 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s both;
         }
 
         .sys-identity {
@@ -191,7 +190,6 @@
             padding: 0;
             position: relative;
             margin: 0;
-            animation: bgZoomOut 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
 
         .login-left {
@@ -205,7 +203,6 @@
             background: transparent;
             margin-top: -234px;
             margin-left: 114px;
-            animation: slideRight 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s both;
             position: relative;
             z-index: 2;
         }
@@ -260,7 +257,6 @@
             padding: 48px;
             box-shadow: none;
             margin-left: -57px;
-            animation: slideLeft 1s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s both;
             position: relative;
             z-index: 2;
         }
@@ -762,140 +758,6 @@
             color: var(--text-gray);
         }
 
-        /* ----- FLASHLIGHT EFFECT ----- */
-        body {
-            transition: background-color 0.5s ease;
-        }
-
-        .login-main,
-        .header,
-        .login-card,
-        footer,
-        .sys-identity {
-            transition: all 0.5s ease;
-        }
-
-        /* Lớp phủ làm tối màn hình nền */
-        .login-main::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, rgba(2, 10, 20, 0.92) 0%, rgba(1, 6, 12, 0.98) 100%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        body.flashlight-mode .login-main::before {
-            opacity: 1;
-        }
-
-        body.flashlight-mode .login-right {
-            background: transparent;
-            border: none;
-        }
-
-        body.flashlight-mode .login-left {
-            background: transparent;
-            color: rgba(255, 255, 255, 0.2);
-        }
-
-        body.flashlight-mode .header {
-            background: rgba(2, 10, 20, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Tia sáng đèn pin */
-        .password-wrapper {
-            position: relative;
-            /* Bỏ overflow hidden để tia sáng có thể lan ra viền đẹp hơn */
-        }
-
-        /* Tia sáng dạng hình phễu chuẩn vật lý (Soft Conic Beam) */
-        .beam-overlay {
-            position: absolute;
-            /* Mở rộng vùng hiển thị để phễu tỏa ra phủ rộng khắp khu vực */
-            top: -1000px;
-            bottom: -1000px;
-            left: -2000px;
-            right: 0;
-            pointer-events: none;
-            z-index: 4;
-
-            /* Dùng conic-gradient để tia sáng tỏa ra thành hình nón rộng dần (diverging cone) */
-            background: conic-gradient(from calc(var(--angle, 270deg) - 25deg) at calc(100% - 27px) 50%,
-                    transparent 0deg,
-                    rgba(255, 245, 180, 0.1) 10deg,
-                    rgba(255, 245, 180, 0.75) 25deg,
-                    rgba(255, 245, 180, 0.1) 40deg,
-                    transparent 50deg,
-                    transparent 360deg);
-
-            /* Dùng mặt nạ radial-gradient để fade mờ dần ở đuôi cực êm */
-            -webkit-mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0, 0, 0, 0.8) 40%, transparent 100%);
-            mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0, 0, 0, 0.8) 40%, transparent 100%);
-
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        body.flashlight-mode .beam-overlay {
-            opacity: 1;
-        }
-
-        .reveal-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-            /* Mask 1: Chữ cũng fade mờ dần phần đuôi y hệt tia sáng */
-            -webkit-mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0, 0, 0, 0.8) 40%, transparent 100%);
-            mask-image: radial-gradient(circle calc(var(--distance, 200px) + 40px) at calc(100% - 27px) 50%, black 0%, rgba(0, 0, 0, 0.8) 40%, transparent 100%);
-        }
-
-        .reveal-input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding-left: 44px;
-            padding-right: 44px;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 600;
-            text-shadow: 0 0 6px rgba(255, 245, 180, 0.9), 0 0 18px rgba(255, 245, 180, 0.6);
-            pointer-events: none;
-            opacity: 0;
-            /* Mask 2: Chữ giới hạn theo hình nón tỏa ra */
-            -webkit-mask-image: conic-gradient(from calc(var(--angle, 270deg) - 25deg) at calc(100% - 27px) 50%, transparent 0deg, rgba(0, 0, 0, 0.5) 10deg, rgba(0, 0, 0, 1) 25deg, rgba(0, 0, 0, 0.5) 40deg, transparent 50deg, transparent 360deg);
-            mask-image: conic-gradient(from calc(var(--angle, 270deg) - 25deg) at calc(100% - 27px) 50%, transparent 0deg, rgba(0, 0, 0, 0.5) 10deg, rgba(0, 0, 0, 1) 25deg, rgba(0, 0, 0, 0.5) 40deg, transparent 50deg, transparent 360deg);
-            transition: opacity 0.3s ease;
-        }
-
-        /* Ẩn chữ thật đi khi bật đèn pin */
-        body.flashlight-mode .real-input {
-            color: transparent !important;
-        }
-
-        body.flashlight-mode .real-input::placeholder {
-            color: transparent;
-        }
-
-        body.flashlight-mode .reveal-input {
-            opacity: 1;
-        }
-
         #eyeIcon {
             z-index: 10;
         }
@@ -995,21 +857,11 @@
 
                         <div class="form-field">
                             <label class="form-label">Mật khẩu</label>
-                            <div class="form-input password-wrapper" id="pwdWrapper">
-                                <input type="password" placeholder="Nhập mật khẩu" required id="pwdInput"
-                                    class="real-input">
+                            <div class="form-input" style="position: relative;">
+                                <input type="password" placeholder="Nhập mật khẩu" required id="pwdInput">
                                 <i data-lucide="lock" color="#8794A8" style="z-index: 10;"></i>
-
-                                <!-- Luồng sáng hình phễu -->
-                                <div class="beam-overlay" id="beamOverlay"></div>
-
-                                <!-- Lớp phát sáng ảo được bọc trong wrapper để áp dụng 2 lớp mặt nạ ánh sáng -->
-                                <div class="reveal-wrapper" id="revealWrapper">
-                                    <input type="text" id="revealInput" class="reveal-input" readonly tabindex="-1">
-                                </div>
-
-                                <span id="toggleBtn"
-                                    style="cursor: grab; z-index: 10; display: flex; align-items: center; justify-content: center; position: absolute; right: 0;">
+                                
+                                <span id="toggleBtn" style="cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; position: absolute; right: 0; padding: 0 12px;">
                                     <i data-lucide="eye-off" color="#8794A8" id="eyeIcon"></i>
                                 </span>
                             </div>
@@ -1094,64 +946,7 @@
             document.getElementById(screenId + '-screen').classList.add('active');
         }
 
-        function turnOnFlashlight(e) {
-            const body = document.body;
-            const pwdInput = document.getElementById('pwdInput');
-            const toggleBtn = document.getElementById('toggleBtn');
-
-            body.classList.add('flashlight-mode');
-            pwdInput.type = 'text';
-            toggleBtn.style.cursor = 'grabbing';
-
-            // Dùng SVG custom để vẽ cái đèn pin giống hệt ảnh của anh, mũi đèn pin chỉ sang trái
-            toggleBtn.innerHTML = `
-            <svg id="eyeIcon" width="24" height="24" viewBox="0 0 24 24" fill="#FFE699" xmlns="http://www.w3.org/2000/svg" style="transition: transform 0.1s ease-out; transform-origin: center center;">
-              <path d="M6 5 L11 9 L11 15 L6 19 Z" />
-              <rect x="11" y="9.5" width="11" height="5" rx="1" />
-              <rect x="15" y="8" width="3" height="1.5" rx="0.5" />
-            </svg>`;
-
-            updateFlashlightPosition(e);
-        }
-
-        function turnOffFlashlight() {
-            const body = document.body;
-            if (!body.classList.contains('flashlight-mode')) return;
-
-            const pwdInput = document.getElementById('pwdInput');
-            const toggleBtn = document.getElementById('toggleBtn');
-
-            body.classList.remove('flashlight-mode');
-            pwdInput.type = 'password';
-            toggleBtn.style.cursor = 'grab';
-
-            // Trả lại icon con mắt
-            toggleBtn.innerHTML = `<i data-lucide="eye-off" id="eyeIcon" color="#8794A8"></i>`;
-            lucide.createIcons();
-        }
-
-        function updateFlashlightPosition(e) {
-            const currentEyeIcon = document.getElementById('eyeIcon');
-            if (!currentEyeIcon) return;
-
-            const iconRect = currentEyeIcon.getBoundingClientRect();
-            const originX = iconRect.left + iconRect.width / 2;
-            const originY = iconRect.top + iconRect.height / 2;
-
-            const dx = e.clientX - originX;
-            const dy = e.clientY - originY;
-
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-
-            currentEyeIcon.style.transform = `rotate(${angle - 180}deg)`;
-
-            const pwdWrapper = document.getElementById('pwdWrapper');
-            if (pwdWrapper) {
-                pwdWrapper.style.setProperty('--distance', `${distance}px`);
-                pwdWrapper.style.setProperty('--angle', `${angle + 90}deg`);
-            }
-        }
+        // Xóa hàm flashlight
 
         // Form Submit Logic
         document.addEventListener('DOMContentLoaded', () => {
@@ -1179,38 +974,24 @@
             }
         });
 
-        // Logic Đèn pin & Đồng bộ text
+        // Logic Ẩn/Hiện mật khẩu
         document.addEventListener('DOMContentLoaded', () => {
             const pwdInput = document.getElementById('pwdInput');
-            const revealInput = document.getElementById('revealInput');
             const toggleBtn = document.getElementById('toggleBtn');
-
+            
             if (toggleBtn) {
-                toggleBtn.style.cursor = 'grab';
-                toggleBtn.addEventListener('mousedown', (e) => {
+                toggleBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    turnOnFlashlight(e);
+                    if (pwdInput.type === 'password') {
+                        pwdInput.type = 'text';
+                        toggleBtn.innerHTML = `<i data-lucide="eye" id="eyeIcon" color="#8794A8"></i>`;
+                    } else {
+                        pwdInput.type = 'password';
+                        toggleBtn.innerHTML = `<i data-lucide="eye-off" id="eyeIcon" color="#8794A8"></i>`;
+                    }
+                    lucide.createIcons();
                 });
             }
-
-            pwdInput.addEventListener('input', (e) => {
-                revealInput.value = e.target.value;
-            });
-
-            // Sự kiện theo dõi chuột trên toàn bộ màn hình khi bật đèn pin
-            document.addEventListener('mousemove', (e) => {
-                if (!document.body.classList.contains('flashlight-mode')) return;
-                updateFlashlightPosition(e);
-            });
-
-            // Tắt ánh sáng khi nhả chuột hoặc chuột ra khỏi màn hình
-            document.addEventListener('mouseup', () => {
-                turnOffFlashlight();
-            });
-
-            document.addEventListener('mouseleave', () => {
-                turnOffFlashlight();
-            });
         });
     </script>
 </body>

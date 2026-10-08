@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -14,9 +14,9 @@
             --primary-dark: #063B75;
             --primary-light: #CFE6FF;
             --primary-50: #EAF4FF;
-            --text-dark: #102A43;
-            --text-gray: #5E7184;
-            --text-light: #8FA4B8;
+            --text: #102A43;
+            --gray: #5E7184;
+            --light: #8FA4B8;
             --bg-light: #F5F8FC;
             --bg-white: #FFFFFF;
             --border: #DCE8F3;
@@ -39,7 +39,7 @@
 
         body {
             background-color: var(--bg-light);
-            color: var(--text-dark);
+            color: var(--text);
             overflow-x: hidden;
         }
 
@@ -48,9 +48,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 64px;
-            height: 64px;
-            background: white;
+            padding: 0 24px;
+            height: 60px;
+            background: var(--bg-white);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             z-index: 100;
         }
@@ -82,7 +82,7 @@
             font-weight: 600;
             font-size: 11px;
             text-transform: uppercase;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .brand-copy .sys-name {
@@ -103,7 +103,7 @@
         }
 
         .user-profile:hover {
-            background: #F8FAFC;
+            background: var(--bg-soft);
             border-color: var(--border);
         }
 
@@ -129,12 +129,12 @@
         .user-info .name {
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .user-info .role {
             font-size: 12px;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         /* Layout */
@@ -147,9 +147,9 @@
         /* ─── Sidebar ─── */
         .sidebar {
             width: 256px;
-            background: white;
-            border-right: 1px solid var(--border-light, #EDF2F7);
-            padding: 20px 0;
+            background: var(--bg-white);
+            border-right: 1px solid var(--border);
+            padding: 16px 0;
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -169,9 +169,9 @@
         .menu-group-title {
             font-size: 10px;
             font-weight: 700;
-            color: var(--text-light, #8FA4B8);
+            color: var(--light, #8FA4B8);
             text-transform: uppercase;
-            padding: 16px 24px 6px;
+            padding: 14px 24px 6px;
             letter-spacing: 0.8px;
         }
 
@@ -180,7 +180,7 @@
             align-items: center;
             gap: 12px;
             padding: 10px 24px;
-            color: var(--text-gray);
+            color: var(--text);
             font-weight: 500;
             font-size: 13.5px;
             cursor: pointer;
@@ -189,15 +189,7 @@
             transition: all 0.15s ease;
         }
 
-        .sidebar-item:hover {
-            background: #F8FAFC;
-            color: var(--primary);
-        }
-
         .sidebar-item.active {
-            background: var(--primary-50, #EAF4FF);
-            color: var(--primary);
-            border-left-color: var(--primary);
             font-weight: 600;
         }
 
@@ -219,7 +211,7 @@
         .page-title {
             font-size: 24px;
             font-weight: 700;
-            color: var(--text-dark);
+
         }
 
         /* Components */
@@ -248,7 +240,7 @@
         .btn-outline {
             background: white;
             border: 1px solid var(--border);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .btn-outline:hover {
@@ -328,7 +320,7 @@
             padding: 14px 20px;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             border-bottom: 1px solid var(--border);
             background: white;
         }
@@ -336,7 +328,7 @@
         .table td {
             padding: 14px 20px;
             font-size: 14px;
-            color: var(--text-dark);
+            color: var(--text);
             border-bottom: 1px solid var(--border);
             vertical-align: middle;
         }
@@ -427,7 +419,7 @@
 
         .close-btn {
             cursor: pointer;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .modal-body {
@@ -456,14 +448,14 @@
 
         .info-item .label {
             font-size: 12px;
-            color: var(--text-gray);
+            color: var(--gray);
             font-weight: 500;
         }
 
         .info-item .val {
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .content-box {
@@ -475,7 +467,7 @@
         .content-box h4 {
             font-size: 14px;
             margin-bottom: 12px;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .content-box p {
@@ -532,6 +524,78 @@
             transform: translateY(0);
             opacity: 1;
         }
+
+        .forward-hint {
+            display: none;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 10px 12px;
+            margin-top: 12px;
+            background: var(--primary-50);
+            border: 1px solid var(--primary-light);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .pagination-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .pagination-bar .pager {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pagination-bar .pg-btn {
+            min-width: 34px;
+            height: 34px;
+            padding: 0 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-white);
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .pagination-bar .pg-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pagination-bar .pg-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .pagination-bar .pg-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .pagination-bar select {
+            height: 34px;
+            padding: 0 8px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-white);
+            color: var(--text);
+            font-size: 13px;
+        }
     </style>
     <!--theme-enhance-->
     <script>(function () { var t = 'light'; try { t = localStorage.getItem('onenet-theme') || '' } catch (e) { } if (!t && /^onenet-theme=/.test(window.name)) t = window.name.slice(13); document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light') })();</script>
@@ -555,9 +619,9 @@
             --primary-dark: #2A6FB8;
             --primary-light: #1E4A7A;
             --primary-50: #12304F;
-            --text-dark: #E6EDF5;
-            --text-gray: #9FB2C5;
-            --text-light: #6F869C;
+            --text: #E6EDF5;
+            --gray: #9FB2C5;
+            --light: #6F869C;
             --bg-light: #0B1522;
             --bg-white: #111E2E;
             --bg-soft: #15263A;
@@ -578,7 +642,7 @@
 
         body {
             background: var(--bg-light);
-            color: var(--text-dark)
+            color: var(--text)
         }
 
         .dashboard-content,
@@ -619,7 +683,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--light);
             padding: 32px 0 4px;
             letter-spacing: .2px
         }
@@ -660,12 +724,12 @@
         html[data-theme="dark"] select,
         html[data-theme="dark"] textarea {
             background-color: var(--bg-white);
-            color: var(--text-dark);
+            color: var(--text);
             border-color: var(--border)
         }
 
         html[data-theme="dark"] ::placeholder {
-            color: var(--text-light)
+            color: var(--light)
         }
 
         html[data-theme="dark"] .dashboard-content,
@@ -739,42 +803,6 @@
             background: rgba(255, 255, 255, .55)
         }
 
-        html[data-theme] .page-header .page-title,
-        html[data-theme] .page-header .page-title span,
-        html[data-theme] .page-header .page-title svg {
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .page-title span {
-            color: #BFE0FF !important
-        }
-
-        html[data-theme] .page-header .page-subtitle,
-        html[data-theme] .page-header .page-subtitle span {
-            color: rgba(255, 255, 255, .78) !important
-        }
-
-        html[data-theme] .page-header .page-subtitle .dot {
-            background: rgba(255, 255, 255, .55) !important
-        }
-
-        html[data-theme] .page-header .btn-outline {
-            background: rgba(255, 255, 255, .14) !important;
-            border: 1px solid rgba(255, 255, 255, .32) !important;
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .btn-outline:hover {
-            background: rgba(255, 255, 255, .24) !important
-        }
-
-        html[data-theme] .page-header .btn-primary,
-        html[data-theme] .page-header .btn-success {
-            background: #fff !important;
-            color: #063B75 !important;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, .18) !important
-        }
-
         /* Theme toggle */
         .theme-toggle {
             width: 38px;
@@ -782,7 +810,7 @@
             border-radius: 50%;
             border: 1px solid var(--border);
             background: var(--bg-white);
-            color: var(--text-gray);
+            color: var(--gray);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -837,33 +865,13 @@
         }
 
         /* dark overrides generated from this page */
-        html[data-theme="dark"] .header {
-            background: var(--bg-white) !important
-        }
-
-        html[data-theme="dark"] .user-profile:hover {
-            background: var(--bg-soft) !important
-        }
 
         html[data-theme="dark"] .avatar {
             background: color-mix(in srgb, #EAF4FF 17%, #0F1B2A) !important
         }
 
-        html[data-theme="dark"] .sidebar {
-            background: var(--bg-white) !important;
-            border-right: 1px solid var(--border-light, var(--border)) !important
-        }
-
         html[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb {
             background: color-mix(in srgb, #CBD5E1 17%, #0F1B2A) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item:hover {
-            background: var(--bg-soft) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item.active {
-            background: var(--primary-50, color-mix(in srgb, #EAF4FF 17%, #0F1B2A)) !important
         }
 
         html[data-theme="dark"] .btn-outline {
@@ -971,6 +979,15 @@
             font-weight: 600 !important;
             box-shadow: none !important;
         }
+
+        html[data-theme="dark"] .sidebar-item:hover {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .sidebar-item.active {
+            background: var(--primary-50) !important;
+            box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
+        }
     </style>
 </head>
 
@@ -1003,64 +1020,66 @@
     <div class="dashboard-layout">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="menu-group-title">Menu Chính</div>
+            <div class="menu-group-title">Tổng quan</div>
             <a href="MH-00-7-DashboardBaoCao.html" class="sidebar-item">
-                <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                <i data-lucide="layout-dashboard" size="18"></i> Dashboard / Thống kê chung
             </a>
-            <div class="menu-group-title">Tuyển Sinh</div>
-            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
-                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
-            </a>
+            <div class="menu-group-title">Tuyển sinh & Nhập học</div>
             <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item">
                 <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
-            <div class="menu-group-title">Sinh Viên</div>
-            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
-                <i data-lucide="list" size="20"></i> Danh sách lớp
+            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
+            <div class="menu-group-title">Công tác Sinh viên</div>
             <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
-                <i data-lucide="contact-2" size="20"></i> Hồ sơ sinh viên
+                <i data-lucide="contact-2" size="18"></i> Hồ sơ sinh viên
+            </a>
+            <a href="MH-01-9-BangXepLoaiHocLuc.html" class="sidebar-item">
+                <i data-lucide="medal" size="18"></i> Xếp loại học lực
+            </a>
+            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
+                <i data-lucide="list" size="18"></i> Danh sách lớp
             </a>
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item">
-                <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
+            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item active">
+                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
-            <div class="menu-group-title">Đào Tạo</div>
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="award" size="18"></i> Quản lý học bổng
+            </a>
+            <div class="menu-group-title">Quản lý Đào tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item">
                 <i data-lucide="server" size="18"></i> Quản lý danh mục
             </a>
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="18"></i> Chương trình học
             </a>
-            <a href="MH-02-5-KhoDeThi.html" class="sidebar-item ">
-                <i data-lucide="library-big" size="18"></i> Kho đề thi
-            </a>
-            <a href="MH-02-6-LichThi.html" class="sidebar-item ">
-                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
-            </a>
+            <div class="menu-group-title">Tổ chức Giảng dạy</div>
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item">
                 <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
             <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="18"></i> Lịch báo nghỉ/bù
             </a>
-            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item active">
-                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
+            <div class="menu-group-title">Khảo thí & Điểm số</div>
+            <a href="MH-02-5-Khodethi.html" class="sidebar-item">
+                <i data-lucide="library-big" size="18"></i> Kho đề thi
             </a>
-            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            <a href="MH-02-6-LichThi.html" class="sidebar-item">
+                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
             </a>
             <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+                <i data-lucide="file-search" size="18"></i> Phúc khảo điểm
             </a>
-
-            <div class="menu-group-title">Tài Chính</div>
+            <div class="menu-group-title">Tài chính - Kế toán</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
             </a>
         </aside>
+
 
 
         <!-- Main Content -->
@@ -1068,27 +1087,161 @@
             <div class="page-header">
                 <div>
                     <h1 class="page-title">Phê duyệt đơn từ sinh viên</h1>
-                    <p style="color: var(--text-gray); font-size: 14px; margin-top: 4px;">Danh sách các yêu cầu, khiếu
+                    <p style="color: var(--gray); font-size: 14px; margin-top: 4px;">Danh sách các yêu cầu, khiếu
                         nại, đơn từ cần xem xét.</p>
                 </div>
             </div>
 
+            <div class="summary-section"
+                style="display: grid; grid-template-columns: 380px 1fr; gap: 24px; margin-bottom: 24px;">
+                <!-- Pie Chart -->
+                <div class="card" style="margin-bottom: 0; padding: 24px; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 16px; margin-bottom: 24px; color: var(--text);">Thống kê trạng thái đơn từ
+                    </h3>
+                    <div style="display: flex; gap: 32px; align-items: center; flex: 1;">
+                        <div class="pie-chart-container"
+                            style="position: relative; width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(var(--warning) 0% 50%, var(--success) 50% 85%, var(--danger) 85% 100%); flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05), inset 0 0 0 4px rgba(255,255,255,0.2);">
+                            <!-- Percentage labels -->
+                            <div
+                                style="position: absolute; top: 50%; right: 20%; transform: translateY(-50%); color: white; font-weight: 700; font-size: 13px; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+                                50%</div>
+                            <div
+                                style="position: absolute; bottom: 20%; left: 25%; color: white; font-weight: 700; font-size: 13px; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+                                35%</div>
+                            <div
+                                style="position: absolute; top: 15%; left: 30%; color: white; font-weight: 700; font-size: 13px; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+                                15%</div>
+                        </div>
+                        <div class="chart-legend" style="flex: 1; display: flex; flex-direction: column; gap: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div
+                                        style="width: 12px; height: 12px; border-radius: 4px; background: var(--warning);">
+                                    </div>
+                                    <span style="font-size: 14px; font-weight: 500; color: var(--text);">Chờ
+                                        duyệt</span>
+                                </div>
+                                <span style="font-weight: 700; font-size: 15px; color: var(--text);">150</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div
+                                        style="width: 12px; height: 12px; border-radius: 4px; background: var(--success);">
+                                    </div>
+                                    <span style="font-size: 14px; font-weight: 500; color: var(--text);">Đã duyệt</span>
+                                </div>
+                                <span style="font-weight: 700; font-size: 15px; color: var(--text);">105</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div
+                                        style="width: 12px; height: 12px; border-radius: 4px; background: var(--danger);">
+                                    </div>
+                                    <span style="font-size: 14px; font-weight: 500; color: var(--text);">Từ chối</span>
+                                </div>
+                                <span style="font-weight: 700; font-size: 15px; color: var(--text);">45</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="card"
+                    style="margin-bottom: 0; padding: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                    <div
+                        style="background: var(--primary-50); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--primary-light);">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div
+                                style="width: 40px; height: 40px; border-radius: 10px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="file-text" size="20"></i>
+                            </div>
+                            <span style="font-weight: 600; color: var(--text);">Tổng số đơn</span>
+                        </div>
+                        <div style="font-size: 32px; font-weight: 700; color: var(--text);">300</div>
+                        <div
+                            style="font-size: 13px; color: var(--primary); display: flex; align-items: center; gap: 4px;">
+                            <i data-lucide="trending-up" size="14"></i> +12% so với tháng trước
+                        </div>
+                    </div>
+                    <div
+                        style="background: var(--warning-light); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; border: 1px solid color-mix(in srgb, var(--warning) 30%, transparent);">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div
+                                style="width: 40px; height: 40px; border-radius: 10px; background: var(--warning); color: white; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="clock" size="20"></i>
+                            </div>
+                            <span style="font-weight: 600; color: var(--text);">Cần xử lý gấp</span>
+                        </div>
+                        <div style="font-size: 32px; font-weight: 700; color: var(--text);">24</div>
+                        <div
+                            style="font-size: 13px; color: var(--warning); display: flex; align-items: center; gap: 4px;">
+                            <i data-lucide="alert-circle" size="14"></i> Quá hạn xử lý: 3 đơn
+                        </div>
+                    </div>
+                    <div
+                        style="background: var(--success-light); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; border: 1px solid color-mix(in srgb, var(--success) 30%, transparent);">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div
+                                style="width: 40px; height: 40px; border-radius: 10px; background: var(--success); color: white; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="check-circle-2" size="20"></i>
+                            </div>
+                            <span style="font-weight: 600; color: var(--text);">Tỷ lệ đúng hạn</span>
+                        </div>
+                        <div style="font-size: 32px; font-weight: 700; color: var(--text);">94%</div>
+                        <div
+                            style="font-size: 13px; color: var(--success); display: flex; align-items: center; gap: 4px;">
+                            <i data-lucide="trending-up" size="14"></i> Tăng 2% so với tuần trước
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="card">
                 <!-- Toolbar / Filters -->
                 <div class="filter-toolbar">
                     <div class="filter-control" style="flex: 1;">
                         <i data-lucide="search" size="18"
-                            style="color: var(--text-gray); position: absolute; margin-left: 12px;"></i>
-                        <input type="text" placeholder="Tìm kiếm MSSV, Tên sinh viên..."
-                            style="width: 100%; padding-left: 38px;">
+                            style="color: var(--gray); position: absolute; margin-left: 12px;"></i>
+                        <input type="text" id="searchInput" onkeyup="filterTable()"
+                            placeholder="Tìm kiếm MSSV, Tên sinh viên..." style="width: 100%; padding-left: 38px;">
                     </div>
                     <div class="filter-control">
-                        <select>
+                        <select id="typeFilter" onchange="filterTable()">
                             <option value="">Tất cả loại đơn</option>
-                            <option value="nghihoc">Xin nghỉ học</option>
-                            <option value="baoluu">Xin bảo lưu</option>
-                            <option value="phuckhao">Phúc khảo điểm</option>
-                            <option value="bangdiem">Xin cấp bảng điểm</option>
+                            <optgroup label="Học vụ">
+                                <option value="nghihoc">Xin nghỉ học có phép</option>
+                                <option value="hoanthi">Xin hoãn thi / thi bù</option>
+                                <option value="khieunaidd">Khiếu nại điểm danh</option>
+                                <option value="phuckhao">Phúc khảo điểm</option>
+                                <option value="thicai_thien">Đăng ký thi cải thiện điểm</option>
+                                <option value="hocvuot">Đăng ký học vượt</option>
+                                <option value="chuyenlop">Xin chuyển lớp / đổi ca học</option>
+                                <option value="chuyennganh">Xin chuyển ngành</option>
+                                <option value="baoluu">Xin nghỉ học tạm thời (bảo lưu)</option>
+                                <option value="hoctiep">Xin học tiếp sau bảo lưu</option>
+                                <option value="thoihoc">Xin thôi học</option>
+                                <option value="totnghiep">Đăng ký xét tốt nghiệp</option>
+                            </optgroup>
+                            <optgroup label="Giấy tờ & xác nhận">
+                                <option value="bangdiem">Cấp bảng điểm</option>
+                                <option value="giayxn">Giấy xác nhận sinh viên</option>
+                                <option value="vayvon">Xác nhận vay vốn sinh viên</option>
+                                <option value="nvqs">Xác nhận hoãn nghĩa vụ quân sự</option>
+                                <option value="thuctap">Giấy giới thiệu thực tập / OJT</option>
+                                <option value="capthe">Cấp lại thẻ sinh viên</option>
+                                <option value="dieuchinh">Điều chỉnh thông tin cá nhân</option>
+                            </optgroup>
+                            <optgroup label="Tài chính">
+                                <option value="miengiamhp">Miễn giảm học phí</option>
+                                <option value="giahanhp">Gia hạn / chia đợt học phí</option>
+                                <option value="hoantrahp">Hoàn trả học phí</option>
+                                <option value="hocbong">Xét học bổng khuyến khích học tập</option>
+                            </optgroup>
+                            <optgroup label="Đời sống & Khác">
+                                <option value="ktx">Đăng ký ký túc xá</option>
+                                <option value="captk">Cấp lại tài khoản / mật khẩu</option>
+                                <option value="khieunai">Khiếu nại / kiến nghị</option>
+                                <option value="khac">Đơn khác</option>
+                            </optgroup>
                         </select>
                     </div>
                     <div class="filter-control">
@@ -1112,85 +1265,439 @@
                             <th>Loại đơn</th>
                             <th>File đính kèm</th>
                             <th>Trạng thái</th>
+                            <th>Phí / Thời hạn xử lý</th>
                             <th style="text-align: center;">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Row 1: Pending -->
-                        <tr class="row-req" data-status="pending">
-                            <td style="font-weight: 500;">REQ-240901</td>
-                            <td>25/09/2026</td>
-                            <td>
-                                <b>HE150001</b><br>
-                                <span style="font-size: 12px; color: var(--text-gray)">Nguyễn Văn A</span>
-                            </td>
+                        <!-- Học vụ -->
+                        <tr class="row-req" data-status="pending" data-type="nghihoc">
+                            <td style="font-weight: 500;">REQ-001</td>
+                            <td>01/10/2026</td>
+                            <td><b>HE150001</b><br><span style="font-size: 12px; color: var(--gray)">Nguyễn Văn
+                                    A</span></td>
                             <td>SE1501</td>
-                            <td>Xin nghỉ học (ốm)</td>
-                            <td>
-                                <a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
-                                    GiayKhamBenh.pdf</a>
-                            </td>
+                            <td>Xin nghỉ học có phép</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    MinhChung.pdf</a></td>
                             <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
-                            <td style="text-align: center;">
-                                <button class="btn btn-outline" style="padding: 6px 12px;"
-                                    onclick="openModal('req1')">Chi tiết</button>
-                            </td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">1 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req001')">Chi tiết</button></td>
                         </tr>
-                        <!-- Row 2: Pending -->
-                        <tr class="row-req" data-status="pending">
-                            <td style="font-weight: 500;">REQ-240902</td>
-                            <td>24/09/2026</td>
-                            <td>
-                                <b>BA150022</b><br>
-                                <span style="font-size: 12px; color: var(--text-gray)">Trần Thị B</span>
-                            </td>
-                            <td>BA1501</td>
+                        <tr class="row-req" data-status="pending" data-type="hoanthi">
+                            <td style="font-weight: 500;">REQ-002</td>
+                            <td>01/10/2026</td>
+                            <td><b>HE150002</b><br><span style="font-size: 12px; color: var(--gray)">Trần Văn
+                                    B</span></td>
+                            <td>SE1501</td>
+                            <td>Xin hoãn thi / thi bù</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonXinHoanThi.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">3 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req002')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="khieunaidd">
+                            <td style="font-weight: 500;">REQ-003</td>
+                            <td>01/10/2026</td>
+                            <td><b>HE150003</b><br><span style="font-size: 12px; color: var(--gray)">Lê Thị
+                                    C</span></td>
+                            <td>SE1502</td>
+                            <td>Khiếu nại điểm danh</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    MinhChungDiemDanh.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">2 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req003')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="phuckhao">
+                            <td style="font-weight: 500;">REQ-004</td>
+                            <td>02/10/2026</td>
+                            <td><b>HE150004</b><br><span style="font-size: 12px; color: var(--gray)">Phạm Thị
+                                    D</span></td>
+                            <td>SE1502</td>
                             <td>Phúc khảo điểm</td>
-                            <td>-</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonXinPhucKhao.pdf</a></td>
                             <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
-                            <td style="text-align: center;">
-                                <button class="btn btn-outline" style="padding: 6px 12px;"
-                                    onclick="openModal('req2')">Chi tiết</button>
-                            </td>
+                            <td style="font-size: 13px;"><b>50.000 đ</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">5 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req004')">Chi tiết</button></td>
                         </tr>
-                        <!-- Row 3: Approved -->
-                        <tr class="row-req" data-status="approved" style="display: none;">
-                            <td style="font-weight: 500;">REQ-240899</td>
-                            <td>22/09/2026</td>
-                            <td>
-                                <b>GD150111</b><br>
-                                <span style="font-size: 12px; color: var(--text-gray)">Lê Minh C</span>
-                            </td>
-                            <td>GD1502</td>
-                            <td>Xin cấp bảng điểm</td>
-                            <td>-</td>
-                            <td><span class="badge success"><i data-lucide="check-circle" size="12"></i> Approved</span>
-                            </td>
-                            <td style="text-align: center;">
-                                <button class="btn btn-outline" style="padding: 6px 12px;">Xem lại</button>
-                            </td>
-                        </tr>
-                        <!-- Row 4: Rejected -->
-                        <tr class="row-req" data-status="rejected" style="display: none;">
-                            <td style="font-weight: 500;">REQ-240890</td>
-                            <td>20/09/2026</td>
-                            <td>
-                                <b>HE150045</b><br>
-                                <span style="font-size: 12px; color: var(--text-gray)">Phạm Hùng D</span>
-                            </td>
+                        <tr class="row-req" data-status="pending" data-type="thicai_thien">
+                            <td style="font-weight: 500;">REQ-005</td>
+                            <td>02/10/2026</td>
+                            <td><b>HE150005</b><br><span style="font-size: 12px; color: var(--gray)">Võ Văn
+                                    E</span></td>
                             <td>SE1503</td>
-                            <td>Xin bảo lưu</td>
-                            <td>
-                                <a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
-                                    DonBaoLuu.docx</a>
+                            <td>Đăng ký thi cải thiện điểm</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonThiCaiThien.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>800.000 đ</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">5 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req005')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="hocvuot">
+                            <td style="font-weight: 500;">REQ-006</td>
+                            <td>02/10/2026</td>
+                            <td><b>HE150006</b><br><span style="font-size: 12px; color: var(--gray)">Hoàng Văn
+                                    F</span></td>
+                            <td>SE1503</td>
+                            <td>Đăng ký học vượt</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonHocVuot.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">5 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req006')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="chuyenlop">
+                            <td style="font-weight: 500;">REQ-007</td>
+                            <td>03/10/2026</td>
+                            <td><b>HE150007</b><br><span style="font-size: 12px; color: var(--gray)">Ngô Thị
+                                    G</span></td>
+                            <td>SE1504</td>
+                            <td>Xin chuyển lớp / đổi ca học</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonChuyenLop.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">3 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req007')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="chuyennganh">
+                            <td style="font-weight: 500;">REQ-008</td>
+                            <td>03/10/2026</td>
+                            <td><b>HE150008</b><br><span style="font-size: 12px; color: var(--gray)">Đỗ Văn
+                                    H</span></td>
+                            <td>SE1504</td>
+                            <td>Xin chuyển ngành</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonChuyenNganh.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>500.000 đ</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">10 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req008')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="baoluu">
+                            <td style="font-weight: 500;">REQ-009</td>
+                            <td>03/10/2026</td>
+                            <td><b>HE150009</b><br><span style="font-size: 12px; color: var(--gray)">Bùi Thị
+                                    I</span></td>
+                            <td>SE1505</td>
+                            <td>Xin nghỉ học tạm thời (bảo lưu)</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonBaoLuu.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">5 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req009')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="hoctiep">
+                            <td style="font-weight: 500;">REQ-010</td>
+                            <td>04/10/2026</td>
+                            <td><b>HE150010</b><br><span style="font-size: 12px; color: var(--gray)">Đinh Văn
+                                    K</span></td>
+                            <td>SE1505</td>
+                            <td>Xin học tiếp sau bảo lưu</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonXinHocTiep.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">5 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req010')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="thoihoc">
+                            <td style="font-weight: 500;">REQ-011</td>
+                            <td>04/10/2026</td>
+                            <td><b>HE150011</b><br><span style="font-size: 12px; color: var(--gray)">Phan Thị
+                                    L</span></td>
+                            <td>SE1506</td>
+                            <td>Xin thôi học</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonXinThoiHoc.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">7 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req011')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="totnghiep">
+                            <td style="font-weight: 500;">REQ-012</td>
+                            <td>04/10/2026</td>
+                            <td><b>HE150012</b><br><span style="font-size: 12px; color: var(--gray)">Lý Văn
+                                    M</span></td>
+                            <td>SE1506</td>
+                            <td>Đăng ký xét tốt nghiệp</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonXetTotNghiep.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">10 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req012')">Chi tiết</button></td>
+                        </tr>
+
+                        <!-- Giấy tờ & xác nhận -->
+                        <tr class="row-req" data-status="pending" data-type="bangdiem">
+                            <td style="font-weight: 500;">REQ-013</td>
+                            <td>05/10/2026</td>
+                            <td><b>HE150013</b><br><span style="font-size: 12px; color: var(--gray)">Trương Thị
+                                    N</span></td>
+                            <td>SE1507</td>
+                            <td>Cấp bảng điểm</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonXinCapBangDiem.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>20.000 đ/bản</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">2 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req013')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="giayxn">
+                            <td style="font-weight: 500;">REQ-014</td>
+                            <td>05/10/2026</td>
+                            <td><b>HE150014</b><br><span style="font-size: 12px; color: var(--gray)">Đoàn Văn
+                                    O</span></td>
+                            <td>SE1507</td>
+                            <td>Giấy xác nhận sinh viên</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonXinXacNhanSV.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>10.000 đ/bản</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">1 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req014')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="vayvon">
+                            <td style="font-weight: 500;">REQ-015</td>
+                            <td>05/10/2026</td>
+                            <td><b>HE150015</b><br><span style="font-size: 12px; color: var(--gray)">Lâm Thị
+                                    P</span></td>
+                            <td>SE1508</td>
+                            <td>Xác nhận vay vốn sinh viên</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonVayVon.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">3 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req015')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="nvqs">
+                            <td style="font-weight: 500;">REQ-016</td>
+                            <td>06/10/2026</td>
+                            <td><b>HE150016</b><br><span style="font-size: 12px; color: var(--gray)">Vũ Văn
+                                    Q</span></td>
+                            <td>SE1508</td>
+                            <td>Xác nhận hoãn nghĩa vụ quân sự</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonHoanNVQS.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">2 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req016')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="thuctap">
+                            <td style="font-weight: 500;">REQ-017</td>
+                            <td>06/10/2026</td>
+                            <td><b>HE150017</b><br><span style="font-size: 12px; color: var(--gray)">Mai Thị
+                                    R</span></td>
+                            <td>SE1509</td>
+                            <td>Giấy giới thiệu thực tập / OJT</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonThucTap.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">2 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req017')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="capthe">
+                            <td style="font-weight: 500;">REQ-018</td>
+                            <td>06/10/2026</td>
+                            <td><b>HE150018</b><br><span style="font-size: 12px; color: var(--gray)">Trịnh Văn
+                                    S</span></td>
+                            <td>SE1509</td>
+                            <td>Cấp lại thẻ sinh viên</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonXinCapLaiThe.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>50.000 đ</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">5 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req018')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="dieuchinh">
+                            <td style="font-weight: 500;">REQ-019</td>
+                            <td>07/10/2026</td>
+                            <td><b>HE150019</b><br><span style="font-size: 12px; color: var(--gray)">Đào Thị
+                                    T</span></td>
+                            <td>SE1510</td>
+                            <td>Điều chỉnh thông tin cá nhân</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonDieuChinhTT.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">3 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req019')">Chi tiết</button></td>
+                        </tr>
+
+                        <!-- Tài chính -->
+                        <tr class="row-req" data-status="pending" data-type="miengiamhp">
+                            <td style="font-weight: 500;">REQ-020</td>
+                            <td>07/10/2026</td>
+                            <td><b>HE150020</b><br><span style="font-size: 12px; color: var(--gray)">Dương Văn
+                                    U</span></td>
+                            <td>SE1510</td>
+                            <td>Miễn giảm học phí</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonMienGiamHP.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">7 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req020')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="giahanhp">
+                            <td style="font-weight: 500;">REQ-021</td>
+                            <td>07/10/2026</td>
+                            <td><b>HE150021</b><br><span style="font-size: 12px; color: var(--gray)">Thái Thị
+                                    V</span></td>
+                            <td>SE1511</td>
+                            <td>Gia hạn / chia đợt học phí</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonGiaHanHP.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">3 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req021')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="hoantrahp">
+                            <td style="font-weight: 500;">REQ-022</td>
+                            <td>08/10/2026</td>
+                            <td><b>HE150022</b><br><span style="font-size: 12px; color: var(--gray)">Tống Văn
+                                    X</span></td>
+                            <td>SE1511</td>
+                            <td>Hoàn trả học phí</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonHoanTraHP.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">7 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req022')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="hocbong">
+                            <td style="font-weight: 500;">REQ-023</td>
+                            <td>08/10/2026</td>
+                            <td><b>HE150023</b><br><span style="font-size: 12px; color: var(--gray)">Hồ Thị
+                                    Y</span></td>
+                            <td>SE1512</td>
+                            <td>Xét học bổng khuyến khích học tập</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonXetHocBong.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">10 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req023')">Chi tiết</button></td>
+                        </tr>
+
+                        <!-- Đời sống & Khác -->
+                        <tr class="row-req" data-status="pending" data-type="ktx">
+                            <td style="font-weight: 500;">REQ-024</td>
+                            <td>08/10/2026</td>
+                            <td><b>HE150024</b><br><span style="font-size: 12px; color: var(--gray)">Phí Văn
+                                    Z</span></td>
+                            <td>SE1512</td>
+                            <td>Đăng ký ký túc xá</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonDangKyKTX.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">5 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req024')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="captk">
+                            <td style="font-weight: 500;">REQ-025</td>
+                            <td>09/10/2026</td>
+                            <td><b>HE150025</b><br><span style="font-size: 12px; color: var(--gray)">Tạ Thị
+                                    W</span></td>
+                            <td>SE1513</td>
+                            <td>Cấp lại tài khoản / mật khẩu</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonCapLaiTK.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">1 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req025')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="khieunai">
+                            <td style="font-weight: 500;">REQ-026</td>
+                            <td>09/10/2026</td>
+                            <td><b>HE150026</b><br><span style="font-size: 12px; color: var(--gray)">Lưu Văn
+                                    V</span></td>
+                            <td>SE1513</td>
+                            <td>Khiếu nại / kiến nghị</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i>
+                                    DonKhieuNai.pdf</a></td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Miễn phí</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">5 ngày làm việc</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req026')">Chi tiết</button></td>
+                        </tr>
+                        <tr class="row-req" data-status="pending" data-type="khac">
+                            <td style="font-weight: 500;">REQ-027</td>
+                            <td>09/10/2026</td>
+                            <td><b>HE150027</b><br><span style="font-size: 12px; color: var(--gray)">Bạch Thị
+                                    J</span></td>
+                            <td>SE1514</td>
+                            <td>Đơn khác</td>
+                            <td><a href="#" class="file-link"><i data-lucide="paperclip" size="14"></i> DonKhac.pdf</a>
                             </td>
-                            <td><span class="badge danger"><i data-lucide="x-circle" size="12"></i> Rejected</span></td>
-                            <td style="text-align: center;">
-                                <button class="btn btn-outline" style="padding: 6px 12px;">Xem lại</button>
-                            </td>
+                            <td><span class="badge warning"><i data-lucide="clock" size="12"></i> Pending</span></td>
+                            <td style="font-size: 13px;"><b>Theo từng trường hợp</b><br><span
+                                    style="font-size: 12px; color: var(--gray)">Tùy nội dung đơn</span></td>
+                            <td style="text-align: center;"><button class="btn btn-outline" style="padding: 6px 12px;"
+                                    onclick="openModal('req027')">Chi tiết</button></td>
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="pagination-bar">
+                    <div id="pageInfo"></div>
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <label style="display: flex; align-items: center; gap: 6px;">Số đơn/trang
+                            <select id="pageSize" onchange="filterTable()">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                            </select>
+                        </label>
+                        <div class="pager" id="pager"></div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -1221,6 +1728,14 @@
                         <span class="label">Ngày gửi</span>
                         <span class="val">25/09/2026 08:30 AM</span>
                     </div>
+                    <div class="info-item">
+                        <span class="label">Phí</span>
+                        <span class="val" id="modalFee">Miễn phí</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Thời hạn xử lý</span>
+                        <span class="val" id="modalSla"></span>
+                    </div>
                 </div>
 
                 <!-- Content -->
@@ -1239,16 +1754,24 @@
                 <!-- Feedback -->
                 <div class="feedback-form">
                     <label
-                        style="font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; display: block;">
+                        style="font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; display: block;">
                         Phản hồi / Ghi chú duyệt đơn (Sẽ gửi qua Email cho SV):
                     </label>
                     <textarea id="feedbackText" placeholder="Nhập ghi chú hoặc lý do từ chối..."></textarea>
                 </div>
+                <div id="forwardHint" class="forward-hint">
+                    <i data-lucide="info" size="16" style="flex-shrink: 0; margin-top: 1px;"></i>
+                    <span id="forwardHintText"></span>
+                </div>
             </div>
             <div class="modal-footer">
+                <button class="btn btn-outline" onclick="printDon(currentActiveRow)"><i data-lucide="printer"
+                        size="16"></i> In đơn</button>
                 <button class="btn btn-outline" onclick="closeModal()">Hủy</button>
-                <button class="btn btn-danger" onclick="processRequest('rejected')">Từ chối</button>
-                <button class="btn btn-success" onclick="processRequest('approved')">Phê duyệt</button>
+                <button class="btn btn-danger" id="btnReject" onclick="processRequest('rejected')">Từ chối</button>
+                <button class="btn btn-success" id="btnApprove" onclick="processRequest('approved')">Phê duyệt</button>
+                <button class="btn btn-success" id="btnForward" style="display: none;"
+                    onclick="forwardToProcess()"></button>
             </div>
         </div>
     </div>
@@ -1262,16 +1785,51 @@
     <script>
         lucide.createIcons();
 
-        function filterTable() {
+        let currentPage = 1;
+
+        function filterTable(resetPage = true) {
             const status = document.getElementById('statusFilter').value;
-            const rows = document.querySelectorAll('.row-req');
-            rows.forEach(row => {
-                if (status === 'all' || row.dataset.status === status) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+            const type = document.getElementById('typeFilter') ? document.getElementById('typeFilter').value : '';
+            const search = document.getElementById('searchInput') ? document.getElementById('searchInput').value.toLowerCase() : '';
+            const pageSize = parseInt(document.getElementById('pageSize').value, 10);
+            if (resetPage === true) currentPage = 1;
+
+            const matched = [];
+            document.querySelectorAll('.row-req').forEach(row => {
+                const textContent = row.textContent.toLowerCase();
+                const matchStatus = status === 'all' || row.dataset.status === status;
+                const matchType = type === '' || row.dataset.type === type;
+                const matchSearch = search === '' || textContent.includes(search);
+                row.style.display = 'none';
+                if (matchStatus && matchType && matchSearch) matched.push(row);
             });
+
+            const totalPages = Math.max(1, Math.ceil(matched.length / pageSize));
+            if (currentPage > totalPages) currentPage = totalPages;
+            const start = (currentPage - 1) * pageSize;
+            matched.slice(start, start + pageSize).forEach(row => { row.style.display = ''; });
+
+            renderPagination(matched.length, totalPages, start, pageSize);
+        }
+
+        function goPage(n) {
+            currentPage = n;
+            filterTable(false);
+        }
+
+        function renderPagination(total, totalPages, start, pageSize) {
+            const info = document.getElementById('pageInfo');
+            info.innerText = total === 0
+                ? 'Không có đơn nào phù hợp'
+                : 'Hiển thị ' + (start + 1) + '–' + Math.min(start + pageSize, total) + ' / ' + total + ' đơn';
+
+            const pager = document.getElementById('pager');
+            let html = '<button class="pg-btn" ' + (currentPage === 1 ? 'disabled' : '') + ' onclick="goPage(' + (currentPage - 1) + ')">&lsaquo;</button>';
+            for (let i = 1; i <= totalPages; i++) {
+                html += '<button class="pg-btn' + (i === currentPage ? ' active' : '') + '" onclick="goPage(' + i + ')">' + i + '</button>';
+            }
+            html += '<button class="pg-btn" ' + (currentPage === totalPages ? 'disabled' : '') + ' onclick="goPage(' + (currentPage + 1) + ')">&rsaquo;</button>';
+            pager.innerHTML = html;
         }
 
         // Initial filter
@@ -1279,14 +1837,78 @@
 
         let currentActiveRow = null;
 
-        function openModal(reqId) {
-            // In a real app, fetch data based on reqId
-            // Here we just use the static modal content for demo
+        function openModal(reqIdStr) {
+            // Find the correct row based on reqIdStr (e.g., 'req001')
+            const rows = Array.from(document.querySelectorAll('.row-req'));
+            const row = rows.find(r => r.querySelector('td:nth-child(1)').innerText.toLowerCase().replace('-', '') === reqIdStr.toLowerCase());
+
+            if (!row) return;
+            currentActiveRow = row;
+
+            const reqId = row.querySelector('td:nth-child(1)').innerText;
+            const date = row.querySelector('td:nth-child(2)').innerText;
+            const studentText = row.querySelector('td:nth-child(3) span').innerText + ' (' + row.querySelector('td:nth-child(3) b').innerText + ')';
+            const className = row.querySelector('td:nth-child(4)').innerText;
+            const type = row.querySelector('td:nth-child(5)').innerText;
+
+            // Map types to descriptions and files
+            const dataMap = {
+                'Xin nghỉ học có phép': { desc: 'Xin nghỉ một hoặc vài buổi học vì ốm đau, việc gia đình hoặc lý do chính đáng.', file: 'MinhChungNghiHoc.pdf' },
+                'Xin hoãn thi / thi bù': { desc: 'Vắng mặt kỳ thi có lý do chính đáng và xin được sắp xếp thi bù.', file: 'DonXinHoanThi.pdf' },
+                'Khiếu nại điểm danh': { desc: 'Đã có mặt nhưng bị ghi vắng, hoặc điểm danh QR không ghi nhận.', file: 'MinhChungDiemDanh.pdf' },
+                'Phúc khảo điểm': { desc: 'Đề nghị chấm lại bài thi hoặc đầu điểm khi chưa đồng ý với kết quả.', file: 'DonXinPhucKhao.pdf' },
+                'Đăng ký thi cải thiện điểm': { desc: 'Đăng ký thi lại môn đã đạt để cải thiện điểm trung bình.', file: 'DonThiCaiThien.pdf' },
+                'Đăng ký học vượt': { desc: 'Đăng ký học trước môn thuộc kỳ sau nếu đủ điều kiện tiên quyết.', file: 'DonHocVuot.pdf' },
+                'Xin chuyển lớp / đổi ca học': { desc: 'Đề nghị chuyển sang lớp khác khi trùng lịch hoặc có lý do chính đáng.', file: 'DonChuyenLop.pdf' },
+                'Xin chuyển ngành': { desc: 'Đề nghị chuyển sang chuyên ngành khác trong trường.', file: 'DonChuyenNganh.pdf' },
+                'Xin nghỉ học tạm thời (bảo lưu)': { desc: 'Bảo lưu kết quả học tập trong một hoặc hai học kỳ.', file: 'DonBaoLuu.pdf' },
+                'Xin học tiếp sau bảo lưu': { desc: 'Đăng ký quay lại học sau thời gian nghỉ tạm thời.', file: 'DonXinHocTiep.pdf' },
+                'Xin thôi học': { desc: 'Đề nghị chấm dứt việc học tại trường.', file: 'DonXinThoiHoc.pdf' },
+                'Đăng ký xét tốt nghiệp': { desc: 'Đăng ký xét công nhận tốt nghiệp khi đã hoàn thành chương trình.', file: 'DonXetTotNghiep.pdf' },
+                'Cấp bảng điểm': { desc: 'Cấp bảng điểm toàn khóa hoặc theo kỳ, tiếng Việt hoặc tiếng Anh.', file: 'DonXinCapBangDiem.pdf' },
+                'Giấy xác nhận sinh viên': { desc: 'Xác nhận đang theo học dùng cho ngân hàng, visa, xin việc, tạm trú…', file: 'DonXinXacNhanSV.pdf' },
+                'Xác nhận vay vốn sinh viên': { desc: 'Giấy xác nhận để vay vốn tín dụng ưu đãi cho sinh viên.', file: 'DonVayVon.pdf' },
+                'Xác nhận hoãn nghĩa vụ quân sự': { desc: 'Giấy xác nhận đang học để hoãn gọi nhập ngũ.', file: 'DonHoanNVQS.pdf' },
+                'Giấy giới thiệu thực tập / OJT': { desc: 'Giấy giới thiệu gửi doanh nghiệp tiếp nhận thực tập hoặc OJT.', file: 'DonThucTap.pdf' },
+                'Cấp lại thẻ sinh viên': { desc: 'Cấp lại thẻ khi bị mất, hỏng hoặc thay đổi thông tin.', file: 'DonXinCapLaiThe.pdf' },
+                'Điều chỉnh thông tin cá nhân': { desc: 'Sửa họ tên, ngày sinh, CCCD, số điện thoại… trong hồ sơ sinh viên.', file: 'DonDieuChinhTT.pdf' },
+                'Miễn giảm học phí': { desc: 'Đề nghị miễn hoặc giảm học phí theo chính sách đối với đối tượng được hưởng.', file: 'DonMienGiamHP.pdf' },
+                'Gia hạn / chia đợt học phí': { desc: 'Xin nộp học phí muộn hoặc chia nhỏ thành nhiều đợt.', file: 'DonGiaHanHP.pdf' },
+                'Hoàn trả học phí': { desc: 'Đề nghị hoàn lại khoản đã nộp thừa, nộp nhầm hoặc do thôi học.', file: 'DonHoanTraHP.pdf' },
+                'Xét học bổng khuyến khích học tập': { desc: 'Đăng ký xét học bổng theo kết quả học tập và rèn luyện.', file: 'DonXetHocBong.pdf' },
+                'Đăng ký ký túc xá': { desc: 'Đăng ký chỗ ở nội trú tại ký túc xá của trường.', file: 'DonDangKyKTX.pdf' },
+                'Cấp lại tài khoản / mật khẩu': { desc: 'Quên mật khẩu hoặc bị khóa tài khoản email, LMS, wifi trường.', file: 'DonCapLaiTK.pdf' },
+                'Khiếu nại / kiến nghị': { desc: 'Phản ánh về giảng dạy, cơ sở vật chất hoặc dịch vụ của nhà trường.', file: 'DonKhieuNai.pdf' },
+                'Đơn khác': { desc: 'Các nội dung khác chưa có trong danh mục.', file: 'DonKhac.pdf' }
+            };
+
+            const data = dataMap[type] || { desc: 'Nội dung đơn trống.', file: 'TaiLieu.pdf' };
+
+            document.querySelector('.modal-title').innerText = 'Chi tiết Đơn Từ #' + reqId;
+
+            const infoItems = document.querySelectorAll('.info-item .val');
+            if (infoItems.length >= 4) {
+                infoItems[0].innerText = studentText;
+                infoItems[1].innerText = className;
+                infoItems[2].innerText = type;
+                infoItems[3].innerText = date;
+            }
+            const fs = FEE_SLA[row.dataset.type] || ['', null];
+            document.getElementById('modalFee').innerText = fs[0];
+            document.getElementById('modalSla').innerText = fs[1]
+                ? fs[1] + ' ngày làm việc (hạn: ' + addWorkdays(date, fs[1]) + ')'
+                : 'Tùy nội dung đơn';
+
+            let fileDisplay = '<br><br><b>File đính kèm:</b> <a href="#" class="file-link" style="color:var(--primary-color)"><i data-lucide="paperclip" size="14"></i> ' + data.file + '</a>';
+            document.getElementById('modalContentText').innerHTML = data.desc + fileDisplay;
+
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+
             document.getElementById('approvalModal').classList.add('active');
             document.getElementById('feedbackText').value = ''; // clear textarea
-
-            // Find the row that opened this to hide it later (demo purpose)
-            currentActiveRow = event.target.closest('tr');
+            configureModal(row);
         }
 
         function closeModal() {
@@ -1299,8 +1921,9 @@
 
             // Update row (hide it since it's no longer pending, if filter is on 'pending')
             if (currentActiveRow) {
-                currentActiveRow.dataset.status = action;
-                filterTable(); // re-filter
+                setRowStatus(currentActiveRow, action);
+                storeSet('onenet-req-' + reqIdOf(currentActiveRow), action);
+                filterTable(false); // re-filter, giữ trang hiện tại
             }
 
             // Show toast (Tiêu chí UC-14.NT01 - Email kết quả <= 1 phút)
@@ -1325,6 +1948,173 @@
                 toast.classList.remove('show');
             }, 3000);
         }
+
+        const FEE_SLA = {
+            nghihoc: ['Miễn phí', 1],
+            hoanthi: ['Miễn phí', 3],
+            khieunaidd: ['Miễn phí', 2],
+            phuckhao: ['50.000 đ', 5],
+            thicai_thien: ['800.000 đ', 5],
+            hocvuot: ['Miễn phí', 5],
+            chuyenlop: ['Miễn phí', 3],
+            chuyennganh: ['500.000 đ', 10],
+            baoluu: ['Miễn phí', 5],
+            hoctiep: ['Miễn phí', 5],
+            thoihoc: ['Miễn phí', 7],
+            totnghiep: ['Miễn phí', 10],
+            bangdiem: ['20.000 đ/bản', 2],
+            giayxn: ['10.000 đ/bản', 1],
+            vayvon: ['Miễn phí', 3],
+            nvqs: ['Miễn phí', 2],
+            thuctap: ['Miễn phí', 2],
+            capthe: ['50.000 đ', 5],
+            dieuchinh: ['Miễn phí', 3],
+            miengiamhp: ['Miễn phí', 7],
+            giahanhp: ['Miễn phí', 3],
+            hoantrahp: ['Miễn phí', 7],
+            hocbong: ['Miễn phí', 10],
+            ktx: ['Miễn phí', 5],
+            captk: ['Miễn phí', 1],
+            khieunai: ['Miễn phí', 5],
+            khac: ['Theo từng trường hợp', null]
+        };
+
+        // Cộng n ngày làm việc (bỏ thứ 7, chủ nhật) vào ngày dd/mm/yyyy
+        function addWorkdays(dateStr, n) {
+            const [d, m, y] = dateStr.split('/').map(Number);
+            const dt = new Date(y, m - 1, d);
+            while (n > 0) {
+                dt.setDate(dt.getDate() + 1);
+                if (dt.getDay() !== 0 && dt.getDay() !== 6) n--;
+            }
+            return String(dt.getDate()).padStart(2, '0') + '/' + String(dt.getMonth() + 1).padStart(2, '0') + '/' + dt.getFullYear();
+        }
+
+        // ===== Chuyển sang trang xử lý (chỉ cho các đơn làm thay đổi hồ sơ học tập) =====
+        const FORWARD_MAP = {
+            baoluu: { page: 'MH-01-3-CapNhatTrangThaiHocTap.html', target: 'Cập nhật trạng thái học tập' },
+            hoctiep: { page: 'MH-01-3-CapNhatTrangThaiHocTap.html', target: 'Cập nhật trạng thái học tập' },
+            thoihoc: { page: 'MH-01-3-CapNhatTrangThaiHocTap.html', target: 'Cập nhật trạng thái học tập' },
+            totnghiep: { page: 'MH-01-3-CapNhatTrangThaiHocTap.html', target: 'Cập nhật trạng thái học tập' },
+            chuyennganh: { page: 'MH-01-7-ChuyenNganh.html', target: 'Chuyển ngành' }
+        };
+
+        function storeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+        function storeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { } }
+        function reqIdOf(row) { return row.querySelector('td:nth-child(1)').innerText.trim(); }
+
+        function setRowStatus(row, action) {
+            row.dataset.status = action;
+            const cell = row.querySelector('td:nth-child(7)');
+            if (action === 'approved') {
+                cell.innerHTML = '<span class="badge success"><i data-lucide="check-circle" size="12"></i> Approved</span>';
+            } else if (action === 'rejected') {
+                cell.innerHTML = '<span class="badge danger"><i data-lucide="x-circle" size="12"></i> Rejected</span>';
+            }
+            if (row.dataset.processed === '1') markRowProcessed(row);
+        }
+
+        function markRowProcessed(row) {
+            row.dataset.processed = '1';
+            const cell = row.querySelector('td:nth-child(7)');
+            if (!cell.querySelector('.processed-note')) {
+                cell.insertAdjacentHTML('beforeend', '<div class="processed-note" style="font-size: 11px; color: var(--gray); margin-top: 4px;">Đã cập nhật hồ sơ SV</div>');
+            }
+        }
+
+        function configureModal(row) {
+            const f = FORWARD_MAP[row.dataset.type];
+            const btnA = document.getElementById('btnApprove');
+            const btnR = document.getElementById('btnReject');
+            const btnF = document.getElementById('btnForward');
+            const hint = document.getElementById('forwardHint');
+            const hintText = document.getElementById('forwardHintText');
+
+            btnA.style.display = ''; btnR.style.display = '';
+            btnF.style.display = 'none'; hint.style.display = 'none';
+            if (!f) return;
+
+            hint.style.display = 'flex';
+            if (row.dataset.processed === '1') {
+                btnA.style.display = 'none'; btnR.style.display = 'none';
+                hintText.innerText = 'Đơn này đã được dùng để cập nhật hồ sơ sinh viên, không thể xử lý lại.';
+                return;
+            }
+            if (row.dataset.status === 'rejected') {
+                btnA.style.display = 'none'; btnR.style.display = 'none';
+                hintText.innerText = 'Đơn đã bị từ chối nên không thể dùng để cập nhật hồ sơ sinh viên.';
+                return;
+            }
+            btnA.style.display = 'none';
+            btnF.style.display = '';
+            if (row.dataset.status === 'approved') {
+                btnR.style.display = 'none';
+                btnF.innerHTML = '<i data-lucide="arrow-right-circle" size="16"></i> Chuyển sang trang ' + f.target;
+                hintText.innerText = 'Đơn đã được phê duyệt. Cập nhật hồ sơ chỉ thực hiện được từ đơn này, qua trang "' + f.target + '".';
+            } else {
+                btnF.innerHTML = '<i data-lucide="arrow-right-circle" size="16"></i> Phê duyệt & chuyển sang ' + f.target;
+                hintText.innerText = 'Đơn làm thay đổi hồ sơ học tập. Sau khi phê duyệt, hệ thống chuyển sang trang "' + f.target + '" kèm thông tin đơn để cán bộ thực hiện cập nhật.';
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function buildForwardUrl(row) {
+            const f = FORWARD_MAP[row.dataset.type];
+            const p = new URLSearchParams({
+                reqId: reqIdOf(row),
+                mssv: row.querySelector('td:nth-child(3) b').innerText.trim(),
+                name: row.querySelector('td:nth-child(3) span').innerText.trim(),
+                cls: row.querySelector('td:nth-child(4)').innerText.trim(),
+                type: row.dataset.type,
+                date: row.querySelector('td:nth-child(2)').innerText.trim(),
+                file: row.querySelector('td:nth-child(6)').innerText.trim()
+            });
+            return f.page + '?' + p.toString();
+        }
+
+        function forwardToProcess() {
+            const row = currentActiveRow;
+            if (!row || !FORWARD_MAP[row.dataset.type]) return;
+            if (row.dataset.status === 'pending') {
+                setRowStatus(row, 'approved');
+                storeSet('onenet-req-' + reqIdOf(row), 'approved');
+            }
+            const url = buildForwardUrl(row);
+            closeModal();
+            flashToast('Đã phê duyệt đơn, đang chuyển sang trang xử lý...', '#10B981', 'check-circle');
+            setTimeout(() => { window.location.href = url; }, 900);
+        }
+
+        function flashToast(msg, bg, iconName) {
+            const toast = document.getElementById('toastMsg');
+            toast.style.background = bg;
+            toast.querySelector('i, svg').outerHTML = '<i data-lucide="' + iconName + '" size="24"></i>';
+            toast.querySelector('span').textContent = msg;
+            lucide.createIcons();
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Khôi phục trạng thái đơn khi quay lại trang (localStorage + tham số ?done=)
+        (function applyPersisted() {
+            const done = new URLSearchParams(window.location.search).get('done');
+            if (done) { storeSet('onenet-req-' + done, 'approved'); storeSet('onenet-processed-' + done, '1'); }
+
+            document.querySelectorAll('.row-req').forEach(row => {
+                const id = reqIdOf(row);
+                if (storeGet('onenet-processed-' + id) === '1') row.dataset.processed = '1';
+                const st = storeGet('onenet-req-' + id);
+                if (st === 'approved' || st === 'rejected') setRowStatus(row, st);
+                else if (row.dataset.processed === '1') markRowProcessed(row);
+            });
+
+            if (done) {
+                document.getElementById('statusFilter').value = 'approved';
+                flashToast('Đã cập nhật hồ sơ sinh viên theo đơn ' + done + '.', '#10B981', 'check-circle');
+            }
+            filterTable();
+            lucide.createIcons();
+        })();
     </script>
     <script>
         (function () {
@@ -1373,6 +2163,486 @@
             apply(h.getAttribute('data-theme') || 'light', false);
         })();
 
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.8/dist/handlebars.min.js"></script>
+    <script type="text/x-handlebars-template" id="donTpl">
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ TenDon }} - {{ HoTen }} ({{ MSSV }})</title>
+    <!-- Tinos: font tương thích số đo với Times New Roman, dự phòng cho máy không có Times New Roman -->
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!--
+    ============================================================
+    TEMPLATE ĐƠN DÙNG CHUNG - ONENET (thể thức theo NĐ 30/2020/NĐ-CP)
+    ============================================================
+    Thông tin đơn : MaDon, TenDon, PhuDe (tùy chọn), KinhGui, DiaDiem, Ngay, Thang, Nam, NgayNop
+                    (Ngay, Thang phải đủ 2 chữ số: 05, 09... theo quy định)
+    Sinh viên     : HoTen, MSSV, Lop, Nganh, Khoa, NgaySinh*, SoDienThoai*, Email   (* tùy chọn)
+    Nội dung      : LyDo, NoiDungBoSung*, ThongTinThem* (mảng {Nhan, GiaTri})
+    Đính kèm      : TepDinhKem* (mảng chuỗi)
+    Phê duyệt     : DaDuyet, KetQua, YKienDuyet*, NguoiDuyet, ChucVuNguoiDuyet, NgayDuyet
+    ============================================================
+    -->
+
+    <style>
+        :root {
+            --brand: #0757A6;
+            /* chỉ dùng cho giao diện xem trên web, KHÔNG dùng cho chữ trong đơn */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background: #E6EBF1;
+        }
+
+        body {
+            font-family: 'Times New Roman', Tinos, 'Liberation Serif', serif;
+            font-size: 13pt;
+            line-height: 1.4;
+            color: #000;
+            padding: 32px 16px 48px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* ===== KHỔ A4 - lề: trên/dưới 20-25mm, trái 30-35mm, phải 15-20mm ===== */
+        .a4-paper {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 22mm 18mm 20mm 32mm;
+            background: #fff;
+            border: 1px solid #D3DBE5;
+            border-top: 4px solid var(--brand);
+            border-radius: 6px;
+            box-shadow: 0 8px 28px rgba(7, 87, 166, .12), 0 1px 3px rgba(16, 42, 67, .10);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== Ô 1, 2, 4: QUỐC HIỆU - TIÊU NGỮ - TÊN CƠ QUAN - ĐỊA DANH NGÀY THÁNG ===== */
+        .letterhead {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            column-gap: 6mm;
+            align-items: start;
+            text-align: center;
+        }
+
+        .org-parent {
+            font-size: 12pt;
+            text-transform: uppercase;
+        }
+
+        .org-name {
+            font-size: 12pt;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .org-rule {
+            display: block;
+            width: 40%;
+            height: 1px;
+            background: #000;
+            margin: 2px auto 4px;
+        }
+
+        .doc-code {
+            font-size: 12pt;
+        }
+
+        .nation {
+            font-size: 12pt;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .motto {
+            display: inline-block;
+            font-size: 13pt;
+            font-weight: 700;
+            padding-bottom: 1px;
+            border-bottom: 1px solid #000;
+            /* đường kẻ dài bằng dòng tiêu ngữ */
+        }
+
+        .date-line {
+            font-size: 13pt;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        /* ===== TÊN LOẠI ĐƠN ===== */
+        .doc-title {
+            text-align: center;
+            font-size: 13pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 22px;
+        }
+
+        .doc-sub {
+            text-align: center;
+            font-style: italic;
+            font-size: 12pt;
+        }
+
+        .addressee {
+            text-align: center;
+            margin: 14px 0 12px;
+        }
+
+        .addressee b {
+            font-weight: 700;
+        }
+
+        /* ===== NỘI DUNG ===== */
+        .doc-body p {
+            text-align: justify;
+            text-indent: 10mm;
+            margin-top: 6pt;
+        }
+
+        .fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 8mm;
+            row-gap: 2pt;
+            margin: 6pt 0 4pt;
+        }
+
+        .f {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .f.full {
+            grid-column: 1 / -1;
+        }
+
+        .f .l {
+            flex-shrink: 0;
+        }
+
+        .f .v {
+            flex: 1;
+            min-width: 0;
+            padding: 0 4px;
+            border-bottom: 1px dotted #000;
+            font-weight: 700;
+            overflow-wrap: anywhere;
+        }
+
+        .reason {
+            white-space: pre-line;
+        }
+
+        .attach {
+            margin-top: 6pt;
+            text-indent: 0 !important;
+        }
+
+        /* ===== Ý KIẾN, CHỮ KÝ VÀ DẤU ===== */
+        .opinion {
+            margin-top: 10pt;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .opinion .result {
+            font-weight: 700;
+        }
+
+        .blank-line {
+            border-bottom: 1px dotted #000;
+            height: 7mm;
+        }
+
+        .sign-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 10mm;
+            margin-top: 8pt;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .sign-col {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .sig-title {
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .sig-hint {
+            font-style: italic;
+            font-size: 12pt;
+        }
+
+        .sig-space {
+            flex: 1;
+            min-height: 32mm;
+            position: relative;
+        }
+
+        .sig-name {
+            font-weight: 700;
+            min-height: 1.4em;
+        }
+
+        /* Vòng gợi ý vị trí đóng dấu: chỉ hiện khi xem trên web, ẩn khi in.
+           Theo NĐ 30, dấu đóng trùm lên khoảng 1/3 chữ ký về phía bên trái. */
+        .stamp-ring {
+            position: absolute;
+            left: 2mm;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 34mm;
+            height: 34mm;
+            border: 1px dashed #9AA8B8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+            font-style: italic;
+            color: #9AA8B8;
+        }
+
+        .spacer {
+            flex: 1;
+            min-height: 6mm;
+        }
+
+        /* ===== IN ẤN / XUẤT PDF ===== */
+        @page {
+            size: A4;
+            margin: 20mm 18mm 20mm 30mm;
+        }
+
+        /* Số trang: canh giữa lề trên, từ trang 2 (cần trình duyệt hỗ trợ margin box, vd Chrome 131+) */
+        @page {
+            @top-center {
+                content: counter(page);
+                font-family: 'Times New Roman', Tinos, serif;
+                font-size: 13pt;
+            }
+        }
+
+        @page :first {
+            @top-center {
+                content: none;
+            }
+        }
+
+        @media print {
+            html {
+                background: #fff;
+            }
+
+            body {
+                padding: 0;
+            }
+
+            .stamp-ring {
+                display: none;
+            }
+
+            .a4-paper {
+                width: auto;
+                min-height: 255mm;
+                margin: 0;
+                padding: 0;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="a4-paper">
+
+        <!-- Ô 2, 1, 4 -->
+        <header class="letterhead">
+            <div>
+                <div class="org-parent">Bộ Giáo dục và Đào tạo</div>
+                <div class="org-name">Trường Đại học ONENET</div>
+                <span class="org-rule"></span>
+                <div class="doc-code">Mã đơn: {{ MaDon }}</div>
+            </div>
+            <div>
+                <div class="nation">Cộng hòa xã hội chủ nghĩa Việt Nam</div>
+                <div class="motto">Độc lập - Tự do - Hạnh phúc</div>
+                <div class="date-line">{{ DiaDiem }}, ngày {{ Ngay }} tháng {{ Thang }} năm {{ Nam }}</div>
+            </div>
+        </header>
+
+        <h1 class="doc-title">{{ TenDon }}</h1>
+        {{#if PhuDe}}<div class="doc-sub">{{ PhuDe }}</div>{{/if}}
+
+        <p class="addressee">Kính gửi: <b>{{ KinhGui }}</b></p>
+
+        <main class="doc-body">
+            <div class="fields">
+                <div class="f full"><span class="l">Em tên là:</span><span class="v">{{ HoTen }}</span></div>
+                <div class="f"><span class="l">Mã số sinh viên:</span><span class="v">{{ MSSV }}</span></div>
+                <div class="f"><span class="l">Lớp:</span><span class="v">{{ Lop }}</span></div>
+                <div class="f"><span class="l">Ngành:</span><span class="v">{{ Nganh }}</span></div>
+                <div class="f"><span class="l">Khóa:</span><span class="v">{{ Khoa }}</span></div>
+                {{#if NgaySinh}}<div class="f"><span class="l">Ngày sinh:</span><span class="v">{{ NgaySinh }}</span></div>{{/if}}
+                {{#if SoDienThoai}}<div class="f"><span class="l">Số điện thoại:</span><span class="v">{{ SoDienThoai }}</span></div>{{/if}}
+                <div class="f full"><span class="l">Email:</span><span class="v">{{ Email }}</span></div>
+                {{#each ThongTinThem}}
+                <div class="f full"><span class="l">{{ Nhan }}:</span><span class="v">{{ GiaTri }}</span></div>
+                {{/each}}
+            </div>
+
+            <p>Nay em làm đơn này, kính đề nghị Nhà trường xem xét và giải quyết với nội dung như sau:</p>
+            <p class="reason">{{ LyDo }}</p>
+            {{#if NoiDungBoSung}}<p>{{ NoiDungBoSung }}</p>{{/if}}
+
+            {{#if TepDinhKem}}
+            <p class="attach"><b>Hồ sơ đính kèm:</b>
+                {{#each TepDinhKem}}{{#unless @first}}; {{/unless}}{{ this }}{{/each}}.</p>
+            {{/if}}
+
+            <p>Em xin cam đoan những thông tin trên là đúng sự thật và hoàn toàn chịu trách nhiệm trước Nhà trường.
+                Em xin trân trọng cảm ơn!</p>
+        </main>
+
+        <section class="opinion">
+            <div><b>Ý kiến xử lý của Nhà trường:</b>
+                {{#if DaDuyet}}<span class="result">{{ KetQua }}</span>{{#if YKienDuyet}} - {{ YKienDuyet }}{{/if}}{{/if}}
+            </div>
+            {{#unless DaDuyet}}<div class="blank-line"></div><div class="blank-line"></div>{{/unless}}
+        </section>
+
+        <section class="sign-row">
+            <div class="sign-col">
+                <div class="sig-hint">{{#if DaDuyet}}{{ NgayDuyet }}{{else}}Ngày ..... tháng ..... năm .....{{/if}}</div>
+                <div class="sig-title">Nhà trường xác nhận</div>
+                <div class="sig-hint">{{#if DaDuyet}}{{ ChucVuNguoiDuyet }}{{else}}Đại diện Nhà trường{{/if}}<br>(Ký tên, đóng dấu)</div>
+                <div class="sig-space"><div class="stamp-ring">Chỗ đóng dấu</div></div>
+                <div class="sig-name">{{#if DaDuyet}}{{ NguoiDuyet }}{{/if}}</div>
+            </div>
+            <div class="sign-col">
+                <div class="sig-hint">&nbsp;</div>
+                <div class="sig-title">Người làm đơn</div>
+                <div class="sig-hint">(Ký và ghi rõ họ tên)<br>&nbsp;</div>
+                <div class="sig-space"></div>
+                <div class="sig-name">{{ HoTen }}</div>
+            </div>
+        </section>
+
+        <div class="spacer"></div>
+
+    </div>
+</body>
+
+</html>
+
+    </script>
+    <script>
+        /* ===== IN ĐƠN (Handlebars) =====
+           Mỗi loại đơn: [Tên đơn, Kính gửi, Lý do mẫu, Thông tin thêm]
+           Lý do & thông tin thêm là DỮ LIỆU MẪU - thay bằng dữ liệu thật do sinh viên nhập khi có backend. */
+        const P_CTSV = 'Phòng Công tác Sinh viên Trường Đại học ONENET';
+        const P_DT = 'Phòng Đào tạo Trường Đại học ONENET';
+        const P_KT = 'Phòng Khảo thí Trường Đại học ONENET';
+        const P_TC = 'Phòng Tài chính - Kế toán Trường Đại học ONENET';
+        const BGH = 'Ban Giám hiệu Trường Đại học ONENET';
+        const LOAI_DON = {
+            nghihoc: ['Đơn xin nghỉ học có phép', P_CTSV, 'Em xin phép nghỉ học một số buổi vì lý do sức khỏe/gia đình chính đáng. Em xin đính kèm giấy tờ minh chứng.', []],
+            hoanthi: ['Đơn xin hoãn thi / thi bù', P_KT, 'Em vắng mặt trong kỳ thi do có lý do chính đáng, kính xin nhà trường cho em được hoãn thi và sắp xếp thi bù.', []],
+            khieunaidd: ['Đơn khiếu nại điểm danh', P_CTSV, 'Em đã có mặt đầy đủ ở buổi học nhưng hệ thống ghi nhận vắng. Kính đề nghị nhà trường kiểm tra và điều chỉnh.', []],
+            phuckhao: ['Đơn xin phúc khảo điểm', P_KT, 'Em chưa đồng ý với kết quả bài thi, kính đề nghị nhà trường chấm lại bài thi/đầu điểm.', []],
+            thicai_thien: ['Đơn đăng ký thi cải thiện điểm', P_KT, 'Em đăng ký thi lại môn đã đạt nhằm cải thiện điểm trung bình tích lũy.', []],
+            hocvuot: ['Đơn đăng ký học vượt', P_DT, 'Em đã đủ điều kiện tiên quyết, kính xin nhà trường cho phép em đăng ký học vượt môn thuộc học kỳ sau.', []],
+            chuyenlop: ['Đơn xin chuyển lớp / đổi ca học', P_DT, 'Do trùng lịch học/có lý do chính đáng, em xin được chuyển sang lớp khác.', [['Lớp hiện tại', '{{Lop}}'], ['Lớp xin chuyển đến', 'Theo nguyện vọng ghi trong đơn']]],
+            chuyennganh: ['Đơn xin chuyển ngành', P_DT, 'Em có nguyện vọng chuyển sang ngành học khác phù hợp hơn với năng lực và định hướng nghề nghiệp của bản thân.', [['Ngành hiện tại', '{{Nganh}}'], ['Ngành xin chuyển đến', 'Theo nguyện vọng ghi trong đơn']]],
+            baoluu: ['Đơn xin nghỉ học tạm thời (bảo lưu)', BGH, 'Do hoàn cảnh cá nhân, em xin được bảo lưu kết quả học tập và tạm nghỉ học trong thời gian nhà trường cho phép.', []],
+            hoctiep: ['Đơn xin học tiếp sau bảo lưu', BGH, 'Thời gian bảo lưu của em đã kết thúc, em xin được tiếp tục học tập tại trường từ học kỳ tới.', []],
+            thoihoc: ['Đơn xin thôi học', BGH, 'Do hoàn cảnh cá nhân, em xin được thôi học tại trường và cam kết hoàn tất các nghĩa vụ với nhà trường.', []],
+            totnghiep: ['Đơn đăng ký xét tốt nghiệp', P_DT, 'Em đã hoàn thành chương trình đào tạo, kính đề nghị nhà trường xét công nhận tốt nghiệp cho em.', []],
+            bangdiem: ['Đơn xin cấp bảng điểm', P_DT, 'Em xin được cấp bảng điểm để phục vụ nhu cầu cá nhân.', [['Số bản', '01 bản'], ['Ngôn ngữ', 'Tiếng Việt']]],
+            giayxn: ['Đơn xin cấp giấy xác nhận sinh viên', P_CTSV, 'Em xin được cấp giấy xác nhận đang theo học tại trường để làm thủ tục cá nhân.', [['Số bản', '01 bản']]],
+            vayvon: ['Đơn xin xác nhận vay vốn sinh viên', P_CTSV, 'Em xin được xác nhận là sinh viên đang theo học để vay vốn tín dụng ưu đãi.', []],
+            nvqs: ['Đơn xin xác nhận hoãn nghĩa vụ quân sự', P_CTSV, 'Em xin được xác nhận đang theo học tại trường để làm thủ tục hoãn gọi nhập ngũ.', []],
+            thuctap: ['Đơn xin giấy giới thiệu thực tập / OJT', P_DT, 'Em xin giấy giới thiệu gửi doanh nghiệp tiếp nhận em thực tập theo chương trình đào tạo.', [['Đơn vị tiếp nhận', 'Theo nội dung ghi trong đơn']]],
+            capthe: ['Đơn xin cấp lại thẻ sinh viên', P_CTSV, 'Thẻ sinh viên của em bị mất/hỏng, em xin được cấp lại thẻ.', []],
+            dieuchinh: ['Đơn xin điều chỉnh thông tin cá nhân', P_CTSV, 'Thông tin cá nhân trong hồ sơ của em chưa chính xác, em xin được điều chỉnh theo giấy tờ đính kèm.', []],
+            miengiamhp: ['Đơn xin miễn giảm học phí', P_TC, 'Em thuộc đối tượng được hưởng chính sách, kính đề nghị nhà trường xem xét miễn/giảm học phí.', []],
+            giahanhp: ['Đơn xin gia hạn / chia đợt học phí', P_TC, 'Do hoàn cảnh gia đình khó khăn, em xin được nộp học phí muộn/chia thành nhiều đợt.', []],
+            hoantrahp: ['Đơn xin hoàn trả học phí', P_TC, 'Em đã nộp thừa/nộp nhầm học phí, kính đề nghị nhà trường hoàn trả khoản tiền này.', []],
+            hocbong: ['Đơn xét học bổng khuyến khích học tập', P_CTSV, 'Em có kết quả học tập và rèn luyện tốt, kính đề nghị nhà trường xét học bổng khuyến khích học tập.', []],
+            ktx: ['Đơn đăng ký ký túc xá', 'Ban Quản lý Ký túc xá Trường Đại học ONENET', 'Em có nhu cầu ở nội trú, kính xin nhà trường xét cho em được đăng ký chỗ ở trong ký túc xá.', []],
+            captk: ['Đơn xin cấp lại tài khoản / mật khẩu', 'Trung tâm Công nghệ thông tin Trường Đại học ONENET', 'Em quên mật khẩu/bị khóa tài khoản, kính đề nghị nhà trường cấp lại để em tiếp tục học tập.', []],
+            khieunai: ['Đơn khiếu nại / kiến nghị', BGH, 'Em xin phản ánh và kiến nghị nhà trường xem xét vấn đề nêu trong đơn.', []],
+            khac: ['Đơn đề nghị', P_CTSV, 'Em kính đề nghị nhà trường xem xét nội dung nêu trong đơn.', []]
+        };
+        const NGANH_THEO_LOP = { SE: 'Kỹ thuật phần mềm', IA: 'An toàn thông tin', AI: 'Trí tuệ nhân tạo', GD: 'Thiết kế đồ họa', MK: 'Marketing số', IB: 'Kinh doanh quốc tế' };
+
+        function buildDonData(row) {
+            const t = row.dataset.type;
+            const [ten, kinhGui, lyDo, extra] = LOAI_DON[t] || LOAI_DON.khac;
+            const mssv = row.querySelector('td:nth-child(3) b').innerText.trim();
+            const lop = row.querySelector('td:nth-child(4)').innerText.trim();
+            const [d, m, y] = row.querySelector('td:nth-child(2)').innerText.trim().split('/');
+            const fs = FEE_SLA[t] || ['', null];
+            const nganh = NGANH_THEO_LOP[lop.slice(0, 2)] || '';
+            const st = row.dataset.status;
+            const now = new Date();
+            const pad = n => String(n).padStart(2, '0');
+            const sub = s => s.replace('{{Lop}}', lop).replace('{{Nganh}}', nganh);
+
+            return {
+                MaDon: reqIdOf(row), TenDon: ten, KinhGui: kinhGui,
+                DiaDiem: 'Hà Nội', Ngay: d, Thang: m, Nam: y, NgayNop: d + '/' + m + '/' + y,
+                HoTen: row.querySelector('td:nth-child(3) span').innerText.replace(/\s+/g, ' ').trim(),
+                MSSV: mssv, Lop: lop, Nganh: nganh,
+                Khoa: 'K' + mssv.slice(2, 4),
+                Email: mssv.toLowerCase() + '@onenet.edu.vn',
+                LyDo: lyDo,
+                ThongTinThem: extra.map(([Nhan, GiaTri]) => ({ Nhan, GiaTri: sub(GiaTri) })),
+                TepDinhKem: [row.querySelector('td:nth-child(6)').innerText.trim()],
+                PhiXuLy: fs[0],
+                HanXuLy: fs[1] ? fs[1] + ' ngày làm việc (hạn: ' + addWorkdays(d + '/' + m + '/' + y, fs[1]) + ')' : 'Tùy nội dung đơn',
+                DaDuyet: st === 'approved' || st === 'rejected',
+                KetQua: st === 'approved' ? 'Đã phê duyệt' : 'Từ chối',
+                YKienDuyet: (document.getElementById('feedbackText') || {}).value || '',
+                NguoiDuyet: 'Nguyễn Văn A',
+                ChucVuNguoiDuyet: 'Cán bộ quản nhiệm',
+                NgayDuyet: 'Ngày ' + pad(now.getDate()) + '/' + pad(now.getMonth() + 1) + '/' + now.getFullYear()
+            };
+        }
+
+        function printDon(row) {
+            if (!row) return;
+            const html = Handlebars.compile(document.getElementById('donTpl').textContent)(buildDonData(row));
+            const w = window.open('', '_blank');
+            if (!w) { alert('Trình duyệt đang chặn cửa sổ bật lên. Hãy cho phép pop-up để in đơn.'); return; }
+            w.document.open(); w.document.write(html); w.document.close();
+            w.onload = () => setTimeout(() => w.print(), 400);
+        }
     </script>
 </body>
 

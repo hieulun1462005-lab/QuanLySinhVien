@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ TenDon }} - {{ HoTen }} ({{ MSSV }})</title>
+    <!-- Tinos: font tương thích số đo với Times New Roman, dự phòng cho máy không có Times New Roman -->
+    <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <!--
+    ============================================================
+    TEMPLATE ĐƠN DÙNG CHUNG - ONENET (thể thức theo NĐ 30/2020/NĐ-CP)
+    ============================================================
+    Thông tin đơn : MaDon, TenDon, PhuDe (tùy chọn), KinhGui, DiaDiem, Ngay, Thang, Nam, NgayNop
+                    (Ngay, Thang phải đủ 2 chữ số: 05, 09... theo quy định)
+    Sinh viên     : HoTen, MSSV, Lop, Nganh, Khoa, NgaySinh*, SoDienThoai*, Email   (* tùy chọn)
+    Nội dung      : LyDo, NoiDungBoSung*, ThongTinThem* (mảng {Nhan, GiaTri})
+    Đính kèm      : TepDinhKem* (mảng chuỗi)
+    Phê duyệt     : DaDuyet, KetQua, YKienDuyet*, NguoiDuyet, ChucVuNguoiDuyet, NgayDuyet
+    ============================================================
+    -->
+
+    <style>
+        :root {
+            --brand: #0757A6;
+            /* chỉ dùng cho giao diện xem trên web, KHÔNG dùng cho chữ trong đơn */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background: #E6EBF1;
+        }
+
+        body {
+            font-family: 'Times New Roman', Tinos, 'Liberation Serif', serif;
+            font-size: 13pt;
+            line-height: 1.4;
+            color: #000;
+            padding: 32px 16px 48px;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* ===== KHỔ A4 - lề: trên/dưới 20-25mm, trái 30-35mm, phải 15-20mm ===== */
+        .a4-paper {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 22mm 18mm 20mm 32mm;
+            background: #fff;
+            border: 1px solid #D3DBE5;
+            border-top: 4px solid var(--brand);
+            border-radius: 6px;
+            box-shadow: 0 8px 28px rgba(7, 87, 166, .12), 0 1px 3px rgba(16, 42, 67, .10);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== Ô 1, 2, 4: QUỐC HIỆU - TIÊU NGỮ - TÊN CƠ QUAN - ĐỊA DANH NGÀY THÁNG ===== */
+        .letterhead {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            column-gap: 6mm;
+            align-items: start;
+            text-align: center;
+        }
+
+        .org-parent {
+            font-size: 12pt;
+            text-transform: uppercase;
+        }
+
+        .org-name {
+            font-size: 12pt;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .org-rule {
+            display: block;
+            width: 40%;
+            height: 1px;
+            background: #000;
+            margin: 2px auto 4px;
+        }
+
+        .doc-code {
+            font-size: 12pt;
+        }
+
+        .nation {
+            font-size: 12pt;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .motto {
+            display: inline-block;
+            font-size: 13pt;
+            font-weight: 700;
+            padding-bottom: 1px;
+            border-bottom: 1px solid #000;
+            /* đường kẻ dài bằng dòng tiêu ngữ */
+        }
+
+        .date-line {
+            font-size: 13pt;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        /* ===== TÊN LOẠI ĐƠN ===== */
+        .doc-title {
+            text-align: center;
+            font-size: 13pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 22px;
+        }
+
+        .doc-sub {
+            text-align: center;
+            font-style: italic;
+            font-size: 12pt;
+        }
+
+        .addressee {
+            text-align: center;
+            margin: 14px 0 12px;
+        }
+
+        .addressee b {
+            font-weight: 700;
+        }
+
+        /* ===== NỘI DUNG ===== */
+        .doc-body p {
+            text-align: justify;
+            text-indent: 10mm;
+            margin-top: 6pt;
+        }
+
+        .fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 8mm;
+            row-gap: 2pt;
+            margin: 6pt 0 4pt;
+        }
+
+        .f {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .f.full {
+            grid-column: 1 / -1;
+        }
+
+        .f .l {
+            flex-shrink: 0;
+        }
+
+        .f .v {
+            flex: 1;
+            min-width: 0;
+            padding: 0 4px;
+            border-bottom: 1px dotted #000;
+            font-weight: 700;
+            overflow-wrap: anywhere;
+        }
+
+        .reason {
+            white-space: pre-line;
+        }
+
+        .attach {
+            margin-top: 6pt;
+            text-indent: 0 !important;
+        }
+
+        /* ===== Ý KIẾN, CHỮ KÝ VÀ DẤU ===== */
+        .opinion {
+            margin-top: 10pt;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .opinion .result {
+            font-weight: 700;
+        }
+
+        .blank-line {
+            border-bottom: 1px dotted #000;
+            height: 7mm;
+        }
+
+        .sign-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 10mm;
+            margin-top: 8pt;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .sign-col {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .sig-title {
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .sig-hint {
+            font-style: italic;
+            font-size: 12pt;
+        }
+
+        .sig-space {
+            flex: 1;
+            min-height: 32mm;
+            position: relative;
+        }
+
+        .sig-name {
+            font-weight: 700;
+            min-height: 1.4em;
+        }
+
+        /* Vòng gợi ý vị trí đóng dấu: chỉ hiện khi xem trên web, ẩn khi in.
+           Theo NĐ 30, dấu đóng trùm lên khoảng 1/3 chữ ký về phía bên trái. */
+        .stamp-ring {
+            position: absolute;
+            left: 2mm;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 34mm;
+            height: 34mm;
+            border: 1px dashed #9AA8B8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+            font-style: italic;
+            color: #9AA8B8;
+        }
+
+        .spacer {
+            flex: 1;
+            min-height: 6mm;
+        }
+
+        /* ===== IN ẤN / XUẤT PDF ===== */
+        @page {
+            size: A4;
+            margin: 20mm 18mm 20mm 30mm;
+        }
+
+        /* Số trang: canh giữa lề trên, từ trang 2 (cần trình duyệt hỗ trợ margin box, vd Chrome 131+) */
+        @page {
+            @top-center {
+                content: counter(page);
+                font-family: 'Times New Roman', Tinos, serif;
+                font-size: 13pt;
+            }
+        }
+
+        @page :first {
+            @top-center {
+                content: none;
+            }
+        }
+
+        @media print {
+            html {
+                background: #fff;
+            }
+
+            body {
+                padding: 0;
+            }
+
+            .stamp-ring {
+                display: none;
+            }
+
+            .a4-paper {
+                width: auto;
+                min-height: 255mm;
+                margin: 0;
+                padding: 0;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="a4-paper">
+
+        <!-- Ô 2, 1, 4 -->
+        <header class="letterhead">
+            <div>
+                <div class="org-parent">Bộ Giáo dục và Đào tạo</div>
+                <div class="org-name">Trường Đại học ONENET</div>
+                <span class="org-rule"></span>
+                <div class="doc-code">Mã đơn: {{ MaDon }}</div>
+            </div>
+            <div>
+                <div class="nation">Cộng hòa xã hội chủ nghĩa Việt Nam</div>
+                <div class="motto">Độc lập - Tự do - Hạnh phúc</div>
+                <div class="date-line">{{ DiaDiem }}, ngày {{ Ngay }} tháng {{ Thang }} năm {{ Nam }}</div>
+            </div>
+        </header>
+
+        <h1 class="doc-title">{{ TenDon }}</h1>
+        {{#if PhuDe}}<div class="doc-sub">{{ PhuDe }}</div>{{/if}}
+
+        <p class="addressee">Kính gửi: <b>{{ KinhGui }}</b></p>
+
+        <main class="doc-body">
+            <div class="fields">
+                <div class="f full"><span class="l">Em tên là:</span><span class="v">{{ HoTen }}</span></div>
+                <div class="f"><span class="l">Mã số sinh viên:</span><span class="v">{{ MSSV }}</span></div>
+                <div class="f"><span class="l">Lớp:</span><span class="v">{{ Lop }}</span></div>
+                <div class="f"><span class="l">Ngành:</span><span class="v">{{ Nganh }}</span></div>
+                <div class="f"><span class="l">Khóa:</span><span class="v">{{ Khoa }}</span></div>
+                {{#if NgaySinh}}<div class="f"><span class="l">Ngày sinh:</span><span class="v">{{ NgaySinh }}</span>
+                </div>{{/if}}
+                {{#if SoDienThoai}}<div class="f"><span class="l">Số điện thoại:</span><span class="v">{{ SoDienThoai
+                        }}</span></div>{{/if}}
+                <div class="f full"><span class="l">Email:</span><span class="v">{{ Email }}</span></div>
+                {{#each ThongTinThem}}
+                <div class="f full"><span class="l">{{ Nhan }}:</span><span class="v">{{ GiaTri }}</span></div>
+                {{/each}}
+            </div>
+
+            <p>Nay em làm đơn này, kính đề nghị Nhà trường xem xét và giải quyết với nội dung như sau:</p>
+            <p class="reason">{{ LyDo }}</p>
+            {{#if NoiDungBoSung}}<p>{{ NoiDungBoSung }}</p>{{/if}}
+
+            {{#if TepDinhKem}}
+            <p class="attach"><b>Hồ sơ đính kèm:</b>
+                {{#each TepDinhKem}}{{#unless @first}}; {{/unless}}{{ this }}{{/each}}.</p>
+            {{/if}}
+
+            <p>Em xin cam đoan những thông tin trên là đúng sự thật và hoàn toàn chịu trách nhiệm trước Nhà trường.
+                Em xin trân trọng cảm ơn!</p>
+        </main>
+
+        <section class="opinion">
+            <div><b>Ý kiến xử lý của Nhà trường:</b>
+                {{#if DaDuyet}}<span class="result">{{ KetQua }}</span>{{#if YKienDuyet}} - {{ YKienDuyet
+                }}{{/if}}{{/if}}
+            </div>
+            {{#unless DaDuyet}}<div class="blank-line"></div>
+            <div class="blank-line"></div>{{/unless}}
+        </section>
+
+        <section class="sign-row">
+            <div class="sign-col">
+                <div class="sig-hint">{{#if DaDuyet}}{{ NgayDuyet }}{{else}}Ngày ..... tháng ..... năm .....{{/if}}
+                </div>
+                <div class="sig-title">Nhà trường xác nhận</div>
+                <div class="sig-hint">{{#if DaDuyet}}{{ ChucVuNguoiDuyet }}{{else}}Đại diện Nhà trường{{/if}}<br>(Ký
+                    tên, đóng dấu)</div>
+                <div class="sig-space">
+                    <div class="stamp-ring">Chỗ đóng dấu</div>
+                </div>
+                <div class="sig-name">{{#if DaDuyet}}{{ NguoiDuyet }}{{/if}}</div>
+            </div>
+            <div class="sign-col">
+                <div class="sig-hint">&nbsp;</div>
+                <div class="sig-title">Người làm đơn</div>
+                <div class="sig-hint">(Ký và ghi rõ họ tên)<br>&nbsp;</div>
+                <div class="sig-space"></div>
+                <div class="sig-name">{{ HoTen }}</div>
+            </div>
+        </section>
+
+        <div class="spacer"></div>
+
+    </div>
+</body>
+
+</html>

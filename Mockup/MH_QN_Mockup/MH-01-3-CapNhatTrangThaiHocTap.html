@@ -14,9 +14,9 @@
             --primary-dark: #063B75;
             --primary-light: #CFE6FF;
             --primary-50: #EAF4FF;
-            --text-dark: #102A43;
-            --text-gray: #5E7184;
-            --text-light: #8FA4B8;
+            --text: #102A43;
+            --gray: #5E7184;
+            --light: #8FA4B8;
             --bg-light: #F5F8FC;
             --bg-white: #FFFFFF;
             --border: #DCE8F3;
@@ -39,7 +39,7 @@
 
         body {
             background-color: var(--bg-light);
-            color: var(--text-dark);
+            color: var(--text);
             overflow-x: hidden;
         }
 
@@ -48,9 +48,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 64px;
-            height: 64px;
-            background: white;
+            padding: 0 24px;
+            height: 60px;
+            background: var(--bg-white);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             z-index: 100;
         }
@@ -82,7 +82,7 @@
             font-weight: 600;
             font-size: 11px;
             text-transform: uppercase;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .brand-copy .sys-name {
@@ -99,9 +99,9 @@
         /* ─── Sidebar ─── */
         .sidebar {
             width: 256px;
-            background: white;
-            border-right: 1px solid var(--border-light, #EDF2F7);
-            padding: 20px 0;
+            background: var(--bg-white);
+            border-right: 1px solid var(--border);
+            padding: 16px 0;
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -121,9 +121,9 @@
         .menu-group-title {
             font-size: 10px;
             font-weight: 700;
-            color: var(--text-light, #8FA4B8);
+            color: var(--light, #8FA4B8);
             text-transform: uppercase;
-            padding: 16px 24px 6px;
+            padding: 14px 24px 6px;
             letter-spacing: 0.8px;
         }
 
@@ -132,7 +132,7 @@
             align-items: center;
             gap: 12px;
             padding: 10px 24px;
-            color: var(--text-gray);
+            color: var(--text);
             font-weight: 500;
             font-size: 13.5px;
             cursor: pointer;
@@ -141,15 +141,7 @@
             transition: all 0.15s ease;
         }
 
-        .sidebar-item:hover {
-            background: #F8FAFC;
-            color: var(--primary);
-        }
-
         .sidebar-item.active {
-            background: var(--primary-50, #EAF4FF);
-            color: var(--primary);
-            border-left-color: var(--primary);
             font-weight: 600;
         }
 
@@ -176,7 +168,7 @@
         .page-title {
             font-size: 20px;
             font-weight: 700;
-            color: var(--text-dark);
+            
             margin-bottom: 24px;
             display: flex;
             align-items: center;
@@ -212,7 +204,7 @@
         .btn-outline {
             background: white;
             border: 1px solid var(--border);
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .form-group {
@@ -223,7 +215,7 @@
             display: block;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-gray);
+            color: var(--gray);
             margin-bottom: 8px;
         }
 
@@ -280,7 +272,7 @@
 
         .profile-id {
             font-size: 13px;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .status-badge {
@@ -322,7 +314,7 @@
         }
 
         .user-profile:hover {
-            background: #F8FAFC;
+            background: var(--bg-soft);
             border-color: var(--border);
         }
 
@@ -350,12 +342,12 @@
         .user-info .name {
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text);
         }
 
         .user-info .role {
             font-size: 12px;
-            color: var(--text-gray);
+            color: var(--gray);
         }
 
         .user-profile {
@@ -398,12 +390,74 @@
         .user-info .name {
             font-size: 14px !important;
             font-weight: 600 !important;
-            color: var(--text-dark) !important;
+            color: var(--text) !important;
         }
 
         .user-info .role {
             font-size: 12px !important;
-            color: var(--text-gray) !important;
+            color: var(--gray) !important;
+        }
+
+        /* Đơn từ căn cứ + chặn khi không có đơn */
+        .app-ref {
+            padding: 14px 16px;
+            border: 1px solid var(--primary-light);
+            border-left: 4px solid var(--primary);
+            border-radius: 10px;
+            background: var(--primary-50);
+            margin-bottom: 16px;
+        }
+
+        .app-ref .app-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .app-ref .app-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 13px;
+            padding: 3px 0;
+            color: var(--gray);
+        }
+
+        .app-ref .app-row b {
+            color: var(--text);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .app-ref a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .gate-box {
+            display: none;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 1px solid #FDE68A;
+            border-radius: 10px;
+            background: var(--warning-light);
+            color: var(--warning);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .gate-box a {
+            display: inline-block;
+            margin-top: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
         }
     </style>
     <!--theme-enhance-->
@@ -428,9 +482,9 @@
             --primary-dark: #2A6FB8;
             --primary-light: #1E4A7A;
             --primary-50: #12304F;
-            --text-dark: #E6EDF5;
-            --text-gray: #9FB2C5;
-            --text-light: #6F869C;
+            --text: #E6EDF5;
+            --gray: #9FB2C5;
+            --light: #6F869C;
             --bg-light: #0B1522;
             --bg-white: #111E2E;
             --bg-soft: #15263A;
@@ -451,7 +505,7 @@
 
         body {
             background: var(--bg-light);
-            color: var(--text-dark)
+            color: var(--text)
         }
 
         .dashboard-content,
@@ -492,7 +546,7 @@
             display: block;
             text-align: center;
             font-size: 12px;
-            color: var(--text-light);
+            color: var(--light);
             padding: 32px 0 4px;
             letter-spacing: .2px
         }
@@ -533,12 +587,12 @@
         html[data-theme="dark"] select,
         html[data-theme="dark"] textarea {
             background-color: var(--bg-white);
-            color: var(--text-dark);
+            color: var(--text);
             border-color: var(--border)
         }
 
         html[data-theme="dark"] ::placeholder {
-            color: var(--text-light)
+            color: var(--light)
         }
 
         html[data-theme="dark"] .dashboard-content,
@@ -612,42 +666,6 @@
             background: rgba(255, 255, 255, .55)
         }
 
-        html[data-theme] .page-header .page-title,
-        html[data-theme] .page-header .page-title span,
-        html[data-theme] .page-header .page-title svg {
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .page-title span {
-            color: #BFE0FF !important
-        }
-
-        html[data-theme] .page-header .page-subtitle,
-        html[data-theme] .page-header .page-subtitle span {
-            color: rgba(255, 255, 255, .78) !important
-        }
-
-        html[data-theme] .page-header .page-subtitle .dot {
-            background: rgba(255, 255, 255, .55) !important
-        }
-
-        html[data-theme] .page-header .btn-outline {
-            background: rgba(255, 255, 255, .14) !important;
-            border: 1px solid rgba(255, 255, 255, .32) !important;
-            color: #fff !important
-        }
-
-        html[data-theme] .page-header .btn-outline:hover {
-            background: rgba(255, 255, 255, .24) !important
-        }
-
-        html[data-theme] .page-header .btn-primary,
-        html[data-theme] .page-header .btn-success {
-            background: #fff !important;
-            color: #063B75 !important;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, .18) !important
-        }
-
         /* Theme toggle */
         .theme-toggle {
             width: 38px;
@@ -655,7 +673,7 @@
             border-radius: 50%;
             border: 1px solid var(--border);
             background: var(--bg-white);
-            color: var(--text-gray);
+            color: var(--gray);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -710,25 +728,9 @@
         }
 
         /* dark overrides generated from this page */
-        html[data-theme="dark"] .header {
-            background: var(--bg-white) !important
-        }
-
-        html[data-theme="dark"] .sidebar {
-            background: var(--bg-white) !important;
-            border-right: 1px solid var(--border-light, var(--border)) !important
-        }
 
         html[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb {
             background: color-mix(in srgb, #CBD5E1 17%, #0F1B2A) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item:hover {
-            background: var(--bg-soft) !important
-        }
-
-        html[data-theme="dark"] .sidebar-item.active {
-            background: var(--primary-50, color-mix(in srgb, #EAF4FF 17%, #0F1B2A)) !important
         }
 
         html[data-theme="dark"] .card {
@@ -756,16 +758,8 @@
             background: var(--bg-soft) !important
         }
 
-        html[data-theme="dark"] .user-profile:hover {
-            background: var(--bg-soft) !important
-        }
-
         html[data-theme="dark"] .avatar {
             background: color-mix(in srgb, #EAF4FF 17%, #0F1B2A) !important
-        }
-
-        html[data-theme="dark"] .user-profile:hover {
-            background: var(--bg-soft) !important
         }
 
         html[data-theme="dark"] .avatar {
@@ -801,7 +795,7 @@
         }
 
         html[data-theme="dark"] [style*="color: #4B5563"] {
-            color: var(--text-gray) !important
+            color: var(--gray) !important
         }
     </style>
     <style id="menu-style-fix">
@@ -845,6 +839,14 @@
         .menu-item.active {
             font-weight: 600 !important;
         }
+        html[data-theme="dark"] .sidebar-item:hover {
+            background: var(--bg-soft) !important
+        }
+
+        html[data-theme="dark"] .sidebar-item.active {
+            background: var(--primary-50) !important;
+            box-shadow: inset 0 0 0 1px rgba(61, 147, 230, .12)
+        }
     </style>
 </head>
 
@@ -875,66 +877,66 @@
 
     <div class="dashboard-layout">
         <aside class="sidebar">
-            <div class="menu-group-title">Menu Chính</div>
+            <div class="menu-group-title">Tổng quan</div>
             <a href="MH-00-7-DashboardBaoCao.html" class="sidebar-item">
-                <i data-lucide="layout-dashboard" size="18"></i> Tổng quan
+                <i data-lucide="layout-dashboard" size="18"></i> Dashboard / Thống kê chung
             </a>
-            <div class="menu-group-title">Tuyển Sinh</div>
-            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
-                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
-            </a>
+            <div class="menu-group-title">Tuyển sinh & Nhập học</div>
             <a href="MH-01-2-TiepNhanHoSoSinhVien.html" class="sidebar-item">
                 <i data-lucide="folder-plus" size="18"></i> Tiếp nhận hồ sơ
             </a>
-            <div class="menu-group-title">Sinh Viên</div>
-            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
-                <i data-lucide="list" size="20"></i> Danh sách lớp
+            <a href="MH-01-1-DanhSachTrungTuyen.html" class="sidebar-item">
+                <i data-lucide="users" size="18"></i> Danh sách trúng tuyển
             </a>
-            <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item">
-                <i data-lucide="contact-2" size="20"></i> Hồ sơ sinh viên
+            <div class="menu-group-title">Công tác Sinh viên</div>
+            <a href="MH-01-8-HoSoSinhVien.html" class="sidebar-item active">
+                <i data-lucide="contact-2" size="18"></i> Hồ sơ sinh viên
+            </a>
+            <a href="MH-01-9-BangXepLoaiHocLuc.html" class="sidebar-item">
+                <i data-lucide="medal" size="18"></i> Xếp loại học lực
+            </a>
+            <a href="MH-01-5-DanhSachLop.html" class="sidebar-item">
+                <i data-lucide="list" size="18"></i> Danh sách lớp
             </a>
             <a href="MH-01-4-PhanBoSinhVienVaoLop.html" class="sidebar-item">
                 <i data-lucide="network" size="18"></i> Phân bổ lớp
             </a>
-            <a href="MH-01-3-CapNhatTrangThaiHocTap.html" class="sidebar-item active">
-                <i data-lucide="user-cog" size="18"></i> Cập nhật trạng thái
+            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
+                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
             </a>
-            <a href="MH-01-7-ChuyenNganh.html" class="sidebar-item">
-                <i data-lucide="arrow-right-left" size="18"></i> Chuyển ngành
+            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
+                <i data-lucide="award" size="18"></i> Quản lý học bổng
             </a>
-            <div class="menu-group-title">Đào Tạo</div>
+            <div class="menu-group-title">Quản lý Đào tạo</div>
             <a href="MH-02-1-QuanLyDanhMuc.html" class="sidebar-item">
                 <i data-lucide="server" size="18"></i> Quản lý danh mục
             </a>
             <a href="MH-02-2-KhungChuongTrinhHoc.html" class="sidebar-item">
                 <i data-lucide="book-open-check" size="18"></i> Chương trình học
             </a>
-            <a href="MH-02-5-KhoDeThi.html" class="sidebar-item ">
-                <i data-lucide="library-big" size="18"></i> Kho đề thi
-            </a>
-            <a href="MH-02-6-LichThi.html" class="sidebar-item ">
-                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
-            </a>
+            <div class="menu-group-title">Tổ chức Giảng dạy</div>
             <a href="MH-02-3-XepThoiKhoaBieu.html" class="sidebar-item">
                 <i data-lucide="calendar-range" size="18"></i> Xếp Thời khóa biểu
             </a>
             <a href="MH-02-4-QuanLyYeuCauBaoNghiLichBu.html" class="sidebar-item">
                 <i data-lucide="calendar-clock" size="18"></i> Lịch báo nghỉ/bù
             </a>
-            <a href="MH-05-2-PheDuyetDonTuSinhVien.html" class="sidebar-item">
-                <i data-lucide="file-check-2" size="18"></i> Phê duyệt đơn từ
+            <div class="menu-group-title">Khảo thí & Điểm số</div>
+            <a href="MH-02-5-Khodethi.html" class="sidebar-item">
+                <i data-lucide="library-big" size="18"></i> Kho đề thi
             </a>
-            <a href="MH-05-3-Quanlyhocbong.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Quản lý học bổng
+            <a href="MH-02-6-LichThi.html" class="sidebar-item">
+                <i data-lucide="calendar-check-2" size="18"></i> Lịch thi
             </a>
             <a href="MH-05-4-Phuckhaodiem.html" class="sidebar-item">
-                <i data-lucide="book-open-check" size="18"></i> Phúc khảo điểm
+                <i data-lucide="file-search" size="18"></i> Phúc khảo điểm
             </a>
-            <div class="menu-group-title">Tài Chính</div>
+            <div class="menu-group-title">Tài chính - Kế toán</div>
             <a href="MH-06-1-LichSuGiaoDich.html" class="sidebar-item">
                 <i data-lucide="receipt" size="18"></i> Lịch sử giao dịch
             </a>
         </aside>
+
 
 
         <main class="dashboard-content" style="padding: 20px 32px; gap: 16px;">
@@ -962,11 +964,11 @@
 
                     <div class="form-group" style="display: flex; gap: 12px; align-items: flex-end; margin-bottom: 0;">
                         <div style="flex: 1;">
-                            <label style="font-size: 13px; margin-bottom: 4px;">Mã Sinh Viên / Họ Tên</label>
-                            <input type="text" id="searchId" placeholder="Nhập VD: HE19201..."
+                            <label style="font-size: 13px; margin-bottom: 4px;">Mã Sinh Viên (theo đơn)</label>
+                            <input type="text" id="searchId" placeholder="Tự điền theo đơn từ"
                                 style="height: 38px; font-size: 14px; padding: 8px 12px;">
                         </div>
-                        <button class="btn btn-primary" onclick="searchStudent()"
+                        <button class="btn btn-primary" id="searchBtn" onclick="searchStudent()"
                             style="height: 38px; padding: 0 20px; font-size: 14px;">
                             Tìm kiếm
                         </button>
@@ -993,30 +995,31 @@
                         <div
                             style="background: var(--bg-white); border-radius: 8px; padding: 12px 16px; margin-top: 16px; border: 1px solid var(--border);">
                             <div
-                                style="font-size: 13px; color: var(--text-gray); display: flex; flex-direction: column; gap: 10px;">
+                                style="font-size: 13px; color: var(--gray); display: flex; flex-direction: column; gap: 10px;">
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <span style="display: flex; align-items: center; gap: 6px;"><i
                                             data-lucide="credit-card" size="14"></i> Học phí:</span>
-                                    <span style="font-weight: 600; color: var(--text-dark);">Đã đóng đủ</span>
+                                    <span style="font-weight: 600; color: var(--text);">Đã đóng đủ</span>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="library"
                                             size="14"></i> Thư viện:</span>
-                                    <span style="font-weight: 600; color: var(--text-dark);">Sách đã mượn (0)</span>
+                                    <span style="font-weight: 600; color: var(--text);">Sách đã mượn (0)</span>
                                 </div>
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <span style="display: flex; align-items: center; gap: 6px;"><i data-lucide="award"
                                             size="14"></i> Điểm rèn luyện:</span>
-                                    <span style="font-weight: 600; color: var(--text-dark);">85 (Tốt)</span>
+                                    <span style="font-weight: 600; color: var(--text);">85 (Tốt)</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Simulators at the bottom of left card -->
-                    <div style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border);">
-                        <p style="font-size: 12px; color: var(--text-gray); margin-bottom: 10px; font-weight: 500;">Dữ
-                            liệu Test (Giả lập ngoại lệ):</p>
+                    <div id="testArea"
+                        style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border);">
+                        <p style="font-size: 12px; color: var(--gray); margin-bottom: 10px; font-weight: 500;">Dữ
+                            liệu Test (Giả lập tình huống cho SV trong đơn):</p>
                         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                             <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;"
                                 onclick="simulateDebt()">SV Nợ phí</button>
@@ -1026,6 +1029,8 @@
                                 onclick="simulateBaoLuu()">SV Bảo lưu</button>
                             <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;"
                                 onclick="simulateDinhChi()">SV Đình chỉ</button>
+                            <button class="btn btn-outline" style="font-size: 12px; padding: 4px 10px;"
+                                onclick="searchStudent()">Mặc định</button>
                         </div>
                     </div>
                 </div>
@@ -1042,6 +1047,29 @@
                             Xử lý Trạng thái
                         </div>
                     </h3>
+
+                    <!-- Chặn khi không đến từ trang Phê duyệt đơn từ -->
+                    <div id="gateBox" class="gate-box">
+                        <i data-lucide="lock" size="20" style="margin-top: 1px; flex-shrink: 0;"></i>
+                        <div>
+                            <strong>Chưa có đơn từ căn cứ!</strong><br>
+                            <span id="gateText">Chỉ được cập nhật trạng thái học tập từ một đơn của sinh viên đã chọn
+                                tại trang Phê duyệt đơn từ.</span><br>
+                            <a href="MH-05-2-PheDuyetDonTuSinhVien.html">&rarr; Đến trang Phê duyệt đơn từ</a>
+                        </div>
+                    </div>
+
+                    <!-- Đơn từ căn cứ (read-only, truyền từ trang Phê duyệt đơn từ) -->
+                    <div id="appRef" class="app-ref" style="display: none;">
+                        <div class="app-title"><i data-lucide="file-check-2" size="16"></i> Đơn căn cứ cập nhật</div>
+                        <div class="app-row"><span>Mã đơn</span><b id="refNo"></b></div>
+                        <div class="app-row"><span>Loại đơn</span><b id="refType"></b></div>
+                        <div class="app-row"><span>Ngày nộp</span><b id="refDate"></b></div>
+                        <div class="app-row"><span>File đính kèm</span><b><i data-lucide="paperclip" size="13"
+                                    style="vertical-align: text-bottom;"></i> <span id="refFile"></span></b></div>
+                        <div class="app-row"><span></span><a href="MH-05-2-PheDuyetDonTuSinhVien.html">Quay lại trang
+                                đơn từ</a></div>
+                    </div>
 
                     <!-- Alerts Container -->
                     <div id="alertsContainer" style="margin-bottom: 16px;">
@@ -1112,7 +1140,7 @@
 
                         <div style="text-align: center; margin-top: 16px;">
                             <button class="btn" onclick="openAuditLog()"
-                                style="background: transparent; border: none; color: var(--text-light); font-size: 13px; display: inline-flex; margin: 0 auto; padding: 6px;">
+                                style="background: transparent; border: none; color: var(--light); font-size: 13px; display: inline-flex; margin: 0 auto; padding: 6px;">
                                 <i data-lucide="history" size="14"></i> Xem lịch sử thay đổi (Audit Log)
                             </button>
                         </div>
@@ -1128,7 +1156,7 @@
         <div style="background: white; padding: 32px; border-radius: 16px; width: 600px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h3 style="font-size: 18px; font-weight: 700;">Lịch sử thay đổi hệ thống (Audit Log)</h3>
-                <i data-lucide="x" size="20" style="cursor: pointer; color: var(--text-gray);"
+                <i data-lucide="x" size="20" style="cursor: pointer; color: var(--gray);"
                     onclick="closeAuditLog()"></i>
             </div>
 
@@ -1138,23 +1166,23 @@
                     <div
                         style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; position: absolute; left: -6px; top: 4px;">
                     </div>
-                    <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">25/09/2026 08:30:15 -
+                    <div style="font-size: 12px; color: var(--gray); margin-bottom: 4px;">25/09/2026 08:30:15 -
                         CBQN Nguyễn Văn A</div>
-                    <div style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Cập nhật trạng thái SV
+                    <div style="font-size: 14px; font-weight: 600; color: var(--text);">Cập nhật trạng thái SV
                         HE19201</div>
-                    <div style="font-size: 14px; color: var(--text-gray); margin-top: 4px;">Từ "Đang học" -> "Bảo lưu".
-                        Lý do: QĐ số 123/QĐ-BGD.</div>
+                    <div style="font-size: 14px; color: var(--gray); margin-top: 4px;">Từ "Đang học" -> "Bảo lưu".
+                        Lý do: QĐ số 123/QĐ-BGD. Căn cứ đơn REQ-240901 (nộp ngày 24/09/2026).</div>
                 </div>
                 <div
                     style="border-left: 2px solid var(--border); padding-left: 16px; margin-bottom: 20px; position: relative;">
                     <div
                         style="width: 10px; height: 10px; background: var(--primary); border-radius: 50%; position: absolute; left: -6px; top: 4px;">
                     </div>
-                    <div style="font-size: 12px; color: var(--text-gray); margin-bottom: 4px;">24/09/2026 14:20:00 - Hệ
+                    <div style="font-size: 12px; color: var(--gray); margin-bottom: 4px;">24/09/2026 14:20:00 - Hệ
                         thống (System)</div>
-                    <div style="font-size: 14px; font-weight: 600; color: var(--text-dark);">Cấp phát tài khoản tự động
+                    <div style="font-size: 14px; font-weight: 600; color: var(--text);">Cấp phát tài khoản tự động
                     </div>
-                    <div style="font-size: 14px; color: var(--text-gray); margin-top: 4px;">Tạo tài khoản HE19999 (S0 ->
+                    <div style="font-size: 14px; color: var(--gray); margin-top: 4px;">Tạo tài khoản HE19999 (S0 ->
                         S1).</div>
                 </div>
             </div>
@@ -1166,158 +1194,134 @@
         let isDebt = false;
         let isEligibleForGraduation = true;
         let currentStatus = 'danghoc';
+        let app = null; // đơn từ căn cứ, lấy từ trang Phê duyệt đơn từ
 
+        const PAGE_REQ = 'MH-05-2-PheDuyetDonTuSinhVien.html';
+        const TYPE_TO_STATUS = { baoluu: 'baoluu', hoctiep: 'tainhaphoc', thoihoc: 'thoihoc', totnghiep: 'totnghiep' };
+        const TYPE_LABEL = {
+            baoluu: 'Xin nghỉ học tạm thời (bảo lưu)',
+            hoctiep: 'Xin học tiếp sau bảo lưu',
+            thoihoc: 'Xin thôi học',
+            totnghiep: 'Đăng ký xét tốt nghiệp'
+        };
+        const STATUS_LABEL = { danghoc: 'Đang học', baoluu: 'Bảo lưu', dinhchi: 'Đình chỉ', thoihoc: 'Thôi học', totnghiep: 'Tốt nghiệp' };
+        const STATUS_STYLE = {
+            danghoc: ['#E6F4EA', '#1E8E3E'], baoluu: ['#FEF3C7', '#D97706'], dinhchi: ['#FEE2E2', '#DC2626'],
+            thoihoc: ['#F3F4F6', '#4B5563'], totnghiep: ['#E6F4EA', '#1E8E3E']
+        };
+
+        function isProcessed(reqId) {
+            try { return localStorage.getItem('onenet-processed-' + reqId) === '1'; } catch (e) { return false; }
+        }
+        function markProcessed(reqId) {
+            try { localStorage.setItem('onenet-processed-' + reqId, '1'); } catch (e) { }
+        }
+
+        function showGate(msg) {
+            if (msg) document.getElementById('gateText').innerText = msg;
+            document.getElementById('gateBox').style.display = 'flex';
+            document.getElementById('appRef').style.display = 'none';
+            document.getElementById('searchId').disabled = true;
+            document.getElementById('searchBtn').disabled = true;
+            const t = document.getElementById('testArea');
+            t.style.opacity = '0.5'; t.style.pointerEvents = 'none';
+            lucide.createIcons();
+        }
+
+        function initFromApplication() {
+            const q = new URLSearchParams(window.location.search);
+            const reqId = q.get('reqId');
+            const type = q.get('type');
+
+            if (!reqId || !TYPE_TO_STATUS[type]) { showGate(); return; }
+            if (isProcessed(reqId)) { showGate('Đơn ' + reqId + ' đã được xử lý trước đó, không thể dùng lại để cập nhật trạng thái.'); return; }
+
+            app = {
+                reqId: reqId, type: type,
+                mssv: q.get('mssv') || '', name: q.get('name') || '', cls: q.get('cls') || '',
+                file: q.get('file') || '', date: q.get('date') || ''
+            };
+
+            document.getElementById('refNo').innerText = app.reqId;
+            document.getElementById('refType').innerText = TYPE_LABEL[type];
+            document.getElementById('refDate').innerText = app.date;
+            document.getElementById('refFile').innerText = app.file;
+            document.getElementById('appRef').style.display = 'block';
+
+            const sid = document.getElementById('searchId');
+            sid.value = app.mssv;
+            sid.readOnly = true;
+            document.getElementById('searchBtn').disabled = true;
+
+            searchStudent();
+            lucide.createIcons();
+        }
+
+        function renderProfile() {
+            const [bg, fg] = STATUS_STYLE[currentStatus];
+            const feeHtml = isDebt
+                ? `<span style="color: #DC2626; font-weight: 600;"><i data-lucide="credit-card" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Nợ 5.000.000 VNĐ</span>`
+                : `<span><i data-lucide="credit-card" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Đã đóng đủ</span>`;
+            const progHtml = isEligibleForGraduation
+                ? `<span><i data-lucide="book-check" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Tiến độ: Hoàn thành 100%</span>`
+                : `<span style="color: #B45309; font-weight: 600;"><i data-lucide="x-circle" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Tiến độ: Nợ môn MAD101</span>`;
+
+            const profile = document.getElementById('profileSummary');
+            profile.innerHTML = `
+                <div class="profile-header">
+                    <div>
+                        <div class="profile-name">${app.name}</div>
+                        <div class="profile-id">${app.mssv}${app.cls ? ' • Lớp ' + app.cls : ''}</div>
+                    </div>
+                    <span class="status-badge" style="background: ${bg}; color: ${fg};">Trạng thái hiện tại: ${STATUS_LABEL[currentStatus]}</span>
+                </div>
+                <div style="font-size: 13px; color: var(--gray); display: flex; align-items: center; gap: 24px; margin-top: 8px;">
+                    ${feeHtml}${progHtml}
+                </div>
+            `;
+            profile.classList.add('active');
+            lucide.createIcons();
+        }
+
+        // Nạp sinh viên theo đơn (chỉ chạy khi có đơn hợp lệ)
         function searchStudent() {
-            const id = document.getElementById('searchId').value;
-            if (!id) { alert("Vui lòng nhập mã SV!"); return; }
+            if (!app) { alert('Vui lòng chọn đơn từ trang Phê duyệt đơn từ trước!'); return; }
 
             isDebt = false;
             isEligibleForGraduation = true;
-            currentStatus = 'danghoc';
+            // Đơn "học tiếp" xuất phát từ SV đang bảo lưu
+            currentStatus = app.type === 'hoctiep' ? 'baoluu' : 'danghoc';
             hideAllAlerts();
-
-            // Show Normal Profile
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Trần Thị Bích</div>
-                        <div class="profile-id">HE19201 • Lớp SE1901</div>
-                    </div>
-                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại: Đang học (S1)</span>
-                </div>
-                <div style="font-size: 13px; color: var(--text-gray); display: flex; align-items: center; gap: 24px; margin-top: 8px;">
-                    <span><i data-lucide="credit-card" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Đã đóng đủ</span>
-                    <span><i data-lucide="book-check" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Tiến độ: Hoàn thành 100%</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            // Enable Form
+            renderProfile();
             enableForm();
+            checkRules();
         }
 
         function simulateDebt() {
-            document.getElementById('searchId').value = 'HE19999';
+            if (!app) return;
             isDebt = true;
-            isEligibleForGraduation = true;
-            currentStatus = 'danghoc';
-
-            // Show Debt Profile
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Vương Đình Nợ</div>
-                        <div class="profile-id">HE19999 • Lớp SE1903</div>
-                    </div>
-                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại: Đang học</span>
-                </div>
-                <div style="font-size: 13px; color: #DC2626; display: flex; align-items: center; gap: 24px; margin-top: 8px; font-weight: 600;">
-                    <span><i data-lucide="credit-card" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Học phí: Nợ 5.000.000 VNĐ</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            enableForm();
+            renderProfile();
             checkRules();
         }
 
         function simulateNotGraduated() {
-            document.getElementById('searchId').value = 'HE19005';
-            isDebt = false;
+            if (!app) return;
             isEligibleForGraduation = false;
-            currentStatus = 'danghoc';
-
-            // Show Normal Profile
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Đặng Trọng Thi</div>
-                        <div class="profile-id">HE19005 • Lớp SE1905</div>
-                    </div>
-                    <span class="status-badge" style="background: #E6F4EA; color: #1E8E3E;">Trạng thái hiện tại: Đang học</span>
-                </div>
-                <div style="font-size: 13px; color: #B45309; display: flex; align-items: center; gap: 24px; margin-top: 8px; font-weight: 600;">
-                    <span><i data-lucide="x-circle" size="14" style="vertical-align: text-bottom; margin-right: 4px;"></i> Tiến độ: Nợ môn MAD101</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            enableForm();
+            renderProfile();
             checkRules();
         }
 
         function simulateBaoLuu() {
-            document.getElementById('searchId').value = 'HE19001';
-            isDebt = false;
-            isEligibleForGraduation = false;
+            if (!app) return;
             currentStatus = 'baoluu';
-
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Nguyễn Văn Bảo Lưu</div>
-                        <div class="profile-id">HE19001</div>
-                    </div>
-                    <span class="status-badge" style="background: #FEF3C7; color: #D97706;">Trạng thái hiện tại: Bảo lưu</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            enableForm();
+            renderProfile();
             checkRules();
         }
 
         function simulateDinhChi() {
-            document.getElementById('searchId').value = 'HE19002';
-            isDebt = false;
-            isEligibleForGraduation = false;
+            if (!app) return;
             currentStatus = 'dinhchi';
-
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Lê Đình Chỉ</div>
-                        <div class="profile-id">HE19002</div>
-                    </div>
-                    <span class="status-badge" style="background: #FEE2E2; color: #DC2626;">Trạng thái hiện tại: Đình chỉ</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            enableForm();
-            checkRules();
-        }
-
-        function simulateThoiHoc() {
-            document.getElementById('searchId').value = 'HE19003';
-            isDebt = false;
-            isEligibleForGraduation = false;
-            currentStatus = 'thoihoc';
-
-            const profile = document.getElementById('profileSummary');
-            profile.innerHTML = `
-                <div class="profile-header">
-                    <div>
-                        <div class="profile-name">Phạm Thôi Học</div>
-                        <div class="profile-id">HE19003</div>
-                    </div>
-                    <span class="status-badge" style="background: #F3F4F6; color: #4B5563;">Trạng thái hiện tại: Thôi học</span>
-                </div>
-            `;
-            profile.classList.add('active');
-            lucide.createIcons();
-
-            enableForm();
+            renderProfile();
             checkRules();
         }
 
@@ -1331,7 +1335,10 @@
         function enableForm() {
             document.getElementById('updateForm').style.opacity = '1';
             document.getElementById('updateForm').style.pointerEvents = 'auto';
-            document.getElementById('newStatus').value = '';
+            // Trạng thái mới bị khóa theo loại đơn
+            const sel = document.getElementById('newStatus');
+            sel.value = TYPE_TO_STATUS[app.type];
+            sel.disabled = true;
             document.getElementById('reason').value = '';
             document.getElementById('submitBtn').disabled = false;
         }
@@ -1394,20 +1401,18 @@
         }
 
         function resetForm() {
-            document.getElementById('searchId').value = '';
-            document.getElementById('newStatus').value = '';
-            document.getElementById('reason').value = '';
-            document.getElementById('profileSummary').classList.remove('active');
-            hideAllAlerts();
-            document.getElementById('updateForm').style.opacity = '0.5';
-            document.getElementById('updateForm').style.pointerEvents = 'none';
+            if (!app) return;
+            searchStudent(); // nạp lại SV theo đơn, xóa lý do
         }
 
         function submitUpdate() {
+            if (!app) { alert('Không có đơn từ căn cứ. Vui lòng thực hiện từ trang Phê duyệt đơn từ!'); return; }
             const status = document.getElementById('newStatus').value;
             if (!status) { alert('Vui lòng chọn trạng thái mới!'); return; }
-            alert('Cập nhật thành công! Trạng thái sinh viên đã được thay đổi, quyền truy cập hệ thống đã được đồng bộ, và sinh viên đã được gỡ khỏi lớp hiện tại (BR-003).');
-            resetForm();
+
+            markProcessed(app.reqId);
+            alert('Cập nhật thành công (căn cứ đơn ' + app.reqId + ')! Trạng thái sinh viên đã được thay đổi, quyền truy cập hệ thống đã được đồng bộ, và sinh viên đã được gỡ khỏi lớp hiện tại (BR-003).');
+            window.location.href = PAGE_REQ + '?done=' + encodeURIComponent(app.reqId);
         }
 
         function openAuditLog() {
@@ -1416,6 +1421,8 @@
         function closeAuditLog() {
             document.getElementById('auditLogModal').style.display = 'none';
         }
+
+        initFromApplication();
     </script>
     <script>
         (function () {
@@ -1468,3 +1475,11 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
